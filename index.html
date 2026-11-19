@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#25456e">
+<title>تبليغات قسم الأجهزة الطبية</title>
+<style>
+:root{
+ --bg:#f3ead8;--card:#fffaf0;--line:#e6dac0;--ink:#1d2a3d;--mute:#7a6e58;
+ --navy:#25456e;--navy2:#1b3556;--soft:#ece1c8;--warn:#c98a1b;--warn-bg:#f8ebc9;
+ --ok:#2a9d6f;--ok-bg:#dcf1e6;--err:#b23b2b;--blue-bg:#dde8f7;--amber-bg:#fbe9c8
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+.app{max-width:520px;margin:auto;min-height:100vh;position:relative}
+.top{background:var(--navy);color:#fff;padding:14px 14px 18px;display:flex;align-items:center;gap:10px;border-radius:0 0 22px 22px}
+.top .brand{flex:1;display:flex;align-items:center;gap:10px}
+.logo{width:42px;height:42px;border-radius:12px;background:#ffffff22;display:grid;place-items:center;font-size:22px}
+.top h1{margin:0;font-size:16px}.top p{margin:0;font-size:12px;color:#cfdcf0}
+.ibtn{width:42px;height:42px;border-radius:12px;background:#ffffff1f;border:0;color:#fff;font-size:18px;cursor:pointer;margin:0;padding:0;width:42px}
+.page{padding:14px 14px 100px}
+.hero{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;border-radius:20px;padding:18px;margin-bottom:14px}
+.hero small{color:#cfdcf0;font-size:13px}
+.hero h2{margin:2px 0 4px;font-size:22px}
+.hero p{margin:0 0 14px;font-size:13px;color:#dbe6f6}
+.hero button{background:#fff;color:var(--navy);width:auto;padding:10px 18px;margin:0;font-weight:bold}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.stats.two{grid-template-columns:1fr 1fr}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+.stats.two .stat{display:flex;align-items:center;gap:12px;text-align:right;padding:14px}
+.ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:20px;margin:0 auto 6px;flex:none}
+.stats.two .ico{margin:0}
+.b{background:var(--blue-bg)}.g{background:var(--ok-bg)}.a{background:var(--amber-bg)}
+.stat b{display:block;font-size:22px;line-height:1.2}.stat span{font-size:12px;color:var(--mute)}
+h3{margin:4px 0 10px;font-size:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
+.notice{border-right:4px solid var(--navy)}
+.notice.important{border-right-color:var(--warn);background:var(--warn-bg)}
+.notice h4{margin:4px 0;font-size:15px}.notice p{margin:2px 0 8px;font-size:14px;white-space:pre-wrap}
+.meta{font-size:12px;color:var(--mute)}
+.tag{display:inline-block;font-size:11px;background:var(--soft);border-radius:20px;padding:1px 10px;margin-left:4px}
+.tag.imp{background:var(--warn);color:#fff}
+label{display:block;font-size:13px;color:var(--mute);margin-top:10px}
+input,textarea,select{width:100%;padding:12px;margin:4px 0;border:1px solid var(--line);border-radius:12px;background:#fff;font-family:inherit;font-size:15px;color:var(--ink)}
+input:focus,textarea:focus,select:focus,button:focus-visible,summary:focus-visible{outline:2px solid var(--navy);outline-offset:1px}
+button{border:0;border-radius:12px;padding:12px;background:var(--navy);color:#fff;font-family:inherit;font-size:15px;width:100%;cursor:pointer;margin-top:10px}
+button.sec{background:var(--soft);color:var(--ink)}
+button.del{background:transparent;color:var(--err);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
+.hidden{display:none}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.err{color:var(--err);font-size:13px;min-height:20px}
+.ltr{direction:ltr;text-align:right}
+.codebox{background:#fff;border:1px dashed var(--warn);border-radius:12px;padding:12px;text-align:center;margin-top:10px}
+.codebox b{font-size:26px;letter-spacing:4px;direction:ltr;display:block;color:var(--navy)}
+.seg{display:flex;background:var(--soft);border-radius:14px;padding:4px;margin-bottom:14px}
+.seg button{margin:0;background:transparent;color:var(--mute);padding:9px 2px;font-size:13px}
+.seg button.on{background:var(--navy);color:#fff}
+.chips{display:flex;gap:8px;margin-bottom:12px}
+.chips button{width:auto;margin:0;padding:6px 16px;font-size:13px;background:var(--soft);color:var(--ink);border-radius:20px}
+.chips button.on{background:var(--navy);color:#fff}
+/* القوائم المخفية */
+details{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
+summary{list-style:none;cursor:pointer;padding:14px;display:flex;align-items:center;gap:10px;font-weight:bold}
+summary::-webkit-details-marker{display:none}
+summary .cnt{margin-right:auto;background:var(--navy);color:#fff;border-radius:20px;font-size:12px;padding:1px 10px}
+summary::after{content:"▾";color:var(--mute);transition:transform .2s}
+details[open] summary::after{transform:rotate(180deg)}
+.stu{padding:10px 14px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.stu div{flex:1}.stu b{font-size:14px}
+/* الشريط السفلي */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));border-radius:20px 20px 0 0}
+.nav button{background:none;color:var(--mute);margin:0;padding:6px 0;font-size:12px;flex:1;position:relative}
+.nav button span{display:block;font-size:20px}
+.nav button.on{color:var(--navy);font-weight:bold}
+.nav button.on::before{content:"";position:absolute;top:-8px;left:30%;right:30%;height:3px;border-radius:3px;background:var(--navy)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+<div class="app">
+
+<!-- ====== الدخول ====== -->
+<section id="login">
+ <div class="top"><div class="brand"><div class="logo">🎓</div><div><h1>تبليغات القسم</h1><p>كلية أصول العلم الأهلية</p></div></div></div>
+ <div class="page">
+  <div class="card">
+   <h3>تسجيل الدخول</h3>
+   <p class="meta">أدخل الكود الذي استلمته من إدارة القسم مع اسمك ورقم هاتفك.</p>
+   <label for="lCode">كود الدخول</label>
+   <input id="lCode" class="ltr" maxlength="6" placeholder="مثال: K7M2QX" autocomplete="off">
+   <label for="lName">الاسم الثلاثي</label>
+   <input id="lName" placeholder="الاسم الأول والأب والجد" autocomplete="name">
+   <label for="lPhone">رقم الهاتف</label>
+   <input id="lPhone" class="ltr" inputmode="tel" placeholder="07XXXXXXXXX" autocomplete="tel">
+   <div id="lErr" class="err"></div>
+   <button id="lBtn" onclick="studentLogin()">دخول</button>
+   <button class="sec" onclick="show('adminLogin')">دخول إدارة القسم</button>
+  </div>
+  <button class="sec installB hidden" onclick="installApp()">⬇️ تثبيت التطبيق على الهاتف</button>
+  <p id="iosHint" class="meta hidden">لتثبيت التطبيق على آيفون: اضغط زر المشاركة في Safari ثم "إضافة إلى الشاشة الرئيسية".</p>
+ </div>
+</section>
+
+<section id="adminLogin" class="hidden">
+ <div class="top"><div class="brand"><div class="logo">🛡️</div><div><h1>إدارة القسم</h1><p>دخول المسؤول</p></div></div></div>
+ <div class="page"><div class="card">
+  <label for="adminEmail">بريد الإدارة</label>
+  <input id="adminEmail" type="email" class="ltr" autocomplete="username">
+  <label for="adminPassword">كلمة مرور الإدارة</label>
+  <input id="adminPassword" type="password" autocomplete="current-password">
+  <div id="aErr" class="err"></div>
+  <button onclick="adminLogin()">دخول</button>
+  <button class="sec" onclick="show('login')">رجوع</button>
+ </div></div>
+</section>
+
+<!-- ====== واجهة الطالب ====== -->
+<section id="student" class="hidden">
+ <div class="top">
+  <button class="ibtn" onclick="logout()" aria-label="تسجيل الخروج">⎋</button>
+  
+  <div class="brand" style="justify-content:flex-end"><div style="text-align:right"><h1>تبليغات القسم</h1><p>هندسة تقنيات الأجهزة الطبية</p></div><div class="logo">🎓</div></div>
+ </div>
+ <div class="page">
+  <div id="sHome">
+   <div class="hero">
+    <small>مرحباً بك 👋</small>
+    <h2 id="sName"></h2>
+    <p id="sInfo"></p>
+    <button onclick="sTab('notices')">عرض كل التبليغات</button>
+   </div>
+   <div class="stats">
+    <div class="stat"><div class="ico b">📋</div><b id="stAll">0</b><span>التبليغات</span></div>
+    <div class="stat"><div class="ico a">📌</div><b id="stImp">0</b><span>مهمة</span></div>
+    <div class="stat"><div class="ico g">🆕</div><b id="stNew">0</b><span>اليوم</span></div>
+   </div>
+   <h3>آخر التبليغات</h3>
+   <div id="homeNotices"></div>
+  </div>
+  <div id="sNotices" class="hidden">
+   <div class="chips"><button id="fAll" class="on" onclick="setFilter('all')">الكل</button><button id="fImp" onclick="setFilter('important')">المهمة</button></div>
+   <div id="studentNotices"></div>
+  </div>
+  <div id="sAccount" class="hidden">
+   <div class="card">
+    <h3 id="aName"></h3>
+    <p class="meta" id="aInfo"></p>
+    <p class="meta ltr" id="aPhone"></p>
+    <button class="sec installB hidden" onclick="installApp()">⬇️ تثبيت التطبيق على الهاتف</button>
+    <button onclick="logout()">تسجيل الخروج</button>
+   </div>
+  </div>
+ </div>
+ <nav class="nav">
+  <button id="nHome" class="on" onclick="sTab('home')"><span>🏠</span>الرئيسية</button>
+  <button id="nNotices" onclick="sTab('notices')"><span>📋</span>التبليغات</button>
+  <button id="nAccount" onclick="sTab('account')"><span>👤</span>حسابي</button>
+ </nav>
+</section>
+
+<!-- ====== واجهة الإدارة ====== -->
+<section id="admin" class="hidden">
+ <div class="top">
+  <button class="ibtn" onclick="logout()" aria-label="تسجيل الخروج">⎋</button>
+  <div class="brand" style="justify-content:flex-end"><div style="text-align:right"><h1>لوحة الإدارة</h1><p>قسم هندسة تقنيات الأجهزة الطبية</p></div><div class="logo">🛡️</div></div>
+ </div>
+ <div class="page">
+  <div class="stats two">
+   <div class="stat"><div class="ico b">👥</div><div><b id="cStudents">0</b><span>طالب مسجل</span></div></div>
+   <div class="stat"><div class="ico a">📋</div><div><b id="cNotices">0</b><span>تبليغ منشور</span></div></div>
+  </div>
+  <div class="seg">
+   <button id="atNew" class="on" onclick="aTab('new')">نشر تبليغ</button>
+   <button id="atNotices" onclick="aTab('notices')">التبليغات</button>
+   <button id="atStudents" onclick="aTab('students')">الطلاب</button>
+   <button id="atCodes" onclick="aTab('codes')">الأكواد</button>
+  </div>
+  <div id="aNew" class="card">
+   <label for="title">العنوان</label>
+   <input id="title" placeholder="مثال: تأجيل امتحان مادة الدوائر">
+   <label for="body">النص</label>
+   <textarea id="body" rows="4" placeholder="اكتب تفاصيل التبليغ"></textarea>
+   <div class="row">
+    <div><label for="tStage">المرحلة</label><select id="tStage"></select></div>
+    <div><label for="tSection">الشعبة</label><select id="tSection"></select></div>
+   </div>
+   <label for="priority">الأهمية</label>
+   <select id="priority"><option value="normal">تبليغ عادي</option><option value="important">تبليغ مهم</option></select>
+   <button onclick="publish()">نشر التبليغ</button>
+  </div>
+  <div id="aNotices" class="hidden"></div>
+  <div id="aStudents" class="hidden"></div>
+  <div id="aCodes" class="hidden">
+   <div class="card">
+    <h3>إنشاء أكواد جديدة</h3>
+    <p class="meta">كل كود لطالب واحد. وزّعها على الطلاب بنفسك.</p>
+    <div class="row"><div><label for="gStage">المرحلة</label><select id="gStage"></select></div><div><label for="gSection">الشعبة</label><select id="gSection"></select></div></div>
+    <label for="gCount">عدد الأكواد</label>
+    <input id="gCount" type="number" min="1" max="200" value="30">
+    <button onclick="genCodes()">إنشاء الأكواد</button>
+   </div>
+   <div id="codeLists"></div>
+  </div>
+ </div>
+</section>
+</div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,onAuthStateChanged,signInAnonymously,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,collection,addDoc,deleteDoc,updateDoc,getDoc,doc,onSnapshot,query,orderBy,serverTimestamp,writeBatch,deleteField} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {firebaseConfig} from "./firebase-config.js";
+
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+const STAGES=["المرحلة الأولى","المرحلة الثانية","المرحلة الثالثة","المرحلة الرابعة"];
+const SECTIONS=["أ","ب","ج","د"];
+let notices=[],codes=[],me=null,filter="all",unsubN=null,unsubC=null,isAdminView=false,deferred=null,readyRes;
+const authReady=new Promise(r=>readyRes=r);
+try{me=JSON.parse(localStorage.getItem("me")||"null")}catch(e){}
+const $=id=>document.getElementById(id);
+const esc=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+
+function show(id){["login","adminLogin","student","admin"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");scrollTo(0,0)}
+async function logout(){
+ me=null;isAdminView=false;try{localStorage.removeItem("me")}catch(e){}
+ $("lCode").value="";
+ if(auth.currentUser&&!auth.currentUser.isAnonymous){await signOut(auth)}else show("login");
+}
+function normPhone(p){
+ let d=String(p).replace(/\D/g,"");
+ if(d.startsWith("00"))d=d.slice(2);
+ if(d.startsWith("0"))d="964"+d.slice(1);else if(d.startsWith("7")&&d.length===10)d="964"+d;
+ return /^9647\d{9}$/.test(d)?d:"";
+}
+
+/* ===== دخول الطالب بالكود ===== */
+async function studentLogin(){
+ const code=$("lCode").value.trim().toUpperCase(),name=$("lName").value.trim().replace(/\s+/g," "),phone=normPhone($("lPhone").value),err=$("lErr");
+ err.textContent="";
+ if(code.length!==6){err.textContent="اكتب كود الدخول (6 خانات).";return}
+ if(name.split(" ").length<3){err.textContent="اكتب الاسم الثلاثي كاملاً.";return}
+ if(!phone){err.textContent="رقم الهاتف غير صحيح. مثال: 07701234567";return}
+ const btn=$("lBtn");btn.disabled=true;
+ try{
+  await authReady;
+  const ref=doc(db,"codes",code),snap=await getDoc(ref);
+  if(!snap.exists()){err.textContent="الكود غير صحيح.";return}
+  const c=snap.data();
+  if(c.used){
+   if(c.phone!==phone){err.textContent="هذا الكود مستخدم من طالب آخر. راجع إدارة القسم.";return}
+  }else await updateDoc(ref,{used:true,name,phone,usedAt:serverTimestamp()});
+  me={code,name:c.used?c.name:name,phone,stage:c.stage,section:c.section};
+  try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
+  openStudent();
+ }catch(e){err.textContent="تعذر الدخول. تأكد من الاتصال وحاول مرة ثانية."}
+ finally{btn.disabled=false}
+}
+function openStudent(){
+ $("sName").textContent=me.name.split(" ").slice(0,2).join(" ");
+ $("sInfo").textContent=me.stage+" · شعبة "+me.section;
+ $("aName").textContent=me.name;$("aInfo").textContent=me.stage+" · شعبة "+me.section;$("aPhone").textContent="+"+me.phone;
+ filter="all";renderStudent();sTab("home");show("student");
+}
+async function adminLogin(){
+ try{await signInWithEmailAndPassword(auth,$("adminEmail").value.trim(),$("adminPassword").value);$("aErr").textContent="";$("adminPassword").value=""}
+ catch(e){$("aErr").textContent="البريد أو كلمة المرور غير صحيحة."}
+}
+
+function sTab(t){
+ const m={home:["sHome","nHome"],notices:["sNotices","nNotices"],account:["sAccount","nAccount"]};
+ for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
+ scrollTo(0,0);
+}
+function aTab(t){
+ const m={new:["aNew","atNew"],notices:["aNotices","atNotices"],students:["aStudents","atStudents"],codes:["aCodes","atCodes"]};
+ for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
+}
+function setFilter(f){filter=f;$("fAll").classList.toggle("on",f==="all");$("fImp").classList.toggle("on",f==="important");renderStudent()}
+
+/* ===== الإدارة ===== */
+async function publish(){
+ const title=$("title").value.trim(),body=$("body").value.trim();
+ if(!title||!body){alert("أدخل العنوان والنص.");return}
+ try{
+  await addDoc(collection(db,"notices"),{title,body,stage:$("tStage").value,section:$("tSection").value,priority:$("priority").value,createdAt:serverTimestamp()});
+  $("title").value="";$("body").value="";aTab("notices");
+ }catch(e){alert("تعذر نشر التبليغ. تأكد من صلاحيات الإدارة.")}
+}
+const fail=()=>alert("تعذر تنفيذ العملية.");
+async function removeNotice(id){if(confirm("حذف هذا التبليغ؟"))await deleteDoc(doc(db,"notices",id)).catch(fail)}
+async function removeCode(id){if(confirm("حذف هذا الكود؟ إذا كان لطالب فسيفقد دخوله."))await deleteDoc(doc(db,"codes",id)).catch(fail)}
+async function resetCode(id){if(confirm("إعادة الكود غير مستخدم؟ يستطيع طالب جديد استخدامه."))await updateDoc(doc(db,"codes",id),{used:false,name:deleteField(),phone:deleteField(),usedAt:deleteField()}).catch(fail)}
+async function genCodes(){
+ const stage=$("gStage").value,section=$("gSection").value,n=Math.min(200,Math.max(1,parseInt($("gCount").value)||0));
+ if(!stage||!section){alert("اختر المرحلة والشعبة.");return}
+ const ch="ABCDEFGHJKMNPQRSTUVWXYZ23456789",have=new Set(codes.map(c=>c.id)),batch=writeBatch(db);
+ for(let i=0;i<n;i++){
+  let c;do{const a=new Uint32Array(6);crypto.getRandomValues(a);c=Array.from(a,x=>ch[x%ch.length]).join("")}while(have.has(c));
+  have.add(c);batch.set(doc(db,"codes",c),{stage,section,used:false,createdAt:serverTimestamp()});
+ }
+ try{await batch.commit();alert("تم إنشاء "+n+" كود.")}catch(e){fail()}
+}
+function copyCodes(stage){
+ const l=codes.filter(c=>c.stage===stage&&!c.used).sort((a,b)=>a.section.localeCompare(b.section,"ar"));
+ if(!l.length){alert("لا توجد أكواد غير مستخدمة.");return}
+ const t=stage+"\n"+l.map(c=>"شعبة "+c.section+" : "+c.id).join("\n");
+ navigator.clipboard.writeText(t).then(()=>alert("تم نسخ "+l.length+" كود.")).catch(()=>prompt("انسخ الأكواد:",t));
+}
+
+/* ===== العرض ===== */
+const target=n=>(n.stage==="all"?"كل المراحل":n.stage)+" · "+(n.section==="all"?"كل الشعب":"شعبة "+n.section);
+const noticeCard=n=>`<div class="card notice ${n.priority}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p><span class="meta">${esc(n.date)}</span></div>`;
+const empty=t=>`<div class="card meta">${t}</div>`;
+function renderStudent(){
+ if(!me)return;
+ const mine=notices.filter(n=>(n.stage==="all"||n.stage===me.stage)&&(n.section==="all"||n.section===me.section));
+ $("stAll").textContent=mine.length;
+ $("stImp").textContent=mine.filter(n=>n.priority==="important").length;
+ $("stNew").textContent=mine.filter(n=>n.day===new Date().toDateString()).length;
+ $("homeNotices").innerHTML=mine.slice(0,3).map(noticeCard).join("")||empty("لا توجد تبليغات لمرحلتك وشعبتك حالياً.");
+ const list=filter==="important"?mine.filter(n=>n.priority==="important"):mine;
+ $("studentNotices").innerHTML=list.map(noticeCard).join("")||empty("لا توجد تبليغات هنا.");
+}
+function renderAdmin(){
+ const used=codes.filter(c=>c.used);
+ $("cStudents").textContent=used.length;$("cNotices").textContent=notices.length;
+ $("aNotices").innerHTML=notices.map(n=>`<div class="card notice ${n.priority}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p><span class="meta">${esc(target(n))} · ${esc(n.date)}</span><br><button class="del" style="margin-top:8px" onclick="removeNotice('${esc(n.id)}')">حذف</button></div>`).join("")||empty("لا توجد تبليغات منشورة.");
+ const keep=id=>[...document.querySelectorAll("#"+id+" details[open]")].map(d=>d.dataset.s);
+ const oS=keep("aStudents"),oC=keep("codeLists");
+ const bySec=(a,b)=>a.section.localeCompare(b.section,"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
+ $("aStudents").innerHTML=STAGES.map(st=>{
+  const l=used.filter(s=>s.stage===st).sort(bySec);
+  return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${st}<span class="cnt">${l.length}</span></summary>`+
+   (l.map(s=>`<div class="stu"><div><b>${esc(s.name)}</b><br><span class="meta">شعبة ${esc(s.section)} · <span class="ltr" style="display:inline-block">+${esc(s.phone)}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div><button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا يوجد طلاب مسجلون.</div>`)+`</details>`;
+ }).join("");
+ $("codeLists").innerHTML=STAGES.map(st=>{
+  const l=codes.filter(c=>c.stage===st&&!c.used).sort(bySec);
+  return `<details data-s="${st}" ${oC.includes(st)?"open":""}><summary>${st}<span class="cnt">${l.length} متاح</span></summary>`+
+   `<div class="stu"><button class="sec" style="margin:0" onclick="copyCodes('${st}')">نسخ الأكواد المتاحة</button></div>`+
+   (l.map(c=>`<div class="stu"><div><b class="ltr" style="display:inline-block;letter-spacing:2px">${esc(c.id)}</b> <span class="tag">شعبة ${esc(c.section)}</span></div><button class="del" onclick="removeCode('${esc(c.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا توجد أكواد متاحة.</div>`)+`</details>`;
+ }).join("");
+}
+
+/* ===== البيانات المباشرة ===== */
+function startNotices(){
+ if(unsubN)return;
+ unsubN=onSnapshot(query(collection(db,"notices"),orderBy("createdAt","desc")),snap=>{
+  notices=snap.docs.map(d=>{const x=d.data(),t=x.createdAt?x.createdAt.toDate():new Date();return{id:d.id,...x,date:t.toLocaleString("ar-IQ"),day:t.toDateString()}});
+  renderStudent();if(isAdminView)renderAdmin();
+ },()=>{unsubN=null});
+}
+function startCodes(){
+ if(unsubC)return;
+ unsubC=onSnapshot(collection(db,"codes"),snap=>{codes=snap.docs.map(d=>({id:d.id,...d.data()}));renderAdmin()},()=>{unsubC=null});
+}
+onAuthStateChanged(auth,async u=>{
+ if(!u){if(unsubN){unsubN();unsubN=null}await signInAnonymously(auth).catch(()=>{});return}
+ readyRes();startNotices();
+ if(!u.isAnonymous){isAdminView=true;startCodes();renderAdmin();aTab("new");show("admin")}
+ else{
+  isAdminView=false;if(unsubC){unsubC();unsubC=null}codes=[];
+  if(me)openStudent();else show("login");
+ }
+});
+
+/* ===== تثبيت التطبيق ===== */
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;document.querySelectorAll(".installB").forEach(b=>b.classList.remove("hidden"))});
+async function installApp(){if(deferred){deferred.prompt();deferred=null;document.querySelectorAll(".installB").forEach(b=>b.classList.add("hidden"))}}
+if(/iphone|ipad/i.test(navigator.userAgent)&&!navigator.standalone)$("iosHint").classList.remove("hidden");
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+
+function fill(id,items,first){$(id).innerHTML=first+items.map(x=>`<option value="${x}">${x.length<3?"شعبة "+x:x}</option>`).join("")}
+fill("gStage",STAGES,'<option value="">اختر</option>');fill("gSection",SECTIONS,'<option value="">اختر</option>');
+fill("tStage",STAGES,'<option value="all">كل المراحل</option>');fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
+Object.assign(window,{show,studentLogin,adminLogin,logout,sTab,aTab,setFilter,publish,removeNotice,removeCode,resetCode,genCodes,copyCodes,installApp});
+</script>
+</body>
+</html>

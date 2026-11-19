@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // غيّر البريد إلى بريد حساب الإدارة الذي تنشئه في Authentication
+    function isAdmin() {
+      return request.auth != null && request.auth.token.get('email', '') == "ADMIN@example.com";
+    }
+    // التبليغات: القراءة لأي جهاز، والكتابة للإدارة فقط
+    match /notices/{id} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+    // الأكواد: الطالب يقرأ كوده فقط (بمعرفة الكود) ويستخدمه مرة واحدة
+    match /codes/{code} {
+      allow get: if request.auth != null;
+      allow list, create, delete: if isAdmin();
+      allow update: if isAdmin() || (
+        request.auth != null
+        && resource.data.used == false
+        && request.resource.data.used == true
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['used','name','phone','usedAt'])
+        && request.resource.data.name is string && request.resource.data.name.size() <= 80
+        && request.resource.data.phone is string && request.resource.data.phone.size() <= 15
+      );
+    }
+  }
+}
