@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#25456e">
+<meta name="theme-color" content="#1e6273">
 <title>تبليغات الكلية والأقسام</title>
 <style>
 :root{
- --bg:#f3ead8;--card:#fffaf0;--line:#e6dac0;--ink:#1d2a3d;--mute:#7a6e58;
- --navy:#25456e;--navy2:#1b3556;--soft:#ece1c8;--warn:#c98a1b;--warn-bg:#f8ebc9;
- --ok:#2a9d6f;--ok-bg:#dcf1e6;--err:#b23b2b;--blue-bg:#dde8f7;--amber-bg:#fbe9c8
+ --bg:#f4f7f8;--card:#ffffff;--line:#dde5e8;--ink:#1c2c33;--mute:#687b82;
+ --navy:#1e6273;--navy2:#144654;--soft:#e7eff1;--warn:#1e6273;--warn-bg:#e9f3f5;
+ --ok:#1e6273;--ok-bg:#e5f0f2;--err:#144654;--blue-bg:#e5f0f2;--amber-bg:#e7eff1
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
@@ -18,17 +18,17 @@ body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var
 .top .brand{flex:1;display:flex;align-items:center;gap:10px}
 .logo{width:42px;height:42px;border-radius:12px;background:#ffffff22;display:grid;place-items:center;font-size:22px;overflow:hidden;flex:none}
 .logo img{width:100%;height:100%;object-fit:cover;display:block}
-.top h1{margin:0;font-size:16px}.top p{margin:0;font-size:12px;color:#cfdcf0}
+.top h1{margin:0;font-size:16px}.top p{margin:0;font-size:12px;color:#dcebf0}
 .ibtn{width:42px;height:42px;border-radius:12px;background:#ffffff1f;border:0;color:#fff;font-size:18px;cursor:pointer;margin:0;padding:0;position:relative;flex:none}
-.badge{position:absolute;top:4px;right:4px;background:var(--err);color:#fff;font-size:10px;min-width:17px;height:17px;border-radius:10px;display:grid;place-items:center;padding:0 4px;font-weight:bold}
-.bell-pop{position:absolute;top:64px;right:14px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;z-index:50;box-shadow:0 10px 25px rgba(0,0,0,.15)}
+.badge{position:absolute;top:4px;right:4px;background:var(--navy2);color:#fff;font-size:10px;min-width:17px;height:17px;border-radius:10px;display:grid;place-items:center;padding:0 4px;font-weight:bold;border:1px solid #fff}
+.bell-pop{position:absolute;top:64px;right:14px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;z-index:50;box-shadow:0 10px 25px rgba(20,70,84,.14)}
 .bell-item{padding:8px;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
 .bell-item:last-child{border-bottom:0}
 .page{padding:14px 14px 100px}
 .hero{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;border-radius:20px;padding:18px;margin-bottom:14px}
-.hero small{color:#cfdcf0;font-size:13px}
+.hero small{color:#dcebf0;font-size:13px}
 .hero h2{margin:2px 0 4px;font-size:22px}
-.hero p{margin:0 0 14px;font-size:13px;color:#dbe6f6}
+.hero p{margin:0 0 14px;font-size:13px;color:#e7f2f5}
 .hero button{background:#fff;color:var(--navy);width:auto;padding:10px 18px;margin:0;font-weight:bold}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .stats.two{grid-template-columns:1fr 1fr}
@@ -41,25 +41,25 @@ body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var
 h3{margin:4px 0 10px;font-size:16px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
 .notice{border-right:4px solid var(--navy)}
-.notice.important{border-right-color:var(--warn);background:var(--warn-bg)}
+.notice.important{border-right-color:var(--navy2);background:var(--warn-bg)}
 .notice h4{margin:4px 0;font-size:15px}.notice p{margin:2px 0 8px;font-size:14px;white-space:pre-wrap}
 .meta{font-size:12px;color:var(--mute)}
-.tag{display:inline-block;font-size:11px;background:var(--soft);border-radius:20px;padding:1px 10px;margin-left:4px}
-.tag.imp{background:var(--warn);color:#fff}
+.tag{display:inline-block;font-size:11px;background:var(--soft);color:var(--ink);border-radius:20px;padding:1px 10px;margin-left:4px}
+.tag.imp{background:var(--navy2);color:#fff}
 .tag.rep{background:var(--navy);color:#fff}
-.att-box{margin:8px 0;padding:8px 10px;background:#fff;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.att-img{width:100%;max-height:240px;object-fit:contain;border-radius:10px;margin-top:6px;border:1px solid var(--line);background:#fff;display:block}
+.att-box{margin:8px 0;padding:8px 10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.att-img{width:100%;max-height:240px;object-fit:contain;border-radius:10px;margin-top:6px;border:1px solid var(--line);background:var(--card);display:block}
 label{display:block;font-size:13px;color:var(--mute);margin-top:10px}
-input,textarea,select{width:100%;padding:12px;margin:4px 0;border:1px solid var(--line);border-radius:12px;background:#fff;font-family:inherit;font-size:15px;color:var(--ink)}
+input,textarea,select{width:100%;padding:12px;margin:4px 0;border:1px solid var(--line);border-radius:12px;background:var(--card);font-family:inherit;font-size:15px;color:var(--ink)}
 input[type="file"]{padding:9px;font-size:13px}
 input:focus,textarea:focus,select:focus,button:focus-visible,summary:focus-visible{outline:2px solid var(--navy);outline-offset:1px}
 button{border:0;border-radius:12px;padding:12px;background:var(--navy);color:#fff;font-family:inherit;font-size:15px;width:100%;cursor:pointer;margin-top:10px}
 button.sec{background:var(--soft);color:var(--ink)}
-button.del{background:transparent;color:var(--err);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
+button.del{background:transparent;color:var(--navy2);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
 button.act{background:transparent;color:var(--navy);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
 .hidden{display:none!important}
 .row{display:flex;gap:8px}.row>*{flex:1}
-.err{color:var(--err);font-size:13px;min-height:20px}
+.err{color:var(--navy2);font-weight:bold;font-size:13px;min-height:20px}
 .ltr{direction:ltr;text-align:right}
 .seg{display:flex;background:var(--soft);border-radius:14px;padding:4px;margin-bottom:14px}
 .seg button{margin:0;background:transparent;color:var(--mute);padding:9px 2px;font-size:13px}
@@ -221,6 +221,14 @@ details[open] summary::after{transform:rotate(180deg)}
   <div class="card" style="padding:10px 14px;margin-bottom:12px">
    <label for="admDept" style="margin-top:0">القسم النشط للإدارة</label>
    <select id="admDept" onchange="onDeptChange()"></select>
+   <label for="newDeptName">إضافة قسم جديد</label>
+   <input id="newDeptName" placeholder="اسم القسم الجديد (مثال: طب الأسنان)">
+   <select id="newDeptFifth" style="margin-top:6px">
+    <option value="auto">تحديد المرحلة الخامسة تلقائياً (للأقسام الطبية)</option>
+    <option value="yes">تفعيل المرحلة الخامسة (5 مراحل)</option>
+    <option value="no">أربع مراحل فقط (4 مراحل)</option>
+   </select>
+   <button class="sec" onclick="addNewDept()">+ إضافة قسم</button>
   </div>
   <div class="stats two">
    <div class="stat"><div class="ico b">👥</div><div><b id="cStudents">0</b><span>مسجل بالقسم</span></div></div>
@@ -283,22 +291,70 @@ import {getFirestore,collection,addDoc,deleteDoc,updateDoc,setDoc,getDoc,doc,onS
 import {firebaseConfig} from "./firebase-config.js";
 
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
-const DEPTS=[
+const DEFAULT_DEPTS=[
  "هندسة تقنيات الأجهزة الطبية",
  "هندسة تقنيات الحاسوب",
  "هندسة تقنيات الاتصالات",
  "التحليلات المرضية"
 ];
-const STAGES=["المرحلة الأولى","المرحلة الثانية","المرحلة الثالثة","المرحلة الرابعة"];
+const BASE_STAGES=["المرحلة الأولى","المرحلة الثانية","المرحلة الثالثة","المرحلة الرابعة"];
+const FIFTH_STAGE="المرحلة الخامسة";
 const SECTIONS=["أ","ب","ج","د"];
-let notices=[],codes=[],me=null,filter="all",unsubN=null,unsubC=null,unsubLogo=null,isAdminView=false,deferred=null,readyRes;
-let activeDept=DEPTS[0],customLogo=localStorage.getItem("customLogo")||"";
+let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات المرضية"]);
+let notices=[],codes=[],me=null,filter="all",unsubN=null,unsubC=null,unsubBrand=null,isAdminView=false,deferred=null,readyRes;
+let activeDept=DEFAULT_DEPTS[0],customLogo=localStorage.getItem("customLogo")||"";
 let soundOn=localStorage.getItem("soundOn")!=="0",knownIds=new Set(JSON.parse(localStorage.getItem("knownIds")||"[]")),readIds=new Set(JSON.parse(localStorage.getItem("readIds")||"[]")),firstSnap=true;
 const authReady=new Promise(r=>readyRes=r);
 try{me=JSON.parse(localStorage.getItem("me")||"null")}catch(e){}
 const $=id=>document.getElementById(id);
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
-const deptOf=x=>x.dept||DEPTS[0];
+const deptOf=x=>x.dept||DEFAULT_DEPTS[0];
+const isMedicalDept=name=>/طب|صيدل|تمريض|تحليل|مختبر|صحي|أسنان|علاج|تخدير|أشعة|بصريات/i.test(String(name||""));
+const hasFifthStage=deptName=>fifthStageDepts.has(deptName)||isMedicalDept(deptName);
+const stagesForDept=deptName=>hasFifthStage(deptName)?[...BASE_STAGES,FIFTH_STAGE]:[...BASE_STAGES];
+
+function refreshDeptSelects(){
+ const prevL=$("lDept").value||activeDept;
+ const prevA=$("admDept").value||activeDept;
+ fill("lDept",depts,"");
+ fill("admDept",depts,"");
+ $("lDept").value=depts.includes(prevL)?prevL:depts[0];
+ activeDept=depts.includes(prevA)?prevA:depts[0];
+ $("admDept").value=activeDept;
+ $("admTopDept").textContent=activeDept;
+ refreshStageSelects();
+}
+function refreshStageSelects(){
+ const stList=stagesForDept(activeDept);
+ const prevT=$("tStage").value;
+ const prevG=$("gStage").value;
+ fill("tStage",stList,'<option value="all">كل المراحل</option>');
+ fill("gStage",stList,'<option value="">اختر</option>');
+ if(prevT&&[...$("tStage").options].some(o=>o.value===prevT))$("tStage").value=prevT;
+ if($("gRole").value==="rapporteur"){$("gStage").disabled=true;$("gStage").value="all"}
+ else{$("gStage").disabled=false;if(prevG&&[...$("gStage").options].some(o=>o.value===prevG))$("gStage").value=prevG}
+}
+async function addNewDept(){
+ const name=$("newDeptName").value.trim().replace(/\s+/g," ");
+ if(!name){alert("اكتب اسم القسم الجديد.");return}
+ if(depts.includes(name)){alert("هذا القسم موجود مسبقاً.");return}
+ const mode=$("newDeptFifth").value;
+ const needFifth=mode==="yes"||(mode==="auto"&&isMedicalDept(name));
+ depts=[...depts,name];
+ if(needFifth)fifthStageDepts.add(name);
+ activeDept=name;
+ $("newDeptName").value="";
+ refreshDeptSelects();
+ renderAdmin();
+ try{
+  await setDoc(doc(db,"settings","brand"),{
+   depts,
+   fifthStageDepts:[...fifthStageDepts],
+   updatedAt:serverTimestamp()
+  },{merge:true});
+  alert("تمت إضافة قسم ("+name+") بنجاح"+(needFifth?" مع المرحلة الخامسة":"")+".");
+ }catch(e){alert("تمت إضافة القسم محلياً، تأكد من صلاحيات الحفظ في قاعدة البيانات.")}
+}
 
 /* ===== اللوكو وتحديث Manifest للهاتف ===== */
 function applyLogo(dataUrl){
@@ -313,8 +369,8 @@ function applyLogo(dataUrl){
    short_name:"تبليغات الكلية",
    start_url:".",
    display:"standalone",
-   background_color:"#f3ead8",
-   theme_color:"#25456e",
+   background_color:"#f4f7f8",
+   theme_color:"#1e6273",
    icons:[
     {src:dataUrl,sizes:"192x192",type:"image/png"},
     {src:dataUrl,sizes:"512x512",type:"image/png"}
@@ -324,10 +380,21 @@ function applyLogo(dataUrl){
   if($("dynManifest"))$("dynManifest").href=URL.createObjectURL(blob);
  }catch(e){}
 }
-function startLogoSync(){
- if(unsubLogo)return;
- unsubLogo=onSnapshot(doc(db,"settings","brand"),snap=>{
-  if(snap.exists()&&snap.data().logo)applyLogo(snap.data().logo);
+function startBrandSync(){
+ if(unsubBrand)return;
+ unsubBrand=onSnapshot(doc(db,"settings","brand"),snap=>{
+  if(!snap.exists())return;
+  const d=snap.data();
+  if(d.logo)applyLogo(d.logo);
+  if(Array.isArray(d.depts)&&d.depts.length){
+   depts=[...new Set([...DEFAULT_DEPTS,...d.depts])];
+  }
+  if(Array.isArray(d.fifthStageDepts)){
+   fifthStageDepts=new Set(["التحليلات المرضية",...d.fifthStageDepts]);
+  }
+  refreshDeptSelects();
+  if(me)openStudent();
+  if(isAdminView)renderAdmin();
  },()=>{});
 }
 async function saveLogo(){
@@ -335,7 +402,7 @@ async function saveLogo(){
  if(!f){alert("اختر صورة للوكو أولاً.");return}
  try{
   const dataUrl=await compressImage(f,512,0.82);
-  await setDoc(doc(db,"settings","brand"),{logo:dataUrl,updatedAt:serverTimestamp()},{merge:true});
+  await setDoc(doc(db,"settings","brand"),{logo:dataUrl,depts,fifthStageDepts:[...fifthStageDepts],updatedAt:serverTimestamp()},{merge:true});
   applyLogo(dataUrl);
   $("logoFile").value="";
   alert("تم حفظ صورة اللوكو بنجاح وستظهر في التطبيق وعند تثبيته.");
@@ -490,6 +557,7 @@ async function studentLogin(){
 function openStudent(){
  const isMgr=me.role==="rep"||me.role==="rapporteur"||me.stage==="all";
  const roleLabel=me.role==="rapporteur"||me.stage==="all"?"مقرر (كل المراحل)":(me.role==="rep"?"ممثل مرحلة":"طالب");
+ const stList=stagesForDept(me.dept);
  $("sTopDept").textContent=me.dept;
  $("sRoleGreet").textContent=isMgr?"مرحباً بك ("+roleLabel+") ✍️":"مرحباً بك 👋";
  $("sName").textContent=me.name.split(" ").slice(0,2).join(" ");
@@ -498,7 +566,7 @@ function openStudent(){
  $("nRep").classList.toggle("hidden",!isMgr);
  if(isMgr){
   if(canManageAllStages(me)){
-   fill("rStage",STAGES,'<option value="all">كل المراحل</option>');
+   fill("rStage",stList,'<option value="all">كل المراحل</option>');
    $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لجميع مراحل قسم: "+me.dept;
   }else{
    $("rStage").innerHTML=`<option value="${esc(me.stage)}">${esc(me.stage)}</option>`;
@@ -523,7 +591,7 @@ function aTab(t){
  for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
 }
 function setFilter(f){filter=f;$("fAll").classList.toggle("on",f==="all");$("fImp").classList.toggle("on",f==="important");renderStudent()}
-function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept;resetAdmForm();renderAdmin()}
+function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept;refreshStageSelects();resetAdmForm();renderAdmin()}
 function toggleStageForRole(){
  const isR=$("gRole").value==="rapporteur";
  $("gStage").disabled=isR;
@@ -551,6 +619,7 @@ async function publish(){
 function editAdminNotice(id){
  const n=notices.find(x=>x.id===id);if(!n)return;
  activeDept=deptOf(n);$("admDept").value=activeDept;$("admTopDept").textContent=activeDept;
+ refreshStageSelects();
  $("admEditId").value=n.id;$("title").value=n.title;$("body").value=n.body;
  $("tStage").value=n.stage;$("tSection").value=n.section;$("priority").value=n.priority||"normal";
  $("aFile").value="";$("aFileNote").textContent=n.att?"مرفق حالي: "+n.att.name+" (اختر ملفاً جديداً لاستبداله)":"";
@@ -656,7 +725,7 @@ function renderAdmin(){
  const keep=id=>[...document.querySelectorAll("#"+id+" details[open]")].map(d=>d.dataset.s);
  const oS=keep("aStudents"),oC=keep("codeLists");
  const bySec=(a,b)=>a.section.localeCompare(b.section,"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
- const stagesWithAll=[...STAGES,"all"];
+ const stagesWithAll=[...stagesForDept(activeDept),"all"];
  $("aStudents").innerHTML=stagesWithAll.map(st=>{
   const label=st==="all"?"مقررون (كل المراحل)":st;
   const l=used.filter(s=>s.stage===st).sort(bySec);
@@ -696,7 +765,7 @@ function startCodes(){
 }
 onAuthStateChanged(auth,async u=>{
  if(!u){if(unsubN){unsubN();unsubN=null}await signInAnonymously(auth).catch(()=>{});return}
- readyRes();startLogoSync();startNotices();
+ readyRes();startBrandSync();startNotices();
  if(!u.isAnonymous){isAdminView=true;startCodes();renderAdmin();aTab("new");show("admin")}
  else{
   isAdminView=false;if(unsubC){unsubC();unsubC=null}codes=[];
@@ -712,11 +781,11 @@ if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(
 if(customLogo)applyLogo(customLogo);
 
 function fill(id,items,first){$(id).innerHTML=first+items.map(x=>`<option value="${esc(x)}">${x.length<3?"شعبة "+esc(x):esc(x)}</option>`).join("")}
-fill("lDept",DEPTS,"");fill("admDept",DEPTS,"");
-fill("gStage",STAGES,'<option value="">اختر</option>');fill("gSection",SECTIONS,'<option value="">اختر</option>');
-fill("tStage",STAGES,'<option value="all">كل المراحل</option>');fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
+refreshDeptSelects();
+fill("gSection",SECTIONS,'<option value="">اختر</option>');
+fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,studentLogin,adminLogin,logout,sTab,aTab,setFilter,onDeptChange,toggleStageForRole,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,removeNotice,removeCode,resetCode,genCodes,copyCodes,saveLogo,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles});
+Object.assign(window,{show,studentLogin,adminLogin,logout,sTab,aTab,setFilter,onDeptChange,toggleStageForRole,addNewDept,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,removeNotice,removeCode,resetCode,genCodes,copyCodes,saveLogo,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles});
 </script>
 </body>
 </html>
