@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#25456e">
-<title>تبليغات قسم الأجهزة الطبية</title>
+<title>تبليغات الكلية والأقسام</title>
 <style>
 :root{
  --bg:#f3ead8;--card:#fffaf0;--line:#e6dac0;--ink:#1d2a3d;--mute:#7a6e58;
@@ -14,11 +14,16 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
 .app{max-width:520px;margin:auto;min-height:100vh;position:relative}
-.top{background:var(--navy);color:#fff;padding:14px 14px 18px;display:flex;align-items:center;gap:10px;border-radius:0 0 22px 22px}
+.top{background:var(--navy);color:#fff;padding:14px 14px 18px;display:flex;align-items:center;gap:10px;border-radius:0 0 22px 22px;position:relative}
 .top .brand{flex:1;display:flex;align-items:center;gap:10px}
-.logo{width:42px;height:42px;border-radius:12px;background:#ffffff22;display:grid;place-items:center;font-size:22px}
+.logo{width:42px;height:42px;border-radius:12px;background:#ffffff22;display:grid;place-items:center;font-size:22px;overflow:hidden;flex:none}
+.logo img{width:100%;height:100%;object-fit:cover;display:block}
 .top h1{margin:0;font-size:16px}.top p{margin:0;font-size:12px;color:#cfdcf0}
-.ibtn{width:42px;height:42px;border-radius:12px;background:#ffffff1f;border:0;color:#fff;font-size:18px;cursor:pointer;margin:0;padding:0;width:42px}
+.ibtn{width:42px;height:42px;border-radius:12px;background:#ffffff1f;border:0;color:#fff;font-size:18px;cursor:pointer;margin:0;padding:0;position:relative;flex:none}
+.badge{position:absolute;top:4px;right:4px;background:var(--err);color:#fff;font-size:10px;min-width:17px;height:17px;border-radius:10px;display:grid;place-items:center;padding:0 4px;font-weight:bold}
+.bell-pop{position:absolute;top:64px;right:14px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;z-index:50;box-shadow:0 10px 25px rgba(0,0,0,.15)}
+.bell-item{padding:8px;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
+.bell-item:last-child{border-bottom:0}
 .page{padding:14px 14px 100px}
 .hero{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;border-radius:20px;padding:18px;margin-bottom:14px}
 .hero small{color:#cfdcf0;font-size:13px}
@@ -41,18 +46,21 @@ h3{margin:4px 0 10px;font-size:16px}
 .meta{font-size:12px;color:var(--mute)}
 .tag{display:inline-block;font-size:11px;background:var(--soft);border-radius:20px;padding:1px 10px;margin-left:4px}
 .tag.imp{background:var(--warn);color:#fff}
+.tag.rep{background:var(--navy);color:#fff}
+.att-box{margin:8px 0;padding:8px 10px;background:#fff;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.att-img{width:100%;max-height:240px;object-fit:contain;border-radius:10px;margin-top:6px;border:1px solid var(--line);background:#fff;display:block}
 label{display:block;font-size:13px;color:var(--mute);margin-top:10px}
 input,textarea,select{width:100%;padding:12px;margin:4px 0;border:1px solid var(--line);border-radius:12px;background:#fff;font-family:inherit;font-size:15px;color:var(--ink)}
+input[type="file"]{padding:9px;font-size:13px}
 input:focus,textarea:focus,select:focus,button:focus-visible,summary:focus-visible{outline:2px solid var(--navy);outline-offset:1px}
 button{border:0;border-radius:12px;padding:12px;background:var(--navy);color:#fff;font-family:inherit;font-size:15px;width:100%;cursor:pointer;margin-top:10px}
 button.sec{background:var(--soft);color:var(--ink)}
 button.del{background:transparent;color:var(--err);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
-.hidden{display:none}
+button.act{background:transparent;color:var(--navy);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
+.hidden{display:none!important}
 .row{display:flex;gap:8px}.row>*{flex:1}
 .err{color:var(--err);font-size:13px;min-height:20px}
 .ltr{direction:ltr;text-align:right}
-.codebox{background:#fff;border:1px dashed var(--warn);border-radius:12px;padding:12px;text-align:center;margin-top:10px}
-.codebox b{font-size:26px;letter-spacing:4px;direction:ltr;display:block;color:var(--navy)}
 .seg{display:flex;background:var(--soft);border-radius:14px;padding:4px;margin-bottom:14px}
 .seg button{margin:0;background:transparent;color:var(--mute);padding:9px 2px;font-size:13px}
 .seg button.on{background:var(--navy);color:#fff}
@@ -66,18 +74,18 @@ summary::-webkit-details-marker{display:none}
 summary .cnt{margin-right:auto;background:var(--navy);color:#fff;border-radius:20px;font-size:12px;padding:1px 10px}
 summary::after{content:"▾";color:var(--mute);transition:transform .2s}
 details[open] summary::after{transform:rotate(180deg)}
-.stu{padding:10px 14px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
-.stu div{flex:1}.stu b{font-size:14px}
+.stu{padding:10px 14px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.stu div{flex:1;min-width:160px}.stu b{font-size:14px}
 /* الشريط السفلي */
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));border-radius:20px 20px 0 0}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));border-radius:20px 20px 0 0;z-index:40}
 .nav button{background:none;color:var(--mute);margin:0;padding:6px 0;font-size:12px;flex:1;position:relative}
 .nav button span{display:block;font-size:20px}
 .nav button.on{color:var(--navy);font-weight:bold}
 .nav button.on::before{content:"";position:absolute;top:-8px;left:30%;right:30%;height:3px;border-radius:3px;background:var(--navy)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link id="dynManifest" rel="manifest" href="manifest.json">
+<link id="appleIcon" rel="apple-touch-icon" href="icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
@@ -86,11 +94,13 @@ details[open] summary::after{transform:rotate(180deg)}
 
 <!-- ====== الدخول ====== -->
 <section id="login">
- <div class="top"><div class="brand"><div class="logo">🎓</div><div><h1>تبليغات القسم</h1><p>كلية أصول العلم الأهلية</p></div></div></div>
+ <div class="top"><div class="brand"><div class="logo"><img class="appLogoImg" src="icon-192.png" alt="شعار الكلية" onerror="this.outerHTML='🎓'"></div><div><h1>تبليغات الكلية</h1><p>كلية أصول العلم الأهلية</p></div></div></div>
  <div class="page">
   <div class="card">
    <h3>تسجيل الدخول</h3>
-   <p class="meta">أدخل الكود الذي استلمته من إدارة القسم مع اسمك ورقم هاتفك.</p>
+   <p class="meta">أدخل الكود الذي استلمته مع اسمك ورقم هاتفك.</p>
+   <label for="lDept">القسم العلمي</label>
+   <select id="lDept"></select>
    <label for="lCode">كود الدخول</label>
    <input id="lCode" class="ltr" maxlength="6" placeholder="مثال: K7M2QX" autocomplete="off">
    <label for="lName">الاسم الثلاثي</label>
@@ -99,7 +109,7 @@ details[open] summary::after{transform:rotate(180deg)}
    <input id="lPhone" class="ltr" inputmode="tel" placeholder="07XXXXXXXXX" autocomplete="tel">
    <div id="lErr" class="err"></div>
    <button id="lBtn" onclick="studentLogin()">دخول</button>
-   <button class="sec" onclick="show('adminLogin')">دخول إدارة القسم</button>
+   <button class="sec" onclick="show('adminLogin')">دخول إدارة القسم / الكلية</button>
   </div>
   <button class="sec installB hidden" onclick="installApp()">⬇️ تثبيت التطبيق على الهاتف</button>
   <p id="iosHint" class="meta hidden">لتثبيت التطبيق على آيفون: اضغط زر المشاركة في Safari ثم "إضافة إلى الشاشة الرئيسية".</p>
@@ -107,7 +117,7 @@ details[open] summary::after{transform:rotate(180deg)}
 </section>
 
 <section id="adminLogin" class="hidden">
- <div class="top"><div class="brand"><div class="logo">🛡️</div><div><h1>إدارة القسم</h1><p>دخول المسؤول</p></div></div></div>
+ <div class="top"><div class="brand"><div class="logo"><img class="appLogoImg" src="icon-192.png" alt="شعار الكلية" onerror="this.outerHTML='🛡️'"></div><div><h1>إدارة الكلية والأقسام</h1><p>دخول المسؤول</p></div></div></div>
  <div class="page"><div class="card">
   <label for="adminEmail">بريد الإدارة</label>
   <input id="adminEmail" type="email" class="ltr" autocomplete="username">
@@ -119,17 +129,24 @@ details[open] summary::after{transform:rotate(180deg)}
  </div></div>
 </section>
 
-<!-- ====== واجهة الطالب ====== -->
+<!-- ====== واجهة الطالب / الممثل / المقرر ====== -->
 <section id="student" class="hidden">
  <div class="top">
   <button class="ibtn" onclick="logout()" aria-label="تسجيل الخروج">⎋</button>
-  
-  <div class="brand" style="justify-content:flex-end"><div style="text-align:right"><h1>تبليغات القسم</h1><p>هندسة تقنيات الأجهزة الطبية</p></div><div class="logo">🎓</div></div>
+  <button class="ibtn" onclick="toggleBell()" aria-label="التنبيهات">🔔<span id="bellBadge" class="badge hidden">0</span></button>
+  <div class="brand" style="justify-content:flex-end"><div style="text-align:right"><h1 id="sTopTitle">تبليغات القسم</h1><p id="sTopDept">هندسة تقنيات الأجهزة الطبية</p></div><div class="logo"><img class="appLogoImg" src="icon-192.png" alt="شعار الكلية" onerror="this.outerHTML='🎓'"></div></div>
+  <div id="bellPop" class="bell-pop hidden">
+   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+    <b style="font-size:14px">🔔 التنبيهات الجديدة</b>
+    <button class="act" onclick="toggleSound()" id="soundBtn">🔊 الرنين مفعل</button>
+   </div>
+   <div id="bellList"></div>
+  </div>
  </div>
  <div class="page">
   <div id="sHome">
    <div class="hero">
-    <small>مرحباً بك 👋</small>
+    <small id="sRoleGreet">مرحباً بك 👋</small>
     <h2 id="sName"></h2>
     <p id="sInfo"></p>
     <button onclick="sTab('notices')">عرض كل التبليغات</button>
@@ -142,15 +159,45 @@ details[open] summary::after{transform:rotate(180deg)}
    <h3>آخر التبليغات</h3>
    <div id="homeNotices"></div>
   </div>
+
   <div id="sNotices" class="hidden">
    <div class="chips"><button id="fAll" class="on" onclick="setFilter('all')">الكل</button><button id="fImp" onclick="setFilter('important')">المهمة</button></div>
    <div id="studentNotices"></div>
   </div>
+
+  <!-- تبويب إدارة الممثل / المقرر -->
+  <div id="sRep" class="hidden">
+   <div class="card">
+    <h3 id="repFormTitle">نشر تبليغ</h3>
+    <p class="meta" id="repScopeMeta"></p>
+    <input type="hidden" id="repEditId">
+    <label for="rTitle">العنوان</label>
+    <input id="rTitle" placeholder="مثال: محاضرة إضافية أو تبليغ شعبة">
+    <label for="rBody">النص</label>
+    <textarea id="rBody" rows="4" placeholder="اكتب تفاصيل التبليغ"></textarea>
+    <div class="row">
+     <div><label for="rStage">المرحلة</label><select id="rStage"></select></div>
+     <div><label for="rSection">الشعبة</label><select id="rSection"></select></div>
+    </div>
+    <label for="rPriority">الأهمية</label>
+    <select id="rPriority"><option value="normal">تبليغ عادي</option><option value="important">تبليغ مهم</option></select>
+    <label for="rFile">مرفق (صورة، PDF، Word) - يُحفظ على هاتف الطالب</label>
+    <input id="rFile" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+    <div id="rFileNote" class="meta"></div>
+    <button id="rPubBtn" onclick="repPublish()">نشر التبليغ</button>
+    <button id="rCancelBtn" class="sec hidden" onclick="resetRepForm()">إلغاء التعديل</button>
+   </div>
+   <h3 id="repListTitle">التبليغات المتاحة للتعديل والحذف</h3>
+   <div id="repNotices"></div>
+  </div>
+
   <div id="sAccount" class="hidden">
    <div class="card">
     <h3 id="aName"></h3>
     <p class="meta" id="aInfo"></p>
     <p class="meta ltr" id="aPhone"></p>
+    <p class="meta" id="storageStat"></p>
+    <button class="sec" onclick="clearLocalFiles()">🗑️ تفريغ الملفات المحفوظة على الهاتف</button>
     <button class="sec installB hidden" onclick="installApp()">⬇️ تثبيت التطبيق على الهاتف</button>
     <button onclick="logout()">تسجيل الخروج</button>
    </div>
@@ -159,6 +206,7 @@ details[open] summary::after{transform:rotate(180deg)}
  <nav class="nav">
   <button id="nHome" class="on" onclick="sTab('home')"><span>🏠</span>الرئيسية</button>
   <button id="nNotices" onclick="sTab('notices')"><span>📋</span>التبليغات</button>
+  <button id="nRep" class="hidden" onclick="sTab('rep')"><span>✍️</span>إدارة التبليغات</button>
   <button id="nAccount" onclick="sTab('account')"><span>👤</span>حسابي</button>
  </nav>
 </section>
@@ -167,12 +215,16 @@ details[open] summary::after{transform:rotate(180deg)}
 <section id="admin" class="hidden">
  <div class="top">
   <button class="ibtn" onclick="logout()" aria-label="تسجيل الخروج">⎋</button>
-  <div class="brand" style="justify-content:flex-end"><div style="text-align:right"><h1>لوحة الإدارة</h1><p>قسم هندسة تقنيات الأجهزة الطبية</p></div><div class="logo">🛡️</div></div>
+  <div class="brand" style="justify-content:flex-end"><div style="text-align:right"><h1>لوحة الإدارة</h1><p id="admTopDept">كلية أصول العلم · الأقسام العلمية</p></div><div class="logo"><img class="appLogoImg" src="icon-192.png" alt="شعار الكلية" onerror="this.outerHTML='🛡️'"></div></div>
  </div>
  <div class="page">
+  <div class="card" style="padding:10px 14px;margin-bottom:12px">
+   <label for="admDept" style="margin-top:0">القسم النشط للإدارة</label>
+   <select id="admDept" onchange="onDeptChange()"></select>
+  </div>
   <div class="stats two">
-   <div class="stat"><div class="ico b">👥</div><div><b id="cStudents">0</b><span>طالب مسجل</span></div></div>
-   <div class="stat"><div class="ico a">📋</div><div><b id="cNotices">0</b><span>تبليغ منشور</span></div></div>
+   <div class="stat"><div class="ico b">👥</div><div><b id="cStudents">0</b><span>مسجل بالقسم</span></div></div>
+   <div class="stat"><div class="ico a">📋</div><div><b id="cNotices">0</b><span>تبليغ بالقسم</span></div></div>
   </div>
   <div class="seg">
    <button id="atNew" class="on" onclick="aTab('new')">نشر تبليغ</button>
@@ -181,6 +233,8 @@ details[open] summary::after{transform:rotate(180deg)}
    <button id="atCodes" onclick="aTab('codes')">الأكواد</button>
   </div>
   <div id="aNew" class="card">
+   <h3 id="admFormTitle">نشر تبليغ جديد</h3>
+   <input type="hidden" id="admEditId">
    <label for="title">العنوان</label>
    <input id="title" placeholder="مثال: تأجيل امتحان مادة الدوائر">
    <label for="body">النص</label>
@@ -191,17 +245,29 @@ details[open] summary::after{transform:rotate(180deg)}
    </div>
    <label for="priority">الأهمية</label>
    <select id="priority"><option value="normal">تبليغ عادي</option><option value="important">تبليغ مهم</option></select>
-   <button onclick="publish()">نشر التبليغ</button>
+   <label for="aFile">مرفق (صورة، PDF، Word) - يُحفظ على هاتف الطالب</label>
+   <input id="aFile" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+   <div id="aFileNote" class="meta"></div>
+   <button id="admPubBtn" onclick="publish()">نشر التبليغ</button>
+   <button id="admCancelBtn" class="sec hidden" onclick="resetAdmForm()">إلغاء التعديل</button>
+
+   <hr style="border:0;border-top:1px solid var(--line);margin:16px 0 12px">
+   <h3>صورة لوكو التطبيق</h3>
+   <p class="meta">ارفع صورة اللوكو من الهاتف ليظهر في التطبيق وعند تثبيته.</p>
+   <input id="logoFile" type="file" accept="image/*">
+   <button class="sec" onclick="saveLogo()">حفظ صورة اللوكو</button>
   </div>
   <div id="aNotices" class="hidden"></div>
   <div id="aStudents" class="hidden"></div>
   <div id="aCodes" class="hidden">
    <div class="card">
     <h3>إنشاء أكواد جديدة</h3>
-    <p class="meta">كل كود لطالب واحد. وزّعها على الطلاب بنفسك.</p>
+    <p class="meta">اختر "ممثل مرحلة" لمرحلة محددة، أو "مقرر (كل المراحل)" لإدارة تبليغات جميع المراحل.</p>
     <div class="row"><div><label for="gStage">المرحلة</label><select id="gStage"></select></div><div><label for="gSection">الشعبة</label><select id="gSection"></select></div></div>
-    <label for="gCount">عدد الأكواد</label>
-    <input id="gCount" type="number" min="1" max="200" value="30">
+    <div class="row">
+     <div><label for="gRole">نوع الكود</label><select id="gRole" onchange="toggleStageForRole()"><option value="student">كود طالب</option><option value="rep">ممثل مرحلة</option><option value="rapporteur">مقرر (كل المراحل)</option></select></div>
+     <div><label for="gCount">عدد الأكواد</label><input id="gCount" type="number" min="1" max="200" value="30"></div>
+    </div>
     <button onclick="genCodes()">إنشاء الأكواد</button>
    </div>
    <div id="codeLists"></div>
@@ -213,22 +279,180 @@ details[open] summary::after{transform:rotate(180deg)}
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,onAuthStateChanged,signInAnonymously,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getFirestore,collection,addDoc,deleteDoc,updateDoc,getDoc,doc,onSnapshot,query,orderBy,serverTimestamp,writeBatch,deleteField} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getFirestore,collection,addDoc,deleteDoc,updateDoc,setDoc,getDoc,doc,onSnapshot,query,orderBy,serverTimestamp,writeBatch,deleteField} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {firebaseConfig} from "./firebase-config.js";
 
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+const DEPTS=[
+ "هندسة تقنيات الأجهزة الطبية",
+ "هندسة تقنيات الحاسوب",
+ "هندسة تقنيات الاتصالات",
+ "التحليلات المرضية"
+];
 const STAGES=["المرحلة الأولى","المرحلة الثانية","المرحلة الثالثة","المرحلة الرابعة"];
 const SECTIONS=["أ","ب","ج","د"];
-let notices=[],codes=[],me=null,filter="all",unsubN=null,unsubC=null,isAdminView=false,deferred=null,readyRes;
+let notices=[],codes=[],me=null,filter="all",unsubN=null,unsubC=null,unsubLogo=null,isAdminView=false,deferred=null,readyRes;
+let activeDept=DEPTS[0],customLogo=localStorage.getItem("customLogo")||"";
+let soundOn=localStorage.getItem("soundOn")!=="0",knownIds=new Set(JSON.parse(localStorage.getItem("knownIds")||"[]")),readIds=new Set(JSON.parse(localStorage.getItem("readIds")||"[]")),firstSnap=true;
 const authReady=new Promise(r=>readyRes=r);
 try{me=JSON.parse(localStorage.getItem("me")||"null")}catch(e){}
 const $=id=>document.getElementById(id);
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+const deptOf=x=>x.dept||DEPTS[0];
+
+/* ===== اللوكو وتحديث Manifest للهاتف ===== */
+function applyLogo(dataUrl){
+ if(!dataUrl)return;
+ customLogo=dataUrl;
+ try{localStorage.setItem("customLogo",dataUrl)}catch(e){}
+ document.querySelectorAll(".appLogoImg").forEach(img=>{img.src=dataUrl});
+ if($("appleIcon"))$("appleIcon").href=dataUrl;
+ try{
+  const manifestObj={
+   name:"تبليغات الكلية والأقسام",
+   short_name:"تبليغات الكلية",
+   start_url:".",
+   display:"standalone",
+   background_color:"#f3ead8",
+   theme_color:"#25456e",
+   icons:[
+    {src:dataUrl,sizes:"192x192",type:"image/png"},
+    {src:dataUrl,sizes:"512x512",type:"image/png"}
+   ]
+  };
+  const blob=new Blob([JSON.stringify(manifestObj)],{type:"application/json"});
+  if($("dynManifest"))$("dynManifest").href=URL.createObjectURL(blob);
+ }catch(e){}
+}
+function startLogoSync(){
+ if(unsubLogo)return;
+ unsubLogo=onSnapshot(doc(db,"settings","brand"),snap=>{
+  if(snap.exists()&&snap.data().logo)applyLogo(snap.data().logo);
+ },()=>{});
+}
+async function saveLogo(){
+ const f=$("logoFile").files[0];
+ if(!f){alert("اختر صورة للوكو أولاً.");return}
+ try{
+  const dataUrl=await compressImage(f,512,0.82);
+  await setDoc(doc(db,"settings","brand"),{logo:dataUrl,updatedAt:serverTimestamp()},{merge:true});
+  applyLogo(dataUrl);
+  $("logoFile").value="";
+  alert("تم حفظ صورة اللوكو بنجاح وستظهر في التطبيق وعند تثبيته.");
+ }catch(e){alert("تعذر حفظ صورة اللوكو.")}
+}
+
+function compressImage(file,maxDim=1100,quality=0.76){
+ return new Promise((res,rej)=>{
+  const img=new Image(),fr=new FileReader();
+  fr.onload=()=>{img.onload=()=>{
+   const sc=Math.min(1,maxDim/Math.max(img.width,img.height));
+   const c=document.createElement("canvas");c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);
+   c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+   res(c.toDataURL("image/jpeg",quality));
+  };img.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file);
+ });
+}
+
+/* ===== تخزين الملفات محلياً على هاتف الطالب (IndexedDB) ===== */
+const idb={
+ dbp:null,
+ open(){
+  if(this.dbp)return this.dbp;
+  this.dbp=new Promise((res,rej)=>{
+   const r=indexedDB.open("ing_files_db",1);
+   r.onupgradeneeded=()=>r.result.createObjectStore("files",{keyPath:"id"});
+   r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);
+  });return this.dbp;
+ },
+ async put(item){const d=await this.open();return new Promise((res,rej)=>{const tx=d.transaction("files","readwrite");tx.objectStore("files").put(item);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})},
+ async get(id){const d=await this.open();return new Promise(res=>{const tx=d.transaction("files","readonly");const q=tx.objectStore("files").get(id);q.onsuccess=()=>res(q.result||null);q.onerror=()=>res(null)})},
+ async count(){const d=await this.open();return new Promise(res=>{const tx=d.transaction("files","readonly");const q=tx.objectStore("files").count();q.onsuccess=()=>res(q.result||0);q.onerror=()=>res(0)})},
+ async clear(){const d=await this.open();return new Promise(res=>{const tx=d.transaction("files","readwrite");tx.objectStore("files").clear();tx.oncomplete=res})}
+};
+
+/* ===== صوت الجرس والتنبيهات ===== */
+function ringBell(){
+ if(!soundOn)return;
+ try{
+  const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;
+  const ctx=new Ctx(),now=ctx.currentTime;
+  [880,1174.66,1318.5].forEach((freq,i)=>{
+   const o=ctx.createOscillator(),g=ctx.createGain();
+   o.type="sine";o.frequency.setValueAtTime(freq,now+i*0.14);
+   g.gain.setValueAtTime(0.001,now+i*0.14);
+   g.gain.exponentialRampToValueAtTime(0.22,now+i*0.14+0.03);
+   g.gain.exponentialRampToValueAtTime(0.0001,now+i*0.14+0.55);
+   o.connect(g);g.connect(ctx.destination);
+   o.start(now+i*0.14);o.stop(now+i*0.14+0.6);
+  });
+  if(navigator.vibrate)navigator.vibrate([180,80,180]);
+ }catch(e){}
+}
+function toggleSound(){
+ soundOn=!soundOn;localStorage.setItem("soundOn",soundOn?"1":"0");
+ $("soundBtn").textContent=soundOn?"🔊 الرنين مفعل":"🔇 الرنين مكتوم";
+ if(soundOn)ringBell();
+}
+function toggleBell(){
+ const p=$("bellPop");p.classList.toggle("hidden");
+ if(!p.classList.contains("hidden")){
+  const mine=myNotices();mine.forEach(n=>readIds.add(n.id));
+  localStorage.setItem("readIds",JSON.stringify([...readIds].slice(-300)));
+  updateBellUI();
+ }
+}
+function updateBellUI(){
+ if(!me)return;
+ const mine=myNotices(),unread=mine.filter(n=>!readIds.has(n.id));
+ const b=$("bellBadge");
+ if(unread.length){b.textContent=unread.length;b.classList.remove("hidden")}else b.classList.add("hidden");
+ $("bellList").innerHTML=mine.slice(0,5).map(n=>`<div class="bell-item" onclick="$('bellPop').classList.add('hidden');sTab('notices')"><b>${esc(n.title)}</b><div class="meta">${esc(n.date)}</div></div>`).join("")||'<div class="meta">لا توجد تنبيهات</div>';
+}
+
+/* ===== تجهيز الملفات المرفقة ===== */
+async function readAttachment(inputId){
+ const f=$(inputId).files[0];if(!f)return null;
+ if(f.type.startsWith("image/")){
+  const data=await compressImage(f,1100,0.76);
+  return{name:f.name,type:"image/jpeg",data};
+ }
+ if(f.size>750*1024){alert("حجم ملف PDF أو Word كبير (الحد الأقصى 750 كيلوبايت لضمان سرعة الحفظ على هاتف الطالب).");throw new Error("size")}
+ const data=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(f)});
+ return{name:f.name,type:f.type||"application/octet-stream",data};
+}
+async function cacheAttachmentsLocally(list){
+ for(const n of list){
+  if(n.att&&n.att.data){
+   const ex=await idb.get(n.id);
+   if(!ex)await idb.put({id:n.id,name:n.att.name,type:n.att.type,data:n.att.data,savedAt:Date.now()});
+  }
+ }
+ updateStorageStat();
+}
+async function updateStorageStat(){
+ const el=$("storageStat");if(!el)return;
+ const cnt=await idb.count();
+ el.textContent="📁 الملفات المحفوظة في ذاكرة الهاتف: "+cnt+" ملف";
+}
+async function clearLocalFiles(){
+ if(!confirm("حذف الملفات المحفوظة مؤقتاً من ذاكرة هذا الهاتف؟"))return;
+ await idb.clear();updateStorageStat();alert("تم تفريغ الملفات من ذاكرة الهاتف.");
+}
+async function openAttachment(noticeId){
+ let item=await idb.get(noticeId);
+ if(!item){
+  const n=notices.find(x=>x.id===noticeId);
+  if(n&&n.att&&n.att.data){item={id:n.id,...n.att};await idb.put(item)}
+ }
+ if(!item){alert("الملف غير متوفر.");return}
+ const a=document.createElement("a");a.href=item.data;a.download=item.name||"attachment";document.body.appendChild(a);a.click();a.remove();
+}
 
 function show(id){["login","adminLogin","student","admin"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");scrollTo(0,0)}
 async function logout(){
  me=null;isAdminView=false;try{localStorage.removeItem("me")}catch(e){}
- $("lCode").value="";
+ $("lCode").value="";$("bellPop").classList.add("hidden");
  if(auth.currentUser&&!auth.currentUser.isAnonymous){await signOut(auth)}else show("login");
 }
 function normPhone(p){
@@ -237,10 +461,12 @@ function normPhone(p){
  if(d.startsWith("0"))d="964"+d.slice(1);else if(d.startsWith("7")&&d.length===10)d="964"+d;
  return /^9647\d{9}$/.test(d)?d:"";
 }
+const canManageAllStages=u=>u&&(u.role==="rapporteur"||u.stage==="all");
+const canManageStage=(u,st)=>u&&(u.role==="rapporteur"||u.stage==="all"||(u.role==="rep"&&u.stage===st));
 
-/* ===== دخول الطالب بالكود ===== */
+/* ===== دخول الطالب / الممثل / المقرر بالكود ===== */
 async function studentLogin(){
- const code=$("lCode").value.trim().toUpperCase(),name=$("lName").value.trim().replace(/\s+/g," "),phone=normPhone($("lPhone").value),err=$("lErr");
+ const dept=$("lDept").value,code=$("lCode").value.trim().toUpperCase(),name=$("lName").value.trim().replace(/\s+/g," "),phone=normPhone($("lPhone").value),err=$("lErr");
  err.textContent="";
  if(code.length!==6){err.textContent="اكتب كود الدخول (6 خانات).";return}
  if(name.split(" ").length<3){err.textContent="اكتب الاسم الثلاثي كاملاً.";return}
@@ -251,20 +477,36 @@ async function studentLogin(){
   const ref=doc(db,"codes",code),snap=await getDoc(ref);
   if(!snap.exists()){err.textContent="الكود غير صحيح.";return}
   const c=snap.data();
+  if(c.dept&&c.dept!==dept){err.textContent="هذا الكود تابع لقسم آخر ("+c.dept+").";return}
   if(c.used){
-   if(c.phone!==phone){err.textContent="هذا الكود مستخدم من طالب آخر. راجع إدارة القسم.";return}
-  }else await updateDoc(ref,{used:true,name,phone,usedAt:serverTimestamp()});
-  me={code,name:c.used?c.name:name,phone,stage:c.stage,section:c.section};
+   if(c.phone!==phone){err.textContent="هذا الكود مستخدم من شخص آخر. راجع الإدارة.";return}
+  }else await updateDoc(ref,{used:true,name,phone,dept,usedAt:serverTimestamp()});
+  me={code,name:c.used?c.name:name,phone,dept:c.dept||dept,stage:c.stage,section:c.section,role:c.role||"student"};
   try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
   openStudent();
  }catch(e){err.textContent="تعذر الدخول. تأكد من الاتصال وحاول مرة ثانية."}
  finally{btn.disabled=false}
 }
 function openStudent(){
+ const isMgr=me.role==="rep"||me.role==="rapporteur"||me.stage==="all";
+ const roleLabel=me.role==="rapporteur"||me.stage==="all"?"مقرر (كل المراحل)":(me.role==="rep"?"ممثل مرحلة":"طالب");
+ $("sTopDept").textContent=me.dept;
+ $("sRoleGreet").textContent=isMgr?"مرحباً بك ("+roleLabel+") ✍️":"مرحباً بك 👋";
  $("sName").textContent=me.name.split(" ").slice(0,2).join(" ");
- $("sInfo").textContent=me.stage+" · شعبة "+me.section;
- $("aName").textContent=me.name;$("aInfo").textContent=me.stage+" · شعبة "+me.section;$("aPhone").textContent="+"+me.phone;
- filter="all";renderStudent();sTab("home");show("student");
+ $("sInfo").textContent=me.dept+" · "+(me.stage==="all"?"كل المراحل":me.stage)+" · شعبة "+(me.section==="all"?"كل الشعب":me.section);
+ $("aName").textContent=me.name;$("aInfo").textContent=me.dept+" · "+roleLabel;$("aPhone").textContent="+"+me.phone;
+ $("nRep").classList.toggle("hidden",!isMgr);
+ if(isMgr){
+  if(canManageAllStages(me)){
+   fill("rStage",STAGES,'<option value="all">كل المراحل</option>');
+   $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لجميع مراحل قسم: "+me.dept;
+  }else{
+   $("rStage").innerHTML=`<option value="${esc(me.stage)}">${esc(me.stage)}</option>`;
+   $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لـ: "+me.dept+" · "+me.stage;
+  }
+ }
+ $("soundBtn").textContent=soundOn?"🔊 الرنين مفعل":"🔇 الرنين مكتوم";
+ filter="all";renderStudent();updateBellUI();updateStorageStat();sTab("home");show("student");
 }
 async function adminLogin(){
  try{await signInWithEmailAndPassword(auth,$("adminEmail").value.trim(),$("adminPassword").value);$("aErr").textContent="";$("adminPassword").value=""}
@@ -272,77 +514,161 @@ async function adminLogin(){
 }
 
 function sTab(t){
- const m={home:["sHome","nHome"],notices:["sNotices","nNotices"],account:["sAccount","nAccount"]};
+ const m={home:["sHome","nHome"],notices:["sNotices","nNotices"],rep:["sRep","nRep"],account:["sAccount","nAccount"]};
  for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
- scrollTo(0,0);
+ $("bellPop").classList.add("hidden");scrollTo(0,0);
 }
 function aTab(t){
  const m={new:["aNew","atNew"],notices:["aNotices","atNotices"],students:["aStudents","atStudents"],codes:["aCodes","atCodes"]};
  for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
 }
 function setFilter(f){filter=f;$("fAll").classList.toggle("on",f==="all");$("fImp").classList.toggle("on",f==="important");renderStudent()}
+function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept;resetAdmForm();renderAdmin()}
+function toggleStageForRole(){
+ const isR=$("gRole").value==="rapporteur";
+ $("gStage").disabled=isR;
+ if(isR)$("gStage").value="all";
+ else if($("gStage").value==="all")$("gStage").value="";
+}
 
-/* ===== الإدارة ===== */
+/* ===== الإدارة والممثلين والمقررين ===== */
 async function publish(){
- const title=$("title").value.trim(),body=$("body").value.trim();
+ const title=$("title").value.trim(),body=$("body").value.trim(),editId=$("admEditId").value;
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  try{
-  await addDoc(collection(db,"notices"),{title,body,stage:$("tStage").value,section:$("tSection").value,priority:$("priority").value,createdAt:serverTimestamp()});
-  $("title").value="";$("body").value="";aTab("notices");
- }catch(e){alert("تعذر نشر التبليغ. تأكد من صلاحيات الإدارة.")}
+  const att=await readAttachment("aFile");
+  const payload={title,body,dept:activeDept,stage:$("tStage").value,section:$("tSection").value,priority:$("priority").value};
+  if(att)payload.att=att;
+  if(editId){
+   await updateDoc(doc(db,"notices",editId),payload);
+  }else{
+   payload.author="إدارة القسم";payload.authorCode="ADMIN";payload.createdAt=serverTimestamp();
+   await addDoc(collection(db,"notices"),payload);
+  }
+  resetAdmForm();aTab("notices");
+ }catch(e){if(e.message!=="size")alert("تعذر حفظ التبليغ. تأكد من صلاحيات الإدارة.")}
 }
+function editAdminNotice(id){
+ const n=notices.find(x=>x.id===id);if(!n)return;
+ activeDept=deptOf(n);$("admDept").value=activeDept;$("admTopDept").textContent=activeDept;
+ $("admEditId").value=n.id;$("title").value=n.title;$("body").value=n.body;
+ $("tStage").value=n.stage;$("tSection").value=n.section;$("priority").value=n.priority||"normal";
+ $("aFile").value="";$("aFileNote").textContent=n.att?"مرفق حالي: "+n.att.name+" (اختر ملفاً جديداً لاستبداله)":"";
+ $("admFormTitle").textContent="تعديل التبليغ";$("admPubBtn").textContent="حفظ التعديلات";$("admCancelBtn").classList.remove("hidden");
+ aTab("new");scrollTo(0,0);
+}
+function resetAdmForm(){
+ $("admEditId").value="";$("title").value="";$("body").value="";$("aFile").value="";$("aFileNote").textContent="";
+ $("admFormTitle").textContent="نشر تبليغ جديد";$("admPubBtn").textContent="نشر التبليغ";$("admCancelBtn").classList.add("hidden");
+}
+
+async function repPublish(){
+ if(!me||!(me.role==="rep"||me.role==="rapporteur"||me.stage==="all"))return;
+ const title=$("rTitle").value.trim(),body=$("rBody").value.trim(),editId=$("repEditId").value;
+ const st=canManageAllStages(me)?$("rStage").value:me.stage;
+ if(!title||!body){alert("أدخل العنوان والنص.");return}
+ if(!canManageStage(me,st)){alert("لا تملك صلاحية النشر لهذه المرحلة.");return}
+ try{
+  const att=await readAttachment("rFile");
+  const payload={title,body,dept:me.dept,stage:st,section:$("rSection").value,priority:$("rPriority").value};
+  if(att)payload.att=att;
+  if(editId){
+   await updateDoc(doc(db,"notices",editId),payload);
+  }else{
+   const prefix=me.role==="rapporteur"?"مقرر":"ممثل";
+   payload.author=prefix+": "+me.name.split(" ").slice(0,2).join(" ");
+   payload.authorCode=me.code;payload.createdAt=serverTimestamp();
+   await addDoc(collection(db,"notices"),payload);
+  }
+  resetRepForm();alert("تم حفظ التبليغ بنجاح.");
+ }catch(e){if(e.message!=="size")alert("تعذر تنفيذ العملية.")}
+}
+function editRepNotice(id){
+ const n=notices.find(x=>x.id===id);if(!n||!me||deptOf(n)!==me.dept||!canManageStage(me,n.stage))return;
+ $("repEditId").value=n.id;$("rTitle").value=n.title;$("rBody").value=n.body;
+ if(canManageAllStages(me))$("rStage").value=n.stage;
+ $("rSection").value=n.section;$("rPriority").value=n.priority||"normal";
+ $("rFile").value="";$("rFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
+ $("repFormTitle").textContent="تعديل التبليغ";$("rPubBtn").textContent="حفظ التعديلات";$("rCancelBtn").classList.remove("hidden");
+ scrollTo(0,0);
+}
+function resetRepForm(){
+ $("repEditId").value="";$("rTitle").value="";$("rBody").value="";$("rFile").value="";$("rFileNote").textContent="";
+ $("repFormTitle").textContent="نشر تبليغ";$("rPubBtn").textContent="نشر التبليغ";$("rCancelBtn").classList.add("hidden");
+}
+
 const fail=()=>alert("تعذر تنفيذ العملية.");
 async function removeNotice(id){if(confirm("حذف هذا التبليغ؟"))await deleteDoc(doc(db,"notices",id)).catch(fail)}
-async function removeCode(id){if(confirm("حذف هذا الكود؟ إذا كان لطالب فسيفقد دخوله."))await deleteDoc(doc(db,"codes",id)).catch(fail)}
-async function resetCode(id){if(confirm("إعادة الكود غير مستخدم؟ يستطيع طالب جديد استخدامه."))await updateDoc(doc(db,"codes",id),{used:false,name:deleteField(),phone:deleteField(),usedAt:deleteField()}).catch(fail)}
+async function removeCode(id){if(confirm("حذف هذا الكود؟ إذا كان مستخدماً فسيفقد صاحبه دخوله."))await deleteDoc(doc(db,"codes",id)).catch(fail)}
+async function resetCode(id){if(confirm("إعادة الكود غير مستخدم؟ يستطيع شخص جديد استخدامه."))await updateDoc(doc(db,"codes",id),{used:false,name:deleteField(),phone:deleteField(),usedAt:deleteField()}).catch(fail)}
 async function genCodes(){
- const stage=$("gStage").value,section=$("gSection").value,n=Math.min(200,Math.max(1,parseInt($("gCount").value)||0));
+ const role=$("gRole").value,stage=role==="rapporteur"?"all":$("gStage").value,section=$("gSection").value,n=Math.min(200,Math.max(1,parseInt($("gCount").value)||0));
  if(!stage||!section){alert("اختر المرحلة والشعبة.");return}
  const ch="ABCDEFGHJKMNPQRSTUVWXYZ23456789",have=new Set(codes.map(c=>c.id)),batch=writeBatch(db);
  for(let i=0;i<n;i++){
   let c;do{const a=new Uint32Array(6);crypto.getRandomValues(a);c=Array.from(a,x=>ch[x%ch.length]).join("")}while(have.has(c));
-  have.add(c);batch.set(doc(db,"codes",c),{stage,section,used:false,createdAt:serverTimestamp()});
+  have.add(c);batch.set(doc(db,"codes",c),{dept:activeDept,stage,section,role,used:false,createdAt:serverTimestamp()});
  }
- try{await batch.commit();alert("تم إنشاء "+n+" كود.")}catch(e){fail()}
+ try{await batch.commit();alert("تم إنشاء "+n+" كود لقسم "+activeDept+".")}catch(e){fail()}
 }
 function copyCodes(stage){
- const l=codes.filter(c=>c.stage===stage&&!c.used).sort((a,b)=>a.section.localeCompare(b.section,"ar"));
+ const l=codes.filter(c=>deptOf(c)===activeDept&&c.stage===stage&&!c.used).sort((a,b)=>a.section.localeCompare(b.section,"ar"));
  if(!l.length){alert("لا توجد أكواد غير مستخدمة.");return}
- const t=stage+"\n"+l.map(c=>"شعبة "+c.section+" : "+c.id).join("\n");
+ const rLabel=r=>r==="rapporteur"?"مقرر كل المراحل":(r==="rep"?"ممثل مرحلة":"طالب");
+ const t=activeDept+" - "+(stage==="all"?"كل المراحل":stage)+"\n"+l.map(c=>"شعبة "+c.section+" ("+rLabel(c.role)+") : "+c.id).join("\n");
  navigator.clipboard.writeText(t).then(()=>alert("تم نسخ "+l.length+" كود.")).catch(()=>prompt("انسخ الأكواد:",t));
 }
 
 /* ===== العرض ===== */
 const target=n=>(n.stage==="all"?"كل المراحل":n.stage)+" · "+(n.section==="all"?"كل الشعب":"شعبة "+n.section);
-const noticeCard=n=>`<div class="card notice ${n.priority}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p><span class="meta">${esc(n.date)}</span></div>`;
+function attHtml(n){
+ if(!n.att)return"";
+ if(n.att.type&&n.att.type.startsWith("image/")){
+  return `<img class="att-img" src="${n.att.data}" alt="${esc(n.att.name)}"><div class="att-box"><span class="meta">🖼️ ${esc(n.att.name)}</span><button class="act" onclick="openAttachment('${esc(n.id)}')">حفظ بالهاتف</button></div>`;
+ }
+ const ico=String(n.att.name).toLowerCase().endsWith(".pdf")?"📕":"📘";
+ return `<div class="att-box"><span class="meta">${ico} ${esc(n.att.name)}</span><button class="act" onclick="openAttachment('${esc(n.id)}')">فتح / حفظ</button></div>`;
+}
+const noticeCard=n=>`<div class="card notice ${n.priority}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span></div>`;
 const empty=t=>`<div class="card meta">${t}</div>`;
+const myNotices=()=>me?notices.filter(n=>deptOf(n)===me.dept&&(n.stage==="all"||me.stage==="all"||n.stage===me.stage)&&(n.section==="all"||me.section==="all"||n.section===me.section)):[];
+
 function renderStudent(){
  if(!me)return;
- const mine=notices.filter(n=>(n.stage==="all"||n.stage===me.stage)&&(n.section==="all"||n.section===me.section));
+ const mine=myNotices();
  $("stAll").textContent=mine.length;
  $("stImp").textContent=mine.filter(n=>n.priority==="important").length;
  $("stNew").textContent=mine.filter(n=>n.day===new Date().toDateString()).length;
- $("homeNotices").innerHTML=mine.slice(0,3).map(noticeCard).join("")||empty("لا توجد تبليغات لمرحلتك وشعبتك حالياً.");
+ $("homeNotices").innerHTML=mine.slice(0,3).map(noticeCard).join("")||empty("لا توجد تبليغات لقسمك حالياً.");
  const list=filter==="important"?mine.filter(n=>n.priority==="important"):mine;
  $("studentNotices").innerHTML=list.map(noticeCard).join("")||empty("لا توجد تبليغات هنا.");
+ if(me.role==="rep"||me.role==="rapporteur"||me.stage==="all"){
+  const mgrList=notices.filter(n=>deptOf(n)===me.dept&&canManageStage(me,n.stage));
+  $("repNotices").innerHTML=mgrList.map(n=>`<div class="card notice ${n.priority}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`).join("")||empty("لا توجد تبليغات ضمن صلاحيتك.");
+ }
 }
 function renderAdmin(){
- const used=codes.filter(c=>c.used);
- $("cStudents").textContent=used.length;$("cNotices").textContent=notices.length;
- $("aNotices").innerHTML=notices.map(n=>`<div class="card notice ${n.priority}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p><span class="meta">${esc(target(n))} · ${esc(n.date)}</span><br><button class="del" style="margin-top:8px" onclick="removeNotice('${esc(n.id)}')">حذف</button></div>`).join("")||empty("لا توجد تبليغات منشورة.");
+ const deptCodes=codes.filter(c=>deptOf(c)===activeDept);
+ const deptNotices=notices.filter(n=>deptOf(n)===activeDept);
+ const used=deptCodes.filter(c=>c.used);
+ $("cStudents").textContent=used.length;$("cNotices").textContent=deptNotices.length;
+ $("aNotices").innerHTML=deptNotices.map(n=>`<div class="card notice ${n.priority}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editAdminNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`).join("")||empty("لا توجد تبليغات منشورة في هذا القسم.");
  const keep=id=>[...document.querySelectorAll("#"+id+" details[open]")].map(d=>d.dataset.s);
  const oS=keep("aStudents"),oC=keep("codeLists");
  const bySec=(a,b)=>a.section.localeCompare(b.section,"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
- $("aStudents").innerHTML=STAGES.map(st=>{
+ const stagesWithAll=[...STAGES,"all"];
+ $("aStudents").innerHTML=stagesWithAll.map(st=>{
+  const label=st==="all"?"مقررون (كل المراحل)":st;
   const l=used.filter(s=>s.stage===st).sort(bySec);
-  return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${st}<span class="cnt">${l.length}</span></summary>`+
-   (l.map(s=>`<div class="stu"><div><b>${esc(s.name)}</b><br><span class="meta">شعبة ${esc(s.section)} · <span class="ltr" style="display:inline-block">+${esc(s.phone)}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div><button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا يوجد طلاب مسجلون.</div>`)+`</details>`;
+  return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length}</span></summary>`+
+   (l.map(s=>`<div class="stu"><div><b>${esc(s.name)}</b> ${s.role==="rapporteur"?'<span class="tag rep">مقرر كل المراحل</span>':(s.role==="rep"?'<span class="tag rep">ممثل مرحلة</span>':"")}<br><span class="meta">شعبة ${esc(s.section)} · <span class="ltr" style="display:inline-block">+${esc(s.phone)}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div><button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
  }).join("");
- $("codeLists").innerHTML=STAGES.map(st=>{
-  const l=codes.filter(c=>c.stage===st&&!c.used).sort(bySec);
-  return `<details data-s="${st}" ${oC.includes(st)?"open":""}><summary>${st}<span class="cnt">${l.length} متاح</span></summary>`+
+ $("codeLists").innerHTML=stagesWithAll.map(st=>{
+  const label=st==="all"?"أكواد مقرر (كل المراحل)":st;
+  const l=deptCodes.filter(c=>c.stage===st&&!c.used).sort(bySec);
+  return `<details data-s="${st}" ${oC.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length} متاح</span></summary>`+
    `<div class="stu"><button class="sec" style="margin:0" onclick="copyCodes('${st}')">نسخ الأكواد المتاحة</button></div>`+
-   (l.map(c=>`<div class="stu"><div><b class="ltr" style="display:inline-block;letter-spacing:2px">${esc(c.id)}</b> <span class="tag">شعبة ${esc(c.section)}</span></div><button class="del" onclick="removeCode('${esc(c.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا توجد أكواد متاحة.</div>`)+`</details>`;
+   (l.map(c=>`<div class="stu"><div><b class="ltr" style="display:inline-block;letter-spacing:2px">${esc(c.id)}</b> <span class="tag">شعبة ${esc(c.section)}</span> ${c.role==="rapporteur"?'<span class="tag rep">مقرر كل المراحل</span>':(c.role==="rep"?'<span class="tag rep">ممثل مرحلة</span>':"")}</div><button class="del" onclick="removeCode('${esc(c.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا توجد أكواد متاحة.</div>`)+`</details>`;
  }).join("");
 }
 
@@ -351,6 +677,16 @@ function startNotices(){
  if(unsubN)return;
  unsubN=onSnapshot(query(collection(db,"notices"),orderBy("createdAt","desc")),snap=>{
   notices=snap.docs.map(d=>{const x=d.data(),t=x.createdAt?x.createdAt.toDate():new Date();return{id:d.id,...x,date:t.toLocaleString("ar-IQ"),day:t.toDateString()}});
+  if(me){
+   const mine=myNotices();
+   const hasBrandNew=!firstSnap&&mine.some(n=>!knownIds.has(n.id));
+   mine.forEach(n=>knownIds.add(n.id));
+   localStorage.setItem("knownIds",JSON.stringify([...knownIds].slice(-300)));
+   if(hasBrandNew)ringBell();
+   cacheAttachmentsLocally(mine);
+   updateBellUI();
+  }
+  firstSnap=false;
   renderStudent();if(isAdminView)renderAdmin();
  },()=>{unsubN=null});
 }
@@ -360,7 +696,7 @@ function startCodes(){
 }
 onAuthStateChanged(auth,async u=>{
  if(!u){if(unsubN){unsubN();unsubN=null}await signInAnonymously(auth).catch(()=>{});return}
- readyRes();startNotices();
+ readyRes();startLogoSync();startNotices();
  if(!u.isAnonymous){isAdminView=true;startCodes();renderAdmin();aTab("new");show("admin")}
  else{
   isAdminView=false;if(unsubC){unsubC();unsubC=null}codes=[];
@@ -373,11 +709,14 @@ addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;documen
 async function installApp(){if(deferred){deferred.prompt();deferred=null;document.querySelectorAll(".installB").forEach(b=>b.classList.add("hidden"))}}
 if(/iphone|ipad/i.test(navigator.userAgent)&&!navigator.standalone)$("iosHint").classList.remove("hidden");
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+if(customLogo)applyLogo(customLogo);
 
-function fill(id,items,first){$(id).innerHTML=first+items.map(x=>`<option value="${x}">${x.length<3?"شعبة "+x:x}</option>`).join("")}
+function fill(id,items,first){$(id).innerHTML=first+items.map(x=>`<option value="${esc(x)}">${x.length<3?"شعبة "+esc(x):esc(x)}</option>`).join("")}
+fill("lDept",DEPTS,"");fill("admDept",DEPTS,"");
 fill("gStage",STAGES,'<option value="">اختر</option>');fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tStage",STAGES,'<option value="all">كل المراحل</option>');fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,studentLogin,adminLogin,logout,sTab,aTab,setFilter,publish,removeNotice,removeCode,resetCode,genCodes,copyCodes,installApp});
+fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
+Object.assign(window,{show,studentLogin,adminLogin,logout,sTab,aTab,setFilter,onDeptChange,toggleStageForRole,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,removeNotice,removeCode,resetCode,genCodes,copyCodes,saveLogo,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles});
 </script>
 </body>
 </html>
