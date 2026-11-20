@@ -1,26 +1,45 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // غيّر البريد إلى بريد حساب الإدارة الذي تنشئه في Authentication
     function isAdmin() {
-      return request.auth != null && request.auth.token.get('email', '') == "ADMIN@example.com";
+      return request.auth != null && request.auth.token.firebase.sign_in_provider == 'password';
     }
-    // التبليغات: القراءة لأي جهاز، والكتابة للإدارة فقط
-    match /notices/{id} {
-      allow read: if request.auth != null;
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isDeptMgr(code, targetStage) {
+      return isSignedIn()
+        && code is string
+        && exists(/databases/$(database)/documents/codes/$(code))
+        && (
+          get(/databases/$(database)/documents/codes/$(code)).data.role == 'rapporteur'
+          || get(/databases/$(database)/documents/codes/$(code)).data.stage == 'all'
+          || (
+            get(/databases/$(database)/documents/codes/$(code)).data.role == 'rep'
+            && get(/databases/$(database)/documents/codes/$(code)).data.stage == targetStage
+          )
+        );
+    }
+
+    match /settings/{docId} {
+      allow read: if isSignedIn();
       allow write: if isAdmin();
     }
-    // الأكواد: الطالب يقرأ كوده فقط (بمعرفة الكود) ويستخدمه مرة واحدة
-    match /codes/{code} {
-      allow get: if request.auth != null;
+
+    match /notices/{noticeId} {
+      allow read: if isSignedIn();
+      allow create: if isAdmin() || isDeptMgr(request.resource.data.authorCode, request.resource.data.stage);
+      allow update, delete: if isAdmin() || isDeptMgr(resource.data.authorCode, resource.data.stage);
+    }
+
+    match /codes/{codeId} {
+      allow get: if isSignedIn();
       allow list, create, delete: if isAdmin();
       allow update: if isAdmin() || (
-        request.auth != null
+        isSignedIn()
         && resource.data.used == false
         && request.resource.data.used == true
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['used','name','phone','usedAt'])
-        && request.resource.data.name is string && request.resource.data.name.size() <= 80
-        && request.resource.data.phone is string && request.resource.data.phone.size() <= 15
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['used', 'name', 'phone', 'dept', 'usedAt'])
       );
     }
   }
