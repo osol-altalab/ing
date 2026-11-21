@@ -4,24 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1e6273">
-<title>تبليغات الكلية والأقسام</title>
+<title id="pageTitle">تبليغات الكلية والأقسام</title>
 <style>
 :root{
  --bg:#f4f7f8;--card:#ffffff;--line:#dde5e8;--ink:#1c2c33;--mute:#687b82;
  --navy:#1e6273;--navy2:#144654;--soft:#e7eff1;--warn:#1e6273;--warn-bg:#e9f3f5;
- --ok:#1e6273;--ok-bg:#e5f0f2;--err:#144654;--blue-bg:#e5f0f2;--amber-bg:#e7eff1
+ --ok:#1e6273;--ok-bg:#e5f0f2;--err:#144654;--blue-bg:#e5f0f2;--amber-bg:#e7eff1;
+ --alert-red:#d92d20
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
 .app{max-width:520px;margin:auto;min-height:100vh;position:relative}
 .top{background:var(--navy);color:#fff;padding:14px 14px 18px;display:flex;align-items:center;gap:10px;border-radius:0 0 22px 22px;position:relative}
 .top .brand{flex:1;display:flex;align-items:center;gap:10px}
-.logo{width:42px;height:42px;border-radius:12px;background:#ffffff22;display:grid;place-items:center;font-size:22px;overflow:hidden;flex:none}
-.logo img{width:100%;height:100%;object-fit:cover;display:block}
-.top h1{margin:0;font-size:16px}.top p{margin:0;font-size:12px;color:#dcebf0}
-.ibtn{width:42px;height:42px;border-radius:12px;background:#ffffff1f;border:0;color:#fff;font-size:18px;cursor:pointer;margin:0;padding:0;position:relative;flex:none;overflow:hidden;display:grid;place-items:center}
-.ibtn img{width:100%;height:100%;object-fit:cover;display:block}
-.badge{position:absolute;top:2px;right:2px;background:var(--navy2);color:#fff;font-size:10px;min-width:17px;height:17px;border-radius:10px;display:grid;place-items:center;padding:0 4px;font-weight:bold;border:1px solid #fff}
+.logo{width:42px;height:42px;border-radius:12px;background:#ffffff22;display:grid;place-items:center;font-size:22px;overflow:visible;flex:none;position:relative}
+.logo img{width:100%;height:100%;object-fit:cover;display:block;border-radius:12px}
+.ibtn{width:42px;height:42px;border-radius:12px;background:#ffffff1f;border:0;color:#fff;font-size:18px;cursor:pointer;margin:0;padding:0;position:relative;flex:none;overflow:visible;display:grid;place-items:center}
+.ibtn img{width:100%;height:100%;object-fit:cover;display:block;border-radius:12px}
+.badge{position:absolute;top:-5px;right:-5px;background:var(--alert-red);color:#fff;font-size:11px;min-width:19px;height:19px;border-radius:10px;display:grid;place-items:center;padding:0 5px;font-weight:bold;border:2px solid var(--navy);box-shadow:0 2px 6px rgba(217,45,32,.45)}
 .bell-pop{position:absolute;top:64px;right:14px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;z-index:50;box-shadow:0 10px 25px rgba(20,70,84,.14)}
 .bell-item{padding:8px;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
 .bell-item:last-child{border-bottom:0}
@@ -95,7 +95,15 @@ details[open] summary::after{transform:rotate(180deg)}
 
 <!-- ====== إنشاء حساب / الدخول ====== -->
 <section id="login">
- <div class="top"><div class="brand"><div class="logo"><img class="appLogoImg" src="icon-192.png" alt="شعار الكلية" onerror="this.outerHTML='🎓'"></div><div><h1>تبليغات الكلية</h1><p>كلية أصول العلم الأهلية</p></div></div></div>
+ <div class="top">
+  <div class="brand">
+   <div class="logo">
+    <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🎓'">
+    <span class="appNewBadge badge hidden">0</span>
+   </div>
+   <div><h1 class="appNameTxt">تبليغات الكلية</h1><p>كلية أصول العلم الأهلية</p></div>
+  </div>
+ </div>
  <div class="page">
   <div class="seg" style="margin-bottom:10px">
    <button id="authTabReg" class="on" onclick="switchAuthMode('reg')">إنشاء حساب</button>
@@ -149,13 +157,21 @@ details[open] summary::after{transform:rotate(180deg)}
    <button class="sec" onclick="show('adminLogin')">دخول إدارة الكلية / القسم</button>
   </div>
 
-  <button class="sec installB hidden" onclick="installApp()">⬇️ تثبيت التطبيق على الهاتف</button>
+  <button class="sec installB" onclick="installApp()">⬇️ تثبيت التطبيق على الهاتف</button>
   <p id="iosHint" class="meta hidden">لتثبيت التطبيق على آيفون: اضغط زر المشاركة في Safari ثم "إضافة إلى الشاشة الرئيسية".</p>
  </div>
 </section>
 
 <section id="adminLogin" class="hidden">
- <div class="top"><div class="brand"><div class="logo"><img class="appLogoImg" src="icon-192.png" alt="شعار الكلية" onerror="this.outerHTML='🛡️'"></div><div><h1>إدارة الكلية والأقسام</h1><p>دخول المسؤول</p></div></div></div>
+ <div class="top">
+  <div class="brand">
+   <div class="logo">
+    <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🛡️'">
+    <span class="appNewBadge badge hidden">0</span>
+   </div>
+   <div><h1 class="appNameTxt">إدارة الكلية والأقسام</h1><p>دخول المسؤول</p></div>
+  </div>
+ </div>
  <div class="page"><div class="card">
   <label for="adminEmail">بريد الإدارة</label>
   <input id="adminEmail" type="email" class="ltr" autocomplete="username">
@@ -171,8 +187,11 @@ details[open] summary::after{transform:rotate(180deg)}
 <section id="student" class="hidden">
  <div class="top">
   <div class="brand">
-   <div class="logo"><img class="appLogoImg" src="icon-192.png" alt="شعار الكلية" onerror="this.outerHTML='🎓'"></div>
-   <div><h1 id="sTopTitle">تبليغات القسم</h1><p id="sTopDept">هندسة تقنيات الأجهزة الطبية</p></div>
+   <button id="appIconBtn" class="logo" onclick="sTab('notices')" aria-label="أيقونة التطبيق والتبليغات" style="border:0;padding:0;cursor:pointer">
+    <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🎓'">
+    <span class="appNewBadge badge hidden">0</span>
+   </button>
+   <div><h1 id="sTopTitle" class="appNameTxt">تبليغات القسم</h1><p id="sTopDept">هندسة تقنيات الأجهزة الطبية</p></div>
   </div>
   <button class="ibtn" onclick="toggleBell()" aria-label="التنبيهات">🔔<span id="bellBadge" class="badge hidden">0</span></button>
   <button class="ibtn" onclick="sTab('account')" aria-label="صورة الطالب وحسابي"><img id="topStudentImg" src="icon-192.png" alt="صورة الطالب" onerror="this.outerHTML='👤'"></button>
@@ -233,7 +252,7 @@ details[open] summary::after{transform:rotate(180deg)}
 
   <div id="sAccount" class="hidden">
    <div class="card">
-    <img id="accStudentImg" class="acc-avatar appLogoImg" src="icon-192.png" alt="صورة الطالب">
+    <img id="accStudentImg" class="acc-avatar" src="icon-192.png" alt="صورة الطالب">
     <h3 id="aName"></h3>
     <p class="meta" id="aInfo"></p>
     <p class="meta ltr" id="aPhone"></p>
@@ -246,7 +265,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <button class="sec" onclick="updateStudentPhoto()">حفظ الصورة</button>
     <p class="meta" id="storageStat"></p>
     <button class="sec" onclick="clearLocalFiles()">🗑️ تفريغ الملفات المحفوظة على الهاتف</button>
-    <button class="sec installB hidden" onclick="installApp()">⬇️ تثبيت التطبيق على الهاتف</button>
+    <button class="sec installB" onclick="installApp()">⬇️ تثبيت التطبيق على الهاتف</button>
     <button onclick="logout()">تسجيل الخروج</button>
    </div>
   </div>
@@ -263,7 +282,10 @@ details[open] summary::after{transform:rotate(180deg)}
 <section id="admin" class="hidden">
  <div class="top">
   <div class="brand">
-   <div class="logo"><img class="appLogoImg" src="icon-192.png" alt="شعار الكلية" onerror="this.outerHTML='🛡️'"></div>
+   <div class="logo">
+    <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🛡️'">
+    <span class="appNewBadge badge hidden">0</span>
+   </div>
    <div><h1>لوحة الإدارة</h1><p id="admTopDept">كلية أصول العلم · الأقسام العلمية</p></div>
   </div>
   <button class="ibtn" onclick="logout()" aria-label="تسجيل الخروج">⎋</button>
@@ -315,10 +337,13 @@ details[open] summary::after{transform:rotate(180deg)}
    <button id="admCancelBtn" class="sec hidden" onclick="resetAdmForm()">إلغاء التعديل</button>
 
    <hr style="border:0;border-top:1px solid var(--line);margin:16px 0 12px">
-   <h3>صورة لوكو التطبيق</h3>
-   <p class="meta">ارفع صورة اللوكو من الهاتف ليظهر في التطبيق وعند تثبيته.</p>
+   <h3>اسم وصورة التطبيق</h3>
+   <p class="meta">غيّر اسم التطبيق وصورته ليظهرا في الشاشة وعند التثبيت على الهاتف.</p>
+   <label for="appNameInput">اسم التطبيق</label>
+   <input id="appNameInput" placeholder="مثال: تبليغات الكلية">
+   <label for="logoFile">صورة التطبيق</label>
    <input id="logoFile" type="file" accept="image/*">
-   <button class="sec" onclick="saveLogo()">حفظ صورة اللوكو</button>
+   <button class="sec" onclick="saveBrandSettings()">حفظ الاسم والصورة</button>
   </div>
   <div id="aNotices" class="hidden"></div>
   <div id="aStudents" class="hidden"></div>
@@ -366,8 +391,8 @@ const ROLES={
  dept_admin:"مدير قسم"
 };
 let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات المرضية"]);
-let notices=[],codes=[],me=null,filter="all",unsubN=null,unsubC=null,unsubBrand=null,isAdminView=false,deferred=null,readyRes;
-let activeDept=DEFAULT_DEPTS[0],customLogo=localStorage.getItem("customLogo")||"";
+let notices=[],codes=[],me=null,filter="all",unsubN=null,unsubC=null,unsubBrand=null,isAdminView=false,deferred=null,readyRes,audioCtx=null;
+let activeDept=DEFAULT_DEPTS[0],customLogo=localStorage.getItem("customLogo")||"",appTitle=localStorage.getItem("appTitle")||"تبليغات الكلية";
 let soundOn=localStorage.getItem("soundOn")!=="0",knownIds=new Set(JSON.parse(localStorage.getItem("knownIds")||"[]")),readIds=new Set(JSON.parse(localStorage.getItem("readIds")||"[]")),firstSnap=true;
 const authReady=new Promise(r=>readyRes=r);
 try{me=JSON.parse(localStorage.getItem("me")||"null")}catch(e){}
@@ -388,7 +413,6 @@ const canManageNotice=(u,n)=>{
 };
 const isStaffRole=r=>["rep","rapporteur","teacher","dept_admin"].includes(r);
 
-/* توحيد الاسم والرقم لمنع التكرار */
 function normName(n){
  return String(n||"")
   .trim()
@@ -408,13 +432,11 @@ function normPhone(p){
 }
 async function checkDuplicateAccount(cleanName,phone){
  const nKey=normName(cleanName);
- // فحص في الذاكرة إن وجدت
  for(const c of codes){
   if((c.phone&&normPhone(c.phone)===phone)||(c.name&&normName(c.name)===nKey)){
    return "هذا الاسم أو رقم الهاتف مستخدم مسبقاً ولا يُسمح بتكرار التسجيل أكثر من مرة واحدة.";
   }
  }
- // فحص مباشر في Firestore عبر استعلامات محددة
  const qPhone=await getDocs(query(collection(db,"codes"),where("phone","==",phone)));
  if(!qPhone.empty)return "رقم الهاتف مستخدم مسبقاً ولا يُسمح بالتسجيل بأكثر من حساب.";
  const qName=await getDocs(query(collection(db,"codes"),where("name","==",cleanName)));
@@ -519,30 +541,43 @@ async function deleteActiveDept(){
  try{await persistDepts();alert("تم حذف القسم.")}catch(e){alert("تعذر حفظ الحذف في قاعدة البيانات.")}
 }
 
-/* ===== اللوكو وصورة الطالب ===== */
-function applyLogo(dataUrl){
- if(!dataUrl)return;
- customLogo=dataUrl;
- try{localStorage.setItem("customLogo",dataUrl)}catch(e){}
- document.querySelectorAll(".appLogoImg").forEach(img=>{if(img.id!=="accStudentImg"||!(me&&me.photo))img.src=dataUrl});
- applyStudentPhotoUI();
- if($("appleIcon"))$("appleIcon").href=dataUrl;
+/* ===== اسم وصورة التطبيق ===== */
+function syncManifest(){
+ const iconSrc=customLogo||"icon-192.png";
  try{
   const manifestObj={
-   name:"تبليغات الكلية والأقسام",
-   short_name:"تبليغات الكلية",
+   name:appTitle,
+   short_name:appTitle,
    start_url:".",
    display:"standalone",
    background_color:"#f4f7f8",
    theme_color:"#1e6273",
    icons:[
-    {src:dataUrl,sizes:"192x192",type:"image/png"},
-    {src:dataUrl,sizes:"512x512",type:"image/png"}
+    {src:iconSrc,sizes:"192x192",type:"image/png"},
+    {src:iconSrc,sizes:"512x512",type:"image/png"}
    ]
   };
   const blob=new Blob([JSON.stringify(manifestObj)],{type:"application/json"});
   if($("dynManifest"))$("dynManifest").href=URL.createObjectURL(blob);
  }catch(e){}
+}
+function applyAppTitle(name){
+ if(!name)return;
+ appTitle=name.trim();
+ try{localStorage.setItem("appTitle",appTitle)}catch(e){}
+ if($("pageTitle"))$("pageTitle").textContent=appTitle;
+ document.querySelectorAll(".appNameTxt").forEach(el=>{el.textContent=appTitle});
+ if($("appNameInput")&&!$("appNameInput").value)$("appNameInput").value=appTitle;
+ syncManifest();
+}
+function applyLogo(dataUrl){
+ if(!dataUrl)return;
+ customLogo=dataUrl;
+ try{localStorage.setItem("customLogo",dataUrl)}catch(e){}
+ document.querySelectorAll(".appLogoImg").forEach(img=>{img.src=dataUrl});
+ applyStudentPhotoUI();
+ if($("appleIcon"))$("appleIcon").href=dataUrl;
+ syncManifest();
 }
 function applyStudentPhotoUI(){
  const pic=(me&&me.photo)||customLogo||"icon-192.png";
@@ -566,6 +601,7 @@ function startBrandSync(){
  unsubBrand=onSnapshot(doc(db,"settings","brand"),snap=>{
   if(!snap.exists())return;
   const d=snap.data();
+  if(d.appName)applyAppTitle(d.appName);
   if(d.logo)applyLogo(d.logo);
   if(Array.isArray(d.depts))depts=[...d.depts];
   if(Array.isArray(d.fifthStageDepts))fifthStageDepts=new Set(d.fifthStageDepts);
@@ -574,16 +610,22 @@ function startBrandSync(){
   if(isAdminView)renderAdmin();
  },()=>{unsubBrand=null});
 }
-async function saveLogo(){
+async function saveBrandSettings(){
+ const newTitle=($("appNameInput").value||appTitle||"تبليغات الكلية").trim();
  const f=$("logoFile").files[0];
- if(!f){alert("اختر صورة للوكو أولاً.");return}
  try{
-  const dataUrl=await compressImage(f,512,0.82);
-  await setDoc(doc(db,"settings","brand"),{logo:dataUrl,depts,fifthStageDepts:[...fifthStageDepts],updatedAt:serverTimestamp()},{merge:true});
-  applyLogo(dataUrl);
+  const payload={appName:newTitle,depts,fifthStageDepts:[...fifthStageDepts],updatedAt:serverTimestamp()};
+  let nextLogo=customLogo;
+  if(f){
+   nextLogo=await compressImage(f,512,0.82);
+   payload.logo=nextLogo;
+  }
+  await setDoc(doc(db,"settings","brand"),payload,{merge:true});
+  applyAppTitle(newTitle);
+  if(nextLogo)applyLogo(nextLogo);
   $("logoFile").value="";
-  alert("تم حفظ صورة اللوكو بنجاح وستظهر في التطبيق وعند تثبيته.");
- }catch(e){alert("تعذر حفظ صورة اللوكو.")}
+  alert("تم حفظ اسم وصورة التطبيق بنجاح.");
+ }catch(e){alert("تعذر حفظ اسم وصورة التطبيق.")}
 }
 
 function compressImage(file,maxDim=1100,quality=0.76){
@@ -615,17 +657,29 @@ const idb={
  async clear(){const d=await this.open();return new Promise(res=>{const tx=d.transaction("files","readwrite");tx.objectStore("files").clear();tx.oncomplete=res})}
 };
 
-/* ===== صوت الجرس والتنبيهات ===== */
+/* ===== صوت الجرس والعداد الأحمر فوق الأيقونة ===== */
+function ensureAudioContext(){
+ try{
+  const Ctx=window.AudioContext||window.webkitAudioContext;
+  if(!Ctx)return null;
+  if(!audioCtx)audioCtx=new Ctx();
+  if(audioCtx.state==="suspended")audioCtx.resume().catch(()=>{});
+  return audioCtx;
+ }catch(e){return null}
+}
+document.addEventListener("pointerdown",()=>{if(soundOn)ensureAudioContext()},{passive:true});
+
 function ringBell(){
  if(!soundOn)return;
  try{
-  const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;
-  const ctx=new Ctx(),now=ctx.currentTime;
+  const ctx=ensureAudioContext();
+  if(!ctx)return;
+  const now=ctx.currentTime;
   [880,1174.66,1318.5].forEach((freq,i)=>{
    const o=ctx.createOscillator(),g=ctx.createGain();
    o.type="sine";o.frequency.setValueAtTime(freq,now+i*0.14);
    g.gain.setValueAtTime(0.001,now+i*0.14);
-   g.gain.exponentialRampToValueAtTime(0.22,now+i*0.14+0.03);
+   g.gain.exponentialRampToValueAtTime(0.26,now+i*0.14+0.03);
    g.gain.exponentialRampToValueAtTime(0.0001,now+i*0.14+0.55);
    o.connect(g);g.connect(ctx.destination);
    o.start(now+i*0.14);o.stop(now+i*0.14+0.6);
@@ -638,19 +692,38 @@ function toggleSound(){
  $("soundBtn").textContent=soundOn?"🔊 الرنين مفعل":"🔇 الرنين مكتوم";
  if(soundOn)ringBell();
 }
+function setAppIconBadge(count){
+ const n=Math.max(0,Number(count)||0);
+ document.querySelectorAll(".appNewBadge").forEach(el=>{
+  if(n>0){el.textContent=n>99?"99+":String(n);el.classList.remove("hidden")}
+  else el.classList.add("hidden");
+ });
+ try{
+  if(navigator.setAppBadge){
+   if(n>0)navigator.setAppBadge(n).catch(()=>{});
+   else navigator.clearAppBadge().catch(()=>{});
+  }
+ }catch(e){}
+}
+function markAllNoticesRead(){
+ if(!me)return;
+ const mine=myNotices();
+ mine.forEach(n=>readIds.add(n.id));
+ try{localStorage.setItem("readIds",JSON.stringify([...readIds].slice(-300)))}catch(e){}
+ updateBellUI();
+}
 function toggleBell(){
  const p=$("bellPop");p.classList.toggle("hidden");
  if(!p.classList.contains("hidden")){
-  const mine=myNotices();mine.forEach(n=>readIds.add(n.id));
-  localStorage.setItem("readIds",JSON.stringify([...readIds].slice(-300)));
-  updateBellUI();
+  markAllNoticesRead();
  }
 }
 function updateBellUI(){
- if(!me)return;
+ if(!me){setAppIconBadge(0);return}
  const mine=myNotices(),unread=mine.filter(n=>!readIds.has(n.id));
  const b=$("bellBadge");
- if(unread.length){b.textContent=unread.length;b.classList.remove("hidden")}else b.classList.add("hidden");
+ if(unread.length){b.textContent=unread.length>99?"99+":String(unread.length);b.classList.remove("hidden")}else b.classList.add("hidden");
+ setAppIconBadge(unread.length);
  $("bellList").innerHTML=mine.slice(0,5).map(n=>`<div class="bell-item" onclick="$('bellPop').classList.add('hidden');sTab('notices')"><b>${esc(n.title)}</b><div class="meta">${esc(n.date)}</div></div>`).join("")||'<div class="meta">لا توجد تنبيهات</div>';
 }
 
@@ -698,11 +771,12 @@ async function openAttachment(noticeId){
 function show(id){["login","adminLogin","student","admin"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");scrollTo(0,0)}
 async function logout(){
  me=null;isAdminView=false;try{localStorage.removeItem("me")}catch(e){}
+ setAppIconBadge(0);
  $("lCodeReg").value="";$("inCode").value="";$("bellPop").classList.add("hidden");
  if(auth.currentUser&&!auth.currentUser.isAnonymous){await signOut(auth)}else show("login");
 }
 
-/* ===== إنشاء حساب وإرسال الرمز إلى واتساب (لمرة واحدة لكل اسم ورقم) ===== */
+/* ===== إنشاء حساب وإرسال الرمز إلى واتساب ===== */
 async function requestWhatsAppCode(){
  const name=$("lName").value.trim().replace(/\s+/g," ");
  const phone=normPhone($("lPhone").value);
@@ -741,7 +815,7 @@ async function requestWhatsAppCode(){
   $("waCodePrompt").classList.remove("hidden");
   $("lCodeReg").focus();
   const waMsg=
-   "رمز الدخول الخاص بك لتطبيق التبليغات هو: "+code+"\n"+
+   "رمز الدخول الخاص بك لتطبيق ("+appTitle+") هو: "+code+"\n"+
    "القسم: "+dept+"\n"+
    "⚠️ تحذير: لا تشارك هذا الرمز مع أي شخص، واحتفظ به جيداً لأنك ستحتاجه للدخول إذا قمت بتسجيل الخروج.";
   window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(waMsg),"_blank");
@@ -880,6 +954,7 @@ async function adminLogin(){
 function sTab(t){
  const m={home:["sHome","nHome"],notices:["sNotices","nNotices"],rep:["sRep","nRep"],account:["sAccount","nAccount"]};
  for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
+ if(t==="notices")markAllNoticesRead();
  $("bellPop").classList.add("hidden");scrollTo(0,0);
 }
 function aTab(t){
@@ -986,14 +1061,14 @@ async function genCodes(){
  try{
   await batch.commit();
   const wa=normPhone($("waPhone").value);
-  const txt="رمز الدخول لتطبيق التبليغات ("+activeDept+"):\n"+created.join("\n")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول بعد تسجيل الخروج.";
+  const txt="رمز الدخول لتطبيق ("+appTitle+") - "+activeDept+":\n"+created.join("\n")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول بعد تسجيل الخروج.";
   if(wa){window.open("https://wa.me/"+wa+"?text="+encodeURIComponent(txt),"_blank")}
   else alert("تم إنشاء "+n+" رمز لقسم "+activeDept+".");
  }catch(e){fail()}
 }
 function sendSingleCodeWhatsApp(codeId){
  const c=codes.find(x=>x.id===codeId);
- const msg="رمز الدخول الخاص بك لتطبيق التبليغات:\nالرمز: "+codeId+(c&&c.dept?"\nالقسم: "+c.dept:"")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول إذا سجلت الخروج.";
+ const msg="رمز الدخول الخاص بك لتطبيق ("+appTitle+"):\nالرمز: "+codeId+(c&&c.dept?"\nالقسم: "+c.dept:"")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول إذا سجلت الخروج.";
  const wa=normPhone((c&&c.phone)||$("waPhone").value);
  const url=wa?("https://wa.me/"+wa+"?text="+encodeURIComponent(msg)):("https://wa.me/?text="+encodeURIComponent(msg));
  window.open(url,"_blank");
@@ -1001,7 +1076,7 @@ function sendSingleCodeWhatsApp(codeId){
 function sendCodesWhatsApp(){
  const avail=codes.filter(c=>deptOf(c)===activeDept&&!c.used);
  if(!avail.length){alert("لا توجد رموز غير مستخدمة في هذا القسم.");return}
- const msg="رموز الدخول لقسم ("+activeDept+"):\n"+avail.slice(0,25).map(c=>c.id+" ("+(c.stage==="all"?"كل المراحل":c.stage)+" - شعبة "+c.section+")").join("\n")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول بعد تسجيل الخروج.";
+ const msg="رموز الدخول لتطبيق ("+appTitle+") - قسم ("+activeDept+"):\n"+avail.slice(0,25).map(c=>c.id+" ("+(c.stage==="all"?"كل المراحل":c.stage)+" - شعبة "+c.section+")").join("\n")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول بعد تسجيل الخروج.";
  const wa=normPhone($("waPhone").value);
  const url=wa?("https://wa.me/"+wa+"?text="+encodeURIComponent(msg)):("https://wa.me/?text="+encodeURIComponent(msg));
  window.open(url,"_blank");
@@ -1124,10 +1199,21 @@ onAuthStateChanged(auth,async u=>{
 });
 
 /* ===== تثبيت التطبيق ===== */
-addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;document.querySelectorAll(".installB").forEach(b=>b.classList.remove("hidden"))});
-async function installApp(){if(deferred){deferred.prompt();deferred=null;document.querySelectorAll(".installB").forEach(b=>b.classList.add("hidden"))}}
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e});
+async function installApp(){
+ if(deferred){
+  deferred.prompt();
+  await deferred.userChoice.catch(()=>{});
+  deferred=null;
+ }else if(/iphone|ipad/i.test(navigator.userAgent)&&!navigator.standalone){
+  alert('لتثبيت التطبيق على آيفون: اضغط زر المشاركة (Share) في Safari ثم اختر "إضافة إلى الشاشة الرئيسية".');
+ }else{
+  alert('لتثبيت التطبيق على الهاتف: افتح قائمة المتصفح (⋮) واختر "تثبيت التطبيق" أو "إضافة إلى الشاشة الرئيسية".');
+ }
+}
 if(/iphone|ipad/i.test(navigator.userAgent)&&!navigator.standalone)$("iosHint").classList.remove("hidden");
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+applyAppTitle(appTitle);
 if(customLogo)applyLogo(customLogo);
 
 function fill(id,items,first){$(id).innerHTML=first+items.map(x=>`<option value="${esc(x)}">${x.length<3?"شعبة "+esc(x):esc(x)}</option>`).join("")}
@@ -1135,7 +1221,7 @@ refreshDeptSelects();
 fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,changeUserRole,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveLogo,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles});
+Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,changeUserRole,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles});
 </script>
 </body>
 </html>
