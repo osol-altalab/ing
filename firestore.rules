@@ -33,8 +33,8 @@ service cloud.firestore {
     }
 
     match /codes/{codeId} {
-      allow get: if isSignedIn();
-      allow list, delete: if isAdmin();
+      allow get, list: if isSignedIn();
+      allow delete: if isAdmin();
       allow create: if isAdmin() || (
         isSignedIn()
         && request.resource.data.role == 'student'
