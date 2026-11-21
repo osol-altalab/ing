@@ -23,7 +23,14 @@ service cloud.firestore {
             && codeDoc(data.authorCode).role == 'teacher'
           )
           || (
+            data.channel == 'private_student'
+            && codeDoc(data.authorCode).role in ['rapporteur', 'dept_admin']
+            && data.targetStudentCode is string
+            && exists(/databases/$(database)/documents/codes/$(data.targetStudentCode))
+          )
+          || (
             data.channel != 'teachers_room'
+            && data.channel != 'private_student'
             && (
               codeDoc(data.authorCode).role in ['rapporteur', 'dept_admin', 'teacher']
               || (
@@ -58,6 +65,7 @@ service cloud.firestore {
         || canModifyNotice(resource.data)
         || (
           isSignedIn()
+          && resource.data.channel == 'private_student'
           && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['replies'])
           && request.resource.data.replies.size() <= (resource.data.get('replies', []).size() + 1)
         );
