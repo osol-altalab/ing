@@ -43,7 +43,13 @@ h3{margin:4px 0 10px;font-size:16px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
 .notice{border-right:4px solid var(--navy)}
 .notice.important{border-right-color:var(--navy2);background:var(--warn-bg)}
-.notice h4{margin:4px 0;font-size:15px}.notice p{margin:2px 0 8px;font-size:14px;white-space:pre-wrap}
+.notice-title{margin:6px 0 4px;font-size:15px;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.notice-title::after{content:"▾";font-size:12px;color:var(--mute);flex:none}
+.notice.open .notice-title::after{content:"▴"}
+.notice-body{margin:2px 0 8px;font-size:14px;white-space:pre-wrap;max-height:46px;overflow:hidden;position:relative;color:var(--ink)}
+.notice.open .notice-body{max-height:none;overflow:visible}
+.notice:not(.open) .notice-body::after{content:"";position:absolute;bottom:0;left:0;right:0;height:20px;background:linear-gradient(transparent,var(--card))}
+.notice.important:not(.open) .notice-body::after{background:linear-gradient(transparent,var(--warn-bg))}
 .meta{font-size:12px;color:var(--mute)}
 .warn-note{background:var(--warn-bg);border:1px solid var(--line);border-right:4px solid var(--navy2);border-radius:12px;padding:10px 12px;margin-top:10px;font-size:12px;color:var(--ink)}
 .tag{display:inline-block;font-size:11px;background:var(--soft);color:var(--ink);border-radius:20px;padding:1px 10px;margin-left:4px}
@@ -79,8 +85,8 @@ details[open] summary::after{transform:rotate(180deg)}
 .stu{padding:10px 14px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .stu div{flex:1;min-width:160px}.stu b{font-size:14px}
 .nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));border-radius:20px 20px 0 0;z-index:40}
-.nav button{background:none;color:var(--mute);margin:0;padding:6px 0;font-size:12px;flex:1;position:relative}
-.nav button span{display:block;font-size:20px}
+.nav button{background:none;color:var(--mute);margin:0;padding:6px 0;font-size:11px;flex:1;position:relative}
+.nav button span{display:block;font-size:19px}
 .nav button.on{color:var(--navy);font-weight:bold}
 .nav button.on::before{content:"";position:absolute;top:-8px;left:30%;right:30%;height:3px;border-radius:3px;background:var(--navy)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -216,7 +222,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <div class="stat"><div class="ico a">📌</div><b id="stImp">0</b><span>مهمة</span></div>
     <div class="stat"><div class="ico g">🆕</div><b id="stNew">0</b><span>اليوم</span></div>
    </div>
-   <h3>آخر التبليغات</h3>
+   <h3>آخر التبليغات <span class="meta">(اضغط على العنوان لقراءة النص الكامل)</span></h3>
    <div id="homeNotices"></div>
   </div>
 
@@ -234,7 +240,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <input id="rTitle" placeholder="مثال: محاضرة إضافية أو تبليغ شعبة">
     <label for="rBody">النص</label>
     <textarea id="rBody" rows="4" placeholder="اكتب تفاصيل التبليغ"></textarea>
-    <div class="row">
+    <div class="row" id="rTargetRow">
      <div><label for="rStage">المرحلة</label><select id="rStage"></select></div>
      <div><label for="rSection">الشعبة</label><select id="rSection"></select></div>
     </div>
@@ -248,6 +254,28 @@ details[open] summary::after{transform:rotate(180deg)}
    </div>
    <h3 id="repListTitle">التبليغات المتاحة للتعديل والحذف</h3>
    <div id="repNotices"></div>
+  </div>
+
+  <!-- غرفة تبليغات الأساتذة الخاصة (تظهر للأساتذة والمدير والمقرر فقط) -->
+  <div id="sTeachersRoom" class="hidden">
+   <div class="card" id="trComposerCard">
+    <h3>👨‍🏫 غرفة تبليغات الأساتذة</h3>
+    <p class="meta">غرفة خاصة بالأساتذة في القسم؛ يظهر فيها تبليغ الأستاذ باسمه وصفته (أستاذ) وتظهر للمدير والمقرر فقط.</p>
+    <input type="hidden" id="trEditId">
+    <label for="trTitle">عنوان التبليغ للأساتذة</label>
+    <input id="trTitle" placeholder="مثال: تنسيق السعي أو جدول اللجان">
+    <label for="trBody">نص التبليغ</label>
+    <textarea id="trBody" rows="4" placeholder="اكتب تفاصيل التبليغ الخاص بالأساتذة"></textarea>
+    <label for="trPriority">الأهمية</label>
+    <select id="trPriority"><option value="normal">تبليغ عادي</option><option value="important">تبليغ مهم</option></select>
+    <label for="trFile">مرفق (اختياري)</label>
+    <input id="trFile" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+    <div id="trFileNote" class="meta"></div>
+    <button id="trPubBtn" onclick="teacherRoomPublish()">نشر في غرفة الأساتذة</button>
+    <button id="trCancelBtn" class="sec hidden" onclick="resetTeacherRoomForm()">إلغاء التعديل</button>
+   </div>
+   <h3>تبليغات الغرفة</h3>
+   <div id="teacherRoomList"></div>
   </div>
 
   <div id="sAccount" class="hidden">
@@ -273,7 +301,8 @@ details[open] summary::after{transform:rotate(180deg)}
  <nav class="nav">
   <button id="nHome" class="on" onclick="sTab('home')"><span>🏠</span>الرئيسية</button>
   <button id="nNotices" onclick="sTab('notices')"><span>📋</span>التبليغات</button>
-  <button id="nRep" class="hidden" onclick="sTab('rep')"><span>✍️</span>إدارة التبليغات</button>
+  <button id="nRep" class="hidden" onclick="sTab('rep')"><span>✍️</span>النشر</button>
+  <button id="nTeachersRoom" class="hidden" onclick="sTab('teachersRoom')"><span>👨‍🏫</span>غرفة الأساتذة</button>
   <button id="nAccount" onclick="sTab('account')"><span>👤</span>حسابي</button>
  </nav>
 </section>
@@ -314,7 +343,7 @@ details[open] summary::after{transform:rotate(180deg)}
   <div class="seg">
    <button id="atNew" class="on" onclick="aTab('new')">نشر تبليغ</button>
    <button id="atNotices" onclick="aTab('notices')">التبليغات</button>
-   <button id="atStudents" onclick="aTab('students')">الطلاب والصلاحيات</button>
+   <button id="atStudents" onclick="aTab('students')">الصلاحيات</button>
    <button id="atCodes" onclick="aTab('codes')">الأكواد</button>
   </div>
   <div id="aNew" class="card">
@@ -350,7 +379,7 @@ details[open] summary::after{transform:rotate(180deg)}
   <div id="aCodes" class="hidden">
    <div class="card">
     <h3>إنشاء رموز وإرسالها للواتساب</h3>
-    <p class="meta">يبدأ الحساب الجديد كـ "طالب" ويمكنك تغيير صلاحيته لاحقاً من تبويب الطلاب والصلاحيات.</p>
+    <p class="meta">يبدأ الحساب الجديد كـ "طالب" ويمكنك تغيير صلاحيته لاحقاً من تبويب الصلاحيات.</p>
     <div class="row"><div><label for="gStage">المرحلة</label><select id="gStage"></select></div><div><label for="gSection">الشعبة</label><select id="gSection"></select></div></div>
     <div class="row">
      <div><label for="gRole">الصلاحية المبدئية</label><select id="gRole" onchange="toggleStageForRole()"><option value="student">طالب</option><option value="rep">ممثل</option><option value="rapporteur">مقرر</option><option value="teacher">مدرس</option><option value="dept_admin">مدير قسم</option></select></div>
@@ -394,6 +423,7 @@ let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات الم
 let notices=[],codes=[],me=null,filter="all",unsubN=null,unsubC=null,unsubBrand=null,isAdminView=false,deferred=null,readyRes,audioCtx=null;
 let activeDept=DEFAULT_DEPTS[0],customLogo=localStorage.getItem("customLogo")||"",appTitle=localStorage.getItem("appTitle")||"تبليغات الكلية";
 let soundOn=localStorage.getItem("soundOn")!=="0",knownIds=new Set(JSON.parse(localStorage.getItem("knownIds")||"[]")),readIds=new Set(JSON.parse(localStorage.getItem("readIds")||"[]")),firstSnap=true;
+let expandedIds=new Set(JSON.parse(localStorage.getItem("expandedIds")||"[]"));
 const authReady=new Promise(r=>readyRes=r);
 try{me=JSON.parse(localStorage.getItem("me")||"null")}catch(e){}
 const $=id=>document.getElementById(id);
@@ -404,14 +434,26 @@ const hasFifthStage=deptName=>fifthStageDepts.has(deptName)||isMedicalDept(deptN
 const stagesForDept=deptName=>hasFifthStage(deptName)?[...BASE_STAGES,FIFTH_STAGE]:[...BASE_STAGES];
 const roleLabel=r=>ROLES[r]||ROLES.student;
 const canManageAll=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
+const canViewTeachersRoom=u=>u&&["teacher","rapporteur","dept_admin"].includes(u.role||"student");
+const canPostTeachersRoom=u=>u&&(u.role||"student")==="teacher";
 const canManageNotice=(u,n)=>{
  if(!u)return false;
  const r=u.role||"student";
- if(r==="dept_admin"||r==="rapporteur"||r==="teacher")return true;
- if(r==="rep")return (n.stage||"all")===u.stage;
+ if(n.channel==="teachers_room"){
+  if(r==="dept_admin"||r==="rapporteur")return true;
+  if(r==="teacher")return n.authorCode===u.code;
+  return false;
+ }
+ if(r==="dept_admin"||r==="rapporteur")return true;
+ if(r==="teacher"||r==="rep")return n.authorCode===u.code;
  return false;
 };
 const isStaffRole=r=>["rep","rapporteur","teacher","dept_admin"].includes(r);
+function authorDisplay(u){
+ const shortName=(u.name||"").trim().split(" ").slice(0,2).join(" ")||"مستخدم";
+ if((u.role||"student")==="teacher")return "أستاذ: "+shortName;
+ return roleLabel(u.role)+": "+shortName;
+}
 
 function normName(n){
  return String(n||"")
@@ -727,6 +769,16 @@ function updateBellUI(){
  $("bellList").innerHTML=mine.slice(0,5).map(n=>`<div class="bell-item" onclick="$('bellPop').classList.add('hidden');sTab('notices')"><b>${esc(n.title)}</b><div class="meta">${esc(n.date)}</div></div>`).join("")||'<div class="meta">لا توجد تنبيهات</div>';
 }
 
+/* ===== طي وفتح نص التبليغ بالضغط على العنوان ===== */
+function toggleNoticeText(id){
+ if(!id)return;
+ if(expandedIds.has(id))expandedIds.delete(id);
+ else expandedIds.add(id);
+ try{localStorage.setItem("expandedIds",JSON.stringify([...expandedIds].slice(-200)))}catch(e){}
+ renderStudent();
+ if(isAdminView)renderAdmin();
+}
+
 /* ===== تجهيز الملفات المرفقة ===== */
 async function readAttachment(inputId){
  const f=$(inputId).files[0];if(!f)return null;
@@ -919,6 +971,7 @@ function openStudent(){
 
  const rLabel=roleLabel(me.role);
  const isMgr=isStaffRole(me.role);
+ const hasRoom=canViewTeachersRoom(me);
  const stList=stagesForDept(me.dept);
 
  $("sTopDept").textContent=me.dept;
@@ -930,6 +983,8 @@ function openStudent(){
  $("aPhone").textContent="+"+me.phone;
  $("aCodeInfo").textContent="رمز الدخول الخاص بك: "+me.code;
  $("nRep").classList.toggle("hidden",!isMgr);
+ $("nTeachersRoom").classList.toggle("hidden",!hasRoom);
+ $("trComposerCard").classList.toggle("hidden",!canPostTeachersRoom(me));
 
  if(isMgr){
   if(canManageAll(me)){
@@ -937,7 +992,10 @@ function openStudent(){
    $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لجميع مراحل قسم: "+me.dept;
   }else if(me.role==="rep"){
    $("rStage").innerHTML=`<option value="${esc(me.stage)}">${esc(me.stage)}</option>`;
-   $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لـ: "+me.dept+" · "+me.stage;
+   $("repScopeMeta").textContent="نشر تبليغات مرحلتك ("+me.stage+") مع تعديل وحذف تبليغاتك فقط.";
+  }else if(me.role==="teacher"){
+   fill("rStage",stList,'<option value="all">كل المراحل</option>');
+   $("repScopeMeta").textContent="نشر التبليغات باسمك وصفتك (أستاذ) مع تعديل وحذف تبليغاتك فقط.";
   }else{
    fill("rStage",stList,'<option value="all">كل المراحل</option>');
    $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لقسم: "+me.dept;
@@ -952,7 +1010,9 @@ async function adminLogin(){
 }
 
 function sTab(t){
- const m={home:["sHome","nHome"],notices:["sNotices","nNotices"],rep:["sRep","nRep"],account:["sAccount","nAccount"]};
+ if(t==="teachersRoom"&&!canViewTeachersRoom(me))t="home";
+ if(t==="rep"&&!isStaffRole(me&&me.role))t="home";
+ const m={home:["sHome","nHome"],notices:["sNotices","nNotices"],rep:["sRep","nRep"],teachersRoom:["sTeachersRoom","nTeachersRoom"],account:["sAccount","nAccount"]};
  for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
  if(t==="notices")markAllNoticesRead();
  $("bellPop").classList.add("hidden");scrollTo(0,0);
@@ -977,7 +1037,7 @@ async function publish(){
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  try{
   const att=await readAttachment("aFile");
-  const payload={title,body,dept:activeDept,stage:$("tStage").value||"all",section:$("tSection").value||"all",priority:$("priority").value||"normal"};
+  const payload={title,body,dept:activeDept,stage:$("tStage").value||"all",section:$("tSection").value||"all",priority:$("priority").value||"normal",channel:"public"};
   if(att)payload.att=att;
   if(editId){
    await updateDoc(doc(db,"notices",editId),payload);
@@ -1010,12 +1070,14 @@ async function repPublish(){
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  try{
   const att=await readAttachment("rFile");
-  const payload={title,body,dept:me.dept||DEFAULT_DEPTS[0],stage:st,section:$("rSection").value||"all",priority:$("rPriority").value||"normal"};
+  const payload={title,body,dept:me.dept||DEFAULT_DEPTS[0],stage:st,section:$("rSection").value||"all",priority:$("rPriority").value||"normal",channel:"public"};
   if(att)payload.att=att;
   if(editId){
+   const existing=notices.find(x=>x.id===editId);
+   if(!existing||!canManageNotice(me,existing)){alert("لا تملك صلاحية تعديل هذا التبليغ.");return}
    await updateDoc(doc(db,"notices",editId),payload);
   }else{
-   payload.author=roleLabel(me.role)+": "+me.name.split(" ").slice(0,2).join(" ");
+   payload.author=authorDisplay(me);
    payload.authorCode=me.code;payload.createdAt=serverTimestamp();
    await addDoc(collection(db,"notices"),payload);
   }
@@ -1024,16 +1086,60 @@ async function repPublish(){
 }
 function editRepNotice(id){
  const n=notices.find(x=>x.id===id);if(!n||!me||deptOf(n)!==me.dept||!canManageNotice(me,n))return;
+ if(n.channel==="teachers_room"){editTeacherRoomNotice(id);sTab("teachersRoom");return}
  $("repEditId").value=n.id;$("rTitle").value=n.title;$("rBody").value=n.body;
  if($("rStage")&&[...$("rStage").options].some(o=>o.value===n.stage))$("rStage").value=n.stage;
  $("rSection").value=n.section;$("rPriority").value=n.priority||"normal";
  $("rFile").value="";$("rFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
  $("repFormTitle").textContent="تعديل التبليغ";$("rPubBtn").textContent="حفظ التعديلات";$("rCancelBtn").classList.remove("hidden");
- scrollTo(0,0);
+ sTab("rep");scrollTo(0,0);
 }
 function resetRepForm(){
  $("repEditId").value="";$("rTitle").value="";$("rBody").value="";$("rFile").value="";$("rFileNote").textContent="";
  $("repFormTitle").textContent="نشر تبليغ";$("rPubBtn").textContent="نشر التبليغ";$("rCancelBtn").classList.add("hidden");
+}
+
+/* ===== غرفة تبليغات الأساتذة ===== */
+async function teacherRoomPublish(){
+ if(!me||!canPostTeachersRoom(me)){alert("النشر في غرفة الأساتذة متاح لحسابات المدرسين فقط.");return}
+ const title=$("trTitle").value.trim(),body=$("trBody").value.trim(),editId=$("trEditId").value;
+ if(!title||!body){alert("أدخل العنوان والنص.");return}
+ try{
+  const att=await readAttachment("trFile");
+  const payload={
+   title,body,
+   dept:me.dept||DEFAULT_DEPTS[0],
+   stage:"all",
+   section:"all",
+   priority:$("trPriority").value||"normal",
+   channel:"teachers_room"
+  };
+  if(att)payload.att=att;
+  if(editId){
+   const existing=notices.find(x=>x.id===editId);
+   if(!existing||!canManageNotice(me,existing)){alert("يمكنك تعديل تبليغاتك فقط.");return}
+   await updateDoc(doc(db,"notices",editId),payload);
+  }else{
+   payload.author=authorDisplay(me);
+   payload.authorCode=me.code;
+   payload.createdAt=serverTimestamp();
+   await addDoc(collection(db,"notices"),payload);
+  }
+  resetTeacherRoomForm();
+  alert("تم نشر التبليغ في غرفة الأساتذة.");
+ }catch(e){if(e.message!=="size")alert("تعذر حفظ تبليغ الغرفة.")}
+}
+function editTeacherRoomNotice(id){
+ const n=notices.find(x=>x.id===id);if(!n||!me||!canManageNotice(me,n))return;
+ $("trEditId").value=n.id;$("trTitle").value=n.title;$("trBody").value=n.body;
+ $("trPriority").value=n.priority||"normal";$("trFile").value="";
+ $("trFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
+ $("trPubBtn").textContent="حفظ التعديلات";$("trCancelBtn").classList.remove("hidden");
+ scrollTo(0,0);
+}
+function resetTeacherRoomForm(){
+ $("trEditId").value="";$("trTitle").value="";$("trBody").value="";$("trFile").value="";$("trFileNote").textContent="";
+ $("trPubBtn").textContent="نشر في غرفة الأساتذة";$("trCancelBtn").classList.add("hidden");
 }
 
 async function changeUserRole(codeId,newRole){
@@ -1044,7 +1150,11 @@ async function changeUserRole(codeId,newRole){
 }
 
 const fail=()=>alert("تعذر تنفيذ العملية.");
-async function removeNotice(id){if(confirm("حذف هذا التبليغ؟"))await deleteDoc(doc(db,"notices",id)).catch(fail)}
+async function removeNotice(id){
+ const n=notices.find(x=>x.id===id);
+ if(!isAdminView&&n&&!canManageNotice(me,n)){alert("لا تملك صلاحية حذف هذا التبليغ.");return}
+ if(confirm("حذف هذا التبليغ؟"))await deleteDoc(doc(db,"notices",id)).catch(fail);
+}
 async function removeCode(id){if(confirm("حذف هذا الرمز؟ إذا كان مستخدماً فسيفقد صاحبه دخوله."))await deleteDoc(doc(db,"codes",id)).catch(fail)}
 async function resetCode(id){if(confirm("إعادة الرمز غير مستخدم؟ يستطيع شخص جديد استخدامه."))await updateDoc(doc(db,"codes",id),{used:false,role:"student",name:deleteField(),phone:deleteField(),usedAt:deleteField()}).catch(fail)}
 async function genCodes(){
@@ -1098,7 +1208,10 @@ function attHtml(n){
  const ico=String(n.att.name).toLowerCase().endsWith(".pdf")?"📕":"📘";
  return `<div class="att-box"><span class="meta">${ico} ${esc(n.att.name)}</span><button class="act" onclick="openAttachment('${esc(n.id)}')">فتح / حفظ</button></div>`;
 }
-const noticeCard=n=>`<div class="card notice ${n.priority||"normal"}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span></div>`;
+const noticeCard=n=>{
+ const isOpen=expandedIds.has(n.id);
+ return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span></div>`;
+};
 const empty=t=>`<div class="card meta">${t}</div>`;
 const myNotices=()=>{
  if(!me)return[];
@@ -1106,6 +1219,7 @@ const myNotices=()=>{
  const myStage=me.stage||"all";
  const mySec=me.section||"all";
  return notices.filter(n=>{
+  if(n.channel==="teachers_room")return false;
   const nDept=n.dept||DEFAULT_DEPTS[0];
   const nStage=n.stage||"all";
   const nSec=n.section||"all";
@@ -1113,6 +1227,11 @@ const myNotices=()=>{
    &&(nStage==="all"||myStage==="all"||nStage===myStage)
    &&(nSec==="all"||mySec==="all"||nSec===mySec);
  });
+};
+const myTeachersRoomNotices=()=>{
+ if(!me||!canViewTeachersRoom(me))return[];
+ const myDept=me.dept||DEFAULT_DEPTS[0];
+ return notices.filter(n=>n.channel==="teachers_room"&&deptOf(n)===myDept);
 };
 
 function renderStudent(){
@@ -1124,9 +1243,23 @@ function renderStudent(){
  $("homeNotices").innerHTML=mine.slice(0,3).map(noticeCard).join("")||empty("لا توجد تبليغات لقسمك حالياً.");
  const list=filter==="important"?mine.filter(n=>n.priority==="important"):mine;
  $("studentNotices").innerHTML=list.map(noticeCard).join("")||empty("لا توجد تبليغات هنا.");
+
  if(isStaffRole(me.role)){
-  const mgrList=notices.filter(n=>deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageNotice(me,n));
-  $("repNotices").innerHTML=mgrList.map(n=>`<div class="card notice ${n.priority||"normal"}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`).join("")||empty("لا توجد تبليغات ضمن صلاحيتك.");
+  const mgrList=notices.filter(n=>n.channel!=="teachers_room"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageNotice(me,n));
+  $("repNotices").innerHTML=mgrList.map(n=>{
+   const isOpen=expandedIds.has(n.id);
+   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
+  }).join("")||empty("لا توجد تبليغات قابلة للإدارة ضمن صلاحيتك.");
+ }
+
+ if(canViewTeachersRoom(me)){
+  const trList=myTeachersRoomNotices();
+  $("teacherRoomList").innerHTML=trList.map(n=>{
+   const isOpen=expandedIds.has(n.id);
+   const canAct=canManageNotice(me,n);
+   const btns=canAct?`<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editTeacherRoomNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div>`:"";
+   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag rep">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span>${btns}</div>`;
+  }).join("")||empty("لا توجد تبليغات في غرفة الأساتذة حالياً.");
  }
 }
 function roleSelectHtml(codeId,currentRole){
@@ -1136,22 +1269,25 @@ function roleSelectHtml(codeId,currentRole){
 }
 function renderAdmin(){
  const deptCodes=codes.filter(c=>deptOf(c)===activeDept);
- const deptNotices=notices.filter(n=>deptOf(n)===activeDept);
+ const deptNotices=notices.filter(n=>deptOf(n)===activeDept&&n.channel!=="teachers_room");
  const used=deptCodes.filter(c=>c.used);
  $("cStudents").textContent=used.length;$("cNotices").textContent=deptNotices.length;
- $("aNotices").innerHTML=deptNotices.map(n=>`<div class="card notice ${n.priority||"normal"}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editAdminNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`).join("")||empty("لا توجد تبليغات منشورة في هذا القسم.");
+ $("aNotices").innerHTML=deptNotices.map(n=>{
+  const isOpen=expandedIds.has(n.id);
+  return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editAdminNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
+ }).join("")||empty("لا توجد تبليغات منشورة في هذا القسم.");
  const keep=id=>[...document.querySelectorAll("#"+id+" details[open]")].map(d=>d.dataset.s);
  const oS=keep("aStudents"),oC=keep("codeLists");
  const bySec=(a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
  const stagesWithAll=[...stagesForDept(activeDept),"all"];
  $("aStudents").innerHTML=stagesWithAll.map(st=>{
-  const label=st==="all"?"مقررون / عام":st;
+  const label=st==="all"?"مقررون / أساتذة / عام":st;
   const l=used.filter(s=>(s.stage||"all")===st).sort(bySec);
   return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length}</span></summary>`+
    (l.map(s=>`<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span><br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
  }).join("");
  $("codeLists").innerHTML=stagesWithAll.map(st=>{
-  const label=st==="all"?"رموز عامة / مقرر":st;
+  const label=st==="all"?"رموز عامة / مقرر / أستاذ":st;
   const l=deptCodes.filter(c=>(c.stage||"all")===st&&!c.used).sort(bySec);
   return `<details data-s="${st}" ${oC.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length} متاح</span></summary>`+
    `<div class="stu"><button class="sec" style="margin:0" onclick="copyCodes('${st}')">نسخ الرموز المتاحة</button></div>`+
@@ -1221,7 +1357,7 @@ refreshDeptSelects();
 fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,changeUserRole,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles});
+Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,changeUserRole,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,teacherRoomPublish,editTeacherRoomNotice,resetTeacherRoomForm,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText});
 </script>
 </body>
 </html>
