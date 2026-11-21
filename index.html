@@ -45,6 +45,7 @@ h3{margin:4px 0 10px;font-size:16px}
 .notice.important{border-right-color:var(--navy2);background:var(--warn-bg)}
 .notice h4{margin:4px 0;font-size:15px}.notice p{margin:2px 0 8px;font-size:14px;white-space:pre-wrap}
 .meta{font-size:12px;color:var(--mute)}
+.warn-note{background:var(--warn-bg);border:1px solid var(--line);border-right:4px solid var(--navy2);border-radius:12px;padding:10px 12px;margin-top:10px;font-size:12px;color:var(--ink)}
 .tag{display:inline-block;font-size:11px;background:var(--soft);color:var(--ink);border-radius:20px;padding:1px 10px;margin-left:4px}
 .tag.imp{background:var(--navy2);color:#fff}
 .tag.rep{background:var(--navy);color:#fff}
@@ -92,31 +93,62 @@ details[open] summary::after{transform:rotate(180deg)}
 <body>
 <div class="app">
 
-<!-- ====== الدخول والتسجيل لأول مرة ====== -->
+<!-- ====== إنشاء حساب / الدخول ====== -->
 <section id="login">
  <div class="top"><div class="brand"><div class="logo"><img class="appLogoImg" src="icon-192.png" alt="شعار الكلية" onerror="this.outerHTML='🎓'"></div><div><h1>تبليغات الكلية</h1><p>كلية أصول العلم الأهلية</p></div></div></div>
  <div class="page">
-  <div class="card">
-   <h3>تسجيل الدخول لأول مرة</h3>
-   <p class="meta">أدخل بياناتك والرمز المرسل لك عبر الواتساب.</p>
-   <label for="lDept">القسم العلمي</label>
-   <select id="lDept" onchange="onLoginDeptChange()"></select>
-   <div class="row">
-    <div><label for="lStage">المرحلة (اختياري)</label><select id="lStage"></select></div>
-    <div><label for="lSection">الشعبة (اختياري)</label><select id="lSection"></select></div>
-   </div>
-   <label for="lCode">رمز الدخول (6 خانات)</label>
-   <input id="lCode" class="ltr" maxlength="6" placeholder="مثال: K7M2QX" autocomplete="off">
-   <label for="lName">الاسم الثلاثي</label>
-   <input id="lName" placeholder="الاسم الأول والأب والجد" autocomplete="name">
+  <div class="seg" style="margin-bottom:10px">
+   <button id="authTabReg" class="on" onclick="switchAuthMode('reg')">إنشاء حساب</button>
+   <button id="authTabIn" onclick="switchAuthMode('in')">الدخول</button>
+  </div>
+
+  <!-- وضع إنشاء حساب وإرسال الرمز للواتساب -->
+  <div id="regBox" class="card">
+   <h3>إنشاء حساب جديد</h3>
+   <p class="meta">أدخل بياناتك ليتم إرسال رمز الدخول إلى رقم هاتفك على الواتساب.</p>
+   <label for="lName">الاسم الثلاثي أو الرباعي</label>
+   <input id="lName" placeholder="الاسم الأول والأب والجد والرابع" autocomplete="name">
    <label for="lPhone">رقم الهاتف (واتساب)</label>
    <input id="lPhone" class="ltr" inputmode="tel" placeholder="07XXXXXXXXX" autocomplete="tel">
+   <label for="lDept">القسم</label>
+   <select id="lDept" onchange="onLoginDeptChange()"></select>
+   <div class="row">
+    <div><label for="lStage">المرحلة</label><select id="lStage"></select></div>
+    <div><label for="lSection">الشعبة</label><select id="lSection"></select></div>
+   </div>
    <label for="lPhoto">صورة الطالب (اختياري)</label>
    <input id="lPhoto" type="file" accept="image/*">
+
+   <button id="sendWaBtn" onclick="requestWhatsAppCode()">📲 إرسال الرمز إلى واتساب</button>
+
+   <div id="waCodePrompt" class="hidden" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)">
+    <div class="warn-note">
+     ⚠️ <b>تحذير مهم:</b> لا تشارك هذا الرمز مع أي شخص آخر، واحتفظ به جيداً لأنك ستحتاجه لتسجيل الدخول في حال قمت بتسجيل الخروج.
+    </div>
+    <label for="lCodeReg">أدخل الرمز الذي وصلك على الواتساب (6 خانات)</label>
+    <input id="lCodeReg" class="ltr" maxlength="6" placeholder="مثال: K7M2QX" autocomplete="off">
+    <button id="lBtnReg" onclick="completeRegistration()">تأكيد الرمز والدخول</button>
+   </div>
    <div id="lErr" class="err"></div>
-   <button id="lBtn" onclick="studentLogin()">دخول</button>
-   <button class="sec" onclick="show('adminLogin')">دخول إدارة القسم / الكلية</button>
+   <button class="sec" onclick="show('adminLogin')">دخول إدارة الكلية / القسم</button>
   </div>
+
+  <!-- وضع الدخول المباشر برمز محفوظ -->
+  <div id="inBox" class="card hidden">
+   <h3>تسجيل الدخول</h3>
+   <p class="meta">أدخل الرمز الذي احتفظت به من الواتساب مع رقم هاتفك.</p>
+   <label for="inPhone">رقم الهاتف</label>
+   <input id="inPhone" class="ltr" inputmode="tel" placeholder="07XXXXXXXXX" autocomplete="tel">
+   <label for="inCode">رمز الدخول (6 خانات)</label>
+   <input id="inCode" class="ltr" maxlength="6" placeholder="مثال: K7M2QX" autocomplete="off">
+   <div class="warn-note">
+    📌 تذكّر: احتفظ برمزك سرياً ولا تشاركه، وستحتاجه دائماً عند تسجيل الخروج والدخول مرة أخرى.
+   </div>
+   <div id="inErr" class="err"></div>
+   <button id="inBtn" onclick="directCodeLogin()">دخول</button>
+   <button class="sec" onclick="show('adminLogin')">دخول إدارة الكلية / القسم</button>
+  </div>
+
   <button class="sec installB hidden" onclick="installApp()">⬇️ تثبيت التطبيق على الهاتف</button>
   <p id="iosHint" class="meta hidden">لتثبيت التطبيق على آيفون: اضغط زر المشاركة في Safari ثم "إضافة إلى الشاشة الرئيسية".</p>
  </div>
@@ -135,7 +167,7 @@ details[open] summary::after{transform:rotate(180deg)}
  </div></div>
 </section>
 
-<!-- ====== واجهة الطالب / الممثل / المقرر ====== -->
+<!-- ====== واجهة الطالب / الممثل / المقرر / المدرس / مدير القسم ====== -->
 <section id="student" class="hidden">
  <div class="top">
   <!-- اللوكو على اليمين وصورة الطالب على اليسار -->
@@ -175,7 +207,7 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="studentNotices"></div>
   </div>
 
-  <!-- تبويب إدارة الممثل / المقرر -->
+  <!-- تبويب إدارة الصلاحيات (ممثل / مقرر / مدرس / مدير قسم) -->
   <div id="sRep" class="hidden">
    <div class="card">
     <h3 id="repFormTitle">نشر تبليغ</h3>
@@ -201,12 +233,17 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="repNotices"></div>
   </div>
 
+  <!-- حسابي (يشمل تسجيل الخروج) -->
   <div id="sAccount" class="hidden">
    <div class="card">
     <img id="accStudentImg" class="acc-avatar appLogoImg" src="icon-192.png" alt="صورة الطالب">
     <h3 id="aName"></h3>
     <p class="meta" id="aInfo"></p>
     <p class="meta ltr" id="aPhone"></p>
+    <p class="meta" id="aCodeInfo"></p>
+    <div class="warn-note">
+     🔒 لا تشارك رمزك مع أي شخص، واحفظه جيداً لأنك ستحتاجه للدخول مجدداً بعد تسجيل الخروج.
+    </div>
     <label for="uPhoto">تغيير صورة الطالب</label>
     <input id="uPhoto" type="file" accept="image/*">
     <button class="sec" onclick="updateStudentPhoto()">حفظ الصورة</button>
@@ -258,7 +295,7 @@ details[open] summary::after{transform:rotate(180deg)}
   <div class="seg">
    <button id="atNew" class="on" onclick="aTab('new')">نشر تبليغ</button>
    <button id="atNotices" onclick="aTab('notices')">التبليغات</button>
-   <button id="atStudents" onclick="aTab('students')">الطلاب</button>
+   <button id="atStudents" onclick="aTab('students')">الطلاب والصلاحيات</button>
    <button id="atCodes" onclick="aTab('codes')">الأكواد</button>
   </div>
   <div id="aNew" class="card">
@@ -290,16 +327,16 @@ details[open] summary::after{transform:rotate(180deg)}
   <div id="aStudents" class="hidden"></div>
   <div id="aCodes" class="hidden">
    <div class="card">
-    <h3>إنشاء وإرسال الرموز عبر الواتساب</h3>
-    <p class="meta">اختر "ممثل مرحلة" لمرحلة محددة، أو "مقرر (كل المراحل)" لإدارة تبليغات جميع المراحل.</p>
+    <h3>إنشاء رموز وإرسالها للواتساب</h3>
+    <p class="meta">يبدأ الحساب الجديد كـ "طالب" ويمكنك تغيير صلاحيته لاحقاً من تبويب الطلاب والصلاحيات.</p>
     <div class="row"><div><label for="gStage">المرحلة</label><select id="gStage"></select></div><div><label for="gSection">الشعبة</label><select id="gSection"></select></div></div>
     <div class="row">
-     <div><label for="gRole">نوع الكود</label><select id="gRole" onchange="toggleStageForRole()"><option value="student">كود طالب</option><option value="rep">ممثل مرحلة</option><option value="rapporteur">مقرر (كل المراحل)</option></select></div>
-     <div><label for="gCount">عدد الأكواد</label><input id="gCount" type="number" min="1" max="200" value="10"></div>
+     <div><label for="gRole">الصلاحية المبدئية</label><select id="gRole" onchange="toggleStageForRole()"><option value="student">طالب</option><option value="rep">ممثل</option><option value="rapporteur">مقرر</option><option value="teacher">مدرس</option><option value="dept_admin">مدير قسم</option></select></div>
+     <div><label for="gCount">عدد الرموز</label><input id="gCount" type="number" min="1" max="200" value="10"></div>
     </div>
-    <label for="waPhone">رقم واتساب المستلم (اختياري للإرسال المباشر)</label>
+    <label for="waPhone">رقم واتساب المستلم (اختياري)</label>
     <input id="waPhone" class="ltr" inputmode="tel" placeholder="07XXXXXXXXX">
-    <button onclick="genCodes()">إنشاء الأكواد</button>
+    <button onclick="genCodes()">إنشاء الرموز</button>
     <button class="sec" onclick="sendCodesWhatsApp()">📲 إرسال الرموز المتاحة للواتساب</button>
    </div>
    <div id="codeLists"></div>
@@ -324,6 +361,13 @@ const DEFAULT_DEPTS=[
 const BASE_STAGES=["المرحلة الأولى","المرحلة الثانية","المرحلة الثالثة","المرحلة الرابعة"];
 const FIFTH_STAGE="المرحلة الخامسة";
 const SECTIONS=["أ","ب","ج","د"];
+const ROLES={
+ student:"طالب",
+ rep:"ممثل",
+ rapporteur:"مقرر",
+ teacher:"مدرس",
+ dept_admin:"مدير قسم"
+};
 let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات المرضية"]);
 let notices=[],codes=[],me=null,filter="all",unsubN=null,unsubC=null,unsubBrand=null,isAdminView=false,deferred=null,readyRes;
 let activeDept=DEFAULT_DEPTS[0],customLogo=localStorage.getItem("customLogo")||"";
@@ -332,17 +376,37 @@ const authReady=new Promise(r=>readyRes=r);
 try{me=JSON.parse(localStorage.getItem("me")||"null")}catch(e){}
 const $=id=>document.getElementById(id);
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
-const deptOf=x=>x.dept||DEFAULT_DEPTS[0];
+const deptOf=x=>x.dept||depts[0]||DEFAULT_DEPTS[0];
 const isMedicalDept=name=>/طب|صيدل|تمريض|تحليل|مختبر|صحي|أسنان|علاج|تخدير|أشعة|بصريات/i.test(String(name||""));
 const hasFifthStage=deptName=>fifthStageDepts.has(deptName)||isMedicalDept(deptName);
 const stagesForDept=deptName=>hasFifthStage(deptName)?[...BASE_STAGES,FIFTH_STAGE]:[...BASE_STAGES];
+const roleLabel=r=>ROLES[r]||ROLES.student;
+const canManageAll=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
+const canManageNotice=(u,n)=>{
+ if(!u)return false;
+ const r=u.role||"student";
+ if(r==="dept_admin"||r==="rapporteur")return true;
+ if(r==="teacher")return true;
+ if(r==="rep")return (n.stage||"all")===u.stage;
+ return false;
+};
+const isStaffRole=r=>["rep","rapporteur","teacher","dept_admin"].includes(r);
+
+function switchAuthMode(mode){
+ const isReg=mode==="reg";
+ $("authTabReg").classList.toggle("on",isReg);
+ $("authTabIn").classList.toggle("on",!isReg);
+ $("regBox").classList.toggle("hidden",!isReg);
+ $("inBox").classList.toggle("hidden",isReg);
+ $("lErr").textContent="";$("inErr").textContent="";
+}
 
 function refreshLoginStageSelects(){
- const d=$("lDept").value||DEFAULT_DEPTS[0];
+ const d=$("lDept").value||depts[0]||DEFAULT_DEPTS[0];
  const prevS=$("lStage").value;
  const prevSec=$("lSection").value;
- fill("lStage",stagesForDept(d),'<option value="">كل المراحل (اختياري)</option>');
- fill("lSection",SECTIONS,'<option value="">كل الشعب (اختياري)</option>');
+ fill("lStage",stagesForDept(d),'<option value="all">كل المراحل</option>');
+ fill("lSection",SECTIONS,'<option value="all">كل الشعب</option>');
  if(prevS&&[...$("lStage").options].some(o=>o.value===prevS))$("lStage").value=prevS;
  if(prevSec&&[...$("lSection").options].some(o=>o.value===prevSec))$("lSection").value=prevSec;
 }
@@ -353,10 +417,10 @@ function refreshDeptSelects(){
  const prevA=$("admDept").value||activeDept;
  fill("lDept",depts,"");
  fill("admDept",depts,"");
- $("lDept").value=depts.includes(prevL)?prevL:depts[0];
- activeDept=depts.includes(prevA)?prevA:depts[0];
+ $("lDept").value=depts.includes(prevL)?prevL:(depts[0]||"");
+ activeDept=depts.includes(prevA)?prevA:(depts[0]||"");
  $("admDept").value=activeDept;
- $("admTopDept").textContent=activeDept;
+ $("admTopDept").textContent=activeDept||"لا يوجد قسم";
  refreshLoginStageSelects();
  refreshStageSelects();
 }
@@ -393,6 +457,7 @@ async function addNewDept(){
  catch(e){alert("تمت إضافة القسم محلياً، تأكد من صلاحيات الحفظ في قاعدة البيانات.")}
 }
 async function renameActiveDept(){
+ if(!activeDept)return;
  const newName=prompt("أدخل الاسم الجديد للقسم:",activeDept);
  if(!newName)return;
  const clean=newName.trim().replace(/\s+/g," ");
@@ -407,23 +472,23 @@ async function renameActiveDept(){
  try{await persistDepts();alert("تم تعديل اسم القسم إلى: "+clean)}catch(e){alert("تعذر حفظ التعديل في قاعدة البيانات.")}
 }
 async function deleteActiveDept(){
- if(depts.length<=1){alert("يجب بقاء قسم واحد على الأقل.");return}
- if(!confirm("هل أنت متأكد من حذف قسم ("+activeDept+") من القائمة؟"))return;
+ if(!activeDept)return;
+ if(!confirm("هل أنت متأكد من حذف قسم ("+activeDept+")؟"))return;
  const removed=activeDept;
  depts=depts.filter(d=>d!==removed);
  fifthStageDepts.delete(removed);
- activeDept=depts[0];
+ activeDept=depts[0]||"";
  refreshDeptSelects();
  renderAdmin();
- try{await persistDepts();alert("تم حذف القسم من القائمة.")}catch(e){alert("تعذر حفظ الحذف في قاعدة البيانات.")}
+ try{await persistDepts();alert("تم حذف القسم.")}catch(e){alert("تعذر حفظ الحذف في قاعدة البيانات.")}
 }
 
-/* ===== اللوكو وتحديث Manifest للهاتف ===== */
+/* ===== اللوكو وصورة الطالب ===== */
 function applyLogo(dataUrl){
  if(!dataUrl)return;
  customLogo=dataUrl;
  try{localStorage.setItem("customLogo",dataUrl)}catch(e){}
- document.querySelectorAll(".appLogoImg").forEach(img=>{img.src=dataUrl});
+ document.querySelectorAll(".appLogoImg").forEach(img=>{if(img.id!=="accStudentImg"||!(me&&me.photo))img.src=dataUrl});
  applyStudentPhotoUI();
  if($("appleIcon"))$("appleIcon").href=dataUrl;
  try{
@@ -466,12 +531,8 @@ function startBrandSync(){
   if(!snap.exists())return;
   const d=snap.data();
   if(d.logo)applyLogo(d.logo);
-  if(Array.isArray(d.depts)&&d.depts.length){
-   depts=[...new Set([...DEFAULT_DEPTS,...d.depts])];
-  }
-  if(Array.isArray(d.fifthStageDepts)){
-   fifthStageDepts=new Set(["التحليلات المرضية",...d.fifthStageDepts]);
-  }
+  if(Array.isArray(d.depts))depts=[...d.depts];
+  if(Array.isArray(d.fifthStageDepts))fifthStageDepts=new Set(d.fifthStageDepts);
   refreshDeptSelects();
   if(me)openStudent();
   if(isAdminView)renderAdmin();
@@ -601,7 +662,7 @@ async function openAttachment(noticeId){
 function show(id){["login","adminLogin","student","admin"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");scrollTo(0,0)}
 async function logout(){
  me=null;isAdminView=false;try{localStorage.removeItem("me")}catch(e){}
- $("lCode").value="";$("bellPop").classList.add("hidden");
+ $("lCodeReg").value="";$("inCode").value="";$("bellPop").classList.add("hidden");
  if(auth.currentUser&&!auth.currentUser.isAnonymous){await signOut(auth)}else show("login");
 }
 function normPhone(p){
@@ -610,78 +671,174 @@ function normPhone(p){
  if(d.startsWith("0"))d="964"+d.slice(1);else if(d.startsWith("7")&&d.length===10)d="964"+d;
  return /^9647\d{9}$/.test(d)?d:"";
 }
-const canManageAllStages=u=>u&&(u.role==="rapporteur"||u.stage==="all");
-const canManageStage=(u,st)=>u&&(u.role==="rapporteur"||u.stage==="all"||(u.role==="rep"&&u.stage===st));
 
-/* ===== دخول الطالب / الممثل / المقرر لأول مرة ===== */
-async function studentLogin(){
- const dept=$("lDept").value||DEFAULT_DEPTS[0];
- const chosenStage=$("lStage").value;
- const chosenSection=$("lSection").value;
- const code=$("lCode").value.trim().toUpperCase();
+/* ===== إنشاء حساب وإرسال الرمز إلى واتساب ===== */
+async function requestWhatsAppCode(){
+ const name=$("lName").value.trim().replace(/\s+/g," ");
+ const phone=normPhone($("lPhone").value);
+ const dept=$("lDept").value||depts[0]||DEFAULT_DEPTS[0];
+ const stage=$("lStage").value||"all";
+ const section=$("lSection").value||"all";
+ const err=$("lErr");
+ err.textContent="";
+ const parts=name.split(" ").filter(Boolean);
+ if(parts.length<3||parts.length>4){err.textContent="اكتب الاسم الثلاثي أو الرباعي بشكل صحيح.";return}
+ if(!phone){err.textContent="رقم الهاتف غير صحيح. مثال: 07701234567";return}
+
+ const btn=$("sendWaBtn");btn.disabled=true;
+ try{
+  await authReady;
+  const ch="ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  let code="";
+  for(let attempt=0;attempt<10;attempt++){
+   const a=new Uint32Array(6);crypto.getRandomValues(a);
+   const cand=Array.from(a,x=>ch[x%ch.length]).join("");
+   const ex=await getDoc(doc(db,"codes",cand));
+   if(!ex.exists()){code=cand;break}
+  }
+  if(!code){err.textContent="تعذر توليد رمز، حاول مرة أخرى.";return}
+
+  let photo="";
+  if($("lPhoto").files[0]){
+   try{photo=await compressImage($("lPhoto").files[0],360,0.78)}catch(e){}
+  }
+
+  await setDoc(doc(db,"codes",code),{
+   name,phone,dept,stage,section,
+   role:"student",
+   used:false,
+   createdAt:serverTimestamp()
+  });
+
+  $("waCodePrompt").classList.remove("hidden");
+  $("lCodeReg").focus();
+  const waMsg=
+   "رمز الدخول الخاص بك لتطبيق التبليغات هو: "+code+"\n"+
+   "القسم: "+dept+"\n"+
+   "⚠️ تحذير: لا تشارك هذا الرمز مع أي شخص، واحتفظ به جيداً لأنك ستحتاجه للدخول إذا قمت بتسجيل الخروج.";
+  window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(waMsg),"_blank");
+ }catch(e){
+  err.textContent="تعذر إرسال الرمز. تأكد من الاتصال والقاعدة في Firestore.";
+ }finally{btn.disabled=false}
+}
+
+async function completeRegistration(){
+ const code=$("lCodeReg").value.trim().toUpperCase();
  const name=$("lName").value.trim().replace(/\s+/g," ");
  const phone=normPhone($("lPhone").value);
  const err=$("lErr");
  err.textContent="";
- if(code.length!==6){err.textContent="اكتب رمز الدخول (6 خانات).";return}
- if(name.split(" ").length<3){err.textContent="اكتب الاسم الثلاثي كاملاً.";return}
- if(!phone){err.textContent="رقم الهاتف غير صحيح. مثال: 07701234567";return}
- const btn=$("lBtn");btn.disabled=true;
+ if(code.length!==6){err.textContent="أدخل الرمز المكون من 6 خانات من الواتساب.";return}
+ if(!phone){err.textContent="تأكد من رقم الهاتف.";return}
+
+ const btn=$("lBtnReg");btn.disabled=true;
  try{
   await authReady;
   const ref=doc(db,"codes",code),snap=await getDoc(ref);
   if(!snap.exists()){err.textContent="الرمز غير صحيح.";return}
   const c=snap.data();
-  const finalDept=c.dept||dept;
-  const finalStage=chosenStage||c.stage||"all";
-  const finalSection=chosenSection||c.section||"all";
-  if(c.used){
-   if(c.phone!==phone){err.textContent="هذا الرمز مستخدم من شخص آخر. راجع الإدارة.";return}
-  }else{
-   await updateDoc(ref,{used:true,name,phone,dept:finalDept,stage:finalStage,section:finalSection,usedAt:serverTimestamp()});
-  }
-  let photo=customLogo||"";
+  if(c.phone&&c.phone!==phone){err.textContent="هذا الرمز مرتبط برقم هاتف آخر.";return}
+  if(!c.used)await updateDoc(ref,{used:true,name:name||c.name,phone,usedAt:serverTimestamp()});
+
+  let photo="";
   if($("lPhoto").files[0]){
    try{photo=await compressImage($("lPhoto").files[0],360,0.78)}catch(e){}
   }
+
   me={
    code,
-   name:c.used?c.name:name,
+   name:c.name||name,
    phone,
-   dept:c.dept||finalDept,
-   stage:c.used?(c.stage||finalStage):finalStage,
-   section:c.used?(c.section||finalSection):finalSection,
+   dept:c.dept||$("lDept").value||DEFAULT_DEPTS[0],
+   stage:c.stage||$("lStage").value||"all",
+   section:c.section||$("lSection").value||"all",
    role:c.role||"student",
    photo
   };
   try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
   openStudent();
- }catch(e){err.textContent="تعذر الدخول. تأكد من الاتصال وحاول مرة ثانية."}
+ }catch(e){err.textContent="تعذر إتمام الدخول. حاول مرة أخرى."}
  finally{btn.disabled=false}
 }
+
+/* ===== الدخول المباشر بالرمز والهاتف ===== */
+async function directCodeLogin(){
+ const phone=normPhone($("inPhone").value);
+ const code=$("inCode").value.trim().toUpperCase();
+ const err=$("inErr");
+ err.textContent="";
+ if(!phone){err.textContent="رقم الهاتف غير صحيح.";return}
+ if(code.length!==6){err.textContent="اكتب رمز الدخول (6 خانات).";return}
+
+ const btn=$("inBtn");btn.disabled=true;
+ try{
+  await authReady;
+  const ref=doc(db,"codes",code),snap=await getDoc(ref);
+  if(!snap.exists()){err.textContent="الرمز غير صحيح.";return}
+  const c=snap.data();
+  if(c.phone&&c.phone!==phone){err.textContent="رقم الهاتف لا يطابق الرمز.";return}
+  if(!c.used)await updateDoc(ref,{used:true,phone,usedAt:serverTimestamp()});
+
+  me={
+   code,
+   name:c.name||"مستخدم",
+   phone,
+   dept:c.dept||depts[0]||DEFAULT_DEPTS[0],
+   stage:c.stage||"all",
+   section:c.section||"all",
+   role:c.role||"student",
+   photo:(me&&me.code===code&&me.photo)||""
+  };
+  try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
+  openStudent();
+ }catch(e){err.textContent="تعذر الدخول. تحقق من الاتصال."}
+ finally{btn.disabled=false}
+}
+
+/* مزامنة صلاحية المستخدم إذا عدّلها المدير في Firestore */
+function syncMyRoleFromCodes(){
+ if(!me||!me.code||!codes.length)return;
+ const found=codes.find(c=>c.id===me.code);
+ if(found&&(found.role||"student")!==(me.role||"student")){
+  me.role=found.role||"student";
+  try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
+  openStudent();
+ }
+}
+
 function openStudent(){
  if(!me)return;
- if(!me.dept)me.dept=$("lDept").value||DEFAULT_DEPTS[0];
+ if(!me.dept)me.dept=depts[0]||DEFAULT_DEPTS[0];
  if(!me.stage)me.stage="all";
  if(!me.section)me.section="all";
+ if(!me.role)me.role="student";
  try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
  applyStudentPhotoUI();
- const isMgr=me.role==="rep"||me.role==="rapporteur"||me.stage==="all";
- const roleLabel=me.role==="rapporteur"||me.stage==="all"?"مقرر (كل المراحل)":(me.role==="rep"?"ممثل مرحلة":"طالب");
+
+ const rLabel=roleLabel(me.role);
+ const isMgr=isStaffRole(me.role);
  const stList=stagesForDept(me.dept);
+
  $("sTopDept").textContent=me.dept;
- $("sRoleGreet").textContent=isMgr?"مرحباً بك ("+roleLabel+") ✍️":"مرحباً بك 👋";
+ $("sRoleGreet").textContent="مرحباً بك ("+rLabel+") 👋";
  $("sName").textContent=me.name.split(" ").slice(0,2).join(" ");
- $("sInfo").textContent=me.dept+" · "+(me.stage==="all"?"كل المراحل":me.stage)+" · "+(me.section==="all"?"كل الشعب":"شعبة "+me.section);
- $("aName").textContent=me.name;$("aInfo").textContent=me.dept+" · "+roleLabel;$("aPhone").textContent="+"+me.phone;
+ $("sInfo").textContent=me.dept+" · "+(me.stage==="all"?"كل المراحل":me.stage)+" · "+(me.section==="all"?"كل الشعب":"شعبة "+me.section)+" · "+rLabel;
+ $("aName").textContent=me.name;
+ $("aInfo").textContent=me.dept+" · الصلاحية: "+rLabel;
+ $("aPhone").textContent="+"+me.phone;
+ $("aCodeInfo").textContent="رمز الدخول الخاص بك: "+me.code;
  $("nRep").classList.toggle("hidden",!isMgr);
+
  if(isMgr){
-  if(canManageAllStages(me)){
+  if(canManageAll(me)){
    fill("rStage",stList,'<option value="all">كل المراحل</option>');
    $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لجميع مراحل قسم: "+me.dept;
-  }else{
+  }else if(me.role==="rep"){
    $("rStage").innerHTML=`<option value="${esc(me.stage)}">${esc(me.stage)}</option>`;
    $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لـ: "+me.dept+" · "+me.stage;
+  }else{
+   fill("rStage",stList,'<option value="all">كل المراحل</option>');
+   $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لقسم: "+me.dept;
   }
  }
  $("soundBtn").textContent=soundOn?"🔊 الرنين مفعل":"🔇 الرنين مكتوم";
@@ -702,7 +859,7 @@ function aTab(t){
  for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
 }
 function setFilter(f){filter=f;$("fAll").classList.toggle("on",f==="all");$("fImp").classList.toggle("on",f==="important");renderStudent()}
-function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept;refreshStageSelects();resetAdmForm();renderAdmin()}
+function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept||"لا يوجد قسم";refreshStageSelects();resetAdmForm();renderAdmin()}
 function toggleStageForRole(){
  const isR=$("gRole").value==="rapporteur";
  $("gStage").disabled=isR;
@@ -710,8 +867,9 @@ function toggleStageForRole(){
  else if($("gStage").value==="all")$("gStage").value="";
 }
 
-/* ===== الإدارة والممثلين والمقررين ===== */
+/* ===== الإدارة والصلاحيات ===== */
 async function publish(){
+ if(!activeDept){alert("اختر أو أضف قسماً أولاً.");return}
  const title=$("title").value.trim(),body=$("body").value.trim(),editId=$("admEditId").value;
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  try{
@@ -743,11 +901,10 @@ function resetAdmForm(){
 }
 
 async function repPublish(){
- if(!me||!(me.role==="rep"||me.role==="rapporteur"||me.stage==="all"))return;
+ if(!me||!isStaffRole(me.role))return;
  const title=$("rTitle").value.trim(),body=$("rBody").value.trim(),editId=$("repEditId").value;
- const st=canManageAllStages(me)?($("rStage").value||"all"):me.stage;
+ const st=canManageAll(me)?($("rStage").value||"all"):(me.role==="rep"?me.stage:($("rStage").value||"all"));
  if(!title||!body){alert("أدخل العنوان والنص.");return}
- if(!canManageStage(me,st)){alert("لا تملك صلاحية النشر لهذه المرحلة.");return}
  try{
   const att=await readAttachment("rFile");
   const payload={title,body,dept:me.dept||DEFAULT_DEPTS[0],stage:st,section:$("rSection").value||"all",priority:$("rPriority").value||"normal"};
@@ -755,8 +912,7 @@ async function repPublish(){
   if(editId){
    await updateDoc(doc(db,"notices",editId),payload);
   }else{
-   const prefix=me.role==="rapporteur"?"مقرر":"ممثل";
-   payload.author=prefix+": "+me.name.split(" ").slice(0,2).join(" ");
+   payload.author=roleLabel(me.role)+": "+me.name.split(" ").slice(0,2).join(" ");
    payload.authorCode=me.code;payload.createdAt=serverTimestamp();
    await addDoc(collection(db,"notices"),payload);
   }
@@ -764,9 +920,9 @@ async function repPublish(){
  }catch(e){if(e.message!=="size")alert("تعذر تنفيذ العملية.")}
 }
 function editRepNotice(id){
- const n=notices.find(x=>x.id===id);if(!n||!me||deptOf(n)!==me.dept||!canManageStage(me,n.stage))return;
+ const n=notices.find(x=>x.id===id);if(!n||!me||deptOf(n)!==me.dept||!canManageNotice(me,n))return;
  $("repEditId").value=n.id;$("rTitle").value=n.title;$("rBody").value=n.body;
- if(canManageAllStages(me))$("rStage").value=n.stage;
+ if($("rStage")&&[...$("rStage").options].some(o=>o.value===n.stage))$("rStage").value=n.stage;
  $("rSection").value=n.section;$("rPriority").value=n.priority||"normal";
  $("rFile").value="";$("rFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
  $("repFormTitle").textContent="تعديل التبليغ";$("rPubBtn").textContent="حفظ التعديلات";$("rCancelBtn").classList.remove("hidden");
@@ -777,11 +933,19 @@ function resetRepForm(){
  $("repFormTitle").textContent="نشر تبليغ";$("rPubBtn").textContent="نشر التبليغ";$("rCancelBtn").classList.add("hidden");
 }
 
+async function changeUserRole(codeId,newRole){
+ try{
+  await updateDoc(doc(db,"codes",codeId),{role:newRole});
+  alert("تم تحديث الصلاحية إلى: "+roleLabel(newRole));
+ }catch(e){alert("تعذر تحديث الصلاحية.")}
+}
+
 const fail=()=>alert("تعذر تنفيذ العملية.");
 async function removeNotice(id){if(confirm("حذف هذا التبليغ؟"))await deleteDoc(doc(db,"notices",id)).catch(fail)}
-async function removeCode(id){if(confirm("حذف هذا الكود؟ إذا كان مستخدماً فسيفقد صاحبه دخوله."))await deleteDoc(doc(db,"codes",id)).catch(fail)}
-async function resetCode(id){if(confirm("إعادة الكود غير مستخدم؟ يستطيع شخص جديد استخدامه."))await updateDoc(doc(db,"codes",id),{used:false,name:deleteField(),phone:deleteField(),usedAt:deleteField()}).catch(fail)}
+async function removeCode(id){if(confirm("حذف هذا الرمز؟ إذا كان مستخدماً فسيفقد صاحبه دخوله."))await deleteDoc(doc(db,"codes",id)).catch(fail)}
+async function resetCode(id){if(confirm("إعادة الرمز غير مستخدم؟ يستطيع شخص جديد استخدامه."))await updateDoc(doc(db,"codes",id),{used:false,role:"student",name:deleteField(),phone:deleteField(),usedAt:deleteField()}).catch(fail)}
 async function genCodes(){
+ if(!activeDept){alert("اختر أو أضف قسماً أولاً.");return}
  const role=$("gRole").value,stage=role==="rapporteur"?"all":$("gStage").value,section=$("gSection").value,n=Math.min(200,Math.max(1,parseInt($("gCount").value)||0));
  if(!stage||!section){alert("اختر المرحلة والشعبة.");return}
  const ch="ABCDEFGHJKMNPQRSTUVWXYZ23456789",have=new Set(codes.map(c=>c.id)),batch=writeBatch(db);
@@ -794,31 +958,30 @@ async function genCodes(){
  try{
   await batch.commit();
   const wa=normPhone($("waPhone").value);
-  const txt="رمز الدخول لتطبيق تبليغات الكلية ("+activeDept+"):\n"+created.join("\n");
+  const txt="رمز الدخول لتطبيق التبليغات ("+activeDept+"):\n"+created.join("\n")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول بعد تسجيل الخروج.";
   if(wa){window.open("https://wa.me/"+wa+"?text="+encodeURIComponent(txt),"_blank")}
-  else alert("تم إنشاء "+n+" رمز لقسم "+activeDept+". اضغط (إرسال الرموز للواتساب) لإرسالها.");
+  else alert("تم إنشاء "+n+" رمز لقسم "+activeDept+".");
  }catch(e){fail()}
 }
 function sendSingleCodeWhatsApp(codeId){
  const c=codes.find(x=>x.id===codeId);
- const msg="رمز الدخول الخاص بك لتطبيق التبليغات:\nالرمز: "+codeId+(c&&c.dept?"\nالقسم: "+c.dept:"");
- const wa=normPhone($("waPhone").value);
+ const msg="رمز الدخول الخاص بك لتطبيق التبليغات:\nالرمز: "+codeId+(c&&c.dept?"\nالقسم: "+c.dept:"")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول إذا سجلت الخروج.";
+ const wa=normPhone((c&&c.phone)||$("waPhone").value);
  const url=wa?("https://wa.me/"+wa+"?text="+encodeURIComponent(msg)):("https://wa.me/?text="+encodeURIComponent(msg));
  window.open(url,"_blank");
 }
 function sendCodesWhatsApp(){
  const avail=codes.filter(c=>deptOf(c)===activeDept&&!c.used);
  if(!avail.length){alert("لا توجد رموز غير مستخدمة في هذا القسم.");return}
- const msg="رموز الدخول لقسم ("+activeDept+"):\n"+avail.slice(0,25).map(c=>c.id+" ("+(c.stage==="all"?"كل المراحل":c.stage)+" - شعبة "+c.section+")").join("\n");
+ const msg="رموز الدخول لقسم ("+activeDept+"):\n"+avail.slice(0,25).map(c=>c.id+" ("+(c.stage==="all"?"كل المراحل":c.stage)+" - شعبة "+c.section+")").join("\n")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول بعد تسجيل الخروج.";
  const wa=normPhone($("waPhone").value);
  const url=wa?("https://wa.me/"+wa+"?text="+encodeURIComponent(msg)):("https://wa.me/?text="+encodeURIComponent(msg));
  window.open(url,"_blank");
 }
 function copyCodes(stage){
- const l=codes.filter(c=>deptOf(c)===activeDept&&c.stage===stage&&!c.used).sort((a,b)=>a.section.localeCompare(b.section,"ar"));
+ const l=codes.filter(c=>deptOf(c)===activeDept&&c.stage===stage&&!c.used).sort((a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar"));
  if(!l.length){alert("لا توجد أكواد غير مستخدمة.");return}
- const rLabel=r=>r==="rapporteur"?"مقرر كل المراحل":(r==="rep"?"ممثل مرحلة":"طالب");
- const t=activeDept+" - "+(stage==="all"?"كل المراحل":stage)+"\n"+l.map(c=>"شعبة "+c.section+" ("+rLabel(c.role)+") : "+c.id).join("\n");
+ const t=activeDept+" - "+(stage==="all"?"كل المراحل":stage)+"\n"+l.map(c=>"شعبة "+c.section+" ("+roleLabel(c.role)+") : "+c.id).join("\n");
  navigator.clipboard.writeText(t).then(()=>alert("تم نسخ "+l.length+" كود.")).catch(()=>prompt("انسخ الأكواد:",t));
 }
 
@@ -858,10 +1021,15 @@ function renderStudent(){
  $("homeNotices").innerHTML=mine.slice(0,3).map(noticeCard).join("")||empty("لا توجد تبليغات لقسمك حالياً.");
  const list=filter==="important"?mine.filter(n=>n.priority==="important"):mine;
  $("studentNotices").innerHTML=list.map(noticeCard).join("")||empty("لا توجد تبليغات هنا.");
- if(me.role==="rep"||me.role==="rapporteur"||me.stage==="all"){
-  const mgrList=notices.filter(n=>deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageStage(me,n.stage||"all"));
+ if(isStaffRole(me.role)){
+  const mgrList=notices.filter(n=>deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageNotice(me,n));
   $("repNotices").innerHTML=mgrList.map(n=>`<div class="card notice ${n.priority||"normal"}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`).join("")||empty("لا توجد تبليغات ضمن صلاحيتك.");
  }
+}
+function roleSelectHtml(codeId,currentRole){
+ return `<select style="width:auto;padding:5px 8px;font-size:12px;margin:0" onchange="changeUserRole('${esc(codeId)}',this.value)">`+
+  Object.entries(ROLES).map(([k,v])=>`<option value="${k}" ${(currentRole||"student")===k?"selected":""}>${v}</option>`).join("")+
+  `</select>`;
 }
 function renderAdmin(){
  const deptCodes=codes.filter(c=>deptOf(c)===activeDept);
@@ -874,17 +1042,17 @@ function renderAdmin(){
  const bySec=(a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
  const stagesWithAll=[...stagesForDept(activeDept),"all"];
  $("aStudents").innerHTML=stagesWithAll.map(st=>{
-  const label=st==="all"?"مقررون (كل المراحل)":st;
-  const l=used.filter(s=>s.stage===st).sort(bySec);
+  const label=st==="all"?"مقررون / عام":st;
+  const l=used.filter(s=>(s.stage||"all")===st).sort(bySec);
   return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length}</span></summary>`+
-   (l.map(s=>`<div class="stu"><div><b>${esc(s.name)}</b> ${s.role==="rapporteur"?'<span class="tag rep">مقرر كل المراحل</span>':(s.role==="rep"?'<span class="tag rep">ممثل مرحلة</span>':"")}<br><span class="meta">شعبة ${esc(s.section)} · <span class="ltr" style="display:inline-block">+${esc(s.phone)}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div><button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
+   (l.map(s=>`<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span><br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
  }).join("");
  $("codeLists").innerHTML=stagesWithAll.map(st=>{
-  const label=st==="all"?"أكواد مقرر (كل المراحل)":st;
-  const l=deptCodes.filter(c=>c.stage===st&&!c.used).sort(bySec);
+  const label=st==="all"?"رموز عامة / مقرر":st;
+  const l=deptCodes.filter(c=>(c.stage||"all")===st&&!c.used).sort(bySec);
   return `<details data-s="${st}" ${oC.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length} متاح</span></summary>`+
-   `<div class="stu"><button class="sec" style="margin:0" onclick="copyCodes('${st}')">نسخ الأكواد المتاحة</button></div>`+
-   (l.map(c=>`<div class="stu"><div><b class="ltr" style="display:inline-block;letter-spacing:2px">${esc(c.id)}</b> <span class="tag">شعبة ${esc(c.section)}</span> ${c.role==="rapporteur"?'<span class="tag rep">مقرر كل المراحل</span>':(c.role==="rep"?'<span class="tag rep">ممثل مرحلة</span>':"")}</div><button class="act" onclick="sendSingleCodeWhatsApp('${esc(c.id)}')">واتساب</button><button class="del" onclick="removeCode('${esc(c.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا توجد أكواد متاحة.</div>`)+`</details>`;
+   `<div class="stu"><button class="sec" style="margin:0" onclick="copyCodes('${st}')">نسخ الرموز المتاحة</button></div>`+
+   (l.map(c=>`<div class="stu"><div><b class="ltr" style="display:inline-block;letter-spacing:2px">${esc(c.id)}</b> <span class="tag">شعبة ${esc(c.section||"all")}</span> <span class="tag rep">${esc(roleLabel(c.role))}</span></div><button class="act" onclick="sendSingleCodeWhatsApp('${esc(c.id)}')">واتساب</button><button class="del" onclick="removeCode('${esc(c.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا توجد رموز متاحة.</div>`)+`</details>`;
  }).join("");
 }
 
@@ -911,14 +1079,18 @@ function startNotices(){
 }
 function startCodes(){
  if(unsubC)return;
- unsubC=onSnapshot(collection(db,"codes"),snap=>{codes=snap.docs.map(d=>({id:d.id,...d.data()}));renderAdmin()},()=>{unsubC=null});
+ unsubC=onSnapshot(collection(db,"codes"),snap=>{
+  codes=snap.docs.map(d=>({id:d.id,...d.data()}));
+  syncMyRoleFromCodes();
+  if(isAdminView)renderAdmin();
+ },()=>{unsubC=null});
 }
 onAuthStateChanged(auth,async u=>{
  if(!u){if(unsubN){unsubN();unsubN=null}await signInAnonymously(auth).catch(()=>{});return}
- readyRes();startBrandSync();startNotices();
- if(!u.isAnonymous){isAdminView=true;startCodes();renderAdmin();aTab("new");show("admin")}
+ readyRes();startBrandSync();startNotices();startCodes();
+ if(!u.isAnonymous){isAdminView=true;renderAdmin();aTab("new");show("admin")}
  else{
-  isAdminView=false;if(unsubC){unsubC();unsubC=null}codes=[];
+  isAdminView=false;
   if(me)openStudent();else show("login");
  }
 });
@@ -935,7 +1107,7 @@ refreshDeptSelects();
 fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,studentLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveLogo,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles});
+Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,changeUserRole,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveLogo,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles});
 </script>
 </body>
 </html>
