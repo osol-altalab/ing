@@ -395,7 +395,7 @@ function startBrandSync(){
   refreshDeptSelects();
   if(me)openStudent();
   if(isAdminView)renderAdmin();
- },()=>{});
+ },()=>{unsubBrand=null});
 }
 async function saveLogo(){
  const f=$("logoFile").files[0];
@@ -491,8 +491,10 @@ async function readAttachment(inputId){
 async function cacheAttachmentsLocally(list){
  for(const n of list){
   if(n.att&&n.att.data){
-   const ex=await idb.get(n.id);
-   if(!ex)await idb.put({id:n.id,name:n.att.name,type:n.att.type,data:n.att.data,savedAt:Date.now()});
+   try{
+    const ex=await idb.get(n.id);
+    if(!ex)await idb.put({id:n.id,name:n.att.name,type:n.att.type,data:n.att.data,savedAt:Date.now()});
+   }catch(e){}
   }
  }
  updateStorageStat();
@@ -510,7 +512,7 @@ async function openAttachment(noticeId){
  let item=await idb.get(noticeId);
  if(!item){
   const n=notices.find(x=>x.id===noticeId);
-  if(n&&n.att&&n.att.data){item={id:n.id,...n.att};await idb.put(item)}
+  if(n&&n.att&&n.att.data){item={id:n.id,...n.att};try{await idb.put(item)}catch(e){}}
  }
  if(!item){alert("الملف غير متوفر.");return}
  const a=document.createElement("a");a.href=item.data;a.download=item.name||"attachment";document.body.appendChild(a);a.click();a.remove();
@@ -533,7 +535,7 @@ const canManageStage=(u,st)=>u&&(u.role==="rapporteur"||u.stage==="all"||(u.role
 
 /* ===== دخول الطالب / الممثل / المقرر بالكود ===== */
 async function studentLogin(){
- const dept=$("lDept").value,code=$("lCode").value.trim().toUpperCase(),name=$("lName").value.trim().replace(/\s+/g," "),phone=normPhone($("lPhone").value),err=$("lErr");
+ const dept=$("lDept").value||DEFAULT_DEPTS[0],code=$("lCode").value.trim().toUpperCase(),name=$("lName").value.trim().replace(/\s+/g," "),phone=normPhone($("lPhone").value),err=$("lErr");
  err.textContent="";
  if(code.length!==6){err.textContent="اكتب كود الدخول (6 خانات).";return}
  if(name.split(" ").length<3){err.textContent="اكتب الاسم الثلاثي كاملاً.";return}
@@ -547,14 +549,19 @@ async function studentLogin(){
   if(c.dept&&c.dept!==dept){err.textContent="هذا الكود تابع لقسم آخر ("+c.dept+").";return}
   if(c.used){
    if(c.phone!==phone){err.textContent="هذا الكود مستخدم من شخص آخر. راجع الإدارة.";return}
-  }else await updateDoc(ref,{used:true,name,phone,dept,usedAt:serverTimestamp()});
-  me={code,name:c.used?c.name:name,phone,dept:c.dept||dept,stage:c.stage,section:c.section,role:c.role||"student"};
+  }else await updateDoc(ref,{used:true,name,phone,dept:c.dept||dept,usedAt:serverTimestamp()});
+  me={code,name:c.used?c.name:name,phone,dept:c.dept||dept,stage:c.stage||"all",section:c.section||"all",role:c.role||"student"};
   try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
   openStudent();
  }catch(e){err.textContent="تعذر الدخول. تأكد من الاتصال وحاول مرة ثانية."}
  finally{btn.disabled=false}
 }
 function openStudent(){
+ if(!me)return;
+ if(!me.dept)me.dept=$("lDept").value||DEFAULT_DEPTS[0];
+ if(!me.stage)me.stage="all";
+ if(!me.section)me.section="all";
+ try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
  const isMgr=me.role==="rep"||me.role==="rapporteur"||me.stage==="all";
  const roleLabel=me.role==="rapporteur"||me.stage==="all"?"مقرر (كل المراحل)":(me.role==="rep"?"ممثل مرحلة":"طالب");
  const stList=stagesForDept(me.dept);
@@ -605,7 +612,7 @@ async function publish(){
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  try{
   const att=await readAttachment("aFile");
-  const payload={title,body,dept:activeDept,stage:$("tStage").value,section:$("tSection").value,priority:$("priority").value};
+  const payload={title,body,dept:activeDept,stage:$("tStage").value||"all",section:$("tSection").value||"all",priority:$("priority").value||"normal"};
   if(att)payload.att=att;
   if(editId){
    await updateDoc(doc(db,"notices",editId),payload);
@@ -634,12 +641,12 @@ function resetAdmForm(){
 async function repPublish(){
  if(!me||!(me.role==="rep"||me.role==="rapporteur"||me.stage==="all"))return;
  const title=$("rTitle").value.trim(),body=$("rBody").value.trim(),editId=$("repEditId").value;
- const st=canManageAllStages(me)?$("rStage").value:me.stage;
+ const st=canManageAllStages(me)?($("rStage").value||"all"):me.stage;
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  if(!canManageStage(me,st)){alert("لا تملك صلاحية النشر لهذه المرحلة.");return}
  try{
   const att=await readAttachment("rFile");
-  const payload={title,body,dept:me.dept,stage:st,section:$("rSection").value,priority:$("rPriority").value};
+  const payload={title,body,dept:me.dept||DEFAULT_DEPTS[0],stage:st,section:$("rSection").value||"all",priority:$("rPriority").value||"normal"};
   if(att)payload.att=att;
   if(editId){
    await updateDoc(doc(db,"notices",editId),payload);
@@ -698,9 +705,22 @@ function attHtml(n){
  const ico=String(n.att.name).toLowerCase().endsWith(".pdf")?"📕":"📘";
  return `<div class="att-box"><span class="meta">${ico} ${esc(n.att.name)}</span><button class="act" onclick="openAttachment('${esc(n.id)}')">فتح / حفظ</button></div>`;
 }
-const noticeCard=n=>`<div class="card notice ${n.priority}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span></div>`;
+const noticeCard=n=>`<div class="card notice ${n.priority||"normal"}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span></div>`;
 const empty=t=>`<div class="card meta">${t}</div>`;
-const myNotices=()=>me?notices.filter(n=>deptOf(n)===me.dept&&(n.stage==="all"||me.stage==="all"||n.stage===me.stage)&&(n.section==="all"||me.section==="all"||n.section===me.section)):[];
+const myNotices=()=>{
+ if(!me)return[];
+ const myDept=me.dept||DEFAULT_DEPTS[0];
+ const myStage=me.stage||"all";
+ const mySec=me.section||"all";
+ return notices.filter(n=>{
+  const nDept=n.dept||DEFAULT_DEPTS[0];
+  const nStage=n.stage||"all";
+  const nSec=n.section||"all";
+  return nDept===myDept
+   &&(nStage==="all"||myStage==="all"||nStage===myStage)
+   &&(nSec==="all"||mySec==="all"||nSec===mySec);
+ });
+};
 
 function renderStudent(){
  if(!me)return;
@@ -712,8 +732,8 @@ function renderStudent(){
  const list=filter==="important"?mine.filter(n=>n.priority==="important"):mine;
  $("studentNotices").innerHTML=list.map(noticeCard).join("")||empty("لا توجد تبليغات هنا.");
  if(me.role==="rep"||me.role==="rapporteur"||me.stage==="all"){
-  const mgrList=notices.filter(n=>deptOf(n)===me.dept&&canManageStage(me,n.stage));
-  $("repNotices").innerHTML=mgrList.map(n=>`<div class="card notice ${n.priority}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`).join("")||empty("لا توجد تبليغات ضمن صلاحيتك.");
+  const mgrList=notices.filter(n=>deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageStage(me,n.stage||"all"));
+  $("repNotices").innerHTML=mgrList.map(n=>`<div class="card notice ${n.priority||"normal"}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`).join("")||empty("لا توجد تبليغات ضمن صلاحيتك.");
  }
 }
 function renderAdmin(){
@@ -721,10 +741,10 @@ function renderAdmin(){
  const deptNotices=notices.filter(n=>deptOf(n)===activeDept);
  const used=deptCodes.filter(c=>c.used);
  $("cStudents").textContent=used.length;$("cNotices").textContent=deptNotices.length;
- $("aNotices").innerHTML=deptNotices.map(n=>`<div class="card notice ${n.priority}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editAdminNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`).join("")||empty("لا توجد تبليغات منشورة في هذا القسم.");
+ $("aNotices").innerHTML=deptNotices.map(n=>`<div class="card notice ${n.priority||"normal"}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4>${esc(n.title)}</h4><p>${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editAdminNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`).join("")||empty("لا توجد تبليغات منشورة في هذا القسم.");
  const keep=id=>[...document.querySelectorAll("#"+id+" details[open]")].map(d=>d.dataset.s);
  const oS=keep("aStudents"),oC=keep("codeLists");
- const bySec=(a,b)=>a.section.localeCompare(b.section,"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
+ const bySec=(a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
  const stagesWithAll=[...stagesForDept(activeDept),"all"];
  $("aStudents").innerHTML=stagesWithAll.map(st=>{
   const label=st==="all"?"مقررون (كل المراحل)":st;
@@ -745,19 +765,22 @@ function renderAdmin(){
 function startNotices(){
  if(unsubN)return;
  unsubN=onSnapshot(query(collection(db,"notices"),orderBy("createdAt","desc")),snap=>{
-  notices=snap.docs.map(d=>{const x=d.data(),t=x.createdAt?x.createdAt.toDate():new Date();return{id:d.id,...x,date:t.toLocaleString("ar-IQ"),day:t.toDateString()}});
+  notices=snap.docs.map(d=>{
+   const x=d.data(),t=x.createdAt&&typeof x.createdAt.toDate==="function"?x.createdAt.toDate():new Date();
+   return{id:d.id,...x,date:t.toLocaleString("ar-IQ"),day:t.toDateString()};
+  });
   if(me){
    const mine=myNotices();
    const hasBrandNew=!firstSnap&&mine.some(n=>!knownIds.has(n.id));
    mine.forEach(n=>knownIds.add(n.id));
-   localStorage.setItem("knownIds",JSON.stringify([...knownIds].slice(-300)));
+   try{localStorage.setItem("knownIds",JSON.stringify([...knownIds].slice(-300)))}catch(e){}
    if(hasBrandNew)ringBell();
-   cacheAttachmentsLocally(mine);
    updateBellUI();
+   cacheAttachmentsLocally(mine);
   }
   firstSnap=false;
   renderStudent();if(isAdminView)renderAdmin();
- },()=>{unsubN=null});
+ },()=>{unsubN=null;setTimeout(()=>{if(auth.currentUser)startNotices()},2000)});
 }
 function startCodes(){
  if(unsubC)return;
