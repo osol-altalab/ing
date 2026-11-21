@@ -12,7 +12,7 @@ service cloud.firestore {
         && code is string
         && exists(/databases/$(database)/documents/codes/$(code))
         && (
-          get(/databases/$(database)/documents/codes/$(code)).data.role == 'rapporteur'
+          get(/databases/$(database)/documents/codes/$(code)).data.role in ['rapporteur', 'teacher', 'dept_admin']
           || get(/databases/$(database)/documents/codes/$(code)).data.stage == 'all'
           || (
             get(/databases/$(database)/documents/codes/$(code)).data.role == 'rep'
@@ -34,12 +34,17 @@ service cloud.firestore {
 
     match /codes/{codeId} {
       allow get: if isSignedIn();
-      allow list, create, delete: if isAdmin();
+      allow list, delete: if isAdmin();
+      allow create: if isAdmin() || (
+        isSignedIn()
+        && request.resource.data.role == 'student'
+        && request.resource.data.used == false
+      );
       allow update: if isAdmin() || (
         isSignedIn()
         && resource.data.used == false
         && request.resource.data.used == true
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['used', 'name', 'phone', 'dept', 'usedAt'])
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['used', 'name', 'phone', 'dept', 'stage', 'section', 'usedAt'])
       );
     }
   }
