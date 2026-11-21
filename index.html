@@ -43,6 +43,7 @@ h3{margin:4px 0 10px;font-size:16px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
 .notice{border-right:4px solid var(--navy)}
 .notice.important{border-right-color:var(--navy2);background:var(--warn-bg)}
+.notice.private{border-right-color:#0f766e;background:#f0fdfa}
 .notice-title{margin:6px 0 4px;font-size:15px;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .notice-title::after{content:"▾";font-size:12px;color:var(--mute);flex:none}
 .notice.open .notice-title::after{content:"▴"}
@@ -50,8 +51,9 @@ h3{margin:4px 0 10px;font-size:16px}
 .notice.open .notice-body{max-height:none;overflow:visible}
 .notice:not(.open) .notice-body::after{content:"";position:absolute;bottom:0;left:0;right:0;height:20px;background:linear-gradient(transparent,var(--card))}
 .notice.important:not(.open) .notice-body::after{background:linear-gradient(transparent,var(--warn-bg))}
+.notice.private:not(.open) .notice-body::after{background:linear-gradient(transparent,#f0fdfa)}
 .replies-box{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
-.reply-item{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px;font-size:13px}
+.reply-item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px;font-size:13px}
 .reply-form{display:flex;gap:6px;margin-top:6px;align-items:center}
 .reply-form input{margin:0;padding:8px 10px;font-size:13px;flex:1}
 .reply-form button{margin:0;padding:8px 12px;font-size:12px;width:auto;white-space:nowrap}
@@ -63,6 +65,7 @@ h3{margin:4px 0 10px;font-size:16px}
 .tag{display:inline-block;font-size:11px;background:var(--soft);color:var(--ink);border-radius:20px;padding:1px 10px;margin-left:4px}
 .tag.imp{background:var(--navy2);color:#fff}
 .tag.rep{background:var(--navy);color:#fff}
+.tag.priv{background:#0f766e;color:#fff}
 .att-box{margin:8px 0;padding:8px 10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .att-img{width:100%;max-height:240px;object-fit:contain;border-radius:10px;margin-top:6px;border:1px solid var(--line);background:var(--card);display:block}
 .acc-avatar{width:68px;height:68px;border-radius:16px;object-fit:cover;border:1px solid var(--line);background:var(--soft);display:block;margin-bottom:8px}
@@ -235,7 +238,11 @@ details[open] summary::after{transform:rotate(180deg)}
   </div>
 
   <div id="sNotices" class="hidden">
-   <div class="chips"><button id="fAll" class="on" onclick="setFilter('all')">الكل</button><button id="fImp" onclick="setFilter('important')">المهمة</button></div>
+   <div class="chips">
+    <button id="fAll" class="on" onclick="setFilter('all')">الكل</button>
+    <button id="fImp" onclick="setFilter('important')">المهمة</button>
+    <button id="fPriv" onclick="setFilter('private')">التبليغات الخاصة</button>
+   </div>
    <div id="studentNotices"></div>
   </div>
 
@@ -244,6 +251,9 @@ details[open] summary::after{transform:rotate(180deg)}
     <h3 id="repFormTitle">نشر تبليغ</h3>
     <p class="meta" id="repScopeMeta"></p>
     <input type="hidden" id="repEditId">
+    <input type="hidden" id="repChannel" value="public">
+    <input type="hidden" id="repTargetCode" value="">
+    <div id="repPrivateBanner" class="warn-note hidden" style="margin-bottom:8px"></div>
     <label for="rTitle">العنوان</label>
     <input id="rTitle" placeholder="مثال: محاضرة إضافية أو تبليغ شعبة">
     <label for="rBody">النص</label>
@@ -262,6 +272,8 @@ details[open] summary::after{transform:rotate(180deg)}
    </div>
    <h3 id="repListTitle">التبليغات المتاحة للتعديل والحذف</h3>
    <div id="repNotices"></div>
+   <h3 id="repPrivateListTitle" class="hidden">📩 التبليغات الخاصة والردود المتبادلة</h3>
+   <div id="repPrivateNotices"></div>
   </div>
 
   <!-- تبويب الصلاحيات والمراحل والشعب والطلاب والمتصلين لمدير القسم والمقرر -->
@@ -273,7 +285,7 @@ details[open] summary::after{transform:rotate(180deg)}
    </div>
    <div class="card">
     <h3>👥 المراحل والشعب والطلاب</h3>
-    <p class="meta">اختر المرحلة والشعبة لعرض الطلاب وتغيير صلاحياتهم (طالب، ممثل، مقرر، مدرس، مدير قسم).</p>
+    <p class="meta">اختر المرحلة والشعبة لعرض الطلاب، إرسال تبليغ خاص، أو تغيير صلاحياتهم.</p>
     <div class="row">
      <div><label for="pStageFilter">المرحلة</label><select id="pStageFilter" onchange="renderDeptPermissions()"></select></div>
      <div><label for="pSectionFilter">الشعبة</label><select id="pSectionFilter" onchange="renderDeptPermissions()"></select></div>
@@ -380,11 +392,14 @@ details[open] summary::after{transform:rotate(180deg)}
   <div id="aNew" class="card">
    <h3 id="admFormTitle">نشر تبليغ جديد</h3>
    <input type="hidden" id="admEditId">
+   <input type="hidden" id="admChannel" value="public">
+   <input type="hidden" id="admTargetCode" value="">
+   <div id="admPrivateBanner" class="warn-note hidden" style="margin-bottom:8px"></div>
    <label for="title">العنوان</label>
    <input id="title" placeholder="مثال: تأجيل امتحان مادة الدوائر">
    <label for="body">النص</label>
    <textarea id="body" rows="4" placeholder="اكتب تفاصيل التبليغ"></textarea>
-   <div class="row">
+   <div class="row" id="admTargetRow">
     <div><label for="tStage">المرحلة</label><select id="tStage"></select></div>
     <div><label for="tSection">الشعبة</label><select id="tSection"></select></div>
    </div>
@@ -450,7 +465,7 @@ const ROLES={
  teacher:"مدرس",
  dept_admin:"مدير قسم"
 };
-const MAX_STUDENT_REPLIES=2;
+const MAX_REPLIES_PER_SIDE=2;
 const ONLINE_WINDOW_MS=5*60*1000;
 let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات المرضية"]);
 let notices=[],codes=[],me=null,filter="all",unsubN=null,unsubC=null,unsubBrand=null,isAdminView=false,deferred=null,readyRes,audioCtx=null,presenceTimer=null;
@@ -468,6 +483,7 @@ const stagesForDept=deptName=>hasFifthStage(deptName)?[...BASE_STAGES,FIFTH_STAG
 const roleLabel=r=>ROLES[r]||ROLES.student;
 const canManageAll=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
 const canManageDeptPerms=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
+const canSendPrivateNotice=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
 const canViewTeachersRoom=u=>u&&["teacher","rapporteur","dept_admin"].includes(u.role||"student");
 const canPostTeachersRoom=u=>u&&(u.role||"student")==="teacher";
 const canManageNotice=(u,n)=>{
@@ -477,6 +493,9 @@ const canManageNotice=(u,n)=>{
   if(r==="dept_admin"||r==="rapporteur")return true;
   if(r==="teacher")return n.authorCode===u.code;
   return false;
+ }
+ if(n.channel==="private_student"){
+  return r==="dept_admin"||r==="rapporteur"||n.authorCode===u.code;
  }
  if(r==="dept_admin"||r==="rapporteur")return true;
  if(r==="teacher"||r==="rep")return n.authorCode===u.code;
@@ -844,28 +863,41 @@ function toggleNoticeText(id){
  if(isAdminView)renderAdmin();
 }
 
-/* ===== الردود (حد أقصى ردّان لكل طالب على التبليغ) ===== */
-async function submitStudentReply(noticeId){
- if(!me||!me.code||!noticeId)return;
+/* ===== الردود في التبليغات الخاصة فقط (حد أقصى 2 لكل طرف) ===== */
+async function submitPrivateReply(noticeId,senderSide){
+ if(!noticeId)return;
+ const n=notices.find(x=>x.id===noticeId);
+ if(!n||n.channel!=="private_student")return;
+ const isSender=senderSide==="sender";
+ if(isSender){
+  if(!isAdminView&&!(me&&canSendPrivateNotice(me)))return;
+ }else{
+  if(!me||!me.code||n.targetStudentCode!==me.code)return;
+ }
  const inp=$("replyInput_"+noticeId);
  if(!inp)return;
  const text=inp.value.trim();
  if(!text){alert("اكتب نص الرد أولاً.");return}
- const n=notices.find(x=>x.id===noticeId);
- const currentReplies=Array.isArray(n&&n.replies)?n.replies:[];
- const myCount=currentReplies.filter(r=>r.authorCode===me.code).length;
- if(myCount>=MAX_STUDENT_REPLIES){
-  alert("مسموح لك بإضافة ردّين كحد أقصى على هذا التبليغ.");
+
+ const currentReplies=Array.isArray(n.replies)?n.replies:[];
+ const sideCount=currentReplies.filter(r=>isSender?(r.side==="sender"||r.authorCode!=="STUDENT"):(r.side==="student"||r.authorCode===me.code)).length;
+ if(sideCount>=MAX_REPLIES_PER_SIDE){
+  alert("تم استنفاد الحد الأقصى للردود (ردّان لكل طرف) في هذا التبليغ الخاص.");
   return;
  }
+
+ const authorLabel=isSender?(isAdminView?"إدارة القسم":authorDisplay(me)):("طالب: "+((me&&me.name)||n.targetStudentName||"طالب").split(" ").slice(0,2).join(" "));
+ const authorCode=isSender?((me&&me.code)||"ADMIN"):me.code;
+
  expandedIds.add(noticeId);
  try{localStorage.setItem("expandedIds",JSON.stringify([...expandedIds].slice(-200)))}catch(e){}
  try{
-  await authReady;
+  if(!isAdminView)await authReady;
   await updateDoc(doc(db,"notices",noticeId),{
    replies:arrayUnion({
-    author:authorDisplay(me),
-    authorCode:me.code,
+    side:isSender?"sender":"student",
+    author:authorLabel,
+    authorCode,
     text,
     time:new Date().toLocaleString("ar-IQ")
    })
@@ -1089,6 +1121,8 @@ function openStudent(){
  $("nPerms").classList.toggle("hidden",!hasPerms);
  $("nTeachersRoom").classList.toggle("hidden",!hasRoom);
  $("trComposerCard").classList.toggle("hidden",!canPostTeachersRoom(me));
+ $("repPrivateListTitle").classList.toggle("hidden",!canSendPrivateNotice(me));
+ $("repPrivateNotices").classList.toggle("hidden",!canSendPrivateNotice(me));
 
  if(hasPerms){
   const prevPS=$("pStageFilter").value||"all";
@@ -1137,7 +1171,13 @@ function aTab(t){
  const m={new:["aNew","atNew"],notices:["aNotices","atNotices"],students:["aStudents","atStudents"],codes:["aCodes","atCodes"]};
  for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
 }
-function setFilter(f){filter=f;$("fAll").classList.toggle("on",f==="all");$("fImp").classList.toggle("on",f==="important");renderStudent()}
+function setFilter(f){
+ filter=f;
+ $("fAll").classList.toggle("on",f==="all");
+ $("fImp").classList.toggle("on",f==="important");
+ $("fPriv").classList.toggle("on",f==="private");
+ renderStudent();
+}
 function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept||"لا يوجد قسم";refreshStageSelects();resetAdmForm();renderAdmin()}
 function toggleStageForRole(){
  const isR=$("gRole").value==="rapporteur";
@@ -1146,14 +1186,69 @@ function toggleStageForRole(){
  else if($("gStage").value==="all")$("gStage").value="";
 }
 
+/* ===== فتح نموذج تبليغ خاص لطالب محدد ===== */
+function startPrivateNoticeForStudent(studentCode){
+ const stu=codes.find(c=>c.id===studentCode);
+ if(!stu){alert("تعذر العثور على بيانات الطالب.");return}
+ const stuName=stu.name||"طالب";
+ const stuDept=deptOf(stu);
+ const stuStage=stu.stage||"all";
+ const stuSection=stu.section||"all";
+
+ if(isAdminView){
+  activeDept=stuDept;
+  $("admDept").value=activeDept;
+  $("admTopDept").textContent=activeDept;
+  refreshStageSelects();
+  resetAdmForm();
+  $("admChannel").value="private_student";
+  $("admTargetCode").value=studentCode;
+  $("admTargetRow").classList.add("hidden");
+  $("admPrivateBanner").textContent="📩 تبليغ خاص للطالب: "+stuName+" ("+stuStage+" · شعبة "+stuSection+")";
+  $("admPrivateBanner").classList.remove("hidden");
+  $("admFormTitle").textContent="إرسال تبليغ خاص للطالب";
+  $("admPubBtn").textContent="إرسال التبليغ الخاص";
+  aTab("new");
+  scrollTo(0,0);
+  return;
+ }
+
+ if(!me||!canSendPrivateNotice(me)){alert("إرسال التبليغات الخاصة متاح لمدير القسم والمقرر فقط.");return}
+ resetRepForm();
+ $("repChannel").value="private_student";
+ $("repTargetCode").value=studentCode;
+ $("rTargetRow").classList.add("hidden");
+ $("repPrivateBanner").textContent="📩 تبليغ خاص للطالب: "+stuName+" ("+stuStage+" · شعبة "+stuSection+")";
+ $("repPrivateBanner").classList.remove("hidden");
+ $("repFormTitle").textContent="إرسال تبليغ خاص للطالب";
+ $("rPubBtn").textContent="إرسال التبليغ الخاص";
+ $("rCancelBtn").classList.remove("hidden");
+ sTab("rep");
+ scrollTo(0,0);
+}
+
 /* ===== الإدارة والصلاحيات ===== */
 async function publish(){
  if(!activeDept){alert("اختر أو أضف قسماً أولاً.");return}
  const title=$("title").value.trim(),body=$("body").value.trim(),editId=$("admEditId").value;
+ const ch=$("admChannel").value||"public";
+ const targetCode=$("admTargetCode").value||"";
+ const targetStu=targetCode?codes.find(c=>c.id===targetCode):null;
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  try{
   const att=await readAttachment("aFile");
-  const payload={title,body,dept:activeDept,stage:$("tStage").value||"all",section:$("tSection").value||"all",priority:$("priority").value||"normal",channel:"public"};
+  const payload={
+   title,body,
+   dept:ch==="private_student"&&targetStu?deptOf(targetStu):activeDept,
+   stage:ch==="private_student"&&targetStu?(targetStu.stage||"all"):($("tStage").value||"all"),
+   section:ch==="private_student"&&targetStu?(targetStu.section||"all"):($("tSection").value||"all"),
+   priority:$("priority").value||"normal",
+   channel:ch
+  };
+  if(ch==="private_student"){
+   payload.targetStudentCode=targetCode;
+   payload.targetStudentName=(targetStu&&targetStu.name)||"طالب";
+  }
   if(att)payload.att=att;
   if(editId){
    await updateDoc(doc(db,"notices",editId),payload);
@@ -1169,24 +1264,53 @@ function editAdminNotice(id){
  activeDept=deptOf(n);$("admDept").value=activeDept;$("admTopDept").textContent=activeDept;
  refreshStageSelects();
  $("admEditId").value=n.id;$("title").value=n.title;$("body").value=n.body;
- $("tStage").value=n.stage;$("tSection").value=n.section;$("priority").value=n.priority||"normal";
+ $("admChannel").value=n.channel||"public";
+ $("admTargetCode").value=n.targetStudentCode||"";
+ if(n.channel==="private_student"){
+  $("admTargetRow").classList.add("hidden");
+  $("admPrivateBanner").textContent="📩 تبليغ خاص للطالب: "+(n.targetStudentName||n.targetStudentCode||"");
+  $("admPrivateBanner").classList.remove("hidden");
+ }else{
+  $("admTargetRow").classList.remove("hidden");
+  $("admPrivateBanner").classList.add("hidden");
+  $("tStage").value=n.stage;$("tSection").value=n.section;
+ }
+ $("priority").value=n.priority||"normal";
  $("aFile").value="";$("aFileNote").textContent=n.att?"مرفق حالي: "+n.att.name+" (اختر ملفاً جديداً لاستبداله)":"";
  $("admFormTitle").textContent="تعديل التبليغ";$("admPubBtn").textContent="حفظ التعديلات";$("admCancelBtn").classList.remove("hidden");
  aTab("new");scrollTo(0,0);
 }
 function resetAdmForm(){
- $("admEditId").value="";$("title").value="";$("body").value="";$("aFile").value="";$("aFileNote").textContent="";
+ $("admEditId").value="";$("admChannel").value="public";$("admTargetCode").value="";
+ $("admTargetRow").classList.remove("hidden");$("admPrivateBanner").classList.add("hidden");$("admPrivateBanner").textContent="";
+ $("title").value="";$("body").value="";$("aFile").value="";$("aFileNote").textContent="";
  $("admFormTitle").textContent="نشر تبليغ جديد";$("admPubBtn").textContent="نشر التبليغ";$("admCancelBtn").classList.add("hidden");
 }
 
 async function repPublish(){
  if(!me||!isStaffRole(me.role))return;
  const title=$("rTitle").value.trim(),body=$("rBody").value.trim(),editId=$("repEditId").value;
- const st=canManageAll(me)?($("rStage").value||"all"):(me.role==="rep"?me.stage:($("rStage").value||"all"));
+ const ch=$("repChannel").value||"public";
+ const targetCode=$("repTargetCode").value||"";
+ if(ch==="private_student"&&!canSendPrivateNotice(me)){alert("إرسال التبليغات الخاصة متاح لمدير القسم والمقرر فقط.");return}
+ const targetStu=targetCode?codes.find(c=>c.id===targetCode):null;
+ const st=ch==="private_student"&&targetStu?(targetStu.stage||"all"):(canManageAll(me)?($("rStage").value||"all"):(me.role==="rep"?me.stage:($("rStage").value||"all")));
+ const sec=ch==="private_student"&&targetStu?(targetStu.section||"all"):($("rSection").value||"all");
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  try{
   const att=await readAttachment("rFile");
-  const payload={title,body,dept:me.dept||DEFAULT_DEPTS[0],stage:st,section:$("rSection").value||"all",priority:$("rPriority").value||"normal",channel:"public"};
+  const payload={
+   title,body,
+   dept:ch==="private_student"&&targetStu?deptOf(targetStu):(me.dept||DEFAULT_DEPTS[0]),
+   stage:st,
+   section:sec,
+   priority:$("rPriority").value||"normal",
+   channel:ch
+  };
+  if(ch==="private_student"){
+   payload.targetStudentCode=targetCode;
+   payload.targetStudentName=(targetStu&&targetStu.name)||"طالب";
+  }
   if(att)payload.att=att;
   if(editId){
    const existing=notices.find(x=>x.id===editId);
@@ -1204,14 +1328,27 @@ function editRepNotice(id){
  const n=notices.find(x=>x.id===id);if(!n||!me||deptOf(n)!==me.dept||!canManageNotice(me,n))return;
  if(n.channel==="teachers_room"){editTeacherRoomNotice(id);sTab("teachersRoom");return}
  $("repEditId").value=n.id;$("rTitle").value=n.title;$("rBody").value=n.body;
- if($("rStage")&&[...$("rStage").options].some(o=>o.value===n.stage))$("rStage").value=n.stage;
- $("rSection").value=n.section;$("rPriority").value=n.priority||"normal";
+ $("repChannel").value=n.channel||"public";
+ $("repTargetCode").value=n.targetStudentCode||"";
+ if(n.channel==="private_student"){
+  $("rTargetRow").classList.add("hidden");
+  $("repPrivateBanner").textContent="📩 تبليغ خاص للطالب: "+(n.targetStudentName||n.targetStudentCode||"");
+  $("repPrivateBanner").classList.remove("hidden");
+ }else{
+  $("rTargetRow").classList.remove("hidden");
+  $("repPrivateBanner").classList.add("hidden");
+  if($("rStage")&&[...$("rStage").options].some(o=>o.value===n.stage))$("rStage").value=n.stage;
+  $("rSection").value=n.section;
+ }
+ $("rPriority").value=n.priority||"normal";
  $("rFile").value="";$("rFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
  $("repFormTitle").textContent="تعديل التبليغ";$("rPubBtn").textContent="حفظ التعديلات";$("rCancelBtn").classList.remove("hidden");
  sTab("rep");scrollTo(0,0);
 }
 function resetRepForm(){
- $("repEditId").value="";$("rTitle").value="";$("rBody").value="";$("rFile").value="";$("rFileNote").textContent="";
+ $("repEditId").value="";$("repChannel").value="public";$("repTargetCode").value="";
+ $("rTargetRow").classList.remove("hidden");$("repPrivateBanner").classList.add("hidden");$("repPrivateBanner").textContent="";
+ $("rTitle").value="";$("rBody").value="";$("rFile").value="";$("rFileNote").textContent="";
  $("repFormTitle").textContent="نشر تبليغ";$("rPubBtn").textContent="نشر التبليغ";$("rCancelBtn").classList.add("hidden");
 }
 
@@ -1317,8 +1454,8 @@ function copyCodes(stage){
  navigator.clipboard.writeText(t).then(()=>alert("تم نسخ "+l.length+" كود.")).catch(()=>prompt("انسخ الأكواد:",t));
 }
 
-/* ===== العرض والردود والمتصلون ===== */
-const target=n=>(n.stage==="all"?"كل المراحل":n.stage)+" · "+(n.section==="all"?"كل الشعب":"شعبة "+n.section);
+/* ===== العرض والردود الخاصة والمتصلون ===== */
+const target=n=>n.channel==="private_student"?("تبليغ خاص للطالب: "+(n.targetStudentName||n.targetStudentCode||"")):((n.stage==="all"?"كل المراحل":n.stage)+" · "+(n.section==="all"?"كل الشعب":"شعبة "+n.section));
 function attHtml(n){
  if(!n.att)return"";
  if(n.att.type&&n.att.type.startsWith("image/")){
@@ -1327,25 +1464,36 @@ function attHtml(n){
  const ico=String(n.att.name).toLowerCase().endsWith(".pdf")?"📕":"📘";
  return `<div class="att-box"><span class="meta">${ico} ${esc(n.att.name)}</span><button class="act" onclick="openAttachment('${esc(n.id)}')">فتح / حفظ</button></div>`;
 }
-function repliesHtml(n,allowReplyForm=false){
+function privateRepliesHtml(n,viewerRole){
+ if(n.channel!=="private_student")return"";
  const list=Array.isArray(n.replies)?n.replies:[];
- const itemsHtml=list.map(r=>`<div class="reply-item"><b>${esc(r.author||"طالب")}</b>: <span>${esc(r.text||"")}</span><div class="meta">${esc(r.time||"")}</div></div>`).join("");
+ const itemsHtml=list.map(r=>`<div class="reply-item"><b>${esc(r.author||"رد")}</b>: <span>${esc(r.text||"")}</span><div class="meta">${esc(r.time||"")}</div></div>`).join("");
  let formHtml="";
- if(allowReplyForm&&me&&me.code){
-  const mineCount=list.filter(r=>r.authorCode===me.code).length;
-  const rem=Math.max(0,MAX_STUDENT_REPLIES-mineCount);
+ if(viewerRole==="student"&&me&&me.code&&n.targetStudentCode===me.code){
+  const stuCount=list.filter(r=>r.side==="student"||r.authorCode===me.code).length;
+  const rem=Math.max(0,MAX_REPLIES_PER_SIDE-stuCount);
   if(rem>0){
-   formHtml=`<div class="reply-form"><input id="replyInput_${esc(n.id)}" placeholder="أضف رداً (متبقي ${rem} من ${MAX_STUDENT_REPLIES})" maxlength="240"><button onclick="submitStudentReply('${esc(n.id)}')">إرسال</button></div>`;
+   formHtml=`<div class="reply-form"><input id="replyInput_${esc(n.id)}" placeholder="ردك الخاص (متبقي ${rem} من ${MAX_REPLIES_PER_SIDE})" maxlength="240"><button onclick="submitPrivateReply('${esc(n.id)}','student')">إرسال</button></div>`;
   }else{
-   formHtml=`<div class="meta">تم استخدام الحد الأقصى (ردّان) على هذا التبليغ.</div>`;
+   formHtml=`<div class="meta">تم استخدام الحد الأقصى لردود الطالب (${MAX_REPLIES_PER_SIDE} ردود).</div>`;
+  }
+ }else if(viewerRole==="sender"&&(isAdminView||(me&&canSendPrivateNotice(me)))){
+  const sndCount=list.filter(r=>r.side==="sender"||(r.authorCode&&r.authorCode!==n.targetStudentCode)).length;
+  const rem=Math.max(0,MAX_REPLIES_PER_SIDE-sndCount);
+  if(rem>0){
+   formHtml=`<div class="reply-form"><input id="replyInput_${esc(n.id)}" placeholder="رد المرسل (متبقي ${rem} من ${MAX_REPLIES_PER_SIDE})" maxlength="240"><button onclick="submitPrivateReply('${esc(n.id)}','sender')">إرسال</button></div>`;
+  }else{
+   formHtml=`<div class="meta">تم استخدام الحد الأقصى لردود المرسل (${MAX_REPLIES_PER_SIDE} ردود).</div>`;
   }
  }
  if(!itemsHtml&&!formHtml)return"";
  return `<div class="replies-box">${itemsHtml}${formHtml}</div>`;
 }
-const noticeCard=(n,allowReply=true)=>{
+const noticeCard=(n,viewerRole="student")=>{
  const isOpen=expandedIds.has(n.id);
- return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span>${repliesHtml(n,allowReply)}</div>`;
+ const isPriv=n.channel==="private_student";
+ const privTag=isPriv?'<span class="tag priv">📩 تبليغ خاص</span>':"";
+ return `<div class="card notice ${isPriv?"private":(n.priority||"normal")} ${isOpen?"open":""}">${privTag}${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span>${privateRepliesHtml(n,viewerRole)}</div>`;
 };
 const empty=t=>`<div class="card meta">${t}</div>`;
 const myNotices=()=>{
@@ -1355,6 +1503,9 @@ const myNotices=()=>{
  const mySec=me.section||"all";
  return notices.filter(n=>{
   if(n.channel==="teachers_room")return false;
+  if(n.channel==="private_student"){
+   return n.targetStudentCode===me.code;
+  }
   const nDept=n.dept||DEFAULT_DEPTS[0];
   const nStage=n.stage||"all";
   const nSec=n.section||"all";
@@ -1396,7 +1547,8 @@ function renderDeptPermissions(){
    return `<div style="padding:8px 14px;border-top:1px solid var(--line);background:var(--bg);font-size:12px;font-weight:bold;color:var(--navy2)">${esc(scLabel)} (${list.length})</div>`+
     list.map(s=>{
      const badge=isUserOnline(s)?`<span class="online-pill"><span class="online-dot"></span>متصل</span>`:"";
-     return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
+     const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 تبليغ خاص</button>`:"";
+     return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
     }).join("");
   }).join("");
   return `<details open><summary>${esc(stLabel)}<span class="cnt">${inStage.length}</span></summary>${secBlocks||'<div class="stu meta">لا يوجد طلاب أو مستخدمون ضمن هذا الفلتر.</div>'}</details>`;
@@ -1409,16 +1561,26 @@ function renderStudent(){
  $("stAll").textContent=mine.length;
  $("stImp").textContent=mine.filter(n=>n.priority==="important").length;
  $("stNew").textContent=mine.filter(n=>n.day===new Date().toDateString()).length;
- $("homeNotices").innerHTML=mine.slice(0,3).map(n=>noticeCard(n,true)).join("")||empty("لا توجد تبليغات لقسمك حالياً.");
- const list=filter==="important"?mine.filter(n=>n.priority==="important"):mine;
- $("studentNotices").innerHTML=list.map(n=>noticeCard(n,true)).join("")||empty("لا توجد تبليغات هنا.");
+ $("homeNotices").innerHTML=mine.slice(0,3).map(n=>noticeCard(n,"student")).join("")||empty("لا توجد تبليغات لقسمك حالياً.");
+ const list=filter==="important"
+  ?mine.filter(n=>n.priority==="important")
+  :(filter==="private"?mine.filter(n=>n.channel==="private_student"):mine);
+ $("studentNotices").innerHTML=list.map(n=>noticeCard(n,"student")).join("")||empty("لا توجد تبليغات هنا.");
 
  if(isStaffRole(me.role)){
-  const mgrList=notices.filter(n=>n.channel!=="teachers_room"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageNotice(me,n));
+  const mgrList=notices.filter(n=>n.channel!=="teachers_room"&&n.channel!=="private_student"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageNotice(me,n));
   $("repNotices").innerHTML=mgrList.map(n=>{
    const isOpen=expandedIds.has(n.id);
-   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span>${repliesHtml(n,false)}<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
+   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
   }).join("")||empty("لا توجد تبليغات قابلة للإدارة ضمن صلاحيتك.");
+
+  if(canSendPrivateNotice(me)){
+   const privList=notices.filter(n=>n.channel==="private_student"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0]));
+   $("repPrivateNotices").innerHTML=privList.map(n=>{
+    const isOpen=expandedIds.has(n.id);
+    return `<div class="card notice private ${isOpen?"open":""}"><span class="tag priv">📩 خاص</span>${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span>${privateRepliesHtml(n,"sender")}<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
+   }).join("")||empty("لا توجد تبليغات خاصة مرسلة في القسم.");
+  }
  }
 
  if(canManageDeptPerms(me)){
@@ -1431,7 +1593,7 @@ function renderStudent(){
    const isOpen=expandedIds.has(n.id);
    const canAct=canManageNotice(me,n);
    const btns=canAct?`<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editTeacherRoomNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div>`:"";
-   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag rep">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span>${repliesHtml(n,false)}${btns}</div>`;
+   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag rep">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span>${btns}</div>`;
   }).join("")||empty("لا توجد تبليغات في غرفة الأساتذة حالياً.");
  }
 }
@@ -1448,7 +1610,8 @@ function renderAdmin(){
  $("cStudents").textContent=used.length;$("cNotices").textContent=deptNotices.length;
  $("aNotices").innerHTML=deptNotices.map(n=>{
   const isOpen=expandedIds.has(n.id);
-  return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span>${repliesHtml(n,false)}<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editAdminNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
+  const isPriv=n.channel==="private_student";
+  return `<div class="card notice ${isPriv?"private":(n.priority||"normal")} ${isOpen?"open":""}">${isPriv?'<span class="tag priv">📩 خاص</span>':""}${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span>${privateRepliesHtml(n,"sender")}<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editAdminNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
  }).join("")||empty("لا توجد تبليغات منشورة في هذا القسم.");
  const keep=id=>[...document.querySelectorAll("#"+id+" details[open]")].map(d=>d.dataset.s);
  const oS=keep("aStudents"),oC=keep("codeLists");
@@ -1460,7 +1623,8 @@ function renderAdmin(){
   return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length}</span></summary>`+
    (l.map(s=>{
     const badge=isUserOnline(s)?`<span class="online-pill"><span class="online-dot"></span>متصل</span>`:"";
-    return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
+    const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 تبليغ خاص</button>`:"";
+    return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
    }).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
  }).join("");
  $("codeLists").innerHTML=stagesWithAll.map(st=>{
@@ -1563,7 +1727,7 @@ refreshDeptSelects();
 fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,changeUserRole,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,teacherRoomPublish,editTeacherRoomNotice,resetTeacherRoomForm,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitStudentReply});
+Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,changeUserRole,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,teacherRoomPublish,editTeacherRoomNotice,resetTeacherRoomForm,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
 </script>
 </body>
 </html>
