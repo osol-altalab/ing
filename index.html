@@ -105,7 +105,7 @@ details[open] summary::after{transform:rotate(180deg)}
   <!-- وضع إنشاء حساب وإرسال الرمز للواتساب -->
   <div id="regBox" class="card">
    <h3>إنشاء حساب جديد</h3>
-   <p class="meta">أدخل بياناتك ليتم إرسال رمز الدخول إلى رقم هاتفك على الواتساب.</p>
+   <p class="meta">يُسمح بالتسجيل مرة واحدة فقط لكل اسم ورقم هاتف.</p>
    <label for="lName">الاسم الثلاثي أو الرباعي</label>
    <input id="lName" placeholder="الاسم الأول والأب والجد والرابع" autocomplete="name">
    <label for="lPhone">رقم الهاتف (واتساب)</label>
@@ -170,7 +170,6 @@ details[open] summary::after{transform:rotate(180deg)}
 <!-- ====== واجهة الطالب / الممثل / المقرر / المدرس / مدير القسم ====== -->
 <section id="student" class="hidden">
  <div class="top">
-  <!-- اللوكو على اليمين وصورة الطالب على اليسار -->
   <div class="brand">
    <div class="logo"><img class="appLogoImg" src="icon-192.png" alt="شعار الكلية" onerror="this.outerHTML='🎓'"></div>
    <div><h1 id="sTopTitle">تبليغات القسم</h1><p id="sTopDept">هندسة تقنيات الأجهزة الطبية</p></div>
@@ -207,7 +206,6 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="studentNotices"></div>
   </div>
 
-  <!-- تبويب إدارة الصلاحيات (ممثل / مقرر / مدرس / مدير قسم) -->
   <div id="sRep" class="hidden">
    <div class="card">
     <h3 id="repFormTitle">نشر تبليغ</h3>
@@ -233,7 +231,6 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="repNotices"></div>
   </div>
 
-  <!-- حسابي (يشمل تسجيل الخروج) -->
   <div id="sAccount" class="hidden">
    <div class="card">
     <img id="accStudentImg" class="acc-avatar appLogoImg" src="icon-192.png" alt="صورة الطالب">
@@ -348,7 +345,7 @@ details[open] summary::after{transform:rotate(180deg)}
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,onAuthStateChanged,signInAnonymously,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getFirestore,collection,addDoc,deleteDoc,updateDoc,setDoc,getDoc,doc,onSnapshot,query,orderBy,serverTimestamp,writeBatch,deleteField} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getFirestore,collection,addDoc,deleteDoc,updateDoc,setDoc,getDoc,doc,onSnapshot,query,getDocs,where,orderBy,serverTimestamp,writeBatch,deleteField} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {firebaseConfig} from "./firebase-config.js";
 
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
@@ -385,12 +382,51 @@ const canManageAll=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student")
 const canManageNotice=(u,n)=>{
  if(!u)return false;
  const r=u.role||"student";
- if(r==="dept_admin"||r==="rapporteur")return true;
- if(r==="teacher")return true;
+ if(r==="dept_admin"||r==="rapporteur"||r==="teacher")return true;
  if(r==="rep")return (n.stage||"all")===u.stage;
  return false;
 };
 const isStaffRole=r=>["rep","rapporteur","teacher","dept_admin"].includes(r);
+
+/* توحيد الاسم والرقم لمنع التكرار */
+function normName(n){
+ return String(n||"")
+  .trim()
+  .replace(/\s+/g," ")
+  .replace(/[إأآا]/g,"ا")
+  .replace(/ى/g,"ي")
+  .replace(/ة/g,"ه")
+  .replace(/ؤ/g,"و")
+  .replace(/ئ/g,"ي")
+  .toLowerCase();
+}
+function normPhone(p){
+ let d=String(p).replace(/\D/g,"");
+ if(d.startsWith("00"))d=d.slice(2);
+ if(d.startsWith("0"))d="964"+d.slice(1);else if(d.startsWith("7")&&d.length===10)d="964"+d;
+ return /^9647\d{9}$/.test(d)?d:"";
+}
+async function checkDuplicateAccount(cleanName,phone){
+ const nKey=normName(cleanName);
+ // فحص في الذاكرة إن وجدت
+ for(const c of codes){
+  if((c.phone&&normPhone(c.phone)===phone)||(c.name&&normName(c.name)===nKey)){
+   return "هذا الاسم أو رقم الهاتف مستخدم مسبقاً ولا يُسمح بتكرار التسجيل أكثر من مرة واحدة.";
+  }
+ }
+ // فحص مباشر في Firestore عبر استعلامات محددة
+ const qPhone=await getDocs(query(collection(db,"codes"),where("phone","==",phone)));
+ if(!qPhone.empty)return "رقم الهاتف مستخدم مسبقاً ولا يُسمح بالتسجيل بأكثر من حساب.";
+ const qName=await getDocs(query(collection(db,"codes"),where("name","==",cleanName)));
+ if(!qName.empty)return "هذا الاسم مسجل مسبقاً ولا يُسمح بتكرار التسجيل بنفس الاسم.";
+ const qAll=await getDocs(collection(db,"codes"));
+ for(const docSnap of qAll.docs){
+  const d=docSnap.data();
+  if(d.name&&normName(d.name)===nKey)return "هذا الاسم مسجل مسبقاً ولا يُسمح بتكرار التسجيل بنفس الاسم.";
+  if(d.phone&&normPhone(d.phone)===phone)return "رقم الهاتف مستخدم مسبقاً ولا يُسمح بالتسجيل بأكثر من حساب.";
+ }
+ return "";
+}
 
 function switchAuthMode(mode){
  const isReg=mode==="reg";
@@ -665,14 +701,8 @@ async function logout(){
  $("lCodeReg").value="";$("inCode").value="";$("bellPop").classList.add("hidden");
  if(auth.currentUser&&!auth.currentUser.isAnonymous){await signOut(auth)}else show("login");
 }
-function normPhone(p){
- let d=String(p).replace(/\D/g,"");
- if(d.startsWith("00"))d=d.slice(2);
- if(d.startsWith("0"))d="964"+d.slice(1);else if(d.startsWith("7")&&d.length===10)d="964"+d;
- return /^9647\d{9}$/.test(d)?d:"";
-}
 
-/* ===== إنشاء حساب وإرسال الرمز إلى واتساب ===== */
+/* ===== إنشاء حساب وإرسال الرمز إلى واتساب (لمرة واحدة لكل اسم ورقم) ===== */
 async function requestWhatsAppCode(){
  const name=$("lName").value.trim().replace(/\s+/g," ");
  const phone=normPhone($("lPhone").value);
@@ -688,6 +718,9 @@ async function requestWhatsAppCode(){
  const btn=$("sendWaBtn");btn.disabled=true;
  try{
   await authReady;
+  const dupMsg=await checkDuplicateAccount(name,phone);
+  if(dupMsg){err.textContent=dupMsg;return}
+
   const ch="ABCDEFGHJKMNPQRSTUVWXYZ23456789";
   let code="";
   for(let attempt=0;attempt<10;attempt++){
@@ -697,11 +730,6 @@ async function requestWhatsAppCode(){
    if(!ex.exists()){code=cand;break}
   }
   if(!code){err.textContent="تعذر توليد رمز، حاول مرة أخرى.";return}
-
-  let photo="";
-  if($("lPhoto").files[0]){
-   try{photo=await compressImage($("lPhoto").files[0],360,0.78)}catch(e){}
-  }
 
   await setDoc(doc(db,"codes",code),{
    name,phone,dept,stage,section,
@@ -738,6 +766,7 @@ async function completeRegistration(){
   if(!snap.exists()){err.textContent="الرمز غير صحيح.";return}
   const c=snap.data();
   if(c.phone&&c.phone!==phone){err.textContent="هذا الرمز مرتبط برقم هاتف آخر.";return}
+  if(c.used&&c.phone!==phone){err.textContent="هذا الحساب مسجل مسبقاً برقم آخر.";return}
   if(!c.used)await updateDoc(ref,{used:true,name:name||c.name,phone,usedAt:serverTimestamp()});
 
   let photo="";
@@ -795,7 +824,6 @@ async function directCodeLogin(){
  finally{btn.disabled=false}
 }
 
-/* مزامنة صلاحية المستخدم إذا عدّلها المدير في Firestore */
 function syncMyRoleFromCodes(){
  if(!me||!me.code||!codes.length)return;
  const found=codes.find(c=>c.id===me.code);
