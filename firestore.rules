@@ -7,16 +7,40 @@ service cloud.firestore {
     function isSignedIn() {
       return request.auth != null;
     }
-    function isDeptMgr(code, targetStage) {
+    function codeDoc(code) {
+      return get(/databases/$(database)/documents/codes/$(code)).data;
+    }
+    function hasCode(code) {
       return isSignedIn()
         && code is string
-        && exists(/databases/$(database)/documents/codes/$(code))
+        && exists(/databases/$(database)/documents/codes/$(code));
+    }
+    function canCreateNotice(data) {
+      return hasCode(data.authorCode)
         && (
-          get(/databases/$(database)/documents/codes/$(code)).data.role in ['rapporteur', 'teacher', 'dept_admin']
-          || get(/databases/$(database)/documents/codes/$(code)).data.stage == 'all'
+          (
+            data.channel == 'teachers_room'
+            && codeDoc(data.authorCode).role == 'teacher'
+          )
           || (
-            get(/databases/$(database)/documents/codes/$(code)).data.role == 'rep'
-            && get(/databases/$(database)/documents/codes/$(code)).data.stage == targetStage
+            data.channel != 'teachers_room'
+            && (
+              codeDoc(data.authorCode).role in ['rapporteur', 'dept_admin', 'teacher']
+              || (
+                codeDoc(data.authorCode).role == 'rep'
+                && codeDoc(data.authorCode).stage == data.stage
+              )
+            )
+          )
+        );
+    }
+    function canModifyNotice(existing) {
+      return hasCode(existing.authorCode)
+        && (
+          codeDoc(existing.authorCode).role in ['rapporteur', 'dept_admin']
+          || (
+            codeDoc(existing.authorCode).role in ['teacher', 'rep']
+            && existing.authorCode == codeDoc(existing.authorCode).code
           )
         );
     }
@@ -28,8 +52,8 @@ service cloud.firestore {
 
     match /notices/{noticeId} {
       allow read: if isSignedIn();
-      allow create: if isAdmin() || isDeptMgr(request.resource.data.authorCode, request.resource.data.stage);
-      allow update, delete: if isAdmin() || isDeptMgr(resource.data.authorCode, resource.data.stage);
+      allow create: if isAdmin() || canCreateNotice(request.resource.data);
+      allow update, delete: if isAdmin() || canModifyNotice(resource.data);
     }
 
     match /codes/{codeId} {
