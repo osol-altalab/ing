@@ -131,29 +131,52 @@ details[open] summary::after{transform:rotate(180deg)}
 .nav button span{display:block;font-size:21px;line-height:1.3;pointer-events:none;margin-bottom:2px}
 .nav button.on{color:var(--navy);font-weight:bold;background:var(--soft)}
 
-#admin .top{border-radius:0}
-#admin .card,
-#admin details,
-#admin .stat,
-#admin .notice,
-#admin .att-box,
-#admin .dept-preview,
-#admin .inline-edit-panel,
-#admin input,
-#admin textarea,
-#admin select,
-#admin button,
-#admin .seg,
-#admin .seg button,
-#admin .tag,
-#admin .online-pill,
-#admin .warn-note{border-radius:6px!important}
-#admin .stats.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
-#admin .stats.two .stat{margin:0;padding:12px;display:flex;align-items:center;gap:10px;min-width:0}
-#admin .seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:6px}
-#admin .seg button{padding:10px 4px;font-size:12.5px;margin:0;width:100%}
-#admin .adm-btn-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+/* ====== داش بورد الإدارة التفاعلية لكافة الأجهزة (حاسوب، تابلت، هاتف) ====== */
+#admin{width:100%;max-width:100%}
+#admin .adm-shell{max-width:1320px;margin:0 auto;width:100%}
+#admin .top{border-radius:0;padding:16px 20px;box-shadow:0 6px 20px rgba(20,70,84,.14)}
+#admin .adm-top-inner{max-width:1320px;margin:0 auto;width:100%;display:flex;align-items:center;gap:12px}
+#admin .page{max-width:1320px;margin:0 auto;padding:20px 16px 64px}
+#admin .adm-hero{background:linear-gradient(135deg,var(--navy2),var(--navy));color:#fff;border-radius:16px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 10px 24px rgba(20,70,84,.12)}
+#admin .adm-hero h2{margin:0 0 4px;font-size:19px}
+#admin .adm-hero p{margin:0;font-size:13px;color:#e2f0f4}
+#admin .adm-pill-group{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#admin .adm-pill{background:#ffffff1f;border:1px solid #ffffff33;color:#fff;padding:6px 12px;border-radius:10px;font-size:12px;font-weight:bold}
+
+#admin .adm-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}
+#admin .adm-kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 14px rgba(20,70,84,.04);transition:transform .16s ease,box-shadow .16s ease}
+#admin .adm-kpi:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(20,70,84,.08)}
+#admin .adm-kpi .ico{margin:0;width:46px;height:46px;border-radius:12px;font-size:21px}
+#admin .adm-kpi b{display:block;font-size:21px;line-height:1.2;color:var(--navy2)}
+#admin .adm-kpi span{font-size:12px;color:var(--mute)}
+
+#admin .adm-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
+#admin .adm-side{display:flex;flex-direction:column;gap:14px}
+#admin .adm-main{min-width:0}
+
+#admin .card{border-radius:14px;padding:16px 18px;margin-bottom:14px;box-shadow:0 4px 16px rgba(20,70,84,.05);border:1px solid var(--line)}
+#admin .card h3{margin-top:0;font-size:16px;display:flex;align-items:center;gap:8px}
+#admin details{border-radius:14px;margin-bottom:12px}
+#admin .inline-edit-panel{border-radius:10px}
+#admin input,#admin textarea,#admin select{border-radius:10px;padding:10px 12px;font-size:14px}
+#admin button{border-radius:10px;padding:10px 14px;font-size:14px;font-weight:bold;transition:background .15s ease,transform .12s ease}
+#admin button:active{transform:scale(.99)}
+#admin .seg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:6px;border-radius:14px;margin-bottom:16px;background:var(--soft)}
+#admin .seg button{margin:0;padding:10px 8px;font-size:13px;border-radius:10px;width:100%}
+#admin .adm-btn-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
 #admin .adm-btn-grid button{margin:0;width:100%}
+#admin .adm-feed-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+
+@media (min-width:680px){
+ #admin .adm-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+ #admin .seg{grid-template-columns:repeat(4,minmax(0,1fr))}
+ #admin .adm-feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:1024px){
+ #admin .page{padding:24px 28px 72px}
+ #admin .adm-grid{grid-template-columns:360px minmax(0,1fr);gap:22px}
+ #admin .adm-side{position:sticky;top:16px}
+}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -502,113 +525,147 @@ details[open] summary::after{transform:rotate(180deg)}
  </nav>
 </section>
 
-<!-- ====== واجهة الإدارة (بطاقات مربعة متناسقة) ====== -->
+<!-- ====== داش بورد الإدارة التفاعلية لكافة الأجهزة ====== -->
 <section id="admin" class="hidden">
  <div class="top">
-  <div class="brand">
-   <div class="logo">
-    <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🛡️'">
-    <span class="appNewBadge badge hidden">0</span>
+  <div class="adm-top-inner">
+   <div class="brand">
+    <div class="logo">
+     <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🛡️'">
+     <span class="appNewBadge badge hidden">0</span>
+    </div>
+    <div><h1 style="margin:0;font-size:19px">داش بورد الإدارة المركزية</h1><p id="admTopDept" style="margin:0;font-size:12px;opacity:.9"></p></div>
    </div>
-   <div><h1 style="margin:0;font-size:18px">لوحة الإدارة</h1><p id="admTopDept" style="margin:0;font-size:12px;opacity:.9"></p></div>
+   <button class="ibtn" onclick="logout()" aria-label="تسجيل الخروج" title="تسجيل الخروج">⎋</button>
   </div>
-  <button class="ibtn" onclick="logout()" aria-label="تسجيل الخروج">⎋</button>
  </div>
+
  <div class="page">
-  <div class="card" style="padding:12px 14px;margin-bottom:12px">
-   <label for="admDept" style="margin-top:0">القسم النشط للإدارة</label>
-   <select id="admDept" onchange="onDeptChange()"></select>
-   <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
-    <img id="admDeptLogoImg" class="dept-preview" src="icon-192.png" alt="لوجو القسم">
-    <div style="flex:1">
-     <label for="admDeptLogoFile" style="margin-top:0">تغيير / رفع لوجو القسم النشط</label>
-     <input id="admDeptLogoFile" type="file" accept="image/*">
+  <div class="adm-hero">
+   <div>
+    <h2 id="admHeroTitle">إدارة الأقسام والتبليغات والصلاحيات</h2>
+    <p id="admHeroSub">تحكم كامل ومتجاوب عبر الحاسوب والتابلت والهاتف مع حفظ فوري للبيانات.</p>
+   </div>
+   <div class="adm-pill-group">
+    <span class="adm-pill" id="admActiveDeptPill">القسم النشط</span>
+    <span class="adm-pill" id="admOnlineCountPill">🟢 0 متصل</span>
+   </div>
+  </div>
+
+  <div class="adm-kpis">
+   <div class="adm-kpi"><div class="ico b">👥</div><div><b id="cStudents">0</b><span>مسجل بالقسم</span></div></div>
+   <div class="adm-kpi"><div class="ico a">📋</div><div><b id="cNotices">0</b><span>تبليغ بالقسم</span></div></div>
+   <div class="adm-kpi"><div class="ico g">🔑</div><div><b id="cAvailCodes">0</b><span>رمز متاح بالقسم</span></div></div>
+   <div class="adm-kpi"><div class="ico b">🟢</div><div><b id="cOnlineNow">0</b><span>متصل الآن</span></div></div>
+  </div>
+
+  <div class="adm-grid">
+   <!-- العمود الجانبي: إدارة الأقسام والهوية والمتصلون -->
+   <aside class="adm-side">
+    <div class="card">
+     <h3>🏛️ إدارة الأقسام والشعارات</h3>
+     <label for="admDept" style="margin-top:0">القسم النشط للإدارة</label>
+     <select id="admDept" onchange="onDeptChange()"></select>
+     <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
+      <img id="admDeptLogoImg" class="dept-preview" src="icon-192.png" alt="لوجو القسم">
+      <div style="flex:1">
+       <label for="admDeptLogoFile" style="margin-top:0">تغيير / رفع لوجو القسم النشط</label>
+       <input id="admDeptLogoFile" type="file" accept="image/*">
+      </div>
+     </div>
+     <button class="sec" onclick="saveActiveDeptLogo()">حفظ لوجو القسم</button>
+     <div class="adm-btn-grid">
+      <button class="sec" onclick="renameActiveDept()">✏️ تعديل القسم</button>
+      <button class="del" onclick="deleteActiveDept()">🗑️ حذف القسم</button>
+     </div>
+
+     <hr style="border:0;border-top:1px solid var(--line);margin:14px 0 10px">
+     <label for="newDeptName">إضافة قسم جديد</label>
+     <input id="newDeptName" placeholder="أدخل اسم القسم الجديد">
+     <select id="newDeptFifth" style="margin-top:6px">
+      <option value="auto">تحديد المرحلة الخامسة تلقائياً (للأقسام الطبية)</option>
+      <option value="yes">تفعيل المرحلة الخامسة (5 مراحل)</option>
+      <option value="no">أربع مراحل فقط (4 مراحل)</option>
+     </select>
+     <label for="newDeptLogo">لوجو القسم الجديد (اختياري)</label>
+     <input id="newDeptLogo" type="file" accept="image/*">
+     <button class="sec" onclick="addNewDept()">+ إضافة قسم</button>
     </div>
-   </div>
-   <button class="sec" onclick="saveActiveDeptLogo()">حفظ لوجو القسم</button>
-   <div class="adm-btn-grid">
-    <button class="sec" onclick="renameActiveDept()">✏️ تعديل القسم</button>
-    <button class="del" onclick="deleteActiveDept()">🗑️ حذف القسم</button>
-   </div>
 
-   <hr style="border:0;border-top:1px solid var(--line);margin:12px 0 8px">
-   <label for="newDeptName">إضافة قسم جديد</label>
-   <input id="newDeptName" placeholder="أدخل اسم القسم الجديد">
-   <select id="newDeptFifth" style="margin-top:6px">
-    <option value="auto">تحديد المرحلة الخامسة تلقائياً (للأقسام الطبية)</option>
-    <option value="yes">تفعيل المرحلة الخامسة (5 مراحل)</option>
-    <option value="no">أربع مراحل فقط (4 مراحل)</option>
-   </select>
-   <label for="newDeptLogo">لوجو القسم الجديد (اختياري)</label>
-   <input id="newDeptLogo" type="file" accept="image/*">
-   <button class="sec" onclick="addNewDept()">+ إضافة قسم</button>
-  </div>
-
-  <div class="card" style="padding:10px 14px;margin-bottom:12px">
-   <h3 style="margin-top:0">🟢 المتصلون حالياً في القسم</h3>
-   <div id="admOnlineNow" class="online-strip"></div>
-  </div>
-
-  <div class="stats two">
-   <div class="stat"><div class="ico b">👥</div><div><b id="cStudents">0</b><span>مسجل بالقسم</span></div></div>
-   <div class="stat"><div class="ico a">📋</div><div><b id="cNotices">0</b><span>تبليغ بالقسم</span></div></div>
-  </div>
-
-  <div class="seg">
-   <button id="atNew" class="on" onclick="aTab('new')">نشر تبليغ</button>
-   <button id="atNotices" onclick="aTab('notices')">التبليغات</button>
-   <button id="atStudents" onclick="aTab('students')">الصلاحيات</button>
-   <button id="atCodes" onclick="aTab('codes')">الأكواد</button>
-  </div>
-
-  <div id="aNew" class="card">
-   <h3 id="admFormTitle">نشر تبليغ جديد</h3>
-   <input type="hidden" id="admEditId">
-   <input type="hidden" id="admChannel" value="public">
-   <input type="hidden" id="admTargetCode" value="">
-   <div id="admPrivateBanner" class="warn-note hidden" style="margin-bottom:8px"></div>
-   <label for="title">العنوان</label>
-   <input id="title" placeholder="أدخل عنوان التبليغ">
-   <label for="body">النص</label>
-   <textarea id="body" rows="4" placeholder="اكتب تفاصيل التبليغ"></textarea>
-   <div class="row" id="admTargetRow">
-    <div><label for="tStage">المرحلة</label><select id="tStage"></select></div>
-    <div><label for="tSection">الشعبة</label><select id="tSection"></select></div>
-   </div>
-   <label for="priority">الأهمية</label>
-   <select id="priority"><option value="normal">تبليغ عادي</option><option value="important">تبليغ مهم</option></select>
-   <label for="aFile">مرفق (صورة، PDF، Word) - يُحفظ على هاتف الطالب</label>
-   <input id="aFile" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-   <div id="aFileNote" class="meta"></div>
-   <button id="admPubBtn" onclick="publish()">نشر التبليغ</button>
-   <button id="admCancelBtn" class="sec hidden" onclick="resetAdmForm()">إلغاء التعديل</button>
-
-   <hr style="border:0;border-top:1px solid var(--line);margin:16px 0 12px">
-   <h3>اسم وصورة التطبيق</h3>
-   <label for="appNameInput">اسم التطبيق</label>
-   <input id="appNameInput" placeholder="أدخل اسم التطبيق">
-   <label for="logoFile">صورة التطبيق</label>
-   <input id="logoFile" type="file" accept="image/*">
-   <button class="sec" onclick="saveBrandSettings()">حفظ الاسم والصورة</button>
-  </div>
-
-  <div id="aNotices" class="hidden"></div>
-  <div id="aStudents" class="hidden"></div>
-  <div id="aCodes" class="hidden">
-   <div class="card">
-    <h3>إنشاء رموز وإرسالها للواتساب</h3>
-    <p class="meta">يبدأ الحساب الجديد كـ "طالب" ويمكنك تغيير صلاحيته لاحقاً من تبويب الصلاحيات.</p>
-    <div class="row"><div><label for="gStage">المرحلة</label><select id="gStage"></select></div><div><label for="gSection">الشعبة</label><select id="gSection"></select></div></div>
-    <div class="row">
-     <div><label for="gRole">الصلاحية المبدئية</label><select id="gRole" onchange="toggleStageForRole()"><option value="student">طالب</option><option value="rep">ممثل</option><option value="rapporteur">مقرر</option><option value="teacher">مدرس</option><option value="dept_admin">مدير قسم</option></select></div>
-     <div><label for="gCount">عدد الرموز</label><input id="gCount" type="number" min="1" max="200" value="10"></div>
+    <div class="card">
+     <h3>🟢 المتصلون حالياً في القسم</h3>
+     <div id="admOnlineNow" class="online-strip"></div>
     </div>
-    <label for="waPhone">رقم واتساب المستلم (اختياري)</label>
-    <input id="waPhone" class="ltr" inputmode="tel" placeholder="07XXXXXXXXX">
-    <button onclick="genCodes()">إنشاء الرموز</button>
-    <button class="sec" onclick="sendCodesWhatsApp()">📲 إرسال الرموز المتاحة للواتساب</button>
-   </div>
-   <div id="codeLists"></div>
+   </aside>
+
+   <!-- المساحة الرئيسية التفاعلية -->
+   <main class="adm-main">
+    <div class="seg">
+     <button id="atNew" class="on" onclick="aTab('new')">✍️ نشر تبليغ</button>
+     <button id="atNotices" onclick="aTab('notices')">📋 التبليغات</button>
+     <button id="atStudents" onclick="aTab('students')">👥 الصلاحيات</button>
+     <button id="atCodes" onclick="aTab('codes')">🔑 الأكواد</button>
+    </div>
+
+    <div id="aNew" class="card">
+     <h3 id="admFormTitle">نشر تبليغ جديد</h3>
+     <input type="hidden" id="admEditId">
+     <input type="hidden" id="admChannel" value="public">
+     <input type="hidden" id="admTargetCode" value="">
+     <div id="admPrivateBanner" class="warn-note hidden" style="margin-bottom:8px"></div>
+     <label for="title">العنوان</label>
+     <input id="title" placeholder="أدخل عنوان التبليغ">
+     <label for="body">النص</label>
+     <textarea id="body" rows="4" placeholder="اكتب تفاصيل التبليغ"></textarea>
+     <div class="row" id="admTargetRow">
+      <div><label for="tStage">المرحلة</label><select id="tStage"></select></div>
+      <div><label for="tSection">الشعبة</label><select id="tSection"></select></div>
+     </div>
+     <label for="priority">الأهمية</label>
+     <select id="priority"><option value="normal">تبليغ عادي</option><option value="important">تبليغ مهم</option></select>
+     <label for="aFile">مرفق (صورة، PDF، Word) - يُحفظ على هاتف الطالب</label>
+     <input id="aFile" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+     <div id="aFileNote" class="meta"></div>
+     <button id="admPubBtn" onclick="publish()">نشر التبليغ</button>
+     <button id="admCancelBtn" class="sec hidden" onclick="resetAdmForm()">إلغاء التعديل</button>
+
+     <hr style="border:0;border-top:1px solid var(--line);margin:18px 0 12px">
+     <h3>🎨 اسم وصورة التطبيق</h3>
+     <label for="appNameInput">اسم التطبيق</label>
+     <input id="appNameInput" placeholder="أدخل اسم التطبيق">
+     <label for="logoFile">صورة التطبيق</label>
+     <input id="logoFile" type="file" accept="image/*">
+     <button class="sec" onclick="saveBrandSettings()">حفظ الاسم والصورة</button>
+    </div>
+
+    <div id="aNotices" class="hidden"></div>
+
+    <div id="aStudents" class="hidden">
+     <div class="card">
+      <h3 style="margin-top:0">🔎 بحث فوري عن طالب أو كود أو رقم هاتف</h3>
+      <input id="admUserSearch" placeholder="ابحث بالاسم أو الهاتف أو الكود في جميع الأقسام..." oninput="renderAdmin()">
+     </div>
+     <div id="admSearchResultBox"></div>
+     <div id="aStudentsGroups"></div>
+    </div>
+
+    <div id="aCodes" class="hidden">
+     <div class="card">
+      <h3>إنشاء رموز وإرسالها للواتساب</h3>
+      <p class="meta">يبدأ الحساب الجديد كـ "طالب" ويمكنك تغيير صلاحيته لاحقاً من تبويب الصلاحيات.</p>
+      <div class="row"><div><label for="gStage">المرحلة</label><select id="gStage"></select></div><div><label for="gSection">الشعبة</label><select id="gSection"></select></div></div>
+      <div class="row">
+       <div><label for="gRole">الصلاحية المبدئية</label><select id="gRole" onchange="toggleStageForRole()"><option value="student">طالب</option><option value="rep">ممثل</option><option value="rapporteur">مقرر</option><option value="teacher">مدرس</option><option value="dept_admin">مدير قسم</option></select></div>
+       <div><label for="gCount">عدد الرموز</label><input id="gCount" type="number" min="1" max="200" value="10"></div>
+      </div>
+      <label for="waPhone">رقم واتساب المستلم (اختياري)</label>
+      <input id="waPhone" class="ltr" inputmode="tel" placeholder="07XXXXXXXXX">
+      <button onclick="genCodes()">إنشاء الرموز</button>
+      <button class="sec" onclick="sendCodesWhatsApp()">📲 إرسال الرموز المتاحة للواتساب</button>
+     </div>
+     <div id="codeLists"></div>
+    </div>
+   </main>
   </div>
  </div>
 </section>
@@ -735,8 +792,8 @@ function findMatchingUsers(queryText,restrictDept=""){
  });
 }
 
-function renderMatchedSearchCard(list){
- const q=String(($("deptUserSearch")&&$("deptUserSearch").value)||"").trim();
+function renderMatchedSearchCard(list,queryText){
+ const q=String(queryText||"").trim();
  if(!q)return "";
  if(!list.length){
   return `<div class="card"><div class="meta">لم يتم العثور على أي سجل يطابق: "${esc(q)}" في جميع الأقسام.</div></div>`;
@@ -910,6 +967,7 @@ function refreshDeptSelects(){
  activeDept=depts.includes(prevA)?prevA:(depts[0]||"");
  $("admDept").value=activeDept;
  $("admTopDept").textContent=activeDept||"لا يوجد قسم";
+ if($("admActiveDeptPill"))$("admActiveDeptPill").textContent="🏛️ "+(activeDept||"لا يوجد قسم");
  applyDeptLogosUI();
  refreshLoginStageSelects();
  refreshStageSelects();
@@ -1515,7 +1573,7 @@ function setFilter(f){
  $("fPriv").classList.toggle("on",f==="private");
  renderStudent();
 }
-function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept||"لا يوجد قسم";applyDeptLogosUI();refreshStageSelects();resetAdmForm();renderAdmin()}
+function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept||"لا يوجد قسم";if($("admActiveDeptPill"))$("admActiveDeptPill").textContent="🏛️ "+(activeDept||"لا يوجد قسم");applyDeptLogosUI();refreshStageSelects();resetAdmForm();renderAdmin()}
 function toggleStageForRole(){
  const isR=$("gRole").value==="rapporteur";
  $("gStage").disabled=isR;
@@ -2122,7 +2180,7 @@ function renderDeptPermissions(){
 
  const searchVal=($("deptUserSearch")&&$("deptUserSearch").value.trim())||"";
  const searchMatches=searchVal?findMatchingUsers(searchVal,""):[];
- const searchCardHtml=renderMatchedSearchCard(searchMatches);
+ const searchCardHtml=renderMatchedSearchCard(searchMatches,searchVal);
 
  const stFilter=$("pStageFilter").value||"all";
  const secFilter=$("pSectionFilter").value||"all";
@@ -2204,22 +2262,39 @@ function renderAdmin(){
  const deptCodes=codes.filter(c=>deptOf(c)===activeDept);
  const deptNotices=notices.filter(n=>deptOf(n)===activeDept);
  const used=deptCodes.filter(c=>c.used);
- $("cStudents").textContent=used.length;$("cNotices").textContent=deptNotices.length;
- $("aNotices").innerHTML=deptNotices.map(n=>{
+ const avail=deptCodes.filter(c=>!c.used);
+ const onlineCnt=deptCodes.filter(c=>isUserOnline(c)).length;
+
+ $("cStudents").textContent=used.length;
+ $("cNotices").textContent=deptNotices.length;
+ if($("cAvailCodes"))$("cAvailCodes").textContent=avail.length;
+ if($("cOnlineNow"))$("cOnlineNow").textContent=onlineCnt;
+ if($("admOnlineCountPill"))$("admOnlineCountPill").textContent="🟢 "+onlineCnt+" متصل";
+ if($("admActiveDeptPill"))$("admActiveDeptPill").textContent="🏛️ "+(activeDept||"لا يوجد قسم");
+
+ $("aNotices").innerHTML=`<div class="adm-feed-grid">`+(deptNotices.map(n=>{
   const isOpen=expandedIds.has(n.id);
   const isPriv=n.channel==="private_student";
   return `<div class="card notice ${isPriv?"private":(n.priority||"normal")} ${isOpen?"open":""}">${isPriv?'<span class="tag priv">📩 خاص</span>':""}${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span>${privateRepliesHtml(n,"sender")}<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editAdminNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
- }).join("")||empty("لا توجد تبليغات منشورة في هذا القسم.");
+ }).join("")||empty("لا توجد تبليغات منشورة في هذا القسم."))+`</div>`;
+
+ const qAdm=($("admUserSearch")&&$("admUserSearch").value.trim())||"";
+ if($("admSearchResultBox")){
+  $("admSearchResultBox").innerHTML=qAdm?renderMatchedSearchCard(findMatchingUsers(qAdm,""),qAdm):"";
+ }
+
  const keep=id=>[...document.querySelectorAll("#"+id+" details[open]")].map(d=>d.dataset.s);
- const oS=keep("aStudents"),oC=keep("codeLists");
+ const oS=keep("aStudentsGroups"),oC=keep("codeLists");
  const bySec=(a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
  const stagesWithAll=[...stagesForDept(activeDept),GRADUATED_STAGE,"all"];
- $("aStudents").innerHTML=stagesWithAll.map(st=>{
-  const label=st==="all"?"مقررون / أساتذة / عام":st;
-  const l=used.filter(s=>(s.stage||"all")===st).sort(bySec);
-  return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length}</span></summary>`+
-   (l.map(userRowHtml).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
- }).join("");
+ if($("aStudentsGroups")){
+  $("aStudentsGroups").innerHTML=stagesWithAll.map(st=>{
+   const label=st==="all"?"مقررون / أساتذة / عام":st;
+   const l=used.filter(s=>(s.stage||"all")===st).sort(bySec);
+   return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length}</span></summary>`+
+    (l.map(userRowHtml).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
+  }).join("");
+ }
  $("codeLists").innerHTML=stagesWithAll.map(st=>{
   const label=st==="all"?"رموز عامة / مقرر / أستاذ":st;
   const l=deptCodes.filter(c=>(c.stage||"all")===st&&!c.used).sort(bySec);
