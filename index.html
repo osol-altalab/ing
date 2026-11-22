@@ -13,26 +13,25 @@
  --alert-red:#d92d20;--online-dot:#16a34a
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+html,body{margin:0;padding:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .app{max-width:520px;margin:auto;min-height:100vh;position:relative}
-.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:14px 14px 18px;display:flex;align-items:center;gap:10px;border-radius:0 0 24px 24px;position:relative;box-shadow:0 8px 24px rgba(20,70,84,.14)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:14px 14px 18px;display:flex;align-items:center;gap:10px;border-radius:0 0 24px 24px;position:relative;box-shadow:0 8px 24px rgba(20,70,84,.14);z-index:20}
 .top .brand{flex:1;display:flex;align-items:center;gap:10px;min-width:0}
 .logo{width:44px;height:44px;border-radius:14px;background:#ffffff22;border:1px solid #ffffff30;display:grid;place-items:center;font-size:22px;overflow:visible;flex:none;position:relative}
 .logo img{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px}
 .ibtn{width:42px;height:42px;border-radius:14px;background:#ffffff1f;border:1px solid #ffffff2b;color:#fff;font-size:18px;cursor:pointer;margin:0;padding:0;position:relative;flex:none;overflow:visible;display:grid;place-items:center}
 .ibtn img{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px}
 .badge{position:absolute;top:-5px;right:-5px;background:var(--alert-red);color:#fff;font-size:11px;min-width:19px;height:19px;border-radius:10px;display:grid;place-items:center;padding:0 5px;font-weight:bold;border:2px solid var(--navy);box-shadow:0 2px 6px rgba(217,45,32,.45)}
-.bell-pop{position:absolute;top:66px;right:14px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;z-index:50;box-shadow:0 12px 28px rgba(20,70,84,.16)}
+.bell-pop{position:absolute;top:66px;right:14px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;z-index:60;box-shadow:0 12px 28px rgba(20,70,84,.16)}
 .bell-item{padding:8px;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
 .bell-item:last-child{border-bottom:0}
-.page{padding:14px 14px 104px}
+.page{padding:14px 14px 112px}
 .hero{background:linear-gradient(155deg,var(--navy),var(--navy2));color:#fff;border-radius:22px;padding:18px;margin-bottom:14px;box-shadow:0 10px 24px rgba(20,70,84,.16)}
 .hero small{color:#dcebf0;font-size:12px;display:block}
 .hero h2{margin:3px 0 4px;font-size:21px}
 .hero p{margin:0 0 14px;font-size:13px;color:#e7f2f5}
 .hero button{background:#fff;color:var(--navy);width:auto;padding:9px 18px;margin:0;font-weight:bold;font-size:13px;border-radius:12px}
 
-/* كروت ملخص بأسلوب ممثلي */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .stats.two{grid-template-columns:1fr 1fr}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 10px;text-align:center;box-shadow:0 4px 14px rgba(20,70,84,.04)}
@@ -42,7 +41,6 @@ body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var
 .b{background:var(--blue-bg)}.g{background:var(--ok-bg)}.a{background:var(--amber-bg)}
 .stat b{display:block;font-size:21px;line-height:1.2;color:var(--navy2)}.stat span{font-size:11.5px;color:var(--mute)}
 
-/* كرت جدول اليوم/الغد الداكن بأسلوب ممثلي */
 .sched-hero{background:linear-gradient(160deg,var(--navy2),var(--navy));color:#fff;border-radius:22px;padding:16px;margin-bottom:14px;box-shadow:0 10px 24px rgba(20,70,84,.15)}
 .sched-hero-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
 .sched-pill{background:#ffffff22;border:1px solid #ffffff30;color:#fff;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:bold}
@@ -51,7 +49,6 @@ body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var
 .sched-time{background:#fff;color:var(--navy2);border-radius:11px;padding:5px 8px;font-size:11.5px;font-weight:bold;text-align:center;min-width:68px;flex:none}
 .sched-info{flex:1;min-width:0}.sched-info b{display:block;font-size:14px;color:#fff}.sched-info span{font-size:12px;color:#dcebf0}
 
-/* شبكة الإجراءات السريعة مربعات */
 .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .qcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:right;margin:0;color:var(--ink);box-shadow:0 4px 12px rgba(20,70,84,.04)}
 .qcard .qico{width:38px;height:38px;border-radius:12px;background:var(--soft);color:var(--navy2);display:grid;place-items:center;font-size:17px;flex:none}
@@ -111,7 +108,6 @@ button.act{background:transparent;color:var(--navy);border:1px solid var(--line)
 .chips button{width:auto;margin:0;padding:6px 14px;font-size:12px;background:var(--soft);color:var(--ink);border-radius:20px}
 .chips button.on{background:var(--navy);color:#fff}
 
-/* كروت المواد والواجبات والجدول بأسلوب ممثلي */
 .subj-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 4px 12px rgba(20,70,84,.04)}
 .subj-ico{width:46px;height:46px;border-radius:14px;background:var(--soft);color:var(--navy2);display:grid;place-items:center;font-size:20px;flex:none}
 .subj-body{flex:1;min-width:0}.subj-body b{display:block;font-size:15px}.subj-body span{font-size:12px;color:var(--mute)}
@@ -128,10 +124,9 @@ details[open] summary::after{transform:rotate(180deg)}
 .stu{padding:10px 14px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .stu div{flex:1;min-width:160px}.stu b{font-size:14px}
 
-/* شريط تنقل سفلي بأسلوب ممثلي بألواننا */
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;z-index:40;box-shadow:0 -6px 20px rgba(20,70,84,.08)}
-.nav button{background:none;color:var(--mute);margin:0;padding:5px 0;font-size:10px;flex:1;position:relative;border-radius:12px}
-.nav button span{display:block;font-size:17px;line-height:1.25}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;z-index:100;box-shadow:0 -6px 20px rgba(20,70,84,.08)}
+.nav button{background:none;color:var(--mute);margin:0;padding:5px 0;font-size:10px;flex:1;position:relative;border-radius:12px;touch-action:manipulation}
+.nav button span{display:block;font-size:17px;line-height:1.25;pointer-events:none}
 .nav button.on{color:var(--navy);font-weight:bold;background:var(--soft)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -253,7 +248,6 @@ details[open] summary::after{transform:rotate(180deg)}
  </div>
 
  <div class="page">
-  <!-- الرئيسية بأسلوب ممثلي -->
   <div id="sHome">
    <div class="hero">
     <small id="sRoleGreet">مرحباً بك 👋</small>
@@ -289,7 +283,6 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="homeNotices"></div>
   </div>
 
-  <!-- التبليغات -->
   <div id="sNotices" class="hidden">
    <div class="chips">
     <button id="fAll" class="on" onclick="setFilter('all')">الكل</button>
@@ -299,7 +292,6 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="studentNotices"></div>
   </div>
 
-  <!-- المواد والواجبات -->
   <div id="sSubjects" class="hidden">
    <div id="subjectsListView">
     <div class="card" style="padding:10px 12px">
@@ -336,14 +328,12 @@ details[open] summary::after{transform:rotate(180deg)}
     </div>
    </div>
 
-   <!-- تفاصيل المادة وملفاتها بأسلوب ممثلي -->
    <div id="subjectDetailView" class="hidden">
     <button class="sec" style="margin-top:0;margin-bottom:10px" onclick="closeSubjectDetail()">→ العودة إلى قائمة المواد</button>
     <div id="subjectDetailContent"></div>
    </div>
   </div>
 
-  <!-- الجدول الأسبوعي -->
   <div id="sSchedule" class="hidden">
    <div class="card" style="padding:10px 12px">
     <input id="schedSearch" placeholder="🔍 ابحث بالمحاضرة أو القاعة أو التدريسي..." oninput="renderSchedule()">
@@ -371,7 +361,6 @@ details[open] summary::after{transform:rotate(180deg)}
    </div>
   </div>
 
-  <!-- النشر -->
   <div id="sRep" class="hidden">
    <div class="card">
     <h3 id="repFormTitle">نشر تبليغ</h3>
@@ -402,7 +391,6 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="repPrivateNotices"></div>
   </div>
 
-  <!-- الصلاحيات، تعديل بيانات الطالب، الترحيل، والقاعات لمدير القسم والمقرر -->
   <div id="sPerms" class="hidden">
    <div class="card">
     <h3>🟢 الطلاب المتصلون حالياً</h3>
@@ -456,7 +444,6 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="deptPermList"></div>
   </div>
 
-  <!-- غرفة تبليغات الأساتذة الخاصة -->
   <div id="sTeachersRoom" class="hidden">
    <div class="card" id="trComposerCard">
     <h3>👨‍🏫 غرفة تبليغات الأساتذة</h3>
@@ -478,7 +465,6 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="teacherRoomList"></div>
   </div>
 
-  <!-- حسابي -->
   <div id="sAccount" class="hidden">
    <div class="card">
     <img id="accStudentImg" class="acc-avatar" src="icon-192.png" alt="صورة الطالب">
@@ -501,7 +487,6 @@ details[open] summary::after{transform:rotate(180deg)}
   </div>
  </div>
 
- <!-- شريط تنقل سفلي بأسلوب ممثلي -->
  <nav class="nav">
   <button id="nHome" class="on" onclick="sTab('home')"><span>🏠</span>الرئيسية</button>
   <button id="nNotices" onclick="sTab('notices')"><span>📣</span>التبليغات</button>
@@ -629,7 +614,7 @@ details[open] summary::after{transform:rotate(180deg)}
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,onAuthStateChanged,signInAnonymously,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getFirestore,collection,addDoc,deleteDoc,updateDoc,setDoc,getDoc,doc,onSnapshot,query,getDocs,where,orderBy,serverTimestamp,writeBatch,deleteField,arrayUnion} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getFirestore,collection,addDoc,deleteDoc,updateDoc,setDoc,getDoc,doc,onSnapshot,query,getDocs,orderBy,serverTimestamp,writeBatch,deleteField,arrayUnion} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {firebaseConfig} from "./firebase-config.js";
 
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
@@ -656,9 +641,9 @@ const ONLINE_WINDOW_MS=5*60*1000;
 
 let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات المرضية"]),deptLogos={};
 let notices=[],codes=[],subjects=[],schedules=[],homeworks=[],examRooms=[];
-let me=null,filter="all",selectedDay="السبت",activeSubjectId=null;
+let me=null,filter="all",selectedDay="السبت",activeSubjectId=null,currentStudentTab="home";
 let unsubN=null,unsubC=null,unsubBrand=null,unsubSub=null,unsubSch=null,unsubHw=null,unsubRm=null;
-let isAdminView=false,deferred=null,readyRes,audioCtx=null,presenceTimer=null;
+let isAdminView=false,deferred=null,readyRes,audioCtx=null,presenceTimer=null,renderTimer=null;
 let activeDept=DEFAULT_DEPTS[0],customLogo=localStorage.getItem("customLogo")||"",appTitle=localStorage.getItem("appTitle")||"تبليغات الكلية";
 let soundOn=localStorage.getItem("soundOn")!=="0",knownIds=new Set(JSON.parse(localStorage.getItem("knownIds")||"[]")),readIds=new Set(JSON.parse(localStorage.getItem("readIds")||"[]")),firstSnap=true;
 let expandedIds=new Set(JSON.parse(localStorage.getItem("expandedIds")||"[]"));
@@ -701,7 +686,12 @@ function authorDisplay(u){
  return roleLabel(u.role)+": "+shortName;
 }
 
-/* ===== حضور المتصل ===== */
+function scheduleRenderStudent(){
+ if(!me||$("student").classList.contains("hidden"))return;
+ if(renderTimer)clearTimeout(renderTimer);
+ renderTimer=setTimeout(()=>{renderTimer=null;renderStudent()},60);
+}
+
 function isUserOnline(u){
  if(!u||!u.used)return false;
  if(u.online===false)return false;
@@ -723,7 +713,6 @@ function startPresenceLoop(){
 }
 document.addEventListener("visibilitychange",()=>{if(me&&me.code)touchPresence(document.visibilityState==="visible")});
 
-/* ===== توحيد الاسم والرقم ومنع التكرار ===== */
 function normName(n){
  return String(n||"").trim().replace(/\s+/g," ").replace(/[إأآا]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه").replace(/ؤ/g,"و").replace(/ئ/g,"ي").toLowerCase();
 }
@@ -908,7 +897,6 @@ async function deleteActiveDept(){
  try{await persistDepts();alert("تم حذف القسم.")}catch(e){alert("تعذر حفظ الحذف في قاعدة البيانات.")}
 }
 
-/* ===== اسم وصورة التطبيق ===== */
 function syncManifest(){
  const iconSrc=customLogo||"icon-192.png";
  try{
@@ -968,7 +956,7 @@ function startBrandSync(){
   if(Array.isArray(d.fifthStageDepts))fifthStageDepts=new Set(d.fifthStageDepts);
   if(d.deptLogos&&typeof d.deptLogos==="object")deptLogos={...d.deptLogos};
   refreshDeptSelects();
-  if(me)openStudent();
+  if(me)applyStudentHeaderAndPermissions();
   if(isAdminView)renderAdmin();
  },()=>{unsubBrand=null});
 }
@@ -999,7 +987,6 @@ function compressImage(file,maxDim=1100,quality=0.76){
  });
 }
 
-/* ===== ذاكرة الهاتف للملفات (IndexedDB) ===== */
 const idb={
  dbp:null,
  open(){
@@ -1017,7 +1004,6 @@ const idb={
  async clear(){const d=await this.open();return new Promise(res=>{const tx=d.transaction("files","readwrite");tx.objectStore("files").clear();tx.oncomplete=res})}
 };
 
-/* ===== صوت الجرس والعداد الأحمر ===== */
 function ensureAudioContext(){
  try{
   const Ctx=window.AudioContext||window.webkitAudioContext;
@@ -1087,11 +1073,10 @@ function toggleNoticeText(id){
  if(!id)return;
  if(expandedIds.has(id))expandedIds.delete(id);else expandedIds.add(id);
  try{localStorage.setItem("expandedIds",JSON.stringify([...expandedIds].slice(-200)))}catch(e){}
- renderStudent();
+ scheduleRenderStudent();
  if(isAdminView)renderAdmin();
 }
 
-/* ===== الردود في التبليغات الخاصة فقط (حد أقصى 2 لكل طرف) ===== */
 async function submitPrivateReply(noticeId,senderSide){
  if(!noticeId)return;
  const n=notices.find(x=>x.id===noticeId);
@@ -1123,7 +1108,6 @@ async function submitPrivateReply(noticeId,senderSide){
  }catch(e){alert("تعذر إرسال الرد.")}
 }
 
-/* ===== الملفات والمرفقات وحفظها محلياً ===== */
 async function readAttachment(inputId){
  const f=$(inputId).files[0];if(!f)return null;
  if(f.type.startsWith("image/")){
@@ -1140,7 +1124,6 @@ async function cacheAttachmentsLocally(list){
    try{
     const ex=await idb.get(n.id);
     if(!ex)await idb.put({id:n.id,name:n.att.name,type:n.att.type,data:n.att.data,savedAt:Date.now()});
-    cachedFileIds.add(n.id);
    }catch(e){}
   }
  }
@@ -1166,10 +1149,15 @@ async function openAttachment(fileId,fallbackObj=null){
  if(!item){alert("الملف غير متوفر.");return}
  try{await idb.put(item);cachedFileIds.add(fileId)}catch(e){}
  const a=document.createElement("a");a.href=item.data;a.download=item.name||"attachment";document.body.appendChild(a);a.click();a.remove();
- renderSubjects();
+}
+async function openSubjectFile(subId,idx){
+ const s=subjects.find(x=>x.id===subId);
+ const f=s&&Array.isArray(s.files)?s.files[idx]:null;
+ if(!f)return;
+ await openAttachment(subId+"_f_"+idx,f);
 }
 
-function show(id){["login","adminLogin","student","admin"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");syncInstallButtonsVisibility();scrollTo(0,0)}
+function show(id){["login","adminLogin","student","admin"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");syncInstallButtonsVisibility();window.scrollTo(0,0)}
 async function logout(){
  await touchPresence(false);
  if(presenceTimer){clearInterval(presenceTimer);presenceTimer=null}
@@ -1179,7 +1167,6 @@ async function logout(){
  if(auth.currentUser&&!auth.currentUser.isAnonymous){await signOut(auth)}else show("login");
 }
 
-/* ===== إنشاء حساب ودخول ===== */
 async function requestWhatsAppCode(){
  const name=$("lName").value.trim().replace(/\s+/g," ");
  const phone=normPhone($("lPhone").value);
@@ -1233,7 +1220,7 @@ async function completeRegistration(){
   if($("lPhoto").files[0]){try{photo=await compressImage($("lPhoto").files[0],360,0.78)}catch(e){}}
   me={code,name:c.name||name,phone,dept:c.dept||$("lDept").value||DEFAULT_DEPTS[0],stage:c.stage||$("lStage").value||"all",section:c.section||$("lSection").value||"all",role:c.role||"student",photo};
   try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
-  startPresenceLoop();openStudent();
+  enterStudentShell("home");
  }catch(e){err.textContent="تعذر إتمام الدخول."}
  finally{btn.disabled=false}
 }
@@ -1253,28 +1240,27 @@ async function directCodeLogin(){
   await updateDoc(ref,{used:true,phone,online:true,lastSeen:serverTimestamp(),usedAt:c.usedAt||serverTimestamp()});
   me={code,name:c.name||"مستخدم",phone,dept:c.dept||depts[0]||DEFAULT_DEPTS[0],stage:c.stage||"all",section:c.section||"all",role:c.role||"student",photo:(me&&me.code===code&&me.photo)||""};
   try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
-  startPresenceLoop();openStudent();
+  enterStudentShell("home");
  }catch(e){err.textContent="تعذر الدخول."}
  finally{btn.disabled=false}
 }
 function syncMyFromCodes(){
  if(!me||!me.code||!codes.length)return;
  const found=codes.find(c=>c.id===me.code);
- if(found){
-  const nextRole=found.role||"student";
-  const nextName=found.name||me.name;
-  const nextPhone=found.phone||me.phone;
-  const nextStage=found.stage||me.stage;
-  const nextSec=found.section||me.section;
-  if(nextRole!==me.role||nextName!==me.name||nextPhone!==me.phone||nextStage!==me.stage||nextSec!==me.section){
-   me={...me,role:nextRole,name:nextName,phone:nextPhone,stage:nextStage,section:nextSec};
-   try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
-   openStudent();
-  }
+ if(!found)return;
+ const nextRole=found.role||"student";
+ const nextName=found.name||me.name;
+ const nextPhone=found.phone||me.phone;
+ const nextStage=found.stage||me.stage;
+ const nextSec=found.section||me.section;
+ if(nextRole!==me.role||nextName!==me.name||nextPhone!==me.phone||nextStage!==me.stage||nextSec!==me.section){
+  me={...me,role:nextRole,name:nextName,phone:nextPhone,stage:nextStage,section:nextSec};
+  try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
+  applyStudentHeaderAndPermissions();
  }
 }
 
-function openStudent(){
+function applyStudentHeaderAndPermissions(){
  if(!me)return;
  if(!me.dept)me.dept=depts[0]||DEFAULT_DEPTS[0];
  if(!me.stage)me.stage="all";
@@ -1283,7 +1269,6 @@ function openStudent(){
  try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
  applyStudentPhotoUI();
  applyDeptLogosUI();
- startPresenceLoop();
 
  const rLabel=roleLabel(me.role);
  const isMgr=isStaffRole(me.role);
@@ -1321,15 +1306,10 @@ function openStudent(){
 
  refreshAcademicStageSelects(me.dept);
 
- if(hasPerms){
-  const prevPS=$("pStageFilter").value||"all";
-  const prevPSec=$("pSectionFilter").value||"all";
+ if(hasPerms&&!$("pStageFilter").options.length){
   fill("pStageFilter",stList,'<option value="all">كل المراحل</option>');
   fill("pSectionFilter",SECTIONS,'<option value="all">كل الشعب</option>');
-  if([...$("pStageFilter").options].some(o=>o.value===prevPS))$("pStageFilter").value=prevPS;
-  if([...$("pSectionFilter").options].some(o=>o.value===prevPSec))$("pSectionFilter").value=prevPSec;
  }
-
  if(isMgr){
   if(canManageAll(me)){
    fill("rStage",stList,'<option value="all">كل المراحل</option>');
@@ -1343,8 +1323,20 @@ function openStudent(){
   }
  }
  $("soundBtn").textContent=soundOn?"🔊 الرنين مفعل":"🔇 الرنين مكتوم";
- renderStudent();updateBellUI();updateStorageStat();syncInstallButtonsVisibility();sTab("home");show("student");
 }
+
+function enterStudentShell(initialTab="home"){
+ if(!me)return;
+ startPresenceLoop();
+ applyStudentHeaderAndPermissions();
+ renderStudent();
+ updateBellUI();
+ updateStorageStat();
+ syncInstallButtonsVisibility();
+ sTab(initialTab);
+ show("student");
+}
+
 async function adminLogin(){
  try{await signInWithEmailAndPassword(auth,$("adminEmail").value.trim(),$("adminPassword").value);$("aErr").textContent="";$("adminPassword").value=""}
  catch(e){$("aErr").textContent="البريد أو كلمة المرور غير صحيحة."}
@@ -1354,6 +1346,7 @@ function sTab(t){
  if(t==="perms"&&!canManageDeptPerms(me))t="home";
  if(t==="teachersRoom"&&!canViewTeachersRoom(me))t="home";
  if(t==="rep"&&!isStaffRole(me&&me.role))t="home";
+ currentStudentTab=t;
  const m={
   home:["sHome","nHome"],
   notices:["sNotices","nNotices"],
@@ -1370,7 +1363,8 @@ function sTab(t){
  if(t==="schedule")renderSchedule();
  if(t==="perms")renderDeptPermissions();
  syncInstallButtonsVisibility();
- $("bellPop").classList.add("hidden");scrollTo(0,0);
+ $("bellPop").classList.add("hidden");
+ window.scrollTo(0,0);
 }
 function aTab(t){
  const m={new:["aNew","atNew"],notices:["aNotices","atNotices"],students:["aStudents","atStudents"],codes:["aCodes","atCodes"]};
@@ -1391,7 +1385,6 @@ function toggleStageForRole(){
  else if($("gStage").value==="all")$("gStage").value="";
 }
 
-/* ===== تبليغ خاص لطالب محدد ===== */
 function startPrivateNoticeForStudent(studentCode){
  const stu=codes.find(c=>c.id===studentCode);
  if(!stu){alert("تعذر العثور على بيانات الطالب.");return}
@@ -1404,7 +1397,7 @@ function startPrivateNoticeForStudent(studentCode){
   $("admPrivateBanner").textContent="📩 تبليغ خاص للطالب: "+stuName+" ("+stuStage+" · شعبة "+stuSection+")";
   $("admPrivateBanner").classList.remove("hidden");
   $("admFormTitle").textContent="إرسال تبليغ خاص للطالب";$("admPubBtn").textContent="إرسال التبليغ الخاص";
-  aTab("new");scrollTo(0,0);return;
+  aTab("new");window.scrollTo(0,0);return;
  }
  if(!me||!canSendPrivateNotice(me)){alert("إرسال التبليغات الخاصة متاح لمدير القسم والمقرر فقط.");return}
  resetRepForm();
@@ -1413,10 +1406,9 @@ function startPrivateNoticeForStudent(studentCode){
  $("repPrivateBanner").textContent="📩 تبليغ خاص للطالب: "+stuName+" ("+stuStage+" · شعبة "+stuSection+")";
  $("repPrivateBanner").classList.remove("hidden");
  $("repFormTitle").textContent="إرسال تبليغ خاص للطالب";$("rPubBtn").textContent="إرسال التبليغ الخاص";$("rCancelBtn").classList.remove("hidden");
- sTab("rep");scrollTo(0,0);
+ sTab("rep");
 }
 
-/* ===== الإدارة والتبليغات ===== */
 async function publish(){
  if(!activeDept){alert("اختر أو أضف قسماً أولاً.");return}
  const title=$("title").value.trim(),body=$("body").value.trim(),editId=$("admEditId").value;
@@ -1455,7 +1447,7 @@ function editAdminNotice(id){
  $("priority").value=n.priority||"normal";$("aFile").value="";
  $("aFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
  $("admFormTitle").textContent="تعديل التبليغ";$("admPubBtn").textContent="حفظ التعديلات";$("admCancelBtn").classList.remove("hidden");
- aTab("new");scrollTo(0,0);
+ aTab("new");window.scrollTo(0,0);
 }
 function resetAdmForm(){
  $("admEditId").value="";$("admChannel").value="public";$("admTargetCode").value="";
@@ -1505,7 +1497,7 @@ function editRepNotice(id){
  }
  $("rPriority").value=n.priority||"normal";$("rFile").value="";$("rFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
  $("repFormTitle").textContent="تعديل التبليغ";$("rPubBtn").textContent="حفظ التعديلات";$("rCancelBtn").classList.remove("hidden");
- sTab("rep");scrollTo(0,0);
+ sTab("rep");
 }
 function resetRepForm(){
  $("repEditId").value="";$("repChannel").value="public";$("repTargetCode").value="";
@@ -1514,7 +1506,6 @@ function resetRepForm(){
  $("repFormTitle").textContent="نشر تبليغ";$("rPubBtn").textContent="نشر التبليغ";$("rCancelBtn").classList.add("hidden");
 }
 
-/* ===== غرفة الأساتذة ===== */
 async function teacherRoomPublish(){
  if(!me||!canPostTeachersRoom(me)){alert("النشر في غرفة الأساتذة متاح لحسابات المدرسين فقط.");return}
  const title=$("trTitle").value.trim(),body=$("trBody").value.trim(),editId=$("trEditId").value;
@@ -1538,14 +1529,13 @@ function editTeacherRoomNotice(id){
  const n=notices.find(x=>x.id===id);if(!n||!me||!canManageNotice(me,n))return;
  $("trEditId").value=n.id;$("trTitle").value=n.title;$("trBody").value=n.body;
  $("trPriority").value=n.priority||"normal";$("trFile").value="";$("trFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
- $("trPubBtn").textContent="حفظ التعديلات";$("trCancelBtn").classList.remove("hidden");scrollTo(0,0);
+ $("trPubBtn").textContent="حفظ التعديلات";$("trCancelBtn").classList.remove("hidden");window.scrollTo(0,0);
 }
 function resetTeacherRoomForm(){
  $("trEditId").value="";$("trTitle").value="";$("trBody").value="";$("trFile").value="";$("trFileNote").textContent="";
  $("trPubBtn").textContent="نشر في غرفة الأساتذة";$("trCancelBtn").classList.add("hidden");
 }
 
-/* ===== المواد والواجبات والجدول ===== */
 async function addSubjectItem(){
  if(!canManageAcademic(me))return;
  const name=$("subName").value.trim();
@@ -1556,13 +1546,12 @@ async function addSubjectItem(){
  if(!name){alert("أدخل اسم المادة الدراسية.");return}
  try{
   const att=await readAttachment("subFile");
-  const payload={
+  await addDoc(collection(db,"subjects"),{
    name,teacher,dept:deptName,stage,section,
    authorCode:(me&&me.code)||"ADMIN",
    files:att?[att]:[],
    createdAt:serverTimestamp()
-  };
-  await addDoc(collection(db,"subjects"),payload);
+  });
   $("subName").value="";$("subTeacher").value="";$("subFile").value="";
   alert("تمت إضافة المادة بنجاح.");
  }catch(e){if(e.message!=="size")alert("تعذر إضافة المادة.")}
@@ -1627,7 +1616,6 @@ async function deleteDocByCollection(colName,id){
  await deleteDoc(doc(db,colName,id)).catch(fail);
 }
 
-/* ===== صلاحيات، تعديل بيانات الطالب، ترحيل المراحل، والقاعات ===== */
 async function changeUserRole(codeId,newRole){
  try{
   const data={role:newRole};
@@ -1798,7 +1786,6 @@ function copyCodes(stage){
  navigator.clipboard.writeText(t).then(()=>alert("تم نسخ "+l.length+" كود.")).catch(()=>prompt("انسخ الأكواد:",t));
 }
 
-/* ===== الفلترة والعرض ===== */
 const target=n=>n.channel==="private_student"?("تبليغ خاص للطالب: "+(n.targetStudentName||n.targetStudentCode||"")):((n.stage==="all"?"كل المراحل":n.stage)+" · "+(n.section==="all"?"كل الشعب":"شعبة "+n.section));
 const matchesScope=item=>{
  if(!me)return false;
@@ -1897,20 +1884,18 @@ function renderSubjects(){
  }).join("")||empty("لا توجد واجبات نشطة حالياً.");
 }
 
-async function openSubjectDetail(subId){
+function openSubjectDetail(subId){
  activeSubjectId=subId;
  const s=subjects.find(x=>x.id===subId);
  if(!s)return;
- cachedFileIds=await idb.allIds();
  const files=Array.isArray(s.files)?s.files:[];
  const filesHtml=files.map((f,idx)=>{
   const fid=subId+"_f_"+idx;
   const isC=cachedFileIds.has(fid);
   const badge=isC?'<span class="tag ok">✓ محمّل</span>':"";
-  const encoded=encodeURIComponent(JSON.stringify(f));
   return `<div class="att-box">
    <div><b style="font-size:13.5px">${esc(f.name||"ملف")}</b> ${badge}<div class="meta">${esc(f.type||"ملف")}</div></div>
-   <button class="act" onclick="openAttachment('${esc(fid)}',JSON.parse(decodeURIComponent('${encoded}')))">فتح / حفظ</button>
+   <button class="act" onclick="openSubjectFile('${esc(subId)}',${idx})">فتح / حفظ</button>
   </div>`;
  }).join("")||'<div class="meta">لا توجد ملفات مرفقة لهذه المادة بعد.</div>';
 
@@ -2005,23 +1990,24 @@ function renderStudent(){
  $("stSubj").textContent=subs.length;
  $("stHw").textContent=hws.length;
 
- const tomorrowIdx=(new Date().getDay()+1)%7;
- const dayMap=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
- const nextDayName=dayMap[tomorrowIdx];
- const upcoming=scheds.filter(x=>x.day===nextDayName).length?scheds.filter(x=>x.day===nextDayName):scheds.slice(0,3);
- $("homeSchedDayLabel").textContent=scheds.filter(x=>x.day===nextDayName).length?("محاضرات "+nextDayName):"أحدث الحصص المجدولة";
- $("homeScheduleList").innerHTML=upcoming.slice(0,3).map(sc=>`<div class="sched-slot"><div class="sched-time">${esc(sc.time||"")}</div><div class="sched-info"><b>${esc(sc.subject)}</b><span>🏛️ ${esc(sc.room||"")} · ${esc(sc.teacher||"")}</span></div></div>`).join("")||'<div style="font-size:12px;color:#dcebf0">لا توجد محاضرات مجدولة حالياً.</div>';
-
- $("homeNotices").innerHTML=mine.slice(0,3).map(n=>noticeCard(n,"student")).join("")||empty("لا توجد تبليغات لقسمك حالياً.");
- const list=filter==="important"
-  ?mine.filter(n=>n.priority==="important")
-  :(filter==="private"?mine.filter(n=>n.channel==="private_student"):mine);
- $("studentNotices").innerHTML=list.map(n=>noticeCard(n,"student")).join("")||empty("لا توجد تبليغات هنا.");
-
- renderSubjects();
- renderSchedule();
-
- if(isStaffRole(me.role)){
+ if(currentStudentTab==="home"){
+  const tomorrowIdx=(new Date().getDay()+1)%7;
+  const dayMap=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+  const nextDayName=dayMap[tomorrowIdx];
+  const upcoming=scheds.filter(x=>x.day===nextDayName).length?scheds.filter(x=>x.day===nextDayName):scheds.slice(0,3);
+  $("homeSchedDayLabel").textContent=scheds.filter(x=>x.day===nextDayName).length?("محاضرات "+nextDayName):"أحدث الحصص المجدولة";
+  $("homeScheduleList").innerHTML=upcoming.slice(0,3).map(sc=>`<div class="sched-slot"><div class="sched-time">${esc(sc.time||"")}</div><div class="sched-info"><b>${esc(sc.subject)}</b><span>🏛️ ${esc(sc.room||"")} · ${esc(sc.teacher||"")}</span></div></div>`).join("")||'<div style="font-size:12px;color:#dcebf0">لا توجد محاضرات مجدولة حالياً.</div>';
+  $("homeNotices").innerHTML=mine.slice(0,3).map(n=>noticeCard(n,"student")).join("")||empty("لا توجد تبليغات لقسمك حالياً.");
+ }else if(currentStudentTab==="notices"){
+  const list=filter==="important"
+   ?mine.filter(n=>n.priority==="important")
+   :(filter==="private"?mine.filter(n=>n.channel==="private_student"):mine);
+  $("studentNotices").innerHTML=list.map(n=>noticeCard(n,"student")).join("")||empty("لا توجد تبليغات هنا.");
+ }else if(currentStudentTab==="subjects"){
+  renderSubjects();
+ }else if(currentStudentTab==="schedule"){
+  renderSchedule();
+ }else if(currentStudentTab==="rep"&&isStaffRole(me.role)){
   const mgrList=notices.filter(n=>n.channel!=="teachers_room"&&n.channel!=="private_student"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageNotice(me,n));
   $("repNotices").innerHTML=mgrList.map(n=>{
    const isOpen=expandedIds.has(n.id);
@@ -2035,17 +2021,15 @@ function renderStudent(){
     return `<div class="card notice private ${isOpen?"open":""}"><span class="tag priv">📩 خاص</span>${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span>${privateRepliesHtml(n,"sender")}<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
    }).join("")||empty("لا توجد تبليغات خاصة مرسلة في القسم.");
   }
- }
-
- if(canManageDeptPerms(me))renderDeptPermissions();
-
- if(canViewTeachersRoom(me)){
+ }else if(currentStudentTab==="perms"&&canManageDeptPerms(me)){
+  renderDeptPermissions();
+ }else if(currentStudentTab==="teachersRoom"&&canViewTeachersRoom(me)){
   const trList=myTeachersRoomNotices();
   $("teacherRoomList").innerHTML=trList.map(n=>{
    const isOpen=expandedIds.has(n.id);
    const canAct=canManageNotice(me,n);
    const btns=canAct?`<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editTeacherRoomNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div>`:"";
-   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag rep">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span>${btns}</div>`;
+   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag rep">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(date)}</span>${btns}</div>`;
   }).join("")||empty("لا توجد تبليغات في غرفة الأساتذة حالياً.");
  }
 }
@@ -2090,7 +2074,6 @@ function renderAdmin(){
  }).join("");
 }
 
-/* ===== اشتراكات Firestore المباشرة ===== */
 function startNotices(){
  if(unsubN)return;
  unsubN=onSnapshot(query(collection(db,"notices"),orderBy("createdAt","desc")),snap=>{
@@ -2108,7 +2091,7 @@ function startNotices(){
    cacheAttachmentsLocally(mine);
   }
   firstSnap=false;
-  renderStudent();if(isAdminView)renderAdmin();
+  scheduleRenderStudent();if(isAdminView)renderAdmin();
  },()=>{unsubN=null;setTimeout(()=>{if(auth.currentUser)startNotices()},2000)});
 }
 function startCodes(){
@@ -2116,25 +2099,24 @@ function startCodes(){
  unsubC=onSnapshot(collection(db,"codes"),snap=>{
   codes=snap.docs.map(d=>({id:d.id,...d.data()}));
   syncMyFromCodes();
-  if(me)openStudent();
+  if(me&&currentStudentTab==="perms"&&canManageDeptPerms(me))renderDeptPermissions();
   if(isAdminView)renderAdmin();
  },()=>{unsubC=null});
 }
 function startAcademicStreams(){
- if(!unsubSub)unsubSub=onSnapshot(collection(db,"subjects"),snap=>{subjects=snap.docs.map(d=>({id:d.id,...d.data()}));renderStudent()},()=>{unsubSub=null});
- if(!unsubSch)unsubSch=onSnapshot(collection(db,"schedules"),snap=>{schedules=snap.docs.map(d=>({id:d.id,...d.data()}));renderStudent()},()=>{unsubSch=null});
- if(!unsubHw)unsubHw=onSnapshot(collection(db,"homeworks"),snap=>{homeworks=snap.docs.map(d=>({id:d.id,...d.data()}));renderStudent()},()=>{unsubHw=null});
- if(!unsubRm)unsubRm=onSnapshot(collection(db,"exam_rooms"),snap=>{examRooms=snap.docs.map(d=>({id:d.id,...d.data()}));if(me&&canManageDeptPerms(me))renderDeptPermissions()},()=>{unsubRm=null});
+ if(!unsubSub)unsubSub=onSnapshot(collection(db,"subjects"),snap=>{subjects=snap.docs.map(d=>({id:d.id,...d.data()}));scheduleRenderStudent()},()=>{unsubSub=null});
+ if(!unsubSch)unsubSch=onSnapshot(collection(db,"schedules"),snap=>{schedules=snap.docs.map(d=>({id:d.id,...d.data()}));scheduleRenderStudent()},()=>{unsubSch=null});
+ if(!unsubHw)unsubHw=onSnapshot(collection(db,"homeworks"),snap=>{homeworks=snap.docs.map(d=>({id:d.id,...d.data()}));scheduleRenderStudent()},()=>{unsubHw=null});
+ if(!unsubRm)unsubRm=onSnapshot(collection(db,"exam_rooms"),snap=>{examRooms=snap.docs.map(d=>({id:d.id,...d.data()}));if(me&&currentStudentTab==="perms"&&canManageDeptPerms(me))renderDeptPermissions()},()=>{unsubRm=null});
 }
 
 onAuthStateChanged(auth,async u=>{
  if(!u){if(unsubN){unsubN();unsubN=null}await signInAnonymously(auth).catch(()=>{});return}
  readyRes();startBrandSync();startNotices();startCodes();startAcademicStreams();
  if(!u.isAnonymous){isAdminView=true;renderAdmin();aTab("new");show("admin")}
- else{isAdminView=false;if(me)openStudent();else show("login")}
+ else{isAdminView=false;if(me)enterStudentShell("home");else show("login")}
 });
 
-/* ===== تثبيت التطبيق وإخفاء الزر بعد التثبيت ===== */
 function isAppInstalled(){
  try{
   if(localStorage.getItem("appInstalled")==="1")return true;
@@ -2180,7 +2162,7 @@ refreshDeptSelects();
 fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,editStudentProfile,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,teacherRoomPublish,editTeacherRoomNotice,resetTeacherRoomForm,addSubjectItem,attachFileToSubject,openSubjectDetail,closeSubjectDetail,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
+Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,editStudentProfile,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,teacherRoomPublish,editTeacherRoomNotice,resetTeacherRoomForm,addSubjectItem,attachFileToSubject,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
 </script>
 </body>
 </html>
