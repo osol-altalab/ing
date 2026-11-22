@@ -15,32 +15,50 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
 .app{max-width:520px;margin:auto;min-height:100vh;position:relative}
-.top{background:var(--navy);color:#fff;padding:14px 14px 18px;display:flex;align-items:center;gap:10px;border-radius:0 0 22px 22px;position:relative}
-.top .brand{flex:1;display:flex;align-items:center;gap:10px}
-.logo{width:42px;height:42px;border-radius:12px;background:#ffffff22;display:grid;place-items:center;font-size:22px;overflow:visible;flex:none;position:relative}
-.logo img{width:100%;height:100%;object-fit:cover;display:block;border-radius:12px}
-.ibtn{width:42px;height:42px;border-radius:12px;background:#ffffff1f;border:0;color:#fff;font-size:18px;cursor:pointer;margin:0;padding:0;position:relative;flex:none;overflow:visible;display:grid;place-items:center}
-.ibtn img{width:100%;height:100%;object-fit:cover;display:block;border-radius:12px}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:14px 14px 18px;display:flex;align-items:center;gap:10px;border-radius:0 0 24px 24px;position:relative;box-shadow:0 8px 24px rgba(20,70,84,.14)}
+.top .brand{flex:1;display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:44px;height:44px;border-radius:14px;background:#ffffff22;border:1px solid #ffffff30;display:grid;place-items:center;font-size:22px;overflow:visible;flex:none;position:relative}
+.logo img{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px}
+.ibtn{width:42px;height:42px;border-radius:14px;background:#ffffff1f;border:1px solid #ffffff2b;color:#fff;font-size:18px;cursor:pointer;margin:0;padding:0;position:relative;flex:none;overflow:visible;display:grid;place-items:center}
+.ibtn img{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px}
 .badge{position:absolute;top:-5px;right:-5px;background:var(--alert-red);color:#fff;font-size:11px;min-width:19px;height:19px;border-radius:10px;display:grid;place-items:center;padding:0 5px;font-weight:bold;border:2px solid var(--navy);box-shadow:0 2px 6px rgba(217,45,32,.45)}
-.bell-pop{position:absolute;top:64px;right:14px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;z-index:50;box-shadow:0 10px 25px rgba(20,70,84,.14)}
+.bell-pop{position:absolute;top:66px;right:14px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;z-index:50;box-shadow:0 12px 28px rgba(20,70,84,.16)}
 .bell-item{padding:8px;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
 .bell-item:last-child{border-bottom:0}
-.page{padding:14px 14px 100px}
-.hero{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;border-radius:20px;padding:18px;margin-bottom:14px}
-.hero small{color:#dcebf0;font-size:13px}
-.hero h2{margin:2px 0 4px;font-size:22px}
+.page{padding:14px 14px 104px}
+.hero{background:linear-gradient(155deg,var(--navy),var(--navy2));color:#fff;border-radius:22px;padding:18px;margin-bottom:14px;box-shadow:0 10px 24px rgba(20,70,84,.16)}
+.hero small{color:#dcebf0;font-size:12px;display:block}
+.hero h2{margin:3px 0 4px;font-size:21px}
 .hero p{margin:0 0 14px;font-size:13px;color:#e7f2f5}
-.hero button{background:#fff;color:var(--navy);width:auto;padding:10px 18px;margin:0;font-weight:bold}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.hero button{background:#fff;color:var(--navy);width:auto;padding:9px 18px;margin:0;font-weight:bold;font-size:13px;border-radius:12px}
+
+/* كروت ملخص بأسلوب ممثلي */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .stats.two{grid-template-columns:1fr 1fr}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 10px;text-align:center;box-shadow:0 4px 14px rgba(20,70,84,.04)}
 .stats.two .stat{display:flex;align-items:center;gap:12px;text-align:right;padding:14px}
-.ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:20px;margin:0 auto 6px;flex:none}
+.ico{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:19px;margin:0 auto 6px;flex:none}
 .stats.two .ico{margin:0}
 .b{background:var(--blue-bg)}.g{background:var(--ok-bg)}.a{background:var(--amber-bg)}
-.stat b{display:block;font-size:22px;line-height:1.2}.stat span{font-size:12px;color:var(--mute)}
-h3{margin:4px 0 10px;font-size:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
+.stat b{display:block;font-size:21px;line-height:1.2;color:var(--navy2)}.stat span{font-size:11.5px;color:var(--mute)}
+
+/* كرت جدول اليوم/الغد الداكن بأسلوب ممثلي */
+.sched-hero{background:linear-gradient(160deg,var(--navy2),var(--navy));color:#fff;border-radius:22px;padding:16px;margin-bottom:14px;box-shadow:0 10px 24px rgba(20,70,84,.15)}
+.sched-hero-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.sched-pill{background:#ffffff22;border:1px solid #ffffff30;color:#fff;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:bold}
+.sched-slot{background:#ffffff14;border:1px solid #ffffff24;border-radius:15px;padding:11px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.sched-slot:last-child{margin-bottom:0}
+.sched-time{background:#fff;color:var(--navy2);border-radius:11px;padding:5px 8px;font-size:11.5px;font-weight:bold;text-align:center;min-width:68px;flex:none}
+.sched-info{flex:1;min-width:0}.sched-info b{display:block;font-size:14px;color:#fff}.sched-info span{font-size:12px;color:#dcebf0}
+
+/* شبكة الإجراءات السريعة مربعات */
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:right;margin:0;color:var(--ink);box-shadow:0 4px 12px rgba(20,70,84,.04)}
+.qcard .qico{width:38px;height:38px;border-radius:12px;background:var(--soft);color:var(--navy2);display:grid;place-items:center;font-size:17px;flex:none}
+.qcard b{display:block;font-size:13.5px}.qcard small{display:block;font-size:11px;color:var(--mute)}
+
+h3{margin:6px 0 10px;font-size:15.5px;color:var(--navy2)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px;box-shadow:0 4px 14px rgba(20,70,84,.04)}
 .notice{border-right:4px solid var(--navy)}
 .notice.important{border-right-color:var(--navy2);background:var(--warn-bg)}
 .notice.private{border-right-color:#0f766e;background:#f0fdfa}
@@ -52,28 +70,33 @@ h3{margin:4px 0 10px;font-size:16px}
 .notice:not(.open) .notice-body::after{content:"";position:absolute;bottom:0;left:0;right:0;height:20px;background:linear-gradient(transparent,var(--card))}
 .notice.important:not(.open) .notice-body::after{background:linear-gradient(transparent,var(--warn-bg))}
 .notice.private:not(.open) .notice-body::after{background:linear-gradient(transparent,#f0fdfa)}
+
 .replies-box{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
-.reply-item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px;font-size:13px}
+.reply-item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:6px;font-size:13px}
 .reply-form{display:flex;gap:6px;margin-top:6px;align-items:center}
 .reply-form input{margin:0;padding:8px 10px;font-size:13px;flex:1}
 .reply-form button{margin:0;padding:8px 12px;font-size:12px;width:auto;white-space:nowrap}
+
 .online-pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;background:#dcfce7;color:#166534;border-radius:20px;padding:1px 9px;font-weight:bold}
 .online-dot{width:8px;height:8px;border-radius:50%;background:var(--online-dot);display:inline-block}
 .online-strip{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
 .meta{font-size:12px;color:var(--mute)}
-.warn-note{background:var(--warn-bg);border:1px solid var(--line);border-right:4px solid var(--navy2);border-radius:12px;padding:10px 12px;margin-top:10px;font-size:12px;color:var(--ink)}
+.warn-note{background:var(--warn-bg);border:1px solid var(--line);border-right:4px solid var(--navy2);border-radius:14px;padding:10px 12px;margin-top:10px;font-size:12px;color:var(--ink)}
 .tag{display:inline-block;font-size:11px;background:var(--soft);color:var(--ink);border-radius:20px;padding:1px 10px;margin-left:4px}
 .tag.imp{background:var(--navy2);color:#fff}
 .tag.rep{background:var(--navy);color:#fff}
 .tag.priv{background:#0f766e;color:#fff}
-.att-box{margin:8px 0;padding:8px 10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.att-img{width:100%;max-height:240px;object-fit:contain;border-radius:10px;margin-top:6px;border:1px solid var(--line);background:var(--card);display:block}
-.acc-avatar{width:68px;height:68px;border-radius:16px;object-fit:cover;border:1px solid var(--line);background:var(--soft);display:block;margin-bottom:8px}
+.tag.ok{background:#dcfce7;color:#166534;font-weight:bold}
+.att-box{margin:8px 0;padding:9px 11px;background:var(--bg);border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.att-img{width:100%;max-height:240px;object-fit:contain;border-radius:12px;margin-top:6px;border:1px solid var(--line);background:var(--card);display:block}
+.acc-avatar{width:68px;height:68px;border-radius:18px;object-fit:cover;border:1px solid var(--line);background:var(--soft);display:block;margin-bottom:8px}
+.dept-preview{width:54px;height:54px;border-radius:14px;object-fit:cover;border:1px solid var(--line);background:var(--soft)}
+
 label{display:block;font-size:13px;color:var(--mute);margin-top:10px}
-input,textarea,select{width:100%;padding:12px;margin:4px 0;border:1px solid var(--line);border-radius:12px;background:var(--card);font-family:inherit;font-size:15px;color:var(--ink)}
+input,textarea,select{width:100%;padding:12px;margin:4px 0;border:1px solid var(--line);border-radius:14px;background:var(--card);font-family:inherit;font-size:15px;color:var(--ink)}
 input[type="file"]{padding:9px;font-size:13px}
 input:focus,textarea:focus,select:focus,button:focus-visible,summary:focus-visible{outline:2px solid var(--navy);outline-offset:1px}
-button{border:0;border-radius:12px;padding:12px;background:var(--navy);color:#fff;font-family:inherit;font-size:15px;width:100%;cursor:pointer;margin-top:10px}
+button{border:0;border-radius:14px;padding:12px;background:var(--navy);color:#fff;font-family:inherit;font-size:15px;width:100%;cursor:pointer;margin-top:10px}
 button.sec{background:var(--soft);color:var(--ink)}
 button.del{background:transparent;color:var(--navy2);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
 button.act{background:transparent;color:var(--navy);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
@@ -81,13 +104,22 @@ button.act{background:transparent;color:var(--navy);border:1px solid var(--line)
 .row{display:flex;gap:8px}.row>*{flex:1}
 .err{color:var(--navy2);font-weight:bold;font-size:13px;min-height:20px}
 .ltr{direction:ltr;text-align:right}
-.seg{display:flex;background:var(--soft);border-radius:14px;padding:4px;margin-bottom:14px}
-.seg button{margin:0;background:transparent;color:var(--mute);padding:9px 2px;font-size:13px}
+.seg{display:flex;background:var(--soft);border-radius:16px;padding:4px;margin-bottom:14px;gap:2px}
+.seg button{margin:0;background:transparent;color:var(--mute);padding:9px 2px;font-size:12.5px;border-radius:12px}
 .seg button.on{background:var(--navy);color:#fff}
-.chips{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.chips{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
 .chips button{width:auto;margin:0;padding:6px 14px;font-size:12px;background:var(--soft);color:var(--ink);border-radius:20px}
 .chips button.on{background:var(--navy);color:#fff}
-details{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
+
+/* كروت المواد والواجبات والجدول بأسلوب ممثلي */
+.subj-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 4px 12px rgba(20,70,84,.04)}
+.subj-ico{width:46px;height:46px;border-radius:14px;background:var(--soft);color:var(--navy2);display:grid;place-items:center;font-size:20px;flex:none}
+.subj-body{flex:1;min-width:0}.subj-body b{display:block;font-size:15px}.subj-body span{font-size:12px;color:var(--mute)}
+.day-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px;margin-bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 12px rgba(20,70,84,.04)}
+.time-badge{background:var(--soft);color:var(--navy2);border-radius:13px;padding:6px 9px;font-size:12px;font-weight:bold;text-align:center;min-width:74px;flex:none}
+.hw-card{background:var(--card);border:1px solid var(--line);border-right:4px solid var(--navy2);border-radius:18px;padding:13px;margin-bottom:10px;box-shadow:0 4px 12px rgba(20,70,84,.04)}
+
+details{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:10px;overflow:hidden}
 summary{list-style:none;cursor:pointer;padding:14px;display:flex;align-items:center;gap:10px;font-weight:bold}
 summary::-webkit-details-marker{display:none}
 summary .cnt{margin-right:auto;background:var(--navy);color:#fff;border-radius:20px;font-size:12px;padding:1px 10px}
@@ -95,11 +127,12 @@ summary::after{content:"▾";color:var(--mute);transition:transform .2s}
 details[open] summary::after{transform:rotate(180deg)}
 .stu{padding:10px 14px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .stu div{flex:1;min-width:160px}.stu b{font-size:14px}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));border-radius:20px 20px 0 0;z-index:40}
-.nav button{background:none;color:var(--mute);margin:0;padding:6px 0;font-size:10.5px;flex:1;position:relative}
-.nav button span{display:block;font-size:18px}
-.nav button.on{color:var(--navy);font-weight:bold}
-.nav button.on::before{content:"";position:absolute;top:-8px;left:28%;right:28%;height:3px;border-radius:3px;background:var(--navy)}
+
+/* شريط تنقل سفلي بأسلوب ممثلي بألواننا */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;z-index:40;box-shadow:0 -6px 20px rgba(20,70,84,.08)}
+.nav button{background:none;color:var(--mute);margin:0;padding:5px 0;font-size:10px;flex:1;position:relative;border-radius:12px}
+.nav button span{display:block;font-size:17px;line-height:1.25}
+.nav button.on{color:var(--navy);font-weight:bold;background:var(--soft)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <link id="dynManifest" rel="manifest" href="manifest.json">
@@ -118,7 +151,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🎓'">
     <span class="appNewBadge badge hidden">0</span>
    </div>
-   <div><h1 class="appNameTxt">تبليغات الكلية</h1><p>كلية أصول العلم الأهلية</p></div>
+   <div><h1 class="appNameTxt" style="margin:0;font-size:18px">تبليغات الكلية</h1><p style="margin:0;font-size:12px;opacity:.9">كلية أصول العلم الأهلية</p></div>
   </div>
  </div>
  <div class="page">
@@ -127,7 +160,6 @@ details[open] summary::after{transform:rotate(180deg)}
    <button id="authTabIn" onclick="switchAuthMode('in')">الدخول</button>
   </div>
 
-  <!-- وضع إنشاء حساب وإرسال الرمز للواتساب -->
   <div id="regBox" class="card">
    <h3>إنشاء حساب جديد</h3>
    <p class="meta">يُسمح بالتسجيل مرة واحدة فقط لكل اسم ورقم هاتف.</p>
@@ -158,7 +190,6 @@ details[open] summary::after{transform:rotate(180deg)}
    <button class="sec" onclick="show('adminLogin')">دخول إدارة الكلية / القسم</button>
   </div>
 
-  <!-- وضع الدخول المباشر برمز محفوظ -->
   <div id="inBox" class="card hidden">
    <h3>تسجيل الدخول</h3>
    <p class="meta">أدخل الرمز الذي احتفظت به من الواتساب مع رقم هاتفك.</p>
@@ -186,7 +217,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🛡️'">
     <span class="appNewBadge badge hidden">0</span>
    </div>
-   <div><h1 class="appNameTxt">إدارة الكلية والأقسام</h1><p>دخول المسؤول</p></div>
+   <div><h1 class="appNameTxt" style="margin:0;font-size:18px">إدارة الكلية والأقسام</h1><p style="margin:0;font-size:12px;opacity:.9">دخول المسؤول</p></div>
   </div>
  </div>
  <div class="page"><div class="card">
@@ -204,11 +235,11 @@ details[open] summary::after{transform:rotate(180deg)}
 <section id="student" class="hidden">
  <div class="top">
   <div class="brand">
-   <button id="appIconBtn" class="logo" onclick="sTab('notices')" aria-label="أيقونة التطبيق والتبليغات" style="border:0;padding:0;cursor:pointer">
-    <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🎓'">
+   <button id="appIconBtn" class="logo" onclick="sTab('notices')" aria-label="أيقونة القسم والتبليغات" style="cursor:pointer">
+    <img id="deptTopLogoImg" src="icon-192.png" alt="شعار القسم" onerror="this.outerHTML='🎓'">
     <span class="appNewBadge badge hidden">0</span>
    </button>
-   <div><h1 id="sTopTitle" class="appNameTxt">تبليغات القسم</h1><p id="sTopDept">هندسة تقنيات الأجهزة الطبية</p></div>
+   <div style="min-width:0"><h1 id="sTopTitle" class="appNameTxt" style="margin:0;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">تبليغات القسم</h1><p id="sTopDept" style="margin:0;font-size:12px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">هندسة تقنيات الأجهزة الطبية</p></div>
   </div>
   <button class="ibtn" onclick="toggleBell()" aria-label="التنبيهات">🔔<span id="bellBadge" class="badge hidden">0</span></button>
   <button class="ibtn" onclick="sTab('account')" aria-label="صورة الطالب وحسابي"><img id="topStudentImg" src="icon-192.png" alt="صورة الطالب" onerror="this.outerHTML='👤'"></button>
@@ -220,32 +251,127 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="bellList"></div>
   </div>
  </div>
+
  <div class="page">
+  <!-- الرئيسية بأسلوب ممثلي -->
   <div id="sHome">
    <div class="hero">
     <small id="sRoleGreet">مرحباً بك 👋</small>
     <h2 id="sName"></h2>
     <p id="sInfo"></p>
+    <div id="sExamBadge" class="meta" style="color:#fff;margin-bottom:10px"></div>
     <button onclick="sTab('notices')">عرض كل التبليغات</button>
    </div>
+
+   <div class="sched-hero">
+    <div class="sched-hero-top">
+     <div><b style="font-size:15px">📅 جدول المحاضرات القادم</b><div id="homeSchedDayLabel" style="font-size:12px;color:#dcebf0"></div></div>
+     <span class="sched-pill" onclick="sTab('schedule')" style="cursor:pointer">الجدول الكامل &lt;</span>
+    </div>
+    <div id="homeScheduleList"></div>
+   </div>
+
    <div class="stats">
     <div class="stat"><div class="ico b">📋</div><b id="stAll">0</b><span>التبليغات</span></div>
-    <div class="stat"><div class="ico a">📌</div><b id="stImp">0</b><span>مهمة</span></div>
-    <div class="stat"><div class="ico g">🆕</div><b id="stNew">0</b><span>اليوم</span></div>
+    <div class="stat"><div class="ico a">📚</div><b id="stSubj">0</b><span>المواد</span></div>
+    <div class="stat"><div class="ico g">📝</div><b id="stHw">0</b><span>الواجبات</span></div>
    </div>
-   <h3>آخر التبليغات <span class="meta">(اضغط على العنوان لقراءة النص الكامل)</span></h3>
+
+   <h3>إجراءات سريعة</h3>
+   <div class="quick-grid">
+    <button class="qcard" onclick="sTab('notices')"><div class="qico">📣</div><div><b>التبليغات</b><small>العامة والخاصة</small></div></button>
+    <button class="qcard" onclick="sTab('subjects')"><div class="qico">📂</div><div><b>المواد والملفات</b><small>محفوظة بالهاتف</small></div></button>
+    <button class="qcard" onclick="sTab('schedule')"><div class="qico">🗓️</div><div><b>الجدول الدراسي</b><small>الأيام والقاعات</small></div></button>
+    <button class="qcard" onclick="sTab('account')"><div class="qico">🪪</div><div><b>بطاقتي والامتحان</b><small>الرقم والقاعة</small></div></button>
+   </div>
+
+   <h3>آخر التبليغات <span class="meta">(اضغط على العنوان لفتح/طي النص)</span></h3>
    <div id="homeNotices"></div>
   </div>
 
+  <!-- التبليغات -->
   <div id="sNotices" class="hidden">
    <div class="chips">
     <button id="fAll" class="on" onclick="setFilter('all')">الكل</button>
     <button id="fImp" onclick="setFilter('important')">المهمة</button>
-    <button id="fPriv" onclick="setFilter('private')">التبليغات الخاصة</button>
+    <button id="fPriv" onclick="setFilter('private')">الخاصة</button>
    </div>
    <div id="studentNotices"></div>
   </div>
 
+  <!-- المواد والواجبات -->
+  <div id="sSubjects" class="hidden">
+   <div id="subjectsListView">
+    <div class="card" style="padding:10px 12px">
+     <input id="subjSearch" placeholder="🔍 ابحث باسم المادة أو اسم التدريسي..." oninput="renderSubjects()">
+    </div>
+    <div id="subjectsCards"></div>
+
+    <h3 style="margin-top:16px">📝 الواجبات النشطة</h3>
+    <div id="homeworksList"></div>
+
+    <div id="manageSubjHwCard" class="card hidden" style="margin-top:14px">
+     <h3>➕ إضافة مادة أو واجب</h3>
+     <label for="subName">اسم المادة الدراسية</label>
+     <input id="subName" placeholder="مثال: أسس السيطرة أو تشريح">
+     <label for="subTeacher">اسم التدريسي / الأستاذ</label>
+     <input id="subTeacher" placeholder="مثال: د. حسين فاضل">
+     <div class="row">
+      <div><label for="subStage">المرحلة</label><select id="subStage"></select></div>
+      <div><label for="subSection">الشعبة</label><select id="subSection"></select></div>
+     </div>
+     <label for="subFile">ملف محاضرة أو منهج (PDF / Word / صورة)</label>
+     <input id="subFile" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+     <button onclick="addSubjectItem()">حفظ المادة / الملف</button>
+
+     <hr style="border:0;border-top:1px solid var(--line);margin:14px 0 10px">
+     <h3>📌 إضافة واجب دراسي</h3>
+     <label for="hwSubjectSelect">المادة</label>
+     <select id="hwSubjectSelect"></select>
+     <label for="hwTitle">عنوان الواجب / المطلوب</label>
+     <input id="hwTitle" placeholder="مثال: حل تمارين الفصل الأول">
+     <label for="hwDue">الموعد النهائي</label>
+     <input id="hwDue" placeholder="مثال: الثلاثاء الساعة 10:00 صباحاً">
+     <button class="sec" onclick="addHomeworkItem()">نشر الواجب</button>
+    </div>
+   </div>
+
+   <!-- تفاصيل المادة وملفاتها بأسلوب ممثلي -->
+   <div id="subjectDetailView" class="hidden">
+    <button class="sec" style="margin-top:0;margin-bottom:10px" onclick="closeSubjectDetail()">→ العودة إلى قائمة المواد</button>
+    <div id="subjectDetailContent"></div>
+   </div>
+  </div>
+
+  <!-- الجدول الأسبوعي -->
+  <div id="sSchedule" class="hidden">
+   <div class="card" style="padding:10px 12px">
+    <input id="schedSearch" placeholder="🔍 ابحث بالمحاضرة أو القاعة أو التدريسي..." oninput="renderSchedule()">
+    <div class="chips" id="schedDaysChips" style="margin-top:10px;margin-bottom:0"></div>
+   </div>
+   <div id="scheduleCards"></div>
+
+   <div id="manageSchedCard" class="card hidden" style="margin-top:14px">
+    <h3>🗓️ إضافة حصة إلى الجدول</h3>
+    <div class="row">
+     <div><label for="scDay">اليوم</label><select id="scDay"><option>السبت</option><option>الأحد</option><option>الاثنين</option><option>الثلاثاء</option><option>الأربعاء</option><option>الخميس</option></select></div>
+     <div><label for="scTime">الوقت</label><input id="scTime" placeholder="08:30"></div>
+    </div>
+    <label for="scSubject">اسم المادة</label>
+    <input id="scSubject" placeholder="مثال: مسيطرات دقيقة">
+    <div class="row">
+     <div><label for="scTeacher">التدريسي</label><input id="scTeacher" placeholder="مثال: م.م. راوية خليل"></div>
+     <div><label for="scRoom">القاعة / المختبر</label><input id="scRoom" placeholder="مثال: قاعة C70"></div>
+    </div>
+    <div class="row">
+     <div><label for="scStage">المرحلة</label><select id="scStage"></select></div>
+     <div><label for="scSection">الشعبة</label><select id="scSection"></select></div>
+    </div>
+    <button onclick="addScheduleItem()">إضافة للجدول</button>
+   </div>
+  </div>
+
+  <!-- النشر -->
   <div id="sRep" class="hidden">
    <div class="card">
     <h3 id="repFormTitle">نشر تبليغ</h3>
@@ -276,16 +402,52 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="repPrivateNotices"></div>
   </div>
 
-  <!-- تبويب الصلاحيات والمراحل والشعب والطلاب والمتصلين لمدير القسم والمقرر -->
+  <!-- الصلاحيات، تعديل بيانات الطالب، الترحيل، والقاعات لمدير القسم والمقرر -->
   <div id="sPerms" class="hidden">
    <div class="card">
     <h3>🟢 الطلاب المتصلون حالياً</h3>
-    <p class="meta">الطلاب والمستخدمون النشطون في القسم حال دخولهم التطبيق:</p>
     <div id="deptOnlineNow" class="online-strip"></div>
    </div>
+
+   <div id="deptLogoCard" class="card hidden">
+    <h3>🖼️ شعار القسم (اللوجو)</h3>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+     <img id="deptLogoPreview" class="dept-preview" src="icon-192.png" alt="لوجو القسم">
+     <div class="meta">يظهر شعار القسم في أعلى واجهة طلاب وأساتذة القسم.</div>
+    </div>
+    <input id="deptLogoInput" type="file" accept="image/*">
+    <button class="sec" onclick="saveDeptLogoFromManager()">حفظ شعار القسم</button>
+   </div>
+
+   <div class="card">
+    <h3>🎓 ترحيل المراحل الدراسية</h3>
+    <p class="meta">ترحيل طلاب مرحلة معينة إلى المرحلة الأعلى (وتحويل طلاب المرحلة الأخيرة إلى "خريج").</p>
+    <div class="row">
+     <div><label for="promoStageSelect">المرحلة المراد ترحيلها</label><select id="promoStageSelect"></select></div>
+     <div><label for="promoSectionSelect">الشعبة</label><select id="promoSectionSelect"></select></div>
+    </div>
+    <button class="sec" onclick="promoteStageStudents()">⬆️ ترحيل طلاب المرحلة</button>
+   </div>
+
+   <div class="card">
+    <h3>🏛️ القاعات الامتحانية وأرقام الجلوس</h3>
+    <div class="row">
+     <div><label for="roomNameInput">اسم / رقم القاعة</label><input id="roomNameInput" placeholder="مثال: قاعة 1 أو مختبر الحاسوب"></div>
+     <div><label for="roomCapInput">سعة القاعة (عدد الطلاب)</label><input id="roomCapInput" type="number" min="1" max="500" value="25"></div>
+    </div>
+    <button class="sec" onclick="addExamRoomItem()">+ إضافة قاعة امتحانية</button>
+    <div id="examRoomsList" style="margin-top:8px"></div>
+
+    <hr style="border:0;border-top:1px solid var(--line);margin:12px 0 8px">
+    <div class="row">
+     <div><label for="distStageSelect">مرحلة التوزيع</label><select id="distStageSelect"></select></div>
+     <div><label for="distStartNum">بداية رقم الجلوس</label><input id="distStartNum" type="number" min="1" value="101"></div>
+    </div>
+    <button onclick="assignSeatsAndRooms()">🔢 إعطاء أرقام الجلوس وتوزيع القاعات</button>
+   </div>
+
    <div class="card">
     <h3>👥 المراحل والشعب والطلاب</h3>
-    <p class="meta">اختر المرحلة والشعبة لعرض الطلاب، إرسال تبليغ خاص، أو تغيير صلاحياتهم.</p>
     <div class="row">
      <div><label for="pStageFilter">المرحلة</label><select id="pStageFilter" onchange="renderDeptPermissions()"></select></div>
      <div><label for="pSectionFilter">الشعبة</label><select id="pSectionFilter" onchange="renderDeptPermissions()"></select></div>
@@ -316,6 +478,7 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="teacherRoomList"></div>
   </div>
 
+  <!-- حسابي -->
   <div id="sAccount" class="hidden">
    <div class="card">
     <img id="accStudentImg" class="acc-avatar" src="icon-192.png" alt="صورة الطالب">
@@ -323,6 +486,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <p class="meta" id="aInfo"></p>
     <p class="meta ltr" id="aPhone"></p>
     <p class="meta" id="aCodeInfo"></p>
+    <p class="meta" id="aExamInfo" style="color:var(--navy2);font-weight:bold"></p>
     <div class="warn-note">
      🔒 لا تشارك رمزك مع أي شخص، واحفظه جيداً لأنك ستحتاجه للدخول مجدداً بعد تسجيل الخروج.
     </div>
@@ -336,11 +500,15 @@ details[open] summary::after{transform:rotate(180deg)}
    </div>
   </div>
  </div>
+
+ <!-- شريط تنقل سفلي بأسلوب ممثلي -->
  <nav class="nav">
   <button id="nHome" class="on" onclick="sTab('home')"><span>🏠</span>الرئيسية</button>
-  <button id="nNotices" onclick="sTab('notices')"><span>📋</span>التبليغات</button>
+  <button id="nNotices" onclick="sTab('notices')"><span>📣</span>التبليغات</button>
+  <button id="nSubjects" onclick="sTab('subjects')"><span>📚</span>المواد</button>
+  <button id="nSchedule" onclick="sTab('schedule')"><span>🗓️</span>الجدول</button>
   <button id="nRep" class="hidden" onclick="sTab('rep')"><span>✍️</span>النشر</button>
-  <button id="nPerms" class="hidden" onclick="sTab('perms')"><span>👥</span>الصلاحيات</button>
+  <button id="nPerms" class="hidden" onclick="sTab('perms')"><span>👥</span>القسم</button>
   <button id="nTeachersRoom" class="hidden" onclick="sTab('teachersRoom')"><span>👨‍🏫</span>الأساتذة</button>
   <button id="nAccount" onclick="sTab('account')"><span>👤</span>حسابي</button>
  </nav>
@@ -354,18 +522,28 @@ details[open] summary::after{transform:rotate(180deg)}
     <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🛡️'">
     <span class="appNewBadge badge hidden">0</span>
    </div>
-   <div><h1>لوحة الإدارة</h1><p id="admTopDept">كلية أصول العلم · الأقسام العلمية</p></div>
+   <div><h1 style="margin:0;font-size:18px">لوحة الإدارة</h1><p id="admTopDept" style="margin:0;font-size:12px;opacity:.9">كلية أصول العلم · الأقسام العلمية</p></div>
   </div>
   <button class="ibtn" onclick="logout()" aria-label="تسجيل الخروج">⎋</button>
  </div>
  <div class="page">
-  <div class="card" style="padding:10px 14px;margin-bottom:12px">
+  <div class="card" style="padding:12px 14px;margin-bottom:12px">
    <label for="admDept" style="margin-top:0">القسم النشط للإدارة</label>
    <select id="admDept" onchange="onDeptChange()"></select>
+   <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
+    <img id="admDeptLogoImg" class="dept-preview" src="icon-192.png" alt="لوجو القسم">
+    <div style="flex:1">
+     <label for="admDeptLogoFile" style="margin-top:0">تغيير / رفع لوجو القسم النشط</label>
+     <input id="admDeptLogoFile" type="file" accept="image/*">
+    </div>
+   </div>
+   <button class="sec" onclick="saveActiveDeptLogo()">حفظ لوجو القسم</button>
    <div class="row" style="margin-top:6px">
     <button class="sec" onclick="renameActiveDept()">✏️ تعديل القسم</button>
     <button class="del" style="width:auto;padding:10px 14px" onclick="deleteActiveDept()">🗑️ حذف القسم</button>
    </div>
+
+   <hr style="border:0;border-top:1px solid var(--line);margin:12px 0 8px">
    <label for="newDeptName">إضافة قسم جديد</label>
    <input id="newDeptName" placeholder="اسم القسم الجديد (مثال: طب الأسنان)">
    <select id="newDeptFifth" style="margin-top:6px">
@@ -373,22 +551,28 @@ details[open] summary::after{transform:rotate(180deg)}
     <option value="yes">تفعيل المرحلة الخامسة (5 مراحل)</option>
     <option value="no">أربع مراحل فقط (4 مراحل)</option>
    </select>
+   <label for="newDeptLogo">لوجو القسم الجديد (اختياري)</label>
+   <input id="newDeptLogo" type="file" accept="image/*">
    <button class="sec" onclick="addNewDept()">+ إضافة قسم</button>
   </div>
+
   <div class="card" style="padding:10px 14px;margin-bottom:12px">
    <h3 style="margin-top:0">🟢 المتصلون حالياً في القسم</h3>
    <div id="admOnlineNow" class="online-strip"></div>
   </div>
+
   <div class="stats two">
    <div class="stat"><div class="ico b">👥</div><div><b id="cStudents">0</b><span>مسجل بالقسم</span></div></div>
    <div class="stat"><div class="ico a">📋</div><div><b id="cNotices">0</b><span>تبليغ بالقسم</span></div></div>
   </div>
+
   <div class="seg">
    <button id="atNew" class="on" onclick="aTab('new')">نشر تبليغ</button>
    <button id="atNotices" onclick="aTab('notices')">التبليغات</button>
    <button id="atStudents" onclick="aTab('students')">الصلاحيات</button>
    <button id="atCodes" onclick="aTab('codes')">الأكواد</button>
   </div>
+
   <div id="aNew" class="card">
    <h3 id="admFormTitle">نشر تبليغ جديد</h3>
    <input type="hidden" id="admEditId">
@@ -413,13 +597,13 @@ details[open] summary::after{transform:rotate(180deg)}
 
    <hr style="border:0;border-top:1px solid var(--line);margin:16px 0 12px">
    <h3>اسم وصورة التطبيق</h3>
-   <p class="meta">غيّر اسم التطبيق وصورته ليظهرا في الشاشة وعند التثبيت على الهاتف.</p>
    <label for="appNameInput">اسم التطبيق</label>
    <input id="appNameInput" placeholder="مثال: تبليغات الكلية">
    <label for="logoFile">صورة التطبيق</label>
    <input id="logoFile" type="file" accept="image/*">
    <button class="sec" onclick="saveBrandSettings()">حفظ الاسم والصورة</button>
   </div>
+
   <div id="aNotices" class="hidden"></div>
   <div id="aStudents" class="hidden"></div>
   <div id="aCodes" class="hidden">
@@ -457,7 +641,9 @@ const DEFAULT_DEPTS=[
 ];
 const BASE_STAGES=["المرحلة الأولى","المرحلة الثانية","المرحلة الثالثة","المرحلة الرابعة"];
 const FIFTH_STAGE="المرحلة الخامسة";
+const GRADUATED_STAGE="خريج";
 const SECTIONS=["أ","ب","ج","د"];
+const DAYS=["السبت","الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس"];
 const ROLES={
  student:"طالب",
  rep:"ممثل",
@@ -467,15 +653,21 @@ const ROLES={
 };
 const MAX_REPLIES_PER_SIDE=2;
 const ONLINE_WINDOW_MS=5*60*1000;
-let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات المرضية"]);
-let notices=[],codes=[],me=null,filter="all",unsubN=null,unsubC=null,unsubBrand=null,isAdminView=false,deferred=null,readyRes,audioCtx=null,presenceTimer=null;
+
+let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات المرضية"]),deptLogos={};
+let notices=[],codes=[],subjects=[],schedules=[],homeworks=[],examRooms=[];
+let me=null,filter="all",selectedDay="السبت",activeSubjectId=null;
+let unsubN=null,unsubC=null,unsubBrand=null,unsubSub=null,unsubSch=null,unsubHw=null,unsubRm=null;
+let isAdminView=false,deferred=null,readyRes,audioCtx=null,presenceTimer=null;
 let activeDept=DEFAULT_DEPTS[0],customLogo=localStorage.getItem("customLogo")||"",appTitle=localStorage.getItem("appTitle")||"تبليغات الكلية";
 let soundOn=localStorage.getItem("soundOn")!=="0",knownIds=new Set(JSON.parse(localStorage.getItem("knownIds")||"[]")),readIds=new Set(JSON.parse(localStorage.getItem("readIds")||"[]")),firstSnap=true;
 let expandedIds=new Set(JSON.parse(localStorage.getItem("expandedIds")||"[]"));
+let cachedFileIds=new Set();
+
 const authReady=new Promise(r=>readyRes=r);
 try{me=JSON.parse(localStorage.getItem("me")||"null")}catch(e){}
 const $=id=>document.getElementById(id);
-const esc=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+const esc=v=>String(v||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
 const deptOf=x=>x.dept||depts[0]||DEFAULT_DEPTS[0];
 const isMedicalDept=name=>/طب|صيدل|تمريض|تحليل|مختبر|صحي|أسنان|علاج|تخدير|أشعة|بصريات/i.test(String(name||""));
 const hasFifthStage=deptName=>fifthStageDepts.has(deptName)||isMedicalDept(deptName);
@@ -486,6 +678,7 @@ const canManageDeptPerms=u=>u&&["rapporteur","dept_admin"].includes(u.role||"stu
 const canSendPrivateNotice=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
 const canViewTeachersRoom=u=>u&&["teacher","rapporteur","dept_admin"].includes(u.role||"student");
 const canPostTeachersRoom=u=>u&&(u.role||"student")==="teacher";
+const canManageAcademic=u=>isAdminView||(u&&["rep","rapporteur","teacher","dept_admin"].includes(u.role||"student"));
 const canManageNotice=(u,n)=>{
  if(!u)return false;
  const r=u.role||"student";
@@ -508,7 +701,7 @@ function authorDisplay(u){
  return roleLabel(u.role)+": "+shortName;
 }
 
-/* ===== حضور الطالب المتصل عند الدخول ===== */
+/* ===== حضور المتصل ===== */
 function isUserOnline(u){
  if(!u||!u.used)return false;
  if(u.online===false)return false;
@@ -520,34 +713,19 @@ async function touchPresence(isOnline=true){
  if(!me||!me.code)return;
  try{
   await authReady;
-  await updateDoc(doc(db,"codes",me.code),{
-   online:Boolean(isOnline),
-   lastSeen:serverTimestamp()
-  });
+  await updateDoc(doc(db,"codes",me.code),{online:Boolean(isOnline),lastSeen:serverTimestamp()});
  }catch(e){}
 }
 function startPresenceLoop(){
  if(presenceTimer)clearInterval(presenceTimer);
  touchPresence(true);
- presenceTimer=setInterval(()=>{
-  if(me&&me.code&&document.visibilityState==="visible")touchPresence(true);
- },90*1000);
+ presenceTimer=setInterval(()=>{if(me&&me.code&&document.visibilityState==="visible")touchPresence(true)},90*1000);
 }
-document.addEventListener("visibilitychange",()=>{
- if(me&&me.code)touchPresence(document.visibilityState==="visible");
-});
+document.addEventListener("visibilitychange",()=>{if(me&&me.code)touchPresence(document.visibilityState==="visible")});
 
-/* ===== توحيد الاسم والرقم لمنع التكرار ===== */
+/* ===== توحيد الاسم والرقم ومنع التكرار ===== */
 function normName(n){
- return String(n||"")
-  .trim()
-  .replace(/\s+/g," ")
-  .replace(/[إأآا]/g,"ا")
-  .replace(/ى/g,"ي")
-  .replace(/ة/g,"ه")
-  .replace(/ؤ/g,"و")
-  .replace(/ئ/g,"ي")
-  .toLowerCase();
+ return String(n||"").trim().replace(/\s+/g," ").replace(/[إأآا]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه").replace(/ؤ/g,"و").replace(/ئ/g,"ي").toLowerCase();
 }
 function normPhone(p){
  let d=String(p).replace(/\D/g,"");
@@ -555,22 +733,20 @@ function normPhone(p){
  if(d.startsWith("0"))d="964"+d.slice(1);else if(d.startsWith("7")&&d.length===10)d="964"+d;
  return /^9647\d{9}$/.test(d)?d:"";
 }
-async function checkDuplicateAccount(cleanName,phone){
+async function checkDuplicateAccount(cleanName,phone,excludeCodeId=""){
  const nKey=normName(cleanName);
  for(const c of codes){
+  if(excludeCodeId&&c.id===excludeCodeId)continue;
   if((c.phone&&normPhone(c.phone)===phone)||(c.name&&normName(c.name)===nKey)){
-   return "هذا الاسم أو رقم الهاتف مستخدم مسبقاً ولا يُسمح بتكرار التسجيل أكثر من مرة واحدة.";
+   return "هذا الاسم أو رقم الهاتف مستخدم مسبقاً.";
   }
  }
- const qPhone=await getDocs(query(collection(db,"codes"),where("phone","==",phone)));
- if(!qPhone.empty)return "رقم الهاتف مستخدم مسبقاً ولا يُسمح بالتسجيل بأكثر من حساب.";
- const qName=await getDocs(query(collection(db,"codes"),where("name","==",cleanName)));
- if(!qName.empty)return "هذا الاسم مسجل مسبقاً ولا يُسمح بتكرار التسجيل بنفس الاسم.";
  const qAll=await getDocs(collection(db,"codes"));
  for(const docSnap of qAll.docs){
+  if(excludeCodeId&&docSnap.id===excludeCodeId)continue;
   const d=docSnap.data();
-  if(d.name&&normName(d.name)===nKey)return "هذا الاسم مسجل مسبقاً ولا يُسمح بتكرار التسجيل بنفس الاسم.";
-  if(d.phone&&normPhone(d.phone)===phone)return "رقم الهاتف مستخدم مسبقاً ولا يُسمح بالتسجيل بأكثر من حساب.";
+  if(d.name&&normName(d.name)===nKey)return "هذا الاسم مسجل مسبقاً.";
+  if(d.phone&&normPhone(d.phone)===phone)return "رقم الهاتف مستخدم مسبقاً.";
  }
  return "";
 }
@@ -605,6 +781,7 @@ function refreshDeptSelects(){
  activeDept=depts.includes(prevA)?prevA:(depts[0]||"");
  $("admDept").value=activeDept;
  $("admTopDept").textContent=activeDept||"لا يوجد قسم";
+ applyDeptLogosUI();
  refreshLoginStageSelects();
  refreshStageSelects();
 }
@@ -618,10 +795,27 @@ function refreshStageSelects(){
  if($("gRole").value==="rapporteur"){$("gStage").disabled=true;$("gStage").value="all"}
  else{$("gStage").disabled=false;if(prevG&&[...$("gStage").options].some(o=>o.value===prevG))$("gStage").value=prevG}
 }
+function refreshAcademicStageSelects(deptName){
+ const stList=stagesForDept(deptName||DEFAULT_DEPTS[0]);
+ ["subStage","scStage","promoStageSelect","distStageSelect"].forEach(id=>{
+  if(!$(id))return;
+  const prev=$(id).value;
+  fill(id,stList,id==="promoStageSelect"?'': '<option value="all">كل المراحل</option>');
+  if(prev&&[...$(id).options].some(o=>o.value===prev))$(id).value=prev;
+ });
+ ["subSection","scSection","promoSectionSelect"].forEach(id=>{
+  if(!$(id))return;
+  const prev=$(id).value;
+  fill(id,SECTIONS,'<option value="all">كل الشعب</option>');
+  if(prev&&[...$(id).options].some(o=>o.value===prev))$(id).value=prev;
+ });
+}
+
 async function persistDepts(){
  await setDoc(doc(db,"settings","brand"),{
   depts,
   fifthStageDepts:[...fifthStageDepts],
+  deptLogos,
   updatedAt:serverTimestamp()
  },{merge:true});
 }
@@ -631,14 +825,59 @@ async function addNewDept(){
  if(depts.includes(name)){alert("هذا القسم موجود مسبقاً.");return}
  const mode=$("newDeptFifth").value;
  const needFifth=mode==="yes"||(mode==="auto"&&isMedicalDept(name));
+ let newLogo="";
+ if($("newDeptLogo").files[0]){
+  try{newLogo=await compressImage($("newDeptLogo").files[0],320,0.8)}catch(e){}
+ }
  depts=[...depts,name];
  if(needFifth)fifthStageDepts.add(name);
+ if(newLogo)deptLogos[name]=newLogo;
  activeDept=name;
- $("newDeptName").value="";
+ $("newDeptName").value="";$("newDeptLogo").value="";
  refreshDeptSelects();
  renderAdmin();
- try{await persistDepts();alert("تمت إضافة قسم ("+name+") بنجاح"+(needFifth?" مع المرحلة الخامسة":"")+".")}
- catch(e){alert("تمت إضافة القسم محلياً، تأكد من صلاحيات الحفظ في قاعدة البيانات.")}
+ try{await persistDepts();alert("تمت إضافة قسم ("+name+") بنجاح.")}
+ catch(e){alert("تمت إضافة القسم محلياً، تأكد من صلاحيات Firestore.")}
+}
+async function saveActiveDeptLogo(){
+ if(!activeDept)return;
+ const f=$("admDeptLogoFile").files[0];
+ if(!f){alert("اختر صورة لوجو القسم أولاً.");return}
+ try{
+  const logoData=await compressImage(f,320,0.8);
+  deptLogos[activeDept]=logoData;
+  await persistDepts();
+  $("admDeptLogoFile").value="";
+  applyDeptLogosUI();
+  alert("تم حفظ لوجو قسم ("+activeDept+").");
+ }catch(e){alert("تعذر حفظ لوجو القسم.")}
+}
+async function saveDeptLogoFromManager(){
+ if(!me||!canManageDeptPerms(me))return;
+ const f=$("deptLogoInput").files[0];
+ if(!f){alert("اختر صورة لوجو القسم أولاً.");return}
+ try{
+  const deptName=me.dept||DEFAULT_DEPTS[0];
+  const logoData=await compressImage(f,320,0.8);
+  deptLogos[deptName]=logoData;
+  await setDoc(doc(db,"settings","brand"),{
+   deptLogos,
+   actorCode:me.code,
+   actorDept:deptName,
+   updatedAt:serverTimestamp()
+  },{merge:true});
+  $("deptLogoInput").value="";
+  applyDeptLogosUI();
+  alert("تم تحديث شعار القسم بنجاح.");
+ }catch(e){alert("تعذر حفظ شعار القسم.")}
+}
+function applyDeptLogosUI(){
+ const curDept=(me&&me.dept)||activeDept||DEFAULT_DEPTS[0];
+ const dLogo=deptLogos[curDept]||customLogo||"icon-192.png";
+ if($("deptTopLogoImg"))$("deptTopLogoImg").src=dLogo;
+ if($("deptLogoPreview"))$("deptLogoPreview").src=dLogo;
+ const admLogo=deptLogos[activeDept]||customLogo||"icon-192.png";
+ if($("admDeptLogoImg"))$("admDeptLogoImg").src=admLogo;
 }
 async function renameActiveDept(){
  if(!activeDept)return;
@@ -650,6 +889,7 @@ async function renameActiveDept(){
  const oldName=activeDept;
  depts=depts.map(d=>d===oldName?clean:d);
  if(fifthStageDepts.has(oldName)){fifthStageDepts.delete(oldName);fifthStageDepts.add(clean)}
+ if(deptLogos[oldName]){deptLogos[clean]=deptLogos[oldName];delete deptLogos[oldName]}
  activeDept=clean;
  refreshDeptSelects();
  renderAdmin();
@@ -661,6 +901,7 @@ async function deleteActiveDept(){
  const removed=activeDept;
  depts=depts.filter(d=>d!==removed);
  fifthStageDepts.delete(removed);
+ delete deptLogos[removed];
  activeDept=depts[0]||"";
  refreshDeptSelects();
  renderAdmin();
@@ -672,16 +913,9 @@ function syncManifest(){
  const iconSrc=customLogo||"icon-192.png";
  try{
   const manifestObj={
-   name:appTitle,
-   short_name:appTitle,
-   start_url:".",
-   display:"standalone",
-   background_color:"#f4f7f8",
-   theme_color:"#1e6273",
-   icons:[
-    {src:iconSrc,sizes:"192x192",type:"image/png"},
-    {src:iconSrc,sizes:"512x512",type:"image/png"}
-   ]
+   name:appTitle,short_name:appTitle,start_url:".",display:"standalone",
+   background_color:"#f4f7f8",theme_color:"#1e6273",
+   icons:[{src:iconSrc,sizes:"192x192",type:"image/png"},{src:iconSrc,sizes:"512x512",type:"image/png"}]
   };
   const blob=new Blob([JSON.stringify(manifestObj)],{type:"application/json"});
   if($("dynManifest"))$("dynManifest").href=URL.createObjectURL(blob);
@@ -701,6 +935,7 @@ function applyLogo(dataUrl){
  customLogo=dataUrl;
  try{localStorage.setItem("customLogo",dataUrl)}catch(e){}
  document.querySelectorAll(".appLogoImg").forEach(img=>{img.src=dataUrl});
+ applyDeptLogosUI();
  applyStudentPhotoUI();
  if($("appleIcon"))$("appleIcon").href=dataUrl;
  syncManifest();
@@ -731,6 +966,7 @@ function startBrandSync(){
   if(d.logo)applyLogo(d.logo);
   if(Array.isArray(d.depts))depts=[...d.depts];
   if(Array.isArray(d.fifthStageDepts))fifthStageDepts=new Set(d.fifthStageDepts);
+  if(d.deptLogos&&typeof d.deptLogos==="object")deptLogos={...d.deptLogos};
   refreshDeptSelects();
   if(me)openStudent();
   if(isAdminView)renderAdmin();
@@ -740,12 +976,9 @@ async function saveBrandSettings(){
  const newTitle=($("appNameInput").value||appTitle||"تبليغات الكلية").trim();
  const f=$("logoFile").files[0];
  try{
-  const payload={appName:newTitle,depts,fifthStageDepts:[...fifthStageDepts],updatedAt:serverTimestamp()};
+  const payload={appName:newTitle,depts,fifthStageDepts:[...fifthStageDepts],deptLogos,updatedAt:serverTimestamp()};
   let nextLogo=customLogo;
-  if(f){
-   nextLogo=await compressImage(f,512,0.82);
-   payload.logo=nextLogo;
-  }
+  if(f){nextLogo=await compressImage(f,512,0.82);payload.logo=nextLogo}
   await setDoc(doc(db,"settings","brand"),payload,{merge:true});
   applyAppTitle(newTitle);
   if(nextLogo)applyLogo(nextLogo);
@@ -766,7 +999,7 @@ function compressImage(file,maxDim=1100,quality=0.76){
  });
 }
 
-/* ===== تخزين الملفات محلياً على هاتف الطالب (IndexedDB) ===== */
+/* ===== ذاكرة الهاتف للملفات (IndexedDB) ===== */
 const idb={
  dbp:null,
  open(){
@@ -779,11 +1012,12 @@ const idb={
  },
  async put(item){const d=await this.open();return new Promise((res,rej)=>{const tx=d.transaction("files","readwrite");tx.objectStore("files").put(item);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})},
  async get(id){const d=await this.open();return new Promise(res=>{const tx=d.transaction("files","readonly");const q=tx.objectStore("files").get(id);q.onsuccess=()=>res(q.result||null);q.onerror=()=>res(null)})},
+ async allIds(){const d=await this.open();return new Promise(res=>{const tx=d.transaction("files","readonly");const q=tx.objectStore("files").getAllKeys();q.onsuccess=()=>res(new Set(q.result||[]));q.onerror=()=>res(new Set())})},
  async count(){const d=await this.open();return new Promise(res=>{const tx=d.transaction("files","readonly");const q=tx.objectStore("files").count();q.onsuccess=()=>res(q.result||0);q.onerror=()=>res(0)})},
  async clear(){const d=await this.open();return new Promise(res=>{const tx=d.transaction("files","readwrite");tx.objectStore("files").clear();tx.oncomplete=res})}
 };
 
-/* ===== صوت الجرس والعداد الأحمر فوق الأيقونة ===== */
+/* ===== صوت الجرس والعداد الأحمر ===== */
 function ensureAudioContext(){
  try{
   const Ctx=window.AudioContext||window.webkitAudioContext;
@@ -798,8 +1032,7 @@ document.addEventListener("pointerdown",()=>{if(soundOn)ensureAudioContext()},{p
 function ringBell(){
  if(!soundOn)return;
  try{
-  const ctx=ensureAudioContext();
-  if(!ctx)return;
+  const ctx=ensureAudioContext();if(!ctx)return;
   const now=ctx.currentTime;
   [880,1174.66,1318.5].forEach((freq,i)=>{
    const o=ctx.createOscillator(),g=ctx.createGain();
@@ -833,16 +1066,13 @@ function setAppIconBadge(count){
 }
 function markAllNoticesRead(){
  if(!me)return;
- const mine=myNotices();
- mine.forEach(n=>readIds.add(n.id));
+ myNotices().forEach(n=>readIds.add(n.id));
  try{localStorage.setItem("readIds",JSON.stringify([...readIds].slice(-300)))}catch(e){}
  updateBellUI();
 }
 function toggleBell(){
  const p=$("bellPop");p.classList.toggle("hidden");
- if(!p.classList.contains("hidden")){
-  markAllNoticesRead();
- }
+ if(!p.classList.contains("hidden"))markAllNoticesRead();
 }
 function updateBellUI(){
  if(!me){setAppIconBadge(0);return}
@@ -853,11 +1083,9 @@ function updateBellUI(){
  $("bellList").innerHTML=mine.slice(0,5).map(n=>`<div class="bell-item" onclick="$('bellPop').classList.add('hidden');sTab('notices')"><b>${esc(n.title)}</b><div class="meta">${esc(n.date)}</div></div>`).join("")||'<div class="meta">لا توجد تنبيهات</div>';
 }
 
-/* ===== طي وفتح نص التبليغ بالضغط على العنوان ===== */
 function toggleNoticeText(id){
  if(!id)return;
- if(expandedIds.has(id))expandedIds.delete(id);
- else expandedIds.add(id);
+ if(expandedIds.has(id))expandedIds.delete(id);else expandedIds.add(id);
  try{localStorage.setItem("expandedIds",JSON.stringify([...expandedIds].slice(-200)))}catch(e){}
  renderStudent();
  if(isAdminView)renderAdmin();
@@ -874,48 +1102,35 @@ async function submitPrivateReply(noticeId,senderSide){
  }else{
   if(!me||!me.code||n.targetStudentCode!==me.code)return;
  }
- const inp=$("replyInput_"+noticeId);
- if(!inp)return;
+ const inp=$("replyInput_"+noticeId);if(!inp)return;
  const text=inp.value.trim();
  if(!text){alert("اكتب نص الرد أولاً.");return}
-
  const currentReplies=Array.isArray(n.replies)?n.replies:[];
  const sideCount=currentReplies.filter(r=>isSender?(r.side==="sender"||r.authorCode!=="STUDENT"):(r.side==="student"||r.authorCode===me.code)).length;
  if(sideCount>=MAX_REPLIES_PER_SIDE){
-  alert("تم استنفاد الحد الأقصى للردود (ردّان لكل طرف) في هذا التبليغ الخاص.");
-  return;
+  alert("تم استنفاد الحد الأقصى للردود (ردّان لكل طرف) في هذا التبليغ الخاص.");return;
  }
-
  const authorLabel=isSender?(isAdminView?"إدارة القسم":authorDisplay(me)):("طالب: "+((me&&me.name)||n.targetStudentName||"طالب").split(" ").slice(0,2).join(" "));
  const authorCode=isSender?((me&&me.code)||"ADMIN"):me.code;
-
  expandedIds.add(noticeId);
  try{localStorage.setItem("expandedIds",JSON.stringify([...expandedIds].slice(-200)))}catch(e){}
  try{
   if(!isAdminView)await authReady;
   await updateDoc(doc(db,"notices",noticeId),{
-   replies:arrayUnion({
-    side:isSender?"sender":"student",
-    author:authorLabel,
-    authorCode,
-    text,
-    time:new Date().toLocaleString("ar-IQ")
-   })
+   replies:arrayUnion({side:isSender?"sender":"student",author:authorLabel,authorCode,text,time:new Date().toLocaleString("ar-IQ")})
   });
   inp.value="";
- }catch(e){
-  alert("تعذر إرسال الرد. تأكد من صلاحيات Firestore.");
- }
+ }catch(e){alert("تعذر إرسال الرد.")}
 }
 
-/* ===== تجهيز الملفات المرفقة ===== */
+/* ===== الملفات والمرفقات وحفظها محلياً ===== */
 async function readAttachment(inputId){
  const f=$(inputId).files[0];if(!f)return null;
  if(f.type.startsWith("image/")){
   const data=await compressImage(f,1100,0.76);
   return{name:f.name,type:"image/jpeg",data};
  }
- if(f.size>750*1024){alert("حجم ملف PDF أو Word كبير (الحد الأقصى 750 كيلوبايت لضمان سرعة الحفظ على هاتف الطالب).");throw new Error("size")}
+ if(f.size>750*1024){alert("حجم ملف PDF أو Word كبير (الحد الأقصى 750 كيلوبايت لضمان سرعة الحفظ على الهاتف).");throw new Error("size")}
  const data=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(f)});
  return{name:f.name,type:f.type||"application/octet-stream",data};
 }
@@ -925,9 +1140,11 @@ async function cacheAttachmentsLocally(list){
    try{
     const ex=await idb.get(n.id);
     if(!ex)await idb.put({id:n.id,name:n.att.name,type:n.att.type,data:n.att.data,savedAt:Date.now()});
+    cachedFileIds.add(n.id);
    }catch(e){}
   }
  }
+ cachedFileIds=await idb.allIds();
  updateStorageStat();
 }
 async function updateStorageStat(){
@@ -937,16 +1154,19 @@ async function updateStorageStat(){
 }
 async function clearLocalFiles(){
  if(!confirm("حذف الملفات المحفوظة مؤقتاً من ذاكرة هذا الهاتف؟"))return;
- await idb.clear();updateStorageStat();alert("تم تفريغ الملفات من ذاكرة الهاتف.");
+ await idb.clear();cachedFileIds=new Set();updateStorageStat();renderSubjects();alert("تم تفريغ الملفات من ذاكرة الهاتف.");
 }
-async function openAttachment(noticeId){
- let item=await idb.get(noticeId);
+async function openAttachment(fileId,fallbackObj=null){
+ let item=await idb.get(fileId);
  if(!item){
-  const n=notices.find(x=>x.id===noticeId);
-  if(n&&n.att&&n.att.data){item={id:n.id,...n.att};try{await idb.put(item)}catch(e){}}
+  const n=notices.find(x=>x.id===fileId);
+  if(n&&n.att&&n.att.data){item={id:n.id,...n.att}}
+  else if(fallbackObj&&fallbackObj.data){item={id:fileId,...fallbackObj}}
  }
  if(!item){alert("الملف غير متوفر.");return}
+ try{await idb.put(item);cachedFileIds.add(fileId)}catch(e){}
  const a=document.createElement("a");a.href=item.data;a.download=item.name||"attachment";document.body.appendChild(a);a.click();a.remove();
+ renderSubjects();
 }
 
 function show(id){["login","adminLogin","student","admin"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");syncInstallButtonsVisibility();scrollTo(0,0)}
@@ -959,15 +1179,14 @@ async function logout(){
  if(auth.currentUser&&!auth.currentUser.isAnonymous){await signOut(auth)}else show("login");
 }
 
-/* ===== إنشاء حساب وإرسال الرمز إلى واتساب ===== */
+/* ===== إنشاء حساب ودخول ===== */
 async function requestWhatsAppCode(){
  const name=$("lName").value.trim().replace(/\s+/g," ");
  const phone=normPhone($("lPhone").value);
  const dept=$("lDept").value||depts[0]||DEFAULT_DEPTS[0];
  const stage=$("lStage").value||"all";
  const section=$("lSection").value||"all";
- const err=$("lErr");
- err.textContent="";
+ const err=$("lErr");err.textContent="";
  const parts=name.split(" ").filter(Boolean);
  if(parts.length<3||parts.length>4){err.textContent="اكتب الاسم الثلاثي أو الرباعي بشكل صحيح.";return}
  if(!phone){err.textContent="رقم الهاتف غير صحيح. مثال: 07701234567";return}
@@ -977,7 +1196,6 @@ async function requestWhatsAppCode(){
   await authReady;
   const dupMsg=await checkDuplicateAccount(name,phone);
   if(dupMsg){err.textContent=dupMsg;return}
-
   const ch="ABCDEFGHJKMNPQRSTUVWXYZ23456789";
   let code="";
   for(let attempt=0;attempt<10;attempt++){
@@ -987,35 +1205,21 @@ async function requestWhatsAppCode(){
    if(!ex.exists()){code=cand;break}
   }
   if(!code){err.textContent="تعذر توليد رمز، حاول مرة أخرى.";return}
-
-  await setDoc(doc(db,"codes",code),{
-   name,phone,dept,stage,section,
-   role:"student",
-   used:false,
-   createdAt:serverTimestamp()
-  });
-
+  await setDoc(doc(db,"codes",code),{name,phone,dept,stage,section,role:"student",used:false,createdAt:serverTimestamp()});
   $("waCodePrompt").classList.remove("hidden");
   $("lCodeReg").focus();
-  const waMsg=
-   "رمز الدخول الخاص بك لتطبيق ("+appTitle+") هو: "+code+"\n"+
-   "القسم: "+dept+"\n"+
-   "⚠️ تحذير: لا تشارك هذا الرمز مع أي شخص، واحتفظ به جيداً لأنك ستحتاجه للدخول إذا قمت بتسجيل الخروج.";
+  const waMsg="رمز الدخول الخاص بك لتطبيق ("+appTitle+") هو: "+code+"\nالقسم: "+dept+"\n⚠️ لا تشارك هذا الرمز مع أي شخص واحتفظ به للدخول إذا سجلت الخروج.";
   window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(waMsg),"_blank");
- }catch(e){
-  err.textContent="تعذر إرسال الرمز. تأكد من الاتصال والقاعدة في Firestore.";
- }finally{btn.disabled=false}
+ }catch(e){err.textContent="تعذر إرسال الرمز."}
+ finally{btn.disabled=false}
 }
-
 async function completeRegistration(){
  const code=$("lCodeReg").value.trim().toUpperCase();
  const name=$("lName").value.trim().replace(/\s+/g," ");
  const phone=normPhone($("lPhone").value);
- const err=$("lErr");
- err.textContent="";
+ const err=$("lErr");err.textContent="";
  if(code.length!==6){err.textContent="أدخل الرمز المكون من 6 خانات من الواتساب.";return}
  if(!phone){err.textContent="تأكد من رقم الهاتف.";return}
-
  const btn=$("lBtnReg");btn.disabled=true;
  try{
   await authReady;
@@ -1025,38 +1229,20 @@ async function completeRegistration(){
   if(c.phone&&c.phone!==phone){err.textContent="هذا الرمز مرتبط برقم هاتف آخر.";return}
   if(c.used&&c.phone!==phone){err.textContent="هذا الحساب مسجل مسبقاً برقم آخر.";return}
   await updateDoc(ref,{used:true,name:name||c.name,phone,online:true,lastSeen:serverTimestamp(),usedAt:c.usedAt||serverTimestamp()});
-
   let photo="";
-  if($("lPhoto").files[0]){
-   try{photo=await compressImage($("lPhoto").files[0],360,0.78)}catch(e){}
-  }
-
-  me={
-   code,
-   name:c.name||name,
-   phone,
-   dept:c.dept||$("lDept").value||DEFAULT_DEPTS[0],
-   stage:c.stage||$("lStage").value||"all",
-   section:c.section||$("lSection").value||"all",
-   role:c.role||"student",
-   photo
-  };
+  if($("lPhoto").files[0]){try{photo=await compressImage($("lPhoto").files[0],360,0.78)}catch(e){}}
+  me={code,name:c.name||name,phone,dept:c.dept||$("lDept").value||DEFAULT_DEPTS[0],stage:c.stage||$("lStage").value||"all",section:c.section||$("lSection").value||"all",role:c.role||"student",photo};
   try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
-  startPresenceLoop();
-  openStudent();
- }catch(e){err.textContent="تعذر إتمام الدخول. حاول مرة أخرى."}
+  startPresenceLoop();openStudent();
+ }catch(e){err.textContent="تعذر إتمام الدخول."}
  finally{btn.disabled=false}
 }
-
-/* ===== الدخول المباشر بالرمز والهاتف ===== */
 async function directCodeLogin(){
  const phone=normPhone($("inPhone").value);
  const code=$("inCode").value.trim().toUpperCase();
- const err=$("inErr");
- err.textContent="";
+ const err=$("inErr");err.textContent="";
  if(!phone){err.textContent="رقم الهاتف غير صحيح.";return}
  if(code.length!==6){err.textContent="اكتب رمز الدخول (6 خانات).";return}
-
  const btn=$("inBtn");btn.disabled=true;
  try{
   await authReady;
@@ -1065,31 +1251,26 @@ async function directCodeLogin(){
   const c=snap.data();
   if(c.phone&&c.phone!==phone){err.textContent="رقم الهاتف لا يطابق الرمز.";return}
   await updateDoc(ref,{used:true,phone,online:true,lastSeen:serverTimestamp(),usedAt:c.usedAt||serverTimestamp()});
-
-  me={
-   code,
-   name:c.name||"مستخدم",
-   phone,
-   dept:c.dept||depts[0]||DEFAULT_DEPTS[0],
-   stage:c.stage||"all",
-   section:c.section||"all",
-   role:c.role||"student",
-   photo:(me&&me.code===code&&me.photo)||""
-  };
+  me={code,name:c.name||"مستخدم",phone,dept:c.dept||depts[0]||DEFAULT_DEPTS[0],stage:c.stage||"all",section:c.section||"all",role:c.role||"student",photo:(me&&me.code===code&&me.photo)||""};
   try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
-  startPresenceLoop();
-  openStudent();
- }catch(e){err.textContent="تعذر الدخول. تحقق من الاتصال."}
+  startPresenceLoop();openStudent();
+ }catch(e){err.textContent="تعذر الدخول."}
  finally{btn.disabled=false}
 }
-
-function syncMyRoleFromCodes(){
+function syncMyFromCodes(){
  if(!me||!me.code||!codes.length)return;
  const found=codes.find(c=>c.id===me.code);
- if(found&&(found.role||"student")!==(me.role||"student")){
-  me.role=found.role||"student";
-  try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
-  openStudent();
+ if(found){
+  const nextRole=found.role||"student";
+  const nextName=found.name||me.name;
+  const nextPhone=found.phone||me.phone;
+  const nextStage=found.stage||me.stage;
+  const nextSec=found.section||me.section;
+  if(nextRole!==me.role||nextName!==me.name||nextPhone!==me.phone||nextStage!==me.stage||nextSec!==me.section){
+   me={...me,role:nextRole,name:nextName,phone:nextPhone,stage:nextStage,section:nextSec};
+   try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
+   openStudent();
+  }
  }
 }
 
@@ -1101,28 +1282,44 @@ function openStudent(){
  if(!me.role)me.role="student";
  try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
  applyStudentPhotoUI();
+ applyDeptLogosUI();
  startPresenceLoop();
 
  const rLabel=roleLabel(me.role);
  const isMgr=isStaffRole(me.role);
  const hasPerms=canManageDeptPerms(me);
  const hasRoom=canViewTeachersRoom(me);
+ const canAcad=canManageAcademic(me);
  const stList=stagesForDept(me.dept);
 
  $("sTopDept").textContent=me.dept;
  $("sRoleGreet").textContent="مرحباً بك ("+rLabel+") 👋";
- $("sName").textContent=me.name.split(" ").slice(0,2).join(" ");
+ $("sName").textContent=(me.name||"").split(" ").slice(0,2).join(" ");
  $("sInfo").textContent=me.dept+" · "+(me.stage==="all"?"كل المراحل":me.stage)+" · "+(me.section==="all"?"كل الشعب":"شعبة "+me.section)+" · "+rLabel;
+
+ const myLive=codes.find(c=>c.id===me.code)||{};
+ const seatTxt=myLive.seatNumber?("رقم الجلوس: "+myLive.seatNumber):"";
+ const roomTxt=myLive.examRoom?("القاعة الامتحانية: "+myLive.examRoom):"";
+ const examSummary=[seatTxt,roomTxt].filter(Boolean).join(" · ");
+ $("sExamBadge").textContent=examSummary?("🎫 "+examSummary):"";
+ $("aExamInfo").textContent=examSummary?("🎫 "+examSummary):"لم يتم تحديد رقم الجلوس أو القاعة الامتحانية بعد.";
+
  $("aName").textContent=me.name;
  $("aInfo").textContent=me.dept+" · الصلاحية: "+rLabel;
  $("aPhone").textContent="+"+me.phone;
  $("aCodeInfo").textContent="رمز الدخول الخاص بك: "+me.code;
+
  $("nRep").classList.toggle("hidden",!isMgr);
  $("nPerms").classList.toggle("hidden",!hasPerms);
  $("nTeachersRoom").classList.toggle("hidden",!hasRoom);
  $("trComposerCard").classList.toggle("hidden",!canPostTeachersRoom(me));
  $("repPrivateListTitle").classList.toggle("hidden",!canSendPrivateNotice(me));
  $("repPrivateNotices").classList.toggle("hidden",!canSendPrivateNotice(me));
+ $("manageSubjHwCard").classList.toggle("hidden",!canAcad);
+ $("manageSchedCard").classList.toggle("hidden",!canAcad);
+ $("deptLogoCard").classList.toggle("hidden",!hasPerms);
+
+ refreshAcademicStageSelects(me.dept);
 
  if(hasPerms){
   const prevPS=$("pStageFilter").value||"all";
@@ -1139,17 +1336,14 @@ function openStudent(){
    $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لجميع مراحل قسم: "+me.dept;
   }else if(me.role==="rep"){
    $("rStage").innerHTML=`<option value="${esc(me.stage)}">${esc(me.stage)}</option>`;
-   $("repScopeMeta").textContent="نشر تبليغات مرحلتك ("+me.stage+") مع تعديل وحذف تبليغاتك فقط.";
-  }else if(me.role==="teacher"){
-   fill("rStage",stList,'<option value="all">كل المراحل</option>');
-   $("repScopeMeta").textContent="نشر التبليغات باسمك وصفتك (أستاذ) مع تعديل وحذف تبليغاتك فقط.";
+   $("repScopeMeta").textContent="نشر تبليغات وجداول وواجبات مرحلتك ("+me.stage+") مع تعديل وحذف ما تنشره.";
   }else{
    fill("rStage",stList,'<option value="all">كل المراحل</option>');
    $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لقسم: "+me.dept;
   }
  }
  $("soundBtn").textContent=soundOn?"🔊 الرنين مفعل":"🔇 الرنين مكتوم";
- filter="all";renderStudent();updateBellUI();updateStorageStat();syncInstallButtonsVisibility();sTab("home");show("student");
+ renderStudent();updateBellUI();updateStorageStat();syncInstallButtonsVisibility();sTab("home");show("student");
 }
 async function adminLogin(){
  try{await signInWithEmailAndPassword(auth,$("adminEmail").value.trim(),$("adminPassword").value);$("aErr").textContent="";$("adminPassword").value=""}
@@ -1160,9 +1354,20 @@ function sTab(t){
  if(t==="perms"&&!canManageDeptPerms(me))t="home";
  if(t==="teachersRoom"&&!canViewTeachersRoom(me))t="home";
  if(t==="rep"&&!isStaffRole(me&&me.role))t="home";
- const m={home:["sHome","nHome"],notices:["sNotices","nNotices"],rep:["sRep","nRep"],perms:["sPerms","nPerms"],teachersRoom:["sTeachersRoom","nTeachersRoom"],account:["sAccount","nAccount"]};
+ const m={
+  home:["sHome","nHome"],
+  notices:["sNotices","nNotices"],
+  subjects:["sSubjects","nSubjects"],
+  schedule:["sSchedule","nSchedule"],
+  rep:["sRep","nRep"],
+  perms:["sPerms","nPerms"],
+  teachersRoom:["sTeachersRoom","nTeachersRoom"],
+  account:["sAccount","nAccount"]
+ };
  for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
  if(t==="notices")markAllNoticesRead();
+ if(t==="subjects"){closeSubjectDetail();renderSubjects()}
+ if(t==="schedule")renderSchedule();
  if(t==="perms")renderDeptPermissions();
  syncInstallButtonsVisibility();
  $("bellPop").classList.add("hidden");scrollTo(0,0);
@@ -1178,7 +1383,7 @@ function setFilter(f){
  $("fPriv").classList.toggle("on",f==="private");
  renderStudent();
 }
-function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept||"لا يوجد قسم";refreshStageSelects();resetAdmForm();renderAdmin()}
+function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept||"لا يوجد قسم";applyDeptLogosUI();refreshStageSelects();resetAdmForm();renderAdmin()}
 function toggleStageForRole(){
  const isR=$("gRole").value==="rapporteur";
  $("gStage").disabled=isR;
@@ -1186,53 +1391,36 @@ function toggleStageForRole(){
  else if($("gStage").value==="all")$("gStage").value="";
 }
 
-/* ===== فتح نموذج تبليغ خاص لطالب محدد ===== */
+/* ===== تبليغ خاص لطالب محدد ===== */
 function startPrivateNoticeForStudent(studentCode){
  const stu=codes.find(c=>c.id===studentCode);
  if(!stu){alert("تعذر العثور على بيانات الطالب.");return}
- const stuName=stu.name||"طالب";
- const stuDept=deptOf(stu);
- const stuStage=stu.stage||"all";
- const stuSection=stu.section||"all";
-
+ const stuName=stu.name||"طالب",stuDept=deptOf(stu),stuStage=stu.stage||"all",stuSection=stu.section||"all";
  if(isAdminView){
-  activeDept=stuDept;
-  $("admDept").value=activeDept;
-  $("admTopDept").textContent=activeDept;
-  refreshStageSelects();
-  resetAdmForm();
-  $("admChannel").value="private_student";
-  $("admTargetCode").value=studentCode;
+  activeDept=stuDept;$("admDept").value=activeDept;$("admTopDept").textContent=activeDept;
+  refreshStageSelects();resetAdmForm();
+  $("admChannel").value="private_student";$("admTargetCode").value=studentCode;
   $("admTargetRow").classList.add("hidden");
   $("admPrivateBanner").textContent="📩 تبليغ خاص للطالب: "+stuName+" ("+stuStage+" · شعبة "+stuSection+")";
   $("admPrivateBanner").classList.remove("hidden");
-  $("admFormTitle").textContent="إرسال تبليغ خاص للطالب";
-  $("admPubBtn").textContent="إرسال التبليغ الخاص";
-  aTab("new");
-  scrollTo(0,0);
-  return;
+  $("admFormTitle").textContent="إرسال تبليغ خاص للطالب";$("admPubBtn").textContent="إرسال التبليغ الخاص";
+  aTab("new");scrollTo(0,0);return;
  }
-
  if(!me||!canSendPrivateNotice(me)){alert("إرسال التبليغات الخاصة متاح لمدير القسم والمقرر فقط.");return}
  resetRepForm();
- $("repChannel").value="private_student";
- $("repTargetCode").value=studentCode;
+ $("repChannel").value="private_student";$("repTargetCode").value=studentCode;
  $("rTargetRow").classList.add("hidden");
  $("repPrivateBanner").textContent="📩 تبليغ خاص للطالب: "+stuName+" ("+stuStage+" · شعبة "+stuSection+")";
  $("repPrivateBanner").classList.remove("hidden");
- $("repFormTitle").textContent="إرسال تبليغ خاص للطالب";
- $("rPubBtn").textContent="إرسال التبليغ الخاص";
- $("rCancelBtn").classList.remove("hidden");
- sTab("rep");
- scrollTo(0,0);
+ $("repFormTitle").textContent="إرسال تبليغ خاص للطالب";$("rPubBtn").textContent="إرسال التبليغ الخاص";$("rCancelBtn").classList.remove("hidden");
+ sTab("rep");scrollTo(0,0);
 }
 
-/* ===== الإدارة والصلاحيات ===== */
+/* ===== الإدارة والتبليغات ===== */
 async function publish(){
  if(!activeDept){alert("اختر أو أضف قسماً أولاً.");return}
  const title=$("title").value.trim(),body=$("body").value.trim(),editId=$("admEditId").value;
- const ch=$("admChannel").value||"public";
- const targetCode=$("admTargetCode").value||"";
+ const ch=$("admChannel").value||"public",targetCode=$("admTargetCode").value||"";
  const targetStu=targetCode?codes.find(c=>c.id===targetCode):null;
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  try{
@@ -1242,41 +1430,30 @@ async function publish(){
    dept:ch==="private_student"&&targetStu?deptOf(targetStu):activeDept,
    stage:ch==="private_student"&&targetStu?(targetStu.stage||"all"):($("tStage").value||"all"),
    section:ch==="private_student"&&targetStu?(targetStu.section||"all"):($("tSection").value||"all"),
-   priority:$("priority").value||"normal",
-   channel:ch
+   priority:$("priority").value||"normal",channel:ch
   };
-  if(ch==="private_student"){
-   payload.targetStudentCode=targetCode;
-   payload.targetStudentName=(targetStu&&targetStu.name)||"طالب";
-  }
+  if(ch==="private_student"){payload.targetStudentCode=targetCode;payload.targetStudentName=(targetStu&&targetStu.name)||"طالب"}
   if(att)payload.att=att;
-  if(editId){
-   await updateDoc(doc(db,"notices",editId),payload);
-  }else{
-   payload.author="إدارة القسم";payload.authorCode="ADMIN";payload.replies=[];payload.createdAt=serverTimestamp();
-   await addDoc(collection(db,"notices"),payload);
-  }
+  if(editId)await updateDoc(doc(db,"notices",editId),payload);
+  else{payload.author="إدارة القسم";payload.authorCode="ADMIN";payload.replies=[];payload.createdAt=serverTimestamp();await addDoc(collection(db,"notices"),payload)}
   resetAdmForm();aTab("notices");
- }catch(e){if(e.message!=="size")alert("تعذر حفظ التبليغ. تأكد من صلاحيات الإدارة.")}
+ }catch(e){if(e.message!=="size")alert("تعذر حفظ التبليغ.")}
 }
 function editAdminNotice(id){
  const n=notices.find(x=>x.id===id);if(!n)return;
- activeDept=deptOf(n);$("admDept").value=activeDept;$("admTopDept").textContent=activeDept;
- refreshStageSelects();
+ activeDept=deptOf(n);$("admDept").value=activeDept;$("admTopDept").textContent=activeDept;refreshStageSelects();
  $("admEditId").value=n.id;$("title").value=n.title;$("body").value=n.body;
- $("admChannel").value=n.channel||"public";
- $("admTargetCode").value=n.targetStudentCode||"";
+ $("admChannel").value=n.channel||"public";$("admTargetCode").value=n.targetStudentCode||"";
  if(n.channel==="private_student"){
   $("admTargetRow").classList.add("hidden");
   $("admPrivateBanner").textContent="📩 تبليغ خاص للطالب: "+(n.targetStudentName||n.targetStudentCode||"");
   $("admPrivateBanner").classList.remove("hidden");
  }else{
-  $("admTargetRow").classList.remove("hidden");
-  $("admPrivateBanner").classList.add("hidden");
+  $("admTargetRow").classList.remove("hidden");$("admPrivateBanner").classList.add("hidden");
   $("tStage").value=n.stage;$("tSection").value=n.section;
  }
- $("priority").value=n.priority||"normal";
- $("aFile").value="";$("aFileNote").textContent=n.att?"مرفق حالي: "+n.att.name+" (اختر ملفاً جديداً لاستبداله)":"";
+ $("priority").value=n.priority||"normal";$("aFile").value="";
+ $("aFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
  $("admFormTitle").textContent="تعديل التبليغ";$("admPubBtn").textContent="حفظ التعديلات";$("admCancelBtn").classList.remove("hidden");
  aTab("new");scrollTo(0,0);
 }
@@ -1290,8 +1467,7 @@ function resetAdmForm(){
 async function repPublish(){
  if(!me||!isStaffRole(me.role))return;
  const title=$("rTitle").value.trim(),body=$("rBody").value.trim(),editId=$("repEditId").value;
- const ch=$("repChannel").value||"public";
- const targetCode=$("repTargetCode").value||"";
+ const ch=$("repChannel").value||"public",targetCode=$("repTargetCode").value||"";
  if(ch==="private_student"&&!canSendPrivateNotice(me)){alert("إرسال التبليغات الخاصة متاح لمدير القسم والمقرر فقط.");return}
  const targetStu=targetCode?codes.find(c=>c.id===targetCode):null;
  const st=ch==="private_student"&&targetStu?(targetStu.stage||"all"):(canManageAll(me)?($("rStage").value||"all"):(me.role==="rep"?me.stage:($("rStage").value||"all")));
@@ -1299,26 +1475,15 @@ async function repPublish(){
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  try{
   const att=await readAttachment("rFile");
-  const payload={
-   title,body,
-   dept:ch==="private_student"&&targetStu?deptOf(targetStu):(me.dept||DEFAULT_DEPTS[0]),
-   stage:st,
-   section:sec,
-   priority:$("rPriority").value||"normal",
-   channel:ch
-  };
-  if(ch==="private_student"){
-   payload.targetStudentCode=targetCode;
-   payload.targetStudentName=(targetStu&&targetStu.name)||"طالب";
-  }
+  const payload={title,body,dept:ch==="private_student"&&targetStu?deptOf(targetStu):(me.dept||DEFAULT_DEPTS[0]),stage:st,section:sec,priority:$("rPriority").value||"normal",channel:ch};
+  if(ch==="private_student"){payload.targetStudentCode=targetCode;payload.targetStudentName=(targetStu&&targetStu.name)||"طالب"}
   if(att)payload.att=att;
   if(editId){
    const existing=notices.find(x=>x.id===editId);
    if(!existing||!canManageNotice(me,existing)){alert("لا تملك صلاحية تعديل هذا التبليغ.");return}
    await updateDoc(doc(db,"notices",editId),payload);
   }else{
-   payload.author=authorDisplay(me);
-   payload.authorCode=me.code;payload.replies=[];payload.createdAt=serverTimestamp();
+   payload.author=authorDisplay(me);payload.authorCode=me.code;payload.replies=[];payload.createdAt=serverTimestamp();
    await addDoc(collection(db,"notices"),payload);
   }
   resetRepForm();alert("تم حفظ التبليغ بنجاح.");
@@ -1328,20 +1493,17 @@ function editRepNotice(id){
  const n=notices.find(x=>x.id===id);if(!n||!me||deptOf(n)!==me.dept||!canManageNotice(me,n))return;
  if(n.channel==="teachers_room"){editTeacherRoomNotice(id);sTab("teachersRoom");return}
  $("repEditId").value=n.id;$("rTitle").value=n.title;$("rBody").value=n.body;
- $("repChannel").value=n.channel||"public";
- $("repTargetCode").value=n.targetStudentCode||"";
+ $("repChannel").value=n.channel||"public";$("repTargetCode").value=n.targetStudentCode||"";
  if(n.channel==="private_student"){
   $("rTargetRow").classList.add("hidden");
   $("repPrivateBanner").textContent="📩 تبليغ خاص للطالب: "+(n.targetStudentName||n.targetStudentCode||"");
   $("repPrivateBanner").classList.remove("hidden");
  }else{
-  $("rTargetRow").classList.remove("hidden");
-  $("repPrivateBanner").classList.add("hidden");
+  $("rTargetRow").classList.remove("hidden");$("repPrivateBanner").classList.add("hidden");
   if($("rStage")&&[...$("rStage").options].some(o=>o.value===n.stage))$("rStage").value=n.stage;
   $("rSection").value=n.section;
  }
- $("rPriority").value=n.priority||"normal";
- $("rFile").value="";$("rFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
+ $("rPriority").value=n.priority||"normal";$("rFile").value="";$("rFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
  $("repFormTitle").textContent="تعديل التبليغ";$("rPubBtn").textContent="حفظ التعديلات";$("rCancelBtn").classList.remove("hidden");
  sTab("rep");scrollTo(0,0);
 }
@@ -1352,50 +1514,120 @@ function resetRepForm(){
  $("repFormTitle").textContent="نشر تبليغ";$("rPubBtn").textContent="نشر التبليغ";$("rCancelBtn").classList.add("hidden");
 }
 
-/* ===== غرفة تبليغات الأساتذة ===== */
+/* ===== غرفة الأساتذة ===== */
 async function teacherRoomPublish(){
  if(!me||!canPostTeachersRoom(me)){alert("النشر في غرفة الأساتذة متاح لحسابات المدرسين فقط.");return}
  const title=$("trTitle").value.trim(),body=$("trBody").value.trim(),editId=$("trEditId").value;
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  try{
   const att=await readAttachment("trFile");
-  const payload={
-   title,body,
-   dept:me.dept||DEFAULT_DEPTS[0],
-   stage:"all",
-   section:"all",
-   priority:$("trPriority").value||"normal",
-   channel:"teachers_room"
-  };
+  const payload={title,body,dept:me.dept||DEFAULT_DEPTS[0],stage:"all",section:"all",priority:$("trPriority").value||"normal",channel:"teachers_room"};
   if(att)payload.att=att;
   if(editId){
    const existing=notices.find(x=>x.id===editId);
    if(!existing||!canManageNotice(me,existing)){alert("يمكنك تعديل تبليغاتك فقط.");return}
    await updateDoc(doc(db,"notices",editId),payload);
   }else{
-   payload.author=authorDisplay(me);
-   payload.authorCode=me.code;
-   payload.replies=[];
-   payload.createdAt=serverTimestamp();
+   payload.author=authorDisplay(me);payload.authorCode=me.code;payload.replies=[];payload.createdAt=serverTimestamp();
    await addDoc(collection(db,"notices"),payload);
   }
-  resetTeacherRoomForm();
-  alert("تم نشر التبليغ في غرفة الأساتذة.");
+  resetTeacherRoomForm();alert("تم نشر التبليغ في غرفة الأساتذة.");
  }catch(e){if(e.message!=="size")alert("تعذر حفظ تبليغ الغرفة.")}
 }
 function editTeacherRoomNotice(id){
  const n=notices.find(x=>x.id===id);if(!n||!me||!canManageNotice(me,n))return;
  $("trEditId").value=n.id;$("trTitle").value=n.title;$("trBody").value=n.body;
- $("trPriority").value=n.priority||"normal";$("trFile").value="";
- $("trFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
- $("trPubBtn").textContent="حفظ التعديلات";$("trCancelBtn").classList.remove("hidden");
- scrollTo(0,0);
+ $("trPriority").value=n.priority||"normal";$("trFile").value="";$("trFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
+ $("trPubBtn").textContent="حفظ التعديلات";$("trCancelBtn").classList.remove("hidden");scrollTo(0,0);
 }
 function resetTeacherRoomForm(){
  $("trEditId").value="";$("trTitle").value="";$("trBody").value="";$("trFile").value="";$("trFileNote").textContent="";
  $("trPubBtn").textContent="نشر في غرفة الأساتذة";$("trCancelBtn").classList.add("hidden");
 }
 
+/* ===== المواد والواجبات والجدول ===== */
+async function addSubjectItem(){
+ if(!canManageAcademic(me))return;
+ const name=$("subName").value.trim();
+ const teacher=$("subTeacher").value.trim()||(me?authorDisplay(me):"إدارة القسم");
+ const deptName=isAdminView?activeDept:(me.dept||DEFAULT_DEPTS[0]);
+ const stage=$("subStage").value||"all";
+ const section=$("subSection").value||"all";
+ if(!name){alert("أدخل اسم المادة الدراسية.");return}
+ try{
+  const att=await readAttachment("subFile");
+  const payload={
+   name,teacher,dept:deptName,stage,section,
+   authorCode:(me&&me.code)||"ADMIN",
+   files:att?[att]:[],
+   createdAt:serverTimestamp()
+  };
+  await addDoc(collection(db,"subjects"),payload);
+  $("subName").value="";$("subTeacher").value="";$("subFile").value="";
+  alert("تمت إضافة المادة بنجاح.");
+ }catch(e){if(e.message!=="size")alert("تعذر إضافة المادة.")}
+}
+async function attachFileToSubject(subjectId){
+ if(!canManageAcademic(me))return;
+ const inp=$("subAddFile_"+subjectId);
+ if(!inp||!inp.files[0]){alert("اختر ملفاً أولاً.");return}
+ try{
+  const att=await readAttachment("subAddFile_"+subjectId);
+  await updateDoc(doc(db,"subjects",subjectId),{files:arrayUnion(att)});
+  inp.value="";
+  alert("تم إرفاق الملف بالمادة.");
+ }catch(e){if(e.message!=="size")alert("تعذر إرفاق الملف.")}
+}
+async function addHomeworkItem(){
+ if(!canManageAcademic(me))return;
+ const subId=$("hwSubjectSelect").value;
+ const title=$("hwTitle").value.trim();
+ const due=$("hwDue").value.trim()||"مفتوح";
+ if(!title){alert("اكتب عنوان الواجب.");return}
+ const sub=subjects.find(s=>s.id===subId);
+ const deptName=isAdminView?activeDept:(me.dept||DEFAULT_DEPTS[0]);
+ try{
+  await addDoc(collection(db,"homeworks"),{
+   subjectId:subId||"",
+   subjectName:sub?sub.name:"واجب عام",
+   title,due,
+   dept:sub?deptOf(sub):deptName,
+   stage:sub?(sub.stage||"all"):(me?me.stage:"all"),
+   section:sub?(sub.section||"all"):(me?me.section:"all"),
+   authorCode:(me&&me.code)||"ADMIN",
+   createdAt:serverTimestamp()
+  });
+  $("hwTitle").value="";$("hwDue").value="";
+  alert("تم نشر الواجب.");
+ }catch(e){alert("تعذر نشر الواجب.")}
+}
+async function addScheduleItem(){
+ if(!canManageAcademic(me))return;
+ const day=$("scDay").value;
+ const time=$("scTime").value.trim()||"08:30";
+ const subject=$("scSubject").value.trim();
+ const teacher=$("scTeacher").value.trim()||(me?authorDisplay(me):"التدريسي");
+ const room=$("scRoom").value.trim()||"قاعة القسم";
+ const deptName=isAdminView?activeDept:(me.dept||DEFAULT_DEPTS[0]);
+ const stage=$("scStage").value||"all";
+ const section=$("scSection").value||"all";
+ if(!subject){alert("أدخل اسم المادة للحصة.");return}
+ try{
+  await addDoc(collection(db,"schedules"),{
+   day,time,subject,teacher,room,dept:deptName,stage,section,
+   authorCode:(me&&me.code)||"ADMIN",
+   createdAt:serverTimestamp()
+  });
+  $("scTime").value="";$("scSubject").value="";$("scTeacher").value="";$("scRoom").value="";
+  alert("تمت إضافة الحصة للجدول.");
+ }catch(e){alert("تعذر إضافة الحصة.")}
+}
+async function deleteDocByCollection(colName,id){
+ if(!confirm("حذف هذا العنصر؟"))return;
+ await deleteDoc(doc(db,colName,id)).catch(fail);
+}
+
+/* ===== صلاحيات، تعديل بيانات الطالب، ترحيل المراحل، والقاعات ===== */
 async function changeUserRole(codeId,newRole){
  try{
   const data={role:newRole};
@@ -1404,6 +1636,120 @@ async function changeUserRole(codeId,newRole){
   alert("تم تحديث الصلاحية إلى: "+roleLabel(newRole));
  }catch(e){alert("تعذر تحديث الصلاحية.")}
 }
+async function editStudentProfile(codeId){
+ const stu=codes.find(c=>c.id===codeId);if(!stu)return;
+ const newName=prompt("تعديل اسم الطالب:",stu.name||"");
+ if(newName===null)return;
+ const cleanName=newName.trim().replace(/\s+/g," ");
+ if(cleanName.split(" ").filter(Boolean).length<2){alert("أدخل اسماً صحيحاً.");return}
+
+ const newPhoneRaw=prompt("تعديل رقم الهاتف (مثال 07701234567):",stu.phone||"");
+ if(newPhoneRaw===null)return;
+ const cleanPhone=normPhone(newPhoneRaw);
+ if(!cleanPhone){alert("رقم الهاتف غير صحيح.");return}
+
+ const newSection=prompt("تعديل الشعبة (أ، ب، ج، د، أو all):",stu.section||"أ");
+ if(newSection===null)return;
+ const cleanSec=newSection.trim()||"all";
+
+ const deptStages=[...stagesForDept(deptOf(stu)),GRADUATED_STAGE,"all"];
+ const newStage=prompt("تعديل المرحلة ("+deptStages.join(" / ")+"):",stu.stage||deptStages[0]);
+ if(newStage===null)return;
+ const cleanStage=newStage.trim()||stu.stage||"all";
+
+ try{
+  const dup=await checkDuplicateAccount(cleanName,cleanPhone,codeId);
+  if(dup){alert(dup);return}
+  const payload={name:cleanName,phone:cleanPhone,section:cleanSec,stage:cleanStage};
+  if(me&&me.code)payload.actorCode=me.code;
+  await updateDoc(doc(db,"codes",codeId),payload);
+  alert("تم تحديث بيانات الطالب بنجاح.");
+ }catch(e){alert("تعذر تحديث بيانات الطالب.")}
+}
+
+function nextStageName(currentStage,deptName){
+ const chain=[...stagesForDept(deptName),GRADUATED_STAGE];
+ const idx=chain.indexOf(currentStage);
+ if(idx===-1||idx===chain.length-1)return GRADUATED_STAGE;
+ return chain[idx+1];
+}
+async function promoteStageStudents(){
+ if(!me||!canManageDeptPerms(me))return;
+ const deptName=me.dept||DEFAULT_DEPTS[0];
+ const fromStage=$("promoStageSelect").value;
+ const secFilter=$("promoSectionSelect").value||"all";
+ if(!fromStage){alert("اختر المرحلة المراد ترحيلها.");return}
+ const targets=codes.filter(c=>deptOf(c)===deptName&&c.used&&(c.role||"student")==="student"&&c.stage===fromStage&&(secFilter==="all"||c.section===secFilter));
+ if(!targets.length){alert("لا يوجد طلاب مطابقون للترحيل.");return}
+ const toStage=nextStageName(fromStage,deptName);
+ if(!confirm("ترحيل "+targets.length+" طالب من ("+fromStage+") إلى ("+toStage+")؟"))return;
+ try{
+  const batch=writeBatch(db);
+  targets.forEach(s=>{
+   batch.update(doc(db,"codes",s.id),{
+    stage:toStage,
+    graduated:toStage===GRADUATED_STAGE,
+    examRoom:toStage===GRADUATED_STAGE?"":(s.examRoom||""),
+    seatNumber:toStage===GRADUATED_STAGE?"":(s.seatNumber||""),
+    actorCode:me.code
+   });
+  });
+  await batch.commit();
+  alert("تم ترحيل "+targets.length+" طالب إلى ("+toStage+").");
+ }catch(e){alert("تعذر إتمام الترحيل.")}
+}
+
+async function addExamRoomItem(){
+ if(!me||!canManageDeptPerms(me))return;
+ const name=$("roomNameInput").value.trim();
+ const cap=Math.max(1,parseInt($("roomCapInput").value)||25);
+ if(!name){alert("أدخل اسم القاعة.");return}
+ try{
+  await addDoc(collection(db,"exam_rooms"),{
+   dept:me.dept||DEFAULT_DEPTS[0],
+   name,capacity:cap,
+   authorCode:me.code,
+   createdAt:serverTimestamp()
+  });
+  $("roomNameInput").value="";
+  alert("تمت إضافة القاعة.");
+ }catch(e){alert("تعذر إضافة القاعة.")}
+}
+async function assignSeatsAndRooms(){
+ if(!me||!canManageDeptPerms(me))return;
+ const deptName=me.dept||DEFAULT_DEPTS[0];
+ const st=$("distStageSelect").value||"all";
+ const startNum=Math.max(1,parseInt($("distStartNum").value)||101);
+ const rooms=examRooms.filter(r=>deptOf(r)===deptName);
+ if(!rooms.length){alert("أضف قاعة امتحانية واحدة على الأقل أولاً.");return}
+ const students=codes
+  .filter(c=>deptOf(c)===deptName&&c.used&&(c.role||"student")==="student"&&c.stage!==GRADUATED_STAGE&&(st==="all"||c.stage===st))
+  .sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""),"ar"));
+ if(!students.length){alert("لا يوجد طلاب نشطون لتوزيعهم.");return}
+
+ const slots=[];
+ rooms.forEach(r=>{
+  const cap=Math.max(1,parseInt(r.capacity)||25);
+  for(let i=0;i<cap;i++)slots.push(r.name);
+ });
+ if(students.length>slots.length){
+  alert("سعة القاعات ("+slots.length+") أقل من عدد الطلاب ("+students.length+"). أضف قاعات أو زد السعة.");
+  return;
+ }
+
+ try{
+  const batch=writeBatch(db);
+  students.forEach((stu,idx)=>{
+   batch.update(doc(db,"codes",stu.id),{
+    seatNumber:startNum+idx,
+    examRoom:slots[idx],
+    actorCode:me.code
+   });
+  });
+  await batch.commit();
+  alert("تم إعطاء أرقام الجلوس وتوزيع "+students.length+" طالب على القاعات بنجاح.");
+ }catch(e){alert("تعذر حفظ التوزيع.")}
+}
 
 const fail=()=>alert("تعذر تنفيذ العملية.");
 async function removeNotice(id){
@@ -1411,8 +1757,8 @@ async function removeNotice(id){
  if(!isAdminView&&n&&!canManageNotice(me,n)){alert("لا تملك صلاحية حذف هذا التبليغ.");return}
  if(confirm("حذف هذا التبليغ؟"))await deleteDoc(doc(db,"notices",id)).catch(fail);
 }
-async function removeCode(id){if(confirm("حذف هذا الرمز؟ إذا كان مستخدماً فسيفقد صاحبه دخوله."))await deleteDoc(doc(db,"codes",id)).catch(fail)}
-async function resetCode(id){if(confirm("إعادة الرمز غير مستخدم؟ يستطيع شخص جديد استخدامه."))await updateDoc(doc(db,"codes",id),{used:false,online:false,role:"student",name:deleteField(),phone:deleteField(),usedAt:deleteField(),lastSeen:deleteField()}).catch(fail)}
+async function removeCode(id){if(confirm("حذف هذا الرمز؟"))await deleteDoc(doc(db,"codes",id)).catch(fail)}
+async function resetCode(id){if(confirm("إعادة الرمز غير مستخدم؟"))await updateDoc(doc(db,"codes",id),{used:false,online:false,role:"student",seatNumber:deleteField(),examRoom:deleteField(),graduated:deleteField(),name:deleteField(),phone:deleteField(),usedAt:deleteField(),lastSeen:deleteField()}).catch(fail)}
 async function genCodes(){
  if(!activeDept){alert("اختر أو أضف قسماً أولاً.");return}
  const role=$("gRole").value,stage=role==="rapporteur"?"all":$("gStage").value,section=$("gSection").value,n=Math.min(200,Math.max(1,parseInt($("gCount").value)||0));
@@ -1436,16 +1782,14 @@ function sendSingleCodeWhatsApp(codeId){
  const c=codes.find(x=>x.id===codeId);
  const msg="رمز الدخول الخاص بك لتطبيق ("+appTitle+"):\nالرمز: "+codeId+(c&&c.dept?"\nالقسم: "+c.dept:"")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول إذا سجلت الخروج.";
  const wa=normPhone((c&&c.phone)||$("waPhone").value);
- const url=wa?("https://wa.me/"+wa+"?text="+encodeURIComponent(msg)):("https://wa.me/?text="+encodeURIComponent(msg));
- window.open(url,"_blank");
+ window.open(wa?("https://wa.me/"+wa+"?text="+encodeURIComponent(msg)):("https://wa.me/?text="+encodeURIComponent(msg)),"_blank");
 }
 function sendCodesWhatsApp(){
  const avail=codes.filter(c=>deptOf(c)===activeDept&&!c.used);
  if(!avail.length){alert("لا توجد رموز غير مستخدمة في هذا القسم.");return}
  const msg="رموز الدخول لتطبيق ("+appTitle+") - قسم ("+activeDept+"):\n"+avail.slice(0,25).map(c=>c.id+" ("+(c.stage==="all"?"كل المراحل":c.stage)+" - شعبة "+c.section+")").join("\n")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول بعد تسجيل الخروج.";
  const wa=normPhone($("waPhone").value);
- const url=wa?("https://wa.me/"+wa+"?text="+encodeURIComponent(msg)):("https://wa.me/?text="+encodeURIComponent(msg));
- window.open(url,"_blank");
+ window.open(wa?("https://wa.me/"+wa+"?text="+encodeURIComponent(msg)):("https://wa.me/?text="+encodeURIComponent(msg)),"_blank");
 }
 function copyCodes(stage){
  const l=codes.filter(c=>deptOf(c)===activeDept&&c.stage===stage&&!c.used).sort((a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar"));
@@ -1454,15 +1798,27 @@ function copyCodes(stage){
  navigator.clipboard.writeText(t).then(()=>alert("تم نسخ "+l.length+" كود.")).catch(()=>prompt("انسخ الأكواد:",t));
 }
 
-/* ===== العرض والردود الخاصة والمتصلون ===== */
+/* ===== الفلترة والعرض ===== */
 const target=n=>n.channel==="private_student"?("تبليغ خاص للطالب: "+(n.targetStudentName||n.targetStudentCode||"")):((n.stage==="all"?"كل المراحل":n.stage)+" · "+(n.section==="all"?"كل الشعب":"شعبة "+n.section));
+const matchesScope=item=>{
+ if(!me)return false;
+ const myDept=me.dept||DEFAULT_DEPTS[0];
+ const myStage=me.stage||"all";
+ const mySec=me.section||"all";
+ const iDept=item.dept||DEFAULT_DEPTS[0];
+ const iStage=item.stage||"all";
+ const iSec=item.section||"all";
+ return iDept===myDept&&(iStage==="all"||myStage==="all"||iStage===myStage)&&(iSec==="all"||mySec==="all"||iSec===mySec);
+};
 function attHtml(n){
  if(!n.att)return"";
+ const isCached=cachedFileIds.has(n.id);
+ const cachedBadge=isCached?'<span class="tag ok">✓ محمّل</span>':"";
  if(n.att.type&&n.att.type.startsWith("image/")){
-  return `<img class="att-img" src="${n.att.data}" alt="${esc(n.att.name)}"><div class="att-box"><span class="meta">🖼️ ${esc(n.att.name)}</span><button class="act" onclick="openAttachment('${esc(n.id)}')">حفظ بالهاتف</button></div>`;
+  return `<img class="att-img" src="${n.att.data}" alt="${esc(n.att.name)}"><div class="att-box"><span class="meta">🖼️ ${esc(n.att.name)} ${cachedBadge}</span><button class="act" onclick="openAttachment('${esc(n.id)}')">حفظ بالهاتف</button></div>`;
  }
  const ico=String(n.att.name).toLowerCase().endsWith(".pdf")?"📕":"📘";
- return `<div class="att-box"><span class="meta">${ico} ${esc(n.att.name)}</span><button class="act" onclick="openAttachment('${esc(n.id)}')">فتح / حفظ</button></div>`;
+ return `<div class="att-box"><span class="meta">${ico} ${esc(n.att.name)} ${cachedBadge}</span><button class="act" onclick="openAttachment('${esc(n.id)}')">فتح / حفظ</button></div>`;
 }
 function privateRepliesHtml(n,viewerRole){
  if(n.channel!=="private_student")return"";
@@ -1498,27 +1854,16 @@ const noticeCard=(n,viewerRole="student")=>{
 const empty=t=>`<div class="card meta">${t}</div>`;
 const myNotices=()=>{
  if(!me)return[];
- const myDept=me.dept||DEFAULT_DEPTS[0];
- const myStage=me.stage||"all";
- const mySec=me.section||"all";
  return notices.filter(n=>{
   if(n.channel==="teachers_room")return false;
-  if(n.channel==="private_student"){
-   return n.targetStudentCode===me.code;
-  }
-  const nDept=n.dept||DEFAULT_DEPTS[0];
-  const nStage=n.stage||"all";
-  const nSec=n.section||"all";
-  return nDept===myDept
-   &&(nStage==="all"||myStage==="all"||nStage===myStage)
-   &&(nSec==="all"||mySec==="all"||nSec===mySec);
+  if(n.channel==="private_student")return n.targetStudentCode===me.code;
+  return matchesScope(n);
  });
 };
-const myTeachersRoomNotices=()=>{
- if(!me||!canViewTeachersRoom(me))return[];
- const myDept=me.dept||DEFAULT_DEPTS[0];
- return notices.filter(n=>n.channel==="teachers_room"&&deptOf(n)===myDept);
-};
+const mySubjects=()=>subjects.filter(matchesScope);
+const mySchedules=()=>schedules.filter(matchesScope);
+const myHomeworks=()=>homeworks.filter(matchesScope);
+const myTeachersRoomNotices=()=>(!me||!canViewTeachersRoom(me))?[]:notices.filter(n=>n.channel==="teachers_room"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0]));
 
 function onlineUsersHtml(deptName){
  const online=codes.filter(c=>deptOf(c)===deptName&&isUserOnline(c));
@@ -1526,14 +1871,107 @@ function onlineUsersHtml(deptName){
  return online.map(u=>`<span class="online-pill"><span class="online-dot"></span>${esc(u.name||"مستخدم")} (${esc(roleLabel(u.role))})</span>`).join("");
 }
 
+function renderSubjects(){
+ if(!me)return;
+ const q=($("subjSearch")&&$("subjSearch").value.trim().toLowerCase())||"";
+ const subs=mySubjects().filter(s=>!q||String(s.name||"").toLowerCase().includes(q)||String(s.teacher||"").toLowerCase().includes(q));
+ const hws=myHomeworks();
+
+ if($("hwSubjectSelect")){
+  $("hwSubjectSelect").innerHTML='<option value="">واجب عام للمرحلة/الشعبة</option>'+mySubjects().map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join("");
+ }
+
+ $("subjectsCards").innerHTML=subs.map(s=>{
+  const fCount=Array.isArray(s.files)?s.files.length:0;
+  const delBtn=canManageAcademic(me)?`<button class="del" onclick="event.stopPropagation();deleteDocByCollection('subjects','${esc(s.id)}')">حذف</button>`:"";
+  return `<div class="subj-card" onclick="openSubjectDetail('${esc(s.id)}')">
+   <div class="subj-ico">📘</div>
+   <div class="subj-body"><b>${esc(s.name)}</b><span>${esc(s.teacher||"")} · الملفات: ${fCount}</span></div>
+   ${delBtn}<span class="meta">‹</span>
+  </div>`;
+ }).join("")||empty("لا توجد مواد مضافة حالياً.");
+
+ $("homeworksList").innerHTML=hws.map(h=>{
+  const delBtn=canManageAcademic(me)?`<button class="del" style="margin-top:6px" onclick="deleteDocByCollection('homeworks','${esc(h.id)}')">حذف</button>`:"";
+  return `<div class="hw-card"><b>${esc(h.title)}</b> <span class="tag">${esc(h.subjectName||"واجب")}</span><div class="meta">⏰ الموعد: ${esc(h.due||"")}</div>${delBtn}</div>`;
+ }).join("")||empty("لا توجد واجبات نشطة حالياً.");
+}
+
+async function openSubjectDetail(subId){
+ activeSubjectId=subId;
+ const s=subjects.find(x=>x.id===subId);
+ if(!s)return;
+ cachedFileIds=await idb.allIds();
+ const files=Array.isArray(s.files)?s.files:[];
+ const filesHtml=files.map((f,idx)=>{
+  const fid=subId+"_f_"+idx;
+  const isC=cachedFileIds.has(fid);
+  const badge=isC?'<span class="tag ok">✓ محمّل</span>':"";
+  const encoded=encodeURIComponent(JSON.stringify(f));
+  return `<div class="att-box">
+   <div><b style="font-size:13.5px">${esc(f.name||"ملف")}</b> ${badge}<div class="meta">${esc(f.type||"ملف")}</div></div>
+   <button class="act" onclick="openAttachment('${esc(fid)}',JSON.parse(decodeURIComponent('${encoded}')))">فتح / حفظ</button>
+  </div>`;
+ }).join("")||'<div class="meta">لا توجد ملفات مرفقة لهذه المادة بعد.</div>';
+
+ const uploadBox=canManageAcademic(me)?`
+  <div class="card" style="margin-top:12px">
+   <label for="subAddFile_${esc(subId)}">إضافة ملف جديد للمادة (PDF / Word / صورة)</label>
+   <input id="subAddFile_${esc(subId)}" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+   <button class="sec" onclick="attachFileToSubject('${esc(subId)}')">رفع الملف</button>
+  </div>`:"";
+
+ $("subjectDetailContent").innerHTML=`
+  <div class="card">
+   <h3 style="margin-top:0">${esc(s.name)}</h3>
+   <div class="meta">التدريسي: ${esc(s.teacher||"")} · ${esc(target(s))}</div>
+   <hr style="border:0;border-top:1px solid var(--line);margin:10px 0">
+   <h4>ملفات المنهج (${files.length})</h4>
+   ${filesHtml}
+  </div>${uploadBox}`;
+
+ $("subjectsListView").classList.add("hidden");
+ $("subjectDetailView").classList.remove("hidden");
+}
+function closeSubjectDetail(){
+ activeSubjectId=null;
+ $("subjectDetailView").classList.add("hidden");
+ $("subjectsListView").classList.remove("hidden");
+}
+
+function renderSchedule(){
+ if(!me)return;
+ if($("schedDaysChips")){
+  $("schedDaysChips").innerHTML=DAYS.map(d=>`<button class="${selectedDay===d?"on":""}" onclick="selectScheduleDay('${esc(d)}')">${esc(d)}</button>`).join("");
+ }
+ const q=($("schedSearch")&&$("schedSearch").value.trim().toLowerCase())||"";
+ const list=mySchedules().filter(sc=>sc.day===selectedDay&&(!q||String(sc.subject||"").toLowerCase().includes(q)||String(sc.room||"").toLowerCase().includes(q)||String(sc.teacher||"").toLowerCase().includes(q)));
+ $("scheduleCards").innerHTML=list.map(sc=>{
+  const delBtn=canManageAcademic(me)?`<button class="del" onclick="deleteDocByCollection('schedules','${esc(sc.id)}')">حذف</button>`:"";
+  return `<div class="day-card">
+   <div class="time-badge">${esc(sc.time||"")}</div>
+   <div style="flex:1;min-width:0"><b style="font-size:14.5px;display:block">${esc(sc.subject)}</b><span class="meta">🏛️ ${esc(sc.room||"")} · 👨‍🏫 ${esc(sc.teacher||"")}</span></div>
+   ${delBtn}
+  </div>`;
+ }).join("")||empty("لا توجد محاضرات مسجلة ليوم "+selectedDay+".");
+}
+function selectScheduleDay(d){selectedDay=d;renderSchedule()}
+
 function renderDeptPermissions(){
  if(!me||!canManageDeptPerms(me))return;
  const deptName=me.dept||DEFAULT_DEPTS[0];
  if($("deptOnlineNow"))$("deptOnlineNow").innerHTML=onlineUsersHtml(deptName);
+ applyDeptLogosUI();
+
+ const rooms=examRooms.filter(r=>deptOf(r)===deptName);
+ if($("examRoomsList")){
+  $("examRoomsList").innerHTML=rooms.map(r=>`<div class="stu"><div><b>🏛️ ${esc(r.name)}</b> <span class="tag">السعة: ${esc(r.capacity)} طالب</span></div><button class="del" onclick="deleteDocByCollection('exam_rooms','${esc(r.id)}')">حذف</button></div>`).join("")||'<div class="meta">لا توجد قاعات امتحانية مضافة للقسم بعد.</div>';
+ }
+
  const stFilter=$("pStageFilter").value||"all";
  const secFilter=$("pSectionFilter").value||"all";
  const used=codes.filter(c=>deptOf(c)===deptName&&c.used);
- const stagesList=[...stagesForDept(deptName),"all"].filter(st=>stFilter==="all"||st===stFilter);
+ const stagesList=[...stagesForDept(deptName),GRADUATED_STAGE,"all"].filter(st=>stFilter==="all"||st===stFilter);
  const bySec=(a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
 
  $("deptPermList").innerHTML=stagesList.map(st=>{
@@ -1547,8 +1985,9 @@ function renderDeptPermissions(){
    return `<div style="padding:8px 14px;border-top:1px solid var(--line);background:var(--bg);font-size:12px;font-weight:bold;color:var(--navy2)">${esc(scLabel)} (${list.length})</div>`+
     list.map(s=>{
      const badge=isUserOnline(s)?`<span class="online-pill"><span class="online-dot"></span>متصل</span>`:"";
-     const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 تبليغ خاص</button>`:"";
-     return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
+     const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 خاص</button>`:"";
+     const examTag=(s.seatNumber||s.examRoom)?`<span class="tag">رقم: ${esc(s.seatNumber||"-")} · ${esc(s.examRoom||"-")}</span>`:"";
+     return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge} ${examTag}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}<button class="act" onclick="editStudentProfile('${esc(s.id)}')">✏️ تعديل</button>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
     }).join("");
   }).join("");
   return `<details open><summary>${esc(stLabel)}<span class="cnt">${inStage.length}</span></summary>${secBlocks||'<div class="stu meta">لا يوجد طلاب أو مستخدمون ضمن هذا الفلتر.</div>'}</details>`;
@@ -1558,14 +1997,29 @@ function renderDeptPermissions(){
 function renderStudent(){
  if(!me)return;
  const mine=myNotices();
+ const subs=mySubjects();
+ const hws=myHomeworks();
+ const scheds=mySchedules();
+
  $("stAll").textContent=mine.length;
- $("stImp").textContent=mine.filter(n=>n.priority==="important").length;
- $("stNew").textContent=mine.filter(n=>n.day===new Date().toDateString()).length;
+ $("stSubj").textContent=subs.length;
+ $("stHw").textContent=hws.length;
+
+ const tomorrowIdx=(new Date().getDay()+1)%7;
+ const dayMap=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+ const nextDayName=dayMap[tomorrowIdx];
+ const upcoming=scheds.filter(x=>x.day===nextDayName).length?scheds.filter(x=>x.day===nextDayName):scheds.slice(0,3);
+ $("homeSchedDayLabel").textContent=scheds.filter(x=>x.day===nextDayName).length?("محاضرات "+nextDayName):"أحدث الحصص المجدولة";
+ $("homeScheduleList").innerHTML=upcoming.slice(0,3).map(sc=>`<div class="sched-slot"><div class="sched-time">${esc(sc.time||"")}</div><div class="sched-info"><b>${esc(sc.subject)}</b><span>🏛️ ${esc(sc.room||"")} · ${esc(sc.teacher||"")}</span></div></div>`).join("")||'<div style="font-size:12px;color:#dcebf0">لا توجد محاضرات مجدولة حالياً.</div>';
+
  $("homeNotices").innerHTML=mine.slice(0,3).map(n=>noticeCard(n,"student")).join("")||empty("لا توجد تبليغات لقسمك حالياً.");
  const list=filter==="important"
   ?mine.filter(n=>n.priority==="important")
   :(filter==="private"?mine.filter(n=>n.channel==="private_student"):mine);
  $("studentNotices").innerHTML=list.map(n=>noticeCard(n,"student")).join("")||empty("لا توجد تبليغات هنا.");
+
+ renderSubjects();
+ renderSchedule();
 
  if(isStaffRole(me.role)){
   const mgrList=notices.filter(n=>n.channel!=="teachers_room"&&n.channel!=="private_student"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageNotice(me,n));
@@ -1583,9 +2037,7 @@ function renderStudent(){
   }
  }
 
- if(canManageDeptPerms(me)){
-  renderDeptPermissions();
- }
+ if(canManageDeptPerms(me))renderDeptPermissions();
 
  if(canViewTeachersRoom(me)){
   const trList=myTeachersRoomNotices();
@@ -1604,6 +2056,7 @@ function roleSelectHtml(codeId,currentRole){
 }
 function renderAdmin(){
  if($("admOnlineNow"))$("admOnlineNow").innerHTML=onlineUsersHtml(activeDept);
+ applyDeptLogosUI();
  const deptCodes=codes.filter(c=>deptOf(c)===activeDept);
  const deptNotices=notices.filter(n=>deptOf(n)===activeDept&&n.channel!=="teachers_room");
  const used=deptCodes.filter(c=>c.used);
@@ -1616,15 +2069,16 @@ function renderAdmin(){
  const keep=id=>[...document.querySelectorAll("#"+id+" details[open]")].map(d=>d.dataset.s);
  const oS=keep("aStudents"),oC=keep("codeLists");
  const bySec=(a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
- const stagesWithAll=[...stagesForDept(activeDept),"all"];
+ const stagesWithAll=[...stagesForDept(activeDept),GRADUATED_STAGE,"all"];
  $("aStudents").innerHTML=stagesWithAll.map(st=>{
   const label=st==="all"?"مقررون / أساتذة / عام":st;
   const l=used.filter(s=>(s.stage||"all")===st).sort(bySec);
   return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length}</span></summary>`+
    (l.map(s=>{
     const badge=isUserOnline(s)?`<span class="online-pill"><span class="online-dot"></span>متصل</span>`:"";
-    const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 تبليغ خاص</button>`:"";
-    return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
+    const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 خاص</button>`:"";
+    const examTag=(s.seatNumber||s.examRoom)?`<span class="tag">رقم: ${esc(s.seatNumber||"-")} · ${esc(s.examRoom||"-")}</span>`:"";
+    return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge} ${examTag}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}<button class="act" onclick="editStudentProfile('${esc(s.id)}')">✏️ تعديل</button>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
    }).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
  }).join("");
  $("codeLists").innerHTML=stagesWithAll.map(st=>{
@@ -1636,7 +2090,7 @@ function renderAdmin(){
  }).join("");
 }
 
-/* ===== البيانات المباشرة ===== */
+/* ===== اشتراكات Firestore المباشرة ===== */
 function startNotices(){
  if(unsubN)return;
  unsubN=onSnapshot(query(collection(db,"notices"),orderBy("createdAt","desc")),snap=>{
@@ -1661,19 +2115,23 @@ function startCodes(){
  if(unsubC)return;
  unsubC=onSnapshot(collection(db,"codes"),snap=>{
   codes=snap.docs.map(d=>({id:d.id,...d.data()}));
-  syncMyRoleFromCodes();
-  if(me&&canManageDeptPerms(me))renderDeptPermissions();
+  syncMyFromCodes();
+  if(me)openStudent();
   if(isAdminView)renderAdmin();
  },()=>{unsubC=null});
 }
+function startAcademicStreams(){
+ if(!unsubSub)unsubSub=onSnapshot(collection(db,"subjects"),snap=>{subjects=snap.docs.map(d=>({id:d.id,...d.data()}));renderStudent()},()=>{unsubSub=null});
+ if(!unsubSch)unsubSch=onSnapshot(collection(db,"schedules"),snap=>{schedules=snap.docs.map(d=>({id:d.id,...d.data()}));renderStudent()},()=>{unsubSch=null});
+ if(!unsubHw)unsubHw=onSnapshot(collection(db,"homeworks"),snap=>{homeworks=snap.docs.map(d=>({id:d.id,...d.data()}));renderStudent()},()=>{unsubHw=null});
+ if(!unsubRm)unsubRm=onSnapshot(collection(db,"exam_rooms"),snap=>{examRooms=snap.docs.map(d=>({id:d.id,...d.data()}));if(me&&canManageDeptPerms(me))renderDeptPermissions()},()=>{unsubRm=null});
+}
+
 onAuthStateChanged(auth,async u=>{
  if(!u){if(unsubN){unsubN();unsubN=null}await signInAnonymously(auth).catch(()=>{});return}
- readyRes();startBrandSync();startNotices();startCodes();
+ readyRes();startBrandSync();startNotices();startCodes();startAcademicStreams();
  if(!u.isAnonymous){isAdminView=true;renderAdmin();aTab("new");show("admin")}
- else{
-  isAdminView=false;
-  if(me)openStudent();else show("login");
- }
+ else{isAdminView=false;if(me)openStudent();else show("login")}
 });
 
 /* ===== تثبيت التطبيق وإخفاء الزر بعد التثبيت ===== */
@@ -1693,13 +2151,10 @@ function syncInstallButtonsVisibility(){
 }
 addEventListener("beforeinstallprompt",e=>{
  if(isAppInstalled())return;
- e.preventDefault();deferred=e;
- syncInstallButtonsVisibility();
+ e.preventDefault();deferred=e;syncInstallButtonsVisibility();
 });
 addEventListener("appinstalled",()=>{
- deferred=null;
- try{localStorage.setItem("appInstalled","1")}catch(e){}
- syncInstallButtonsVisibility();
+ deferred=null;try{localStorage.setItem("appInstalled","1")}catch(e){}syncInstallButtonsVisibility();
 });
 async function installApp(){
  if(isAppInstalled()){syncInstallButtonsVisibility();return}
@@ -1707,9 +2162,7 @@ async function installApp(){
   deferred.prompt();
   const choice=await deferred.userChoice.catch(()=>null);
   deferred=null;
-  if(choice&&choice.outcome==="accepted"){
-   try{localStorage.setItem("appInstalled","1")}catch(e){}
-  }
+  if(choice&&choice.outcome==="accepted"){try{localStorage.setItem("appInstalled","1")}catch(e){}}
   syncInstallButtonsVisibility();
  }else if(/iphone|ipad/i.test(navigator.userAgent)&&!(window.navigator&&window.navigator.standalone)){
   alert('لتثبيت التطبيق على آيفون: اضغط زر المشاركة (Share) في Safari ثم اختر "إضافة إلى الشاشة الرئيسية".');
@@ -1727,7 +2180,7 @@ refreshDeptSelects();
 fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,changeUserRole,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,teacherRoomPublish,editTeacherRoomNotice,resetTeacherRoomForm,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
+Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,editStudentProfile,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,teacherRoomPublish,editTeacherRoomNotice,resetTeacherRoomForm,addSubjectItem,attachFileToSubject,openSubjectDetail,closeSubjectDetail,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
 </script>
 </body>
 </html>
