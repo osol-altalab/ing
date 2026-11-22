@@ -119,6 +119,14 @@ details[open] summary::after{transform:rotate(180deg)}
 .stu{padding:10px 14px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .stu div{flex:1;min-width:160px}.stu b{font-size:14px}
 
+/* لوحة التعديل المنفصل لكل حقل مع زر حفظ التغييرات بجانبه */
+.inline-edit-panel{width:100%;margin-top:8px;padding:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px}
+.inline-edit-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.inline-edit-row:last-child{margin-bottom:0}
+.inline-edit-row label{margin:0;min-width:66px;font-size:12px;font-weight:bold;color:var(--navy2)}
+.inline-edit-row input,.inline-edit-row select{flex:1;min-width:120px;margin:0;padding:7px 9px;font-size:13px}
+.inline-edit-row button{margin:0;width:auto;padding:7px 11px;font-size:12px;white-space:nowrap}
+
 /* شريط التنقل السفلي المكبّر */
 .nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:11px 6px calc(11px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;z-index:100;box-shadow:0 -6px 22px rgba(20,70,84,.1)}
 .nav button{background:none;color:var(--mute);margin:0;padding:8px 2px;font-size:11.5px;flex:1;position:relative;border-radius:14px;touch-action:manipulation;min-height:56px}
@@ -133,6 +141,7 @@ details[open] summary::after{transform:rotate(180deg)}
 #admin .notice,
 #admin .att-box,
 #admin .dept-preview,
+#admin .inline-edit-panel,
 #admin input,
 #admin textarea,
 #admin select,
@@ -637,6 +646,7 @@ const ONLINE_WINDOW_MS=5*60*1000;
 let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات المرضية"]),deptLogos={};
 let notices=[],codes=[],subjects=[],schedules=[],homeworks=[],examRooms=[];
 let me=null,filter="all",selectedDay="السبت",activeSubjectId=null,currentStudentTab="home";
+let editingUserIds=new Set();
 let unsubN=null,unsubC=null,unsubBrand=null,unsubSub=null,unsubSch=null,unsubHw=null,unsubRm=null;
 let isAdminView=false,deferred=null,readyRes,audioCtx=null,presenceTimer=null,renderTimer=null;
 let activeDept=DEFAULT_DEPTS[0],customLogo=localStorage.getItem("customLogo")||"",appTitle=localStorage.getItem("appTitle")||"تبليغات الكلية";
@@ -711,28 +721,122 @@ function normPhone(p){
  if(d.startsWith("0"))d="964"+d.slice(1);else if(d.startsWith("7")&&d.length===10)d="964"+d;
  return /^9647\d{9}$/.test(d)?d:"";
 }
-async function checkDuplicateAccount(cleanName,phone,excludeCodeId="",checkPhone=true){
+async function checkDuplicateNameOnly(cleanName,excludeCodeId=""){
  const nKey=normName(cleanName);
+ if(!nKey)return "";
  const targetId=String(excludeCodeId||"").trim().toUpperCase();
  for(const c of codes){
   if(targetId&&String(c.id||"").trim().toUpperCase()===targetId)continue;
-  const samePhone=Boolean(checkPhone&&phone&&c.phone&&normPhone(c.phone)===phone);
-  const sameName=Boolean(nKey&&c.name&&normName(c.name)===nKey);
-  if(samePhone||sameName){
-   return samePhone?"رقم الهاتف مستخدم في حساب آخر.":"هذا الاسم مسجل في حساب آخر.";
-  }
+  if(c.name&&normName(c.name)===nKey)return "هذا الاسم مسجل في حساب آخر.";
  }
  const qAll=await getDocs(collection(db,"codes"));
  for(const docSnap of qAll.docs){
   if(targetId&&String(docSnap.id||"").trim().toUpperCase()===targetId)continue;
   const d=docSnap.data();
-  const samePhone=Boolean(checkPhone&&phone&&d.phone&&normPhone(d.phone)===phone);
-  const sameName=Boolean(nKey&&d.name&&normName(d.name)===nKey);
-  if(samePhone||sameName){
-   return samePhone?"رقم الهاتف مستخدم في حساب آخر.":"هذا الاسم مسجل في حساب آخر.";
-  }
+  if(d.name&&normName(d.name)===nKey)return "هذا الاسم مسجل في حساب آخر.";
  }
  return "";
+}
+async function checkDuplicatePhoneOnly(cleanPhone,excludeCodeId=""){
+ if(!cleanPhone)return "";
+ const targetId=String(excludeCodeId||"").trim().toUpperCase();
+ for(const c of codes){
+  if(targetId&&String(c.id||"").trim().toUpperCase()===targetId)continue;
+  if(c.phone&&normPhone(c.phone)===cleanPhone)return "رقم الهاتف مستخدم في حساب آخر.";
+ }
+ const qAll=await getDocs(collection(db,"codes"));
+ for(const docSnap of qAll.docs){
+  if(targetId&&String(docSnap.id||"").trim().toUpperCase()===targetId)continue;
+  const d=docSnap.data();
+  if(d.phone&&normPhone(d.phone)===cleanPhone)return "رقم الهاتف مستخدم في حساب آخر.";
+ }
+ return "";
+}
+async function checkDuplicateAccount(cleanName,phone,excludeCodeId=""){
+ const nameDup=await checkDuplicateNameOnly(cleanName,excludeCodeId);
+ if(nameDup)return nameDup;
+ return await checkDuplicatePhoneOnly(phone,excludeCodeId);
+}
+
+function toggleInlineEditUser(codeId){
+ if(editingUserIds.has(codeId))editingUserIds.delete(codeId);
+ else editingUserIds.add(codeId);
+ if(me&&currentStudentTab==="perms"&&canManageDeptPerms(me))renderDeptPermissions();
+ if(isAdminView)renderAdmin();
+}
+
+function getFieldInputValue(codeId,fieldName){
+ const nodes=document.querySelectorAll(`[data-edit-id="${codeId}"][data-edit-field="${fieldName}"]`);
+ for(const el of nodes){
+  if(el.offsetParent!==null||nodes.length===1)return el.value;
+ }
+ return nodes.length?nodes[0].value:"";
+}
+
+async function saveSingleStudentField(codeId,fieldName){
+ const stu=codes.find(c=>c.id===codeId);
+ if(!stu)return;
+ const rawVal=getFieldInputValue(codeId,fieldName);
+ const payload={};
+ if(me&&me.code)payload.actorCode=me.code;
+
+ try{
+  if(fieldName==="name"){
+   const cleanName=String(rawVal||"").trim().replace(/\s+/g," ");
+   if(cleanName.split(" ").filter(Boolean).length<2){alert("أدخل اسماً صحيحاً.");return}
+   const dupName=await checkDuplicateNameOnly(cleanName,codeId);
+   if(dupName){alert(dupName);return}
+   payload.name=cleanName;
+  }else if(fieldName==="phone"){
+   const cleanPhone=normPhone(rawVal);
+   if(!cleanPhone){alert("رقم الهاتف غير صحيح.");return}
+   const dupPhone=await checkDuplicatePhoneOnly(cleanPhone,codeId);
+   if(dupPhone){alert(dupPhone);return}
+   payload.phone=cleanPhone;
+  }else if(fieldName==="stage"){
+   const cleanStage=String(rawVal||"").trim()||stu.stage||"all";
+   payload.stage=cleanStage;
+  }else if(fieldName==="section"){
+   const cleanSec=String(rawVal||"").trim()||stu.section||"all";
+   payload.section=cleanSec;
+  }else return;
+
+  await updateDoc(doc(db,"codes",codeId),payload);
+  alert("تم حفظ التغيير بنجاح.");
+ }catch(e){
+  alert("تعذر حفظ التغيير.");
+ }
+}
+
+function inlineEditPanelHtml(stu){
+ if(!editingUserIds.has(stu.id))return "";
+ const phoneVal=stu.phone?("0"+String(stu.phone).replace(/^964/,"")):"";
+ const deptStages=[...stagesForDept(deptOf(stu)),GRADUATED_STAGE,"all"];
+ const stageOpts=deptStages.map(st=>`<option value="${esc(st)}" ${(stu.stage||"")===st?"selected":""}>${esc(st==="all"?"كل المراحل":st)}</option>`).join("");
+ const secOpts=["all",...SECTIONS].map(sc=>`<option value="${esc(sc)}" ${(stu.section||"all")===sc?"selected":""}>${esc(sc==="all"?"كل الشعب":"شعبة "+sc)}</option>`).join("");
+ return `
+  <div class="inline-edit-panel">
+   <div class="inline-edit-row">
+    <label>الاسم</label>
+    <input type="text" data-edit-id="${esc(stu.id)}" data-edit-field="name" value="${esc(stu.name||"")}" placeholder="الاسم">
+    <button class="act" onclick="saveSingleStudentField('${esc(stu.id)}','name')">💾 حفظ التغييرات</button>
+   </div>
+   <div class="inline-edit-row">
+    <label>الهاتف</label>
+    <input type="text" class="ltr" data-edit-id="${esc(stu.id)}" data-edit-field="phone" value="${esc(phoneVal)}" placeholder="07XXXXXXXXX">
+    <button class="act" onclick="saveSingleStudentField('${esc(stu.id)}','phone')">💾 حفظ التغييرات</button>
+   </div>
+   <div class="inline-edit-row">
+    <label>المرحلة</label>
+    <select data-edit-id="${esc(stu.id)}" data-edit-field="stage">${stageOpts}</select>
+    <button class="act" onclick="saveSingleStudentField('${esc(stu.id)}','stage')">💾 حفظ التغييرات</button>
+   </div>
+   <div class="inline-edit-row">
+    <label>الشعبة</label>
+    <select data-edit-id="${esc(stu.id)}" data-edit-field="section">${secOpts}</select>
+    <button class="act" onclick="saveSingleStudentField('${esc(stu.id)}','section')">💾 حفظ التغييرات</button>
+   </div>
+  </div>`;
 }
 
 function switchAuthMode(mode){
@@ -1176,7 +1280,7 @@ async function requestWhatsAppCode(){
  const btn=$("sendWaBtn");btn.disabled=true;
  try{
   await authReady;
-  const dupMsg=await checkDuplicateAccount(name,phone,"",true);
+  const dupMsg=await checkDuplicateAccount(name,phone,"");
   if(dupMsg){err.textContent=dupMsg;return}
   const ch="ABCDEFGHJKMNPQRSTUVWXYZ23456789";
   let code="";
@@ -1590,37 +1694,6 @@ async function changeUserRole(codeId,newRole){
   alert("تم تحديث الصلاحية إلى: "+roleLabel(newRole));
  }catch(e){alert("تعذر تحديث الصلاحية.")}
 }
-async function editStudentProfile(codeId){
- const stu=codes.find(c=>c.id===codeId);if(!stu)return;
- const newName=prompt("تعديل الاسم:",stu.name||"");
- if(newName===null)return;
- const cleanName=newName.trim().replace(/\s+/g," ");
- if(cleanName.split(" ").filter(Boolean).length<2){alert("أدخل اسماً صحيحاً.");return}
-
- const currentPhoneDisplay=stu.phone?("0"+String(stu.phone).replace(/^964/,"")):"";
- const newPhoneRaw=prompt("تعديل رقم الهاتف (اختياري - يمكن إبقاؤه كما هو):",currentPhoneDisplay);
- if(newPhoneRaw===null)return;
- const cleanPhone=normPhone(newPhoneRaw);
- if(!cleanPhone){alert("رقم الهاتف غير صحيح.");return}
-
- const newSection=prompt("تعديل الشعبة (أ، ب، ج، د، أو all):",stu.section||"أ");
- if(newSection===null)return;
- const cleanSec=newSection.trim()||"all";
-
- const deptStages=[...stagesForDept(deptOf(stu)),GRADUATED_STAGE,"all"];
- const newStage=prompt("تعديل المرحلة ("+deptStages.join(" / ")+"):",stu.stage||deptStages[0]);
- if(newStage===null)return;
- const cleanStage=newStage.trim()||stu.stage||"all";
-
- try{
-  const dup=await checkDuplicateAccount(cleanName,cleanPhone,codeId,false);
-  if(dup){alert(dup);return}
-  const payload={name:cleanName,phone:cleanPhone,section:cleanSec,stage:cleanStage};
-  if(me&&me.code)payload.actorCode=me.code;
-  await updateDoc(doc(db,"codes",codeId),payload);
-  alert("تم تحديث البيانات بنجاح.");
- }catch(e){alert("تعذر تحديث البيانات.")}
-}
 
 function nextStageName(currentStage,deptName){
  const chain=[...stagesForDept(deptName),GRADUATED_STAGE];
@@ -1988,6 +2061,13 @@ function renderSchedule(){
 }
 function selectScheduleDay(d){selectedDay=d;renderSchedule()}
 
+function userRowHtml(s){
+ const badge=isUserOnline(s)?`<span class="online-pill"><span class="online-dot"></span>متصل</span>`:"";
+ const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 خاص</button>`:"";
+ const examTag=(hasSeatBadge(s.role)&&(s.seatNumber||s.examRoom))?`<span class="tag">رقم: ${esc(s.seatNumber||"-")} · ${esc(s.examRoom||"-")}</span>`:"";
+ return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge} ${examTag}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}<button class="act" onclick="toggleInlineEditUser('${esc(s.id)}')">✏️ تعديل</button>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button>${inlineEditPanelHtml(s)}</div>`;
+}
+
 function renderDeptPermissions(){
  if(!me||!canManageDeptPerms(me))return;
  const deptName=me.dept||DEFAULT_DEPTS[0];
@@ -2014,12 +2094,7 @@ function renderDeptPermissions(){
    if(!list.length)return "";
    const scLabel=sc==="all"?"كل الشعب":"شعبة "+sc;
    return `<div style="padding:8px 14px;border-top:1px solid var(--line);background:var(--bg);font-size:12px;font-weight:bold;color:var(--navy2)">${esc(scLabel)} (${list.length})</div>`+
-    list.map(s=>{
-     const badge=isUserOnline(s)?`<span class="online-pill"><span class="online-dot"></span>متصل</span>`:"";
-     const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 خاص</button>`:"";
-     const examTag=(hasSeatBadge(s.role)&&(s.seatNumber||s.examRoom))?`<span class="tag">رقم: ${esc(s.seatNumber||"-")} · ${esc(s.examRoom||"-")}</span>`:"";
-     return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge} ${examTag}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}<button class="act" onclick="editStudentProfile('${esc(s.id)}')">✏️ تعديل</button>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
-    }).join("");
+    list.map(userRowHtml).join("");
   }).join("");
   return `<details open><summary>${esc(stLabel)}<span class="cnt">${inStage.length}</span></summary>${secBlocks||'<div class="stu meta">لا يوجد طلاب أو مستخدمون ضمن هذا الفلتر.</div>'}</details>`;
  }).join("")||empty("لا يوجد طلاب مسجلون في القسم بعد.");
@@ -2096,12 +2171,7 @@ function renderAdmin(){
   const label=st==="all"?"مقررون / أساتذة / عام":st;
   const l=used.filter(s=>(s.stage||"all")===st).sort(bySec);
   return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length}</span></summary>`+
-   (l.map(s=>{
-    const badge=isUserOnline(s)?`<span class="online-pill"><span class="online-dot"></span>متصل</span>`:"";
-    const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 خاص</button>`:"";
-    const examTag=(hasSeatBadge(s.role)&&(s.seatNumber||s.examRoom))?`<span class="tag">رقم: ${esc(s.seatNumber||"-")} · ${esc(s.examRoom||"-")}</span>`:"";
-    return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge} ${examTag}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}<button class="act" onclick="editStudentProfile('${esc(s.id)}')">✏️ تعديل</button>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
-   }).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
+   (l.map(userRowHtml).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
  }).join("");
  $("codeLists").innerHTML=stagesWithAll.map(st=>{
   const label=st==="all"?"رموز عامة / مقرر / أستاذ":st;
@@ -2200,7 +2270,7 @@ refreshDeptSelects();
 fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,editStudentProfile,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,exportExamSeatsExcel,exportExamSeatsImage,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,addSubjectItem,attachFileToSubject,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
+Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,toggleInlineEditUser,saveSingleStudentField,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,exportExamSeatsExcel,exportExamSeatsImage,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,addSubjectItem,attachFileToSubject,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
 </script>
 </body>
 </html>
