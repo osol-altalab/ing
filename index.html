@@ -82,7 +82,7 @@ h3{margin:6px 0 10px;font-size:15.5px;color:var(--navy2)}
 .att-box{margin:8px 0;padding:9px 11px;background:var(--bg);border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .att-img{width:100%;max-height:240px;object-fit:contain;border-radius:12px;margin-top:6px;border:1px solid var(--line);background:var(--card);display:block}
 .acc-avatar{width:68px;height:68px;border-radius:18px;object-fit:cover;border:1px solid var(--line);background:var(--soft);display:block;margin-bottom:8px}
-.dept-preview{width:54px;height:54px;border-radius:14px;object-fit:cover;border:1px solid var(--line);background:var(--soft)}
+.dept-preview{width:54px;height:54px;border-radius:14px;object-fit:cover;border:1px solid var(--line);background:var(--soft);flex:none}
 
 label{display:block;font-size:13px;color:var(--mute);margin-top:10px}
 input,textarea,select{width:100%;padding:12px;margin:4px 0;border:1px solid var(--line);border-radius:14px;background:var(--card);font-family:inherit;font-size:15px;color:var(--ink)}
@@ -93,7 +93,7 @@ button.sec{background:var(--soft);color:var(--ink)}
 button.del{background:transparent;color:var(--navy2);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
 button.act{background:transparent;color:var(--navy);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
 .hidden{display:none!important}
-.row{display:flex;gap:8px}.row>*{flex:1}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
 .err{color:var(--navy2);font-weight:bold;font-size:13px;min-height:20px}
 .ltr{direction:ltr;text-align:right}
 .seg{display:flex;background:var(--soft);border-radius:16px;padding:4px;margin-bottom:14px;gap:2px}
@@ -132,48 +132,53 @@ details[open] summary::after{transform:rotate(180deg)}
 .nav button.on{color:var(--navy);font-weight:bold;background:var(--soft)}
 
 /* ====== داش بورد الإدارة التفاعلية لكافة الأجهزة (حاسوب، تابلت، هاتف) ====== */
-#admin{width:100%;max-width:100%}
-#admin .adm-shell{max-width:1320px;margin:0 auto;width:100%}
-#admin .top{border-radius:0;padding:16px 20px;box-shadow:0 6px 20px rgba(20,70,84,.14)}
-#admin .adm-top-inner{max-width:1320px;margin:0 auto;width:100%;display:flex;align-items:center;gap:12px}
-#admin .page{max-width:1320px;margin:0 auto;padding:20px 16px 64px}
+#admin{display:block;width:100%;max-width:100%;background:var(--bg)}
+#admin.hidden{display:none!important}
+#admin .top{border-radius:0;padding:14px 18px;box-shadow:0 6px 20px rgba(20,70,84,.14)}
+#admin .adm-top-inner{max-width:1280px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+#admin .page{max-width:1280px;margin:0 auto;padding:20px 16px 64px;width:100%}
+
 #admin .adm-hero{background:linear-gradient(135deg,var(--navy2),var(--navy));color:#fff;border-radius:16px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 10px 24px rgba(20,70,84,.12)}
 #admin .adm-hero h2{margin:0 0 4px;font-size:19px}
 #admin .adm-hero p{margin:0;font-size:13px;color:#e2f0f4}
 #admin .adm-pill-group{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-#admin .adm-pill{background:#ffffff1f;border:1px solid #ffffff33;color:#fff;padding:6px 12px;border-radius:10px;font-size:12px;font-weight:bold}
+#admin .adm-pill{background:#ffffff1f;border:1px solid #ffffff33;color:#fff;padding:6px 12px;border-radius:10px;font-size:12px;font-weight:bold;white-space:nowrap}
 
 #admin .adm-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}
-#admin .adm-kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 14px rgba(20,70,84,.04);transition:transform .16s ease,box-shadow .16s ease}
-#admin .adm-kpi:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(20,70,84,.08)}
-#admin .adm-kpi .ico{margin:0;width:46px;height:46px;border-radius:12px;font-size:21px}
-#admin .adm-kpi b{display:block;font-size:21px;line-height:1.2;color:var(--navy2)}
-#admin .adm-kpi span{font-size:12px;color:var(--mute)}
+#admin .adm-kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:row;align-items:center;gap:12px;min-width:0;box-shadow:0 4px 14px rgba(20,70,84,.04)}
+#admin .adm-kpi .ico{margin:0;width:44px;height:44px;border-radius:12px;font-size:20px;flex:none}
+#admin .adm-kpi-text{min-width:0;flex:1}
+#admin .adm-kpi b{display:block;font-size:20px;line-height:1.2;color:var(--navy2);white-space:nowrap}
+#admin .adm-kpi span{display:block;font-size:12px;color:var(--mute);line-height:1.35}
 
 #admin .adm-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
-#admin .adm-side{display:flex;flex-direction:column;gap:14px}
-#admin .adm-main{min-width:0}
+#admin .adm-side{display:flex;flex-direction:column;gap:14px;min-width:0}
+#admin .adm-main{min-width:0;width:100%}
 
 #admin .card{border-radius:14px;padding:16px 18px;margin-bottom:14px;box-shadow:0 4px 16px rgba(20,70,84,.05);border:1px solid var(--line)}
 #admin .card h3{margin-top:0;font-size:16px;display:flex;align-items:center;gap:8px}
 #admin details{border-radius:14px;margin-bottom:12px}
 #admin .inline-edit-panel{border-radius:10px}
-#admin input,#admin textarea,#admin select{border-radius:10px;padding:10px 12px;font-size:14px}
-#admin button{border-radius:10px;padding:10px 14px;font-size:14px;font-weight:bold;transition:background .15s ease,transform .12s ease}
-#admin button:active{transform:scale(.99)}
-#admin .seg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:6px;border-radius:14px;margin-bottom:16px;background:var(--soft)}
-#admin .seg button{margin:0;padding:10px 8px;font-size:13px;border-radius:10px;width:100%}
+#admin input,#admin textarea,#admin select{border-radius:10px;padding:10px 12px;font-size:14px;width:100%}
+#admin button{border-radius:10px;padding:10px 14px;font-size:14px;font-weight:bold;width:100%}
+#admin button.sec{width:100%}
+#admin button.del,#admin button.act{width:auto}
+
+#admin .adm-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:6px;border-radius:14px;margin-bottom:16px;background:var(--soft)}
+#admin .adm-tabs button{margin:0;padding:10px 10px;font-size:13px;border-radius:10px;width:100%;background:transparent;color:var(--mute);display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
+#admin .adm-tabs button.on{background:var(--navy);color:#fff}
+
 #admin .adm-btn-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
 #admin .adm-btn-grid button{margin:0;width:100%}
 #admin .adm-feed-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
 
 @media (min-width:680px){
  #admin .adm-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
- #admin .seg{grid-template-columns:repeat(4,minmax(0,1fr))}
+ #admin .adm-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}
  #admin .adm-feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (min-width:1024px){
- #admin .page{padding:24px 28px 72px}
+ #admin .page{padding:24px 24px 72px}
  #admin .adm-grid{grid-template-columns:360px minmax(0,1fr);gap:22px}
  #admin .adm-side{position:sticky;top:16px}
 }
@@ -553,10 +558,10 @@ details[open] summary::after{transform:rotate(180deg)}
   </div>
 
   <div class="adm-kpis">
-   <div class="adm-kpi"><div class="ico b">👥</div><div><b id="cStudents">0</b><span>مسجل بالقسم</span></div></div>
-   <div class="adm-kpi"><div class="ico a">📋</div><div><b id="cNotices">0</b><span>تبليغ بالقسم</span></div></div>
-   <div class="adm-kpi"><div class="ico g">🔑</div><div><b id="cAvailCodes">0</b><span>رمز متاح بالقسم</span></div></div>
-   <div class="adm-kpi"><div class="ico b">🟢</div><div><b id="cOnlineNow">0</b><span>متصل الآن</span></div></div>
+   <div class="adm-kpi"><div class="ico b">👥</div><div class="adm-kpi-text"><b id="cStudents">0</b><span>مسجل بالقسم</span></div></div>
+   <div class="adm-kpi"><div class="ico a">📋</div><div class="adm-kpi-text"><b id="cNotices">0</b><span>تبليغ بالقسم</span></div></div>
+   <div class="adm-kpi"><div class="ico g">🔑</div><div class="adm-kpi-text"><b id="cAvailCodes">0</b><span>رمز متاح بالقسم</span></div></div>
+   <div class="adm-kpi"><div class="ico b">🟢</div><div class="adm-kpi-text"><b id="cOnlineNow">0</b><span>متصل الآن</span></div></div>
   </div>
 
   <div class="adm-grid">
@@ -568,7 +573,7 @@ details[open] summary::after{transform:rotate(180deg)}
      <select id="admDept" onchange="onDeptChange()"></select>
      <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
       <img id="admDeptLogoImg" class="dept-preview" src="icon-192.png" alt="لوجو القسم">
-      <div style="flex:1">
+      <div style="flex:1;min-width:0">
        <label for="admDeptLogoFile" style="margin-top:0">تغيير / رفع لوجو القسم النشط</label>
        <input id="admDeptLogoFile" type="file" accept="image/*">
       </div>
@@ -600,7 +605,7 @@ details[open] summary::after{transform:rotate(180deg)}
 
    <!-- المساحة الرئيسية التفاعلية -->
    <main class="adm-main">
-    <div class="seg">
+    <div class="adm-tabs">
      <button id="atNew" class="on" onclick="aTab('new')">✍️ نشر تبليغ</button>
      <button id="atNotices" onclick="aTab('notices')">📋 التبليغات</button>
      <button id="atStudents" onclick="aTab('students')">👥 الصلاحيات</button>
