@@ -441,10 +441,14 @@ details[open] summary::after{transform:rotate(180deg)}
 
     <hr style="border:0;border-top:1px solid var(--line);margin:12px 0 8px">
     <div class="row">
-     <div><label for="distStageSelect">مرحلة التوزيع</label><select id="distStageSelect"></select></div>
+     <div><label for="distStageSelect">مرحلة التوزيع والتصدير</label><select id="distStageSelect"></select></div>
      <div><label for="distStartNum">بداية رقم الجلوس</label><input id="distStartNum" type="number" min="1" value="101"></div>
     </div>
     <button onclick="assignSeatsAndRooms()">🔢 إعطاء أرقام الجلوس وتوزيع القاعات</button>
+    <div class="row" style="margin-top:6px">
+     <button class="sec" onclick="exportExamSeatsExcel()">📊 تصدير ملف إكسل</button>
+     <button class="sec" onclick="exportExamSeatsImage()">🖼️ تصدير صورة</button>
+    </div>
    </div>
 
    <div class="card">
@@ -707,12 +711,12 @@ function normPhone(p){
  if(d.startsWith("0"))d="964"+d.slice(1);else if(d.startsWith("7")&&d.length===10)d="964"+d;
  return /^9647\d{9}$/.test(d)?d:"";
 }
-async function checkDuplicateAccount(cleanName,phone,excludeCodeId=""){
+async function checkDuplicateAccount(cleanName,phone,excludeCodeId="",checkPhone=true){
  const nKey=normName(cleanName);
  const targetId=String(excludeCodeId||"").trim().toUpperCase();
  for(const c of codes){
   if(targetId&&String(c.id||"").trim().toUpperCase()===targetId)continue;
-  const samePhone=Boolean(phone&&c.phone&&normPhone(c.phone)===phone);
+  const samePhone=Boolean(checkPhone&&phone&&c.phone&&normPhone(c.phone)===phone);
   const sameName=Boolean(nKey&&c.name&&normName(c.name)===nKey);
   if(samePhone||sameName){
    return samePhone?"رقم الهاتف مستخدم في حساب آخر.":"هذا الاسم مسجل في حساب آخر.";
@@ -722,7 +726,7 @@ async function checkDuplicateAccount(cleanName,phone,excludeCodeId=""){
  for(const docSnap of qAll.docs){
   if(targetId&&String(docSnap.id||"").trim().toUpperCase()===targetId)continue;
   const d=docSnap.data();
-  const samePhone=Boolean(phone&&d.phone&&normPhone(d.phone)===phone);
+  const samePhone=Boolean(checkPhone&&phone&&d.phone&&normPhone(d.phone)===phone);
   const sameName=Boolean(nKey&&d.name&&normName(d.name)===nKey);
   if(samePhone||sameName){
    return samePhone?"رقم الهاتف مستخدم في حساب آخر.":"هذا الاسم مسجل في حساب آخر.";
@@ -1172,7 +1176,7 @@ async function requestWhatsAppCode(){
  const btn=$("sendWaBtn");btn.disabled=true;
  try{
   await authReady;
-  const dupMsg=await checkDuplicateAccount(name,phone);
+  const dupMsg=await checkDuplicateAccount(name,phone,"",true);
   if(dupMsg){err.textContent=dupMsg;return}
   const ch="ABCDEFGHJKMNPQRSTUVWXYZ23456789";
   let code="";
@@ -1594,7 +1598,7 @@ async function editStudentProfile(codeId){
  if(cleanName.split(" ").filter(Boolean).length<2){alert("أدخل اسماً صحيحاً.");return}
 
  const currentPhoneDisplay=stu.phone?("0"+String(stu.phone).replace(/^964/,"")):"";
- const newPhoneRaw=prompt("تعديل رقم الهاتف (يمكن إبقاؤه كما هو):",currentPhoneDisplay);
+ const newPhoneRaw=prompt("تعديل رقم الهاتف (اختياري - يمكن إبقاؤه كما هو):",currentPhoneDisplay);
  if(newPhoneRaw===null)return;
  const cleanPhone=normPhone(newPhoneRaw);
  if(!cleanPhone){alert("رقم الهاتف غير صحيح.");return}
@@ -1609,7 +1613,7 @@ async function editStudentProfile(codeId){
  const cleanStage=newStage.trim()||stu.stage||"all";
 
  try{
-  const dup=await checkDuplicateAccount(cleanName,cleanPhone,codeId);
+  const dup=await checkDuplicateAccount(cleanName,cleanPhone,codeId,false);
   if(dup){alert(dup);return}
   const payload={name:cleanName,phone:cleanPhone,section:cleanSec,stage:cleanStage};
   if(me&&me.code)payload.actorCode=me.code;
@@ -1665,6 +1669,87 @@ async function addExamRoomItem(){
   $("roomNameInput").value="";
   alert("تمت إضافة القاعة.");
  }catch(e){alert("تعذر إضافة القاعة.")}
+}
+function getDistributedRowsForStage(){
+ const deptName=(me&&me.dept)||DEFAULT_DEPTS[0];
+ const st=($("distStageSelect")&&$("distStageSelect").value)||"all";
+ return codes
+  .filter(c=>deptOf(c)===deptName&&c.used&&hasSeatBadge(c.role)&&c.stage!==GRADUATED_STAGE&&(st==="all"||c.stage===st))
+  .sort((a,b)=>(Number(a.seatNumber)||999999)-(Number(b.seatNumber)||999999)||String(a.name||"").localeCompare(String(b.name||""),"ar"))
+  .map((c,i)=>({
+   seat:c.seatNumber||(i+1),
+   name:c.name||"مستخدم",
+   role:roleLabel(c.role),
+   stage:c.stage||"",
+   section:c.section||"",
+   room:c.examRoom||"غير محدد",
+   phone:c.phone?("0"+String(c.phone).replace(/^964/,"")):""
+  }));
+}
+function exportExamSeatsExcel(){
+ const deptName=(me&&me.dept)||DEFAULT_DEPTS[0];
+ const st=($("distStageSelect")&&$("distStageSelect").value)||"all";
+ const rows=getDistributedRowsForStage();
+ if(!rows.length){alert("لا توجد بيانات مقاعد أو قاعات لتصديرها.");return}
+ const csvCell=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+ const headers=["رقم الجلوس","اسم الطالب","الصفة","المرحلة","الشعبة","القاعة الامتحانية","رقم الهاتف"];
+ const lines=[headers.map(csvCell).join(",")];
+ rows.forEach(r=>lines.push([r.seat,r.name,r.role,r.stage,r.section,r.room,r.phone].map(csvCell).join(",")));
+ const blob=new Blob(["\uFEFF"+lines.join("\n")],{type:"text/csv;charset=utf-8;"});
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download="seats_"+deptName.replace(/\s+/g,"_")+"_"+(st==="all"?"all":st.replace(/\s+/g,"_"))+".csv";
+ document.body.appendChild(a);a.click();a.remove();
+}
+function exportExamSeatsImage(){
+ const deptName=(me&&me.dept)||DEFAULT_DEPTS[0];
+ const st=($("distStageSelect")&&$("distStageSelect").value)||"all";
+ const rows=getDistributedRowsForStage();
+ if(!rows.length){alert("لا توجد بيانات مقاعد أو قاعات لتصدير صورة.");return}
+ const rowH=36,headerH=92,footerH=40,w=920,h=headerH+rows.length*rowH+footerH;
+ const canvas=document.createElement("canvas");
+ canvas.width=w;canvas.height=h;
+ const ctx=canvas.getContext("2d");
+ ctx.fillStyle="#ffffff";ctx.fillRect(0,0,w,h);
+ ctx.fillStyle="#1e6273";ctx.fillRect(0,0,w,56);
+ ctx.fillStyle="#ffffff";ctx.font="bold 20px Tahoma,Arial,sans-serif";ctx.textAlign="right";
+ ctx.fillText("توزيع القاعات الامتحانية وأرقام الجلوس — "+deptName,w-24,35);
+ ctx.fillStyle="#1c2c33";ctx.font="bold 14px Tahoma,Arial,sans-serif";
+ ctx.fillText("المرحلة: "+(st==="all"?"جميع المراحل":st)+"   |   العدد: "+rows.length,w-24,78);
+
+ const cols=[
+  {label:"رقم الجلوس",x:w-24,align:"right"},
+  {label:"اسم الطالب",x:w-135,align:"right"},
+  {label:"الشعبة",x:w-440,align:"right"},
+  {label:"القاعة الامتحانية",x:w-535,align:"right"},
+  {label:"المرحلة",x:24,align:"left"}
+ ];
+ ctx.fillStyle="#e7eff1";ctx.fillRect(20,90,w-40,rowH);
+ ctx.fillStyle="#144654";ctx.font="bold 13px Tahoma,Arial,sans-serif";
+ cols.forEach(c=>{ctx.textAlign=c.align;ctx.fillText(c.label,c.x,90+23)});
+
+ rows.forEach((r,idx)=>{
+  const y=90+(idx+1)*rowH;
+  ctx.fillStyle=idx%2===0?"#ffffff":"#f7fafb";
+  ctx.fillRect(20,y,w-40,rowH);
+  ctx.strokeStyle="#dde5e8";ctx.strokeRect(20,y,w-40,rowH);
+  ctx.fillStyle="#1c2c33";ctx.font="13px Tahoma,Arial,sans-serif";
+  ctx.textAlign="right";
+  ctx.fillText(String(r.seat),w-24,y+23);
+  ctx.fillText(String(r.name),w-135,y+23);
+  ctx.fillText(String(r.section),w-440,y+23);
+  ctx.fillText(String(r.room),w-535,y+23);
+  ctx.textAlign="left";
+  ctx.fillText(String(r.stage),24,y+23);
+ });
+
+ ctx.fillStyle="#687b82";ctx.font="12px Tahoma,Arial,sans-serif";ctx.textAlign="center";
+ ctx.fillText(appTitle+" — "+new Date().toLocaleDateString("ar-IQ"),w/2,h-14);
+
+ const a=document.createElement("a");
+ a.href=canvas.toDataURL("image/png");
+ a.download="exam_seats_"+(st==="all"?"all":st.replace(/\s+/g,"_"))+".png";
+ document.body.appendChild(a);a.click();a.remove();
 }
 async function assignSeatsAndRooms(){
  if(!me||!canManageDeptPerms(me))return;
@@ -1758,7 +1843,7 @@ const matchesScope=item=>{
  const iDept=item.dept||DEFAULT_DEPTS[0];
  const iStage=item.stage||"all";
  const iSec=item.section||"all";
- return iDept===myDept&&(iStage==="all"||myStage==="all"||iStage===myStage)&&(iSec==="all"||mySec==="all"||iSec===mySec);
+ return iDept===myDept&&(iStage==="all"||iStage==="all"||iStage===myStage)&&(iSec==="all"||iSec==="all"||iSec===mySec);
 };
 function attHtml(n){
  if(!n.att)return"";
@@ -2115,7 +2200,7 @@ refreshDeptSelects();
 fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,editStudentProfile,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,addSubjectItem,attachFileToSubject,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
+Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,editStudentProfile,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,exportExamSeatsExcel,exportExamSeatsImage,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,addSubjectItem,attachFileToSubject,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
 </script>
 </body>
 </html>
