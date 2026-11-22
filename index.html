@@ -25,7 +25,7 @@ html,body{margin:0;padding:0;font-family:Tahoma,Arial,sans-serif;background:var(
 .bell-pop{position:absolute;top:66px;right:14px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;z-index:60;box-shadow:0 12px 28px rgba(20,70,84,.16)}
 .bell-item{padding:8px;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
 .bell-item:last-child{border-bottom:0}
-.page{padding:14px 14px 112px}
+.page{padding:14px 14px 124px}
 .hero{background:linear-gradient(155deg,var(--navy),var(--navy2));color:#fff;border-radius:22px;padding:18px;margin-bottom:14px;box-shadow:0 10px 24px rgba(20,70,84,.16)}
 .hero small{color:#dcebf0;font-size:12px;display:block}
 .hero h2{margin:3px 0 4px;font-size:21px}
@@ -48,11 +48,6 @@ html,body{margin:0;padding:0;font-family:Tahoma,Arial,sans-serif;background:var(
 .sched-slot:last-child{margin-bottom:0}
 .sched-time{background:#fff;color:var(--navy2);border-radius:11px;padding:5px 8px;font-size:11.5px;font-weight:bold;text-align:center;min-width:68px;flex:none}
 .sched-info{flex:1;min-width:0}.sched-info b{display:block;font-size:14px;color:#fff}.sched-info span{font-size:12px;color:#dcebf0}
-
-.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.qcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:right;margin:0;color:var(--ink);box-shadow:0 4px 12px rgba(20,70,84,.04)}
-.qcard .qico{width:38px;height:38px;border-radius:12px;background:var(--soft);color:var(--navy2);display:grid;place-items:center;font-size:17px;flex:none}
-.qcard b{display:block;font-size:13.5px}.qcard small{display:block;font-size:11px;color:var(--mute)}
 
 h3{margin:6px 0 10px;font-size:15.5px;color:var(--navy2)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px;box-shadow:0 4px 14px rgba(20,70,84,.04)}
@@ -124,10 +119,36 @@ details[open] summary::after{transform:rotate(180deg)}
 .stu{padding:10px 14px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .stu div{flex:1;min-width:160px}.stu b{font-size:14px}
 
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;z-index:100;box-shadow:0 -6px 20px rgba(20,70,84,.08)}
-.nav button{background:none;color:var(--mute);margin:0;padding:5px 0;font-size:10px;flex:1;position:relative;border-radius:12px;touch-action:manipulation}
-.nav button span{display:block;font-size:17px;line-height:1.25;pointer-events:none}
+/* شريط التنقل السفلي المكبّر */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:11px 6px calc(11px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;z-index:100;box-shadow:0 -6px 22px rgba(20,70,84,.1)}
+.nav button{background:none;color:var(--mute);margin:0;padding:8px 2px;font-size:11.5px;flex:1;position:relative;border-radius:14px;touch-action:manipulation;min-height:56px}
+.nav button span{display:block;font-size:21px;line-height:1.3;pointer-events:none;margin-bottom:2px}
 .nav button.on{color:var(--navy);font-weight:bold;background:var(--soft)}
+
+/* تنسيق البطاقات المربعة المتناسقة في واجهة الإدارة */
+#admin .top{border-radius:0}
+#admin .card,
+#admin details,
+#admin .stat,
+#admin .notice,
+#admin .att-box,
+#admin .dept-preview,
+#admin input,
+#admin textarea,
+#admin select,
+#admin button,
+#admin .seg,
+#admin .seg button,
+#admin .tag,
+#admin .online-pill,
+#admin .warn-note{border-radius:6px!important}
+#admin .stats.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+#admin .stats.two .stat{margin:0;padding:12px;display:flex;align-items:center;gap:10px;min-width:0}
+#admin .seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:6px}
+#admin .seg button{padding:10px 4px;font-size:12.5px;margin:0;width:100%}
+#admin .adm-btn-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+#admin .adm-btn-grid button{margin:0;width:100%}
+
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <link id="dynManifest" rel="manifest" href="manifest.json">
@@ -178,7 +199,7 @@ details[open] summary::after{transform:rotate(180deg)}
      ⚠️ <b>تحذير مهم:</b> لا تشارك هذا الرمز مع أي شخص آخر، واحتفظ به جيداً لأنك ستحتاجه لتسجيل الدخول في حال قمت بتسجيل الخروج.
     </div>
     <label for="lCodeReg">أدخل الرمز الذي وصلك على الواتساب (6 خانات)</label>
-    <input id="lCodeReg" class="ltr" maxlength="6" placeholder="مثال: K7M2QX" autocomplete="off">
+    <input id="lCodeReg" class="ltr" maxlength="6" placeholder="أدخل الرمز المكون من 6 خانات" autocomplete="off">
     <button id="lBtnReg" onclick="completeRegistration()">تأكيد الرمز والدخول</button>
    </div>
    <div id="lErr" class="err"></div>
@@ -191,7 +212,7 @@ details[open] summary::after{transform:rotate(180deg)}
    <label for="inPhone">رقم الهاتف</label>
    <input id="inPhone" class="ltr" inputmode="tel" placeholder="07XXXXXXXXX" autocomplete="tel">
    <label for="inCode">رمز الدخول (6 خانات)</label>
-   <input id="inCode" class="ltr" maxlength="6" placeholder="مثال: K7M2QX" autocomplete="off">
+   <input id="inCode" class="ltr" maxlength="6" placeholder="أدخل الرمز المكون من 6 خانات" autocomplete="off">
    <div class="warn-note">
     📌 تذكّر: احتفظ برمزك سرياً ولا تشاركه، وستحتاجه دائماً عند تسجيل الخروج والدخول مرة أخرى.
    </div>
@@ -234,7 +255,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <img id="deptTopLogoImg" src="icon-192.png" alt="شعار القسم" onerror="this.outerHTML='🎓'">
     <span class="appNewBadge badge hidden">0</span>
    </button>
-   <div style="min-width:0"><h1 id="sTopTitle" class="appNameTxt" style="margin:0;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">تبليغات القسم</h1><p id="sTopDept" style="margin:0;font-size:12px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">هندسة تقنيات الأجهزة الطبية</p></div>
+   <div style="min-width:0"><h1 id="sTopTitle" class="appNameTxt" style="margin:0;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">تبليغات القسم</h1><p id="sTopDept" style="margin:0;font-size:12px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></p></div>
   </div>
   <button class="ibtn" onclick="toggleBell()" aria-label="التنبيهات">🔔<span id="bellBadge" class="badge hidden">0</span></button>
   <button class="ibtn" onclick="sTab('account')" aria-label="صورة الطالب وحسابي"><img id="topStudentImg" src="icon-192.png" alt="صورة الطالب" onerror="this.outerHTML='👤'"></button>
@@ -253,7 +274,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <small id="sRoleGreet">مرحباً بك 👋</small>
     <h2 id="sName"></h2>
     <p id="sInfo"></p>
-    <div id="sExamBadge" class="meta" style="color:#fff;margin-bottom:10px"></div>
+    <div id="sExamBadge" class="meta hidden" style="color:#fff;margin-bottom:10px"></div>
     <button onclick="sTab('notices')">عرض كل التبليغات</button>
    </div>
 
@@ -269,14 +290,6 @@ details[open] summary::after{transform:rotate(180deg)}
     <div class="stat"><div class="ico b">📋</div><b id="stAll">0</b><span>التبليغات</span></div>
     <div class="stat"><div class="ico a">📚</div><b id="stSubj">0</b><span>المواد</span></div>
     <div class="stat"><div class="ico g">📝</div><b id="stHw">0</b><span>الواجبات</span></div>
-   </div>
-
-   <h3>إجراءات سريعة</h3>
-   <div class="quick-grid">
-    <button class="qcard" onclick="sTab('notices')"><div class="qico">📣</div><div><b>التبليغات</b><small>العامة والخاصة</small></div></button>
-    <button class="qcard" onclick="sTab('subjects')"><div class="qico">📂</div><div><b>المواد والملفات</b><small>محفوظة بالهاتف</small></div></button>
-    <button class="qcard" onclick="sTab('schedule')"><div class="qico">🗓️</div><div><b>الجدول الدراسي</b><small>الأيام والقاعات</small></div></button>
-    <button class="qcard" onclick="sTab('account')"><div class="qico">🪪</div><div><b>بطاقتي والامتحان</b><small>الرقم والقاعة</small></div></button>
    </div>
 
    <h3>آخر التبليغات <span class="meta">(اضغط على العنوان لفتح/طي النص)</span></h3>
@@ -295,7 +308,7 @@ details[open] summary::after{transform:rotate(180deg)}
   <div id="sSubjects" class="hidden">
    <div id="subjectsListView">
     <div class="card" style="padding:10px 12px">
-     <input id="subjSearch" placeholder="🔍 ابحث باسم المادة أو اسم التدريسي..." oninput="renderSubjects()">
+     <input id="subjSearch" placeholder="🔍 ابحث باسم المادة أو التدريسي..." oninput="renderSubjects()">
     </div>
     <div id="subjectsCards"></div>
 
@@ -305,9 +318,9 @@ details[open] summary::after{transform:rotate(180deg)}
     <div id="manageSubjHwCard" class="card hidden" style="margin-top:14px">
      <h3>➕ إضافة مادة أو واجب</h3>
      <label for="subName">اسم المادة الدراسية</label>
-     <input id="subName" placeholder="مثال: أسس السيطرة أو تشريح">
+     <input id="subName" placeholder="أدخل اسم المادة">
      <label for="subTeacher">اسم التدريسي / الأستاذ</label>
-     <input id="subTeacher" placeholder="مثال: د. حسين فاضل">
+     <input id="subTeacher" placeholder="أدخل اسم التدريسي">
      <div class="row">
       <div><label for="subStage">المرحلة</label><select id="subStage"></select></div>
       <div><label for="subSection">الشعبة</label><select id="subSection"></select></div>
@@ -321,9 +334,9 @@ details[open] summary::after{transform:rotate(180deg)}
      <label for="hwSubjectSelect">المادة</label>
      <select id="hwSubjectSelect"></select>
      <label for="hwTitle">عنوان الواجب / المطلوب</label>
-     <input id="hwTitle" placeholder="مثال: حل تمارين الفصل الأول">
+     <input id="hwTitle" placeholder="أدخل عنوان الواجب">
      <label for="hwDue">الموعد النهائي</label>
-     <input id="hwDue" placeholder="مثال: الثلاثاء الساعة 10:00 صباحاً">
+     <input id="hwDue" placeholder="أدخل الموعد النهائي">
      <button class="sec" onclick="addHomeworkItem()">نشر الواجب</button>
     </div>
    </div>
@@ -348,10 +361,10 @@ details[open] summary::after{transform:rotate(180deg)}
      <div><label for="scTime">الوقت</label><input id="scTime" placeholder="08:30"></div>
     </div>
     <label for="scSubject">اسم المادة</label>
-    <input id="scSubject" placeholder="مثال: مسيطرات دقيقة">
+    <input id="scSubject" placeholder="أدخل اسم المادة">
     <div class="row">
-     <div><label for="scTeacher">التدريسي</label><input id="scTeacher" placeholder="مثال: م.م. راوية خليل"></div>
-     <div><label for="scRoom">القاعة / المختبر</label><input id="scRoom" placeholder="مثال: قاعة C70"></div>
+     <div><label for="scTeacher">التدريسي</label><input id="scTeacher" placeholder="أدخل اسم التدريسي"></div>
+     <div><label for="scRoom">القاعة / المختبر</label><input id="scRoom" placeholder="أدخل اسم أو رقم القاعة"></div>
     </div>
     <div class="row">
      <div><label for="scStage">المرحلة</label><select id="scStage"></select></div>
@@ -370,7 +383,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <input type="hidden" id="repTargetCode" value="">
     <div id="repPrivateBanner" class="warn-note hidden" style="margin-bottom:8px"></div>
     <label for="rTitle">العنوان</label>
-    <input id="rTitle" placeholder="مثال: محاضرة إضافية أو تبليغ شعبة">
+    <input id="rTitle" placeholder="أدخل عنوان التبليغ">
     <label for="rBody">النص</label>
     <textarea id="rBody" rows="4" placeholder="اكتب تفاصيل التبليغ"></textarea>
     <div class="row" id="rTargetRow">
@@ -420,7 +433,7 @@ details[open] summary::after{transform:rotate(180deg)}
    <div class="card">
     <h3>🏛️ القاعات الامتحانية وأرقام الجلوس</h3>
     <div class="row">
-     <div><label for="roomNameInput">اسم / رقم القاعة</label><input id="roomNameInput" placeholder="مثال: قاعة 1 أو مختبر الحاسوب"></div>
+     <div><label for="roomNameInput">اسم / رقم القاعة</label><input id="roomNameInput" placeholder="أدخل اسم أو رقم القاعة"></div>
      <div><label for="roomCapInput">سعة القاعة (عدد الطلاب)</label><input id="roomCapInput" type="number" min="1" max="500" value="25"></div>
     </div>
     <button class="sec" onclick="addExamRoomItem()">+ إضافة قاعة امتحانية</button>
@@ -444,27 +457,6 @@ details[open] summary::after{transform:rotate(180deg)}
    <div id="deptPermList"></div>
   </div>
 
-  <div id="sTeachersRoom" class="hidden">
-   <div class="card" id="trComposerCard">
-    <h3>👨‍🏫 غرفة تبليغات الأساتذة</h3>
-    <p class="meta">غرفة خاصة بالأساتذة في القسم؛ يظهر فيها تبليغ الأستاذ باسمه وصفته (أستاذ) وتظهر للمدير والمقرر فقط.</p>
-    <input type="hidden" id="trEditId">
-    <label for="trTitle">عنوان التبليغ للأساتذة</label>
-    <input id="trTitle" placeholder="مثال: تنسيق السعي أو جدول اللجان">
-    <label for="trBody">نص التبليغ</label>
-    <textarea id="trBody" rows="4" placeholder="اكتب تفاصيل التبليغ الخاص بالأساتذة"></textarea>
-    <label for="trPriority">الأهمية</label>
-    <select id="trPriority"><option value="normal">تبليغ عادي</option><option value="important">تبليغ مهم</option></select>
-    <label for="trFile">مرفق (اختياري)</label>
-    <input id="trFile" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-    <div id="trFileNote" class="meta"></div>
-    <button id="trPubBtn" onclick="teacherRoomPublish()">نشر في غرفة الأساتذة</button>
-    <button id="trCancelBtn" class="sec hidden" onclick="resetTeacherRoomForm()">إلغاء التعديل</button>
-   </div>
-   <h3>تبليغات الغرفة</h3>
-   <div id="teacherRoomList"></div>
-  </div>
-
   <div id="sAccount" class="hidden">
    <div class="card">
     <img id="accStudentImg" class="acc-avatar" src="icon-192.png" alt="صورة الطالب">
@@ -472,9 +464,9 @@ details[open] summary::after{transform:rotate(180deg)}
     <p class="meta" id="aInfo"></p>
     <p class="meta ltr" id="aPhone"></p>
     <p class="meta" id="aCodeInfo"></p>
-    <p class="meta" id="aExamInfo" style="color:var(--navy2);font-weight:bold"></p>
+    <p class="meta hidden" id="aExamInfo" style="color:var(--navy2);font-weight:bold"></p>
     <div class="warn-note">
-     🔒 لا تشارك رمزك مع أي شخص، واحفظه جيداً لأنك ستحتاجه للدخول مجدداً بعد تسجيل الخروج.
+     🔒 لا تشارك رمزك مع أي شخص، واحتفظ به جيداً لأنك ستحتاجه للدخول مجدداً بعد تسجيل الخروج.
     </div>
     <label for="uPhoto">تغيير صورة الطالب</label>
     <input id="uPhoto" type="file" accept="image/*">
@@ -494,12 +486,11 @@ details[open] summary::after{transform:rotate(180deg)}
   <button id="nSchedule" onclick="sTab('schedule')"><span>🗓️</span>الجدول</button>
   <button id="nRep" class="hidden" onclick="sTab('rep')"><span>✍️</span>النشر</button>
   <button id="nPerms" class="hidden" onclick="sTab('perms')"><span>👥</span>القسم</button>
-  <button id="nTeachersRoom" class="hidden" onclick="sTab('teachersRoom')"><span>👨‍🏫</span>الأساتذة</button>
   <button id="nAccount" onclick="sTab('account')"><span>👤</span>حسابي</button>
  </nav>
 </section>
 
-<!-- ====== واجهة الإدارة ====== -->
+<!-- ====== واجهة الإدارة (بطاقات مربعة متناسقة) ====== -->
 <section id="admin" class="hidden">
  <div class="top">
   <div class="brand">
@@ -507,7 +498,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🛡️'">
     <span class="appNewBadge badge hidden">0</span>
    </div>
-   <div><h1 style="margin:0;font-size:18px">لوحة الإدارة</h1><p id="admTopDept" style="margin:0;font-size:12px;opacity:.9">كلية أصول العلم · الأقسام العلمية</p></div>
+   <div><h1 style="margin:0;font-size:18px">لوحة الإدارة</h1><p id="admTopDept" style="margin:0;font-size:12px;opacity:.9"></p></div>
   </div>
   <button class="ibtn" onclick="logout()" aria-label="تسجيل الخروج">⎋</button>
  </div>
@@ -523,14 +514,14 @@ details[open] summary::after{transform:rotate(180deg)}
     </div>
    </div>
    <button class="sec" onclick="saveActiveDeptLogo()">حفظ لوجو القسم</button>
-   <div class="row" style="margin-top:6px">
+   <div class="adm-btn-grid">
     <button class="sec" onclick="renameActiveDept()">✏️ تعديل القسم</button>
-    <button class="del" style="width:auto;padding:10px 14px" onclick="deleteActiveDept()">🗑️ حذف القسم</button>
+    <button class="del" onclick="deleteActiveDept()">🗑️ حذف القسم</button>
    </div>
 
    <hr style="border:0;border-top:1px solid var(--line);margin:12px 0 8px">
    <label for="newDeptName">إضافة قسم جديد</label>
-   <input id="newDeptName" placeholder="اسم القسم الجديد (مثال: طب الأسنان)">
+   <input id="newDeptName" placeholder="أدخل اسم القسم الجديد">
    <select id="newDeptFifth" style="margin-top:6px">
     <option value="auto">تحديد المرحلة الخامسة تلقائياً (للأقسام الطبية)</option>
     <option value="yes">تفعيل المرحلة الخامسة (5 مراحل)</option>
@@ -565,7 +556,7 @@ details[open] summary::after{transform:rotate(180deg)}
    <input type="hidden" id="admTargetCode" value="">
    <div id="admPrivateBanner" class="warn-note hidden" style="margin-bottom:8px"></div>
    <label for="title">العنوان</label>
-   <input id="title" placeholder="مثال: تأجيل امتحان مادة الدوائر">
+   <input id="title" placeholder="أدخل عنوان التبليغ">
    <label for="body">النص</label>
    <textarea id="body" rows="4" placeholder="اكتب تفاصيل التبليغ"></textarea>
    <div class="row" id="admTargetRow">
@@ -583,7 +574,7 @@ details[open] summary::after{transform:rotate(180deg)}
    <hr style="border:0;border-top:1px solid var(--line);margin:16px 0 12px">
    <h3>اسم وصورة التطبيق</h3>
    <label for="appNameInput">اسم التطبيق</label>
-   <input id="appNameInput" placeholder="مثال: تبليغات الكلية">
+   <input id="appNameInput" placeholder="أدخل اسم التطبيق">
    <label for="logoFile">صورة التطبيق</label>
    <input id="logoFile" type="file" accept="image/*">
    <button class="sec" onclick="saveBrandSettings()">حفظ الاسم والصورة</button>
@@ -658,20 +649,14 @@ const isMedicalDept=name=>/طب|صيدل|تمريض|تحليل|مختبر|صحي
 const hasFifthStage=deptName=>fifthStageDepts.has(deptName)||isMedicalDept(deptName);
 const stagesForDept=deptName=>hasFifthStage(deptName)?[...BASE_STAGES,FIFTH_STAGE]:[...BASE_STAGES];
 const roleLabel=r=>ROLES[r]||ROLES.student;
+const hasSeatBadge=r=>["student","rep"].includes(r||"student");
 const canManageAll=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
 const canManageDeptPerms=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
 const canSendPrivateNotice=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
-const canViewTeachersRoom=u=>u&&["teacher","rapporteur","dept_admin"].includes(u.role||"student");
-const canPostTeachersRoom=u=>u&&(u.role||"student")==="teacher";
 const canManageAcademic=u=>isAdminView||(u&&["rep","rapporteur","teacher","dept_admin"].includes(u.role||"student"));
 const canManageNotice=(u,n)=>{
  if(!u)return false;
  const r=u.role||"student";
- if(n.channel==="teachers_room"){
-  if(r==="dept_admin"||r==="rapporteur")return true;
-  if(r==="teacher")return n.authorCode===u.code;
-  return false;
- }
  if(n.channel==="private_student"){
   return r==="dept_admin"||r==="rapporteur"||n.authorCode===u.code;
  }
@@ -724,18 +709,24 @@ function normPhone(p){
 }
 async function checkDuplicateAccount(cleanName,phone,excludeCodeId=""){
  const nKey=normName(cleanName);
+ const targetId=String(excludeCodeId||"").trim().toUpperCase();
  for(const c of codes){
-  if(excludeCodeId&&c.id===excludeCodeId)continue;
-  if((c.phone&&normPhone(c.phone)===phone)||(c.name&&normName(c.name)===nKey)){
-   return "هذا الاسم أو رقم الهاتف مستخدم مسبقاً.";
+  if(targetId&&String(c.id||"").trim().toUpperCase()===targetId)continue;
+  const samePhone=Boolean(phone&&c.phone&&normPhone(c.phone)===phone);
+  const sameName=Boolean(nKey&&c.name&&normName(c.name)===nKey);
+  if(samePhone||sameName){
+   return samePhone?"رقم الهاتف مستخدم في حساب آخر.":"هذا الاسم مسجل في حساب آخر.";
   }
  }
  const qAll=await getDocs(collection(db,"codes"));
  for(const docSnap of qAll.docs){
-  if(excludeCodeId&&docSnap.id===excludeCodeId)continue;
+  if(targetId&&String(docSnap.id||"").trim().toUpperCase()===targetId)continue;
   const d=docSnap.data();
-  if(d.name&&normName(d.name)===nKey)return "هذا الاسم مسجل مسبقاً.";
-  if(d.phone&&normPhone(d.phone)===phone)return "رقم الهاتف مستخدم مسبقاً.";
+  const samePhone=Boolean(phone&&d.phone&&normPhone(d.phone)===phone);
+  const sameName=Boolean(nKey&&d.name&&normName(d.name)===nKey);
+  if(samePhone||sameName){
+   return samePhone?"رقم الهاتف مستخدم في حساب آخر.":"هذا الاسم مسجل في حساب آخر.";
+  }
  }
  return "";
 }
@@ -789,7 +780,7 @@ function refreshAcademicStageSelects(deptName){
  ["subStage","scStage","promoStageSelect","distStageSelect"].forEach(id=>{
   if(!$(id))return;
   const prev=$(id).value;
-  fill(id,stList,id==="promoStageSelect"?'': '<option value="all">كل المراحل</option>');
+  fill(id,stList,id==="promoStageSelect"?'':'<option value="all">كل المراحل</option>');
   if(prev&&[...$(id).options].some(o=>o.value===prev))$(id).value=prev;
  });
  ["subSection","scSection","promoSectionSelect"].forEach(id=>{
@@ -1273,8 +1264,8 @@ function applyStudentHeaderAndPermissions(){
  const rLabel=roleLabel(me.role);
  const isMgr=isStaffRole(me.role);
  const hasPerms=canManageDeptPerms(me);
- const hasRoom=canViewTeachersRoom(me);
  const canAcad=canManageAcademic(me);
+ const showSeat=hasSeatBadge(me.role);
  const stList=stagesForDept(me.dept);
 
  $("sTopDept").textContent=me.dept;
@@ -1285,9 +1276,11 @@ function applyStudentHeaderAndPermissions(){
  const myLive=codes.find(c=>c.id===me.code)||{};
  const seatTxt=myLive.seatNumber?("رقم الجلوس: "+myLive.seatNumber):"";
  const roomTxt=myLive.examRoom?("القاعة الامتحانية: "+myLive.examRoom):"";
- const examSummary=[seatTxt,roomTxt].filter(Boolean).join(" · ");
+ const examSummary=showSeat?[seatTxt,roomTxt].filter(Boolean).join(" · "):"";
  $("sExamBadge").textContent=examSummary?("🎫 "+examSummary):"";
- $("aExamInfo").textContent=examSummary?("🎫 "+examSummary):"لم يتم تحديد رقم الجلوس أو القاعة الامتحانية بعد.";
+ $("sExamBadge").classList.toggle("hidden",!examSummary);
+ $("aExamInfo").textContent=examSummary?("🎫 "+examSummary):"";
+ $("aExamInfo").classList.toggle("hidden",!showSeat||!examSummary);
 
  $("aName").textContent=me.name;
  $("aInfo").textContent=me.dept+" · الصلاحية: "+rLabel;
@@ -1296,8 +1289,6 @@ function applyStudentHeaderAndPermissions(){
 
  $("nRep").classList.toggle("hidden",!isMgr);
  $("nPerms").classList.toggle("hidden",!hasPerms);
- $("nTeachersRoom").classList.toggle("hidden",!hasRoom);
- $("trComposerCard").classList.toggle("hidden",!canPostTeachersRoom(me));
  $("repPrivateListTitle").classList.toggle("hidden",!canSendPrivateNotice(me));
  $("repPrivateNotices").classList.toggle("hidden",!canSendPrivateNotice(me));
  $("manageSubjHwCard").classList.toggle("hidden",!canAcad);
@@ -1344,7 +1335,6 @@ async function adminLogin(){
 
 function sTab(t){
  if(t==="perms"&&!canManageDeptPerms(me))t="home";
- if(t==="teachersRoom"&&!canViewTeachersRoom(me))t="home";
  if(t==="rep"&&!isStaffRole(me&&me.role))t="home";
  currentStudentTab=t;
  const m={
@@ -1354,7 +1344,6 @@ function sTab(t){
   schedule:["sSchedule","nSchedule"],
   rep:["sRep","nRep"],
   perms:["sPerms","nPerms"],
-  teachersRoom:["sTeachersRoom","nTeachersRoom"],
   account:["sAccount","nAccount"]
  };
  for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
@@ -1483,7 +1472,6 @@ async function repPublish(){
 }
 function editRepNotice(id){
  const n=notices.find(x=>x.id===id);if(!n||!me||deptOf(n)!==me.dept||!canManageNotice(me,n))return;
- if(n.channel==="teachers_room"){editTeacherRoomNotice(id);sTab("teachersRoom");return}
  $("repEditId").value=n.id;$("rTitle").value=n.title;$("rBody").value=n.body;
  $("repChannel").value=n.channel||"public";$("repTargetCode").value=n.targetStudentCode||"";
  if(n.channel==="private_student"){
@@ -1504,36 +1492,6 @@ function resetRepForm(){
  $("rTargetRow").classList.remove("hidden");$("repPrivateBanner").classList.add("hidden");$("repPrivateBanner").textContent="";
  $("rTitle").value="";$("rBody").value="";$("rFile").value="";$("rFileNote").textContent="";
  $("repFormTitle").textContent="نشر تبليغ";$("rPubBtn").textContent="نشر التبليغ";$("rCancelBtn").classList.add("hidden");
-}
-
-async function teacherRoomPublish(){
- if(!me||!canPostTeachersRoom(me)){alert("النشر في غرفة الأساتذة متاح لحسابات المدرسين فقط.");return}
- const title=$("trTitle").value.trim(),body=$("trBody").value.trim(),editId=$("trEditId").value;
- if(!title||!body){alert("أدخل العنوان والنص.");return}
- try{
-  const att=await readAttachment("trFile");
-  const payload={title,body,dept:me.dept||DEFAULT_DEPTS[0],stage:"all",section:"all",priority:$("trPriority").value||"normal",channel:"teachers_room"};
-  if(att)payload.att=att;
-  if(editId){
-   const existing=notices.find(x=>x.id===editId);
-   if(!existing||!canManageNotice(me,existing)){alert("يمكنك تعديل تبليغاتك فقط.");return}
-   await updateDoc(doc(db,"notices",editId),payload);
-  }else{
-   payload.author=authorDisplay(me);payload.authorCode=me.code;payload.replies=[];payload.createdAt=serverTimestamp();
-   await addDoc(collection(db,"notices"),payload);
-  }
-  resetTeacherRoomForm();alert("تم نشر التبليغ في غرفة الأساتذة.");
- }catch(e){if(e.message!=="size")alert("تعذر حفظ تبليغ الغرفة.")}
-}
-function editTeacherRoomNotice(id){
- const n=notices.find(x=>x.id===id);if(!n||!me||!canManageNotice(me,n))return;
- $("trEditId").value=n.id;$("trTitle").value=n.title;$("trBody").value=n.body;
- $("trPriority").value=n.priority||"normal";$("trFile").value="";$("trFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
- $("trPubBtn").textContent="حفظ التعديلات";$("trCancelBtn").classList.remove("hidden");window.scrollTo(0,0);
-}
-function resetTeacherRoomForm(){
- $("trEditId").value="";$("trTitle").value="";$("trBody").value="";$("trFile").value="";$("trFileNote").textContent="";
- $("trPubBtn").textContent="نشر في غرفة الأساتذة";$("trCancelBtn").classList.add("hidden");
 }
 
 async function addSubjectItem(){
@@ -1619,6 +1577,10 @@ async function deleteDocByCollection(colName,id){
 async function changeUserRole(codeId,newRole){
  try{
   const data={role:newRole};
+  if(!hasSeatBadge(newRole)){
+   data.seatNumber=deleteField();
+   data.examRoom=deleteField();
+  }
   if(me&&me.code)data.actorCode=me.code;
   await updateDoc(doc(db,"codes",codeId),data);
   alert("تم تحديث الصلاحية إلى: "+roleLabel(newRole));
@@ -1626,12 +1588,13 @@ async function changeUserRole(codeId,newRole){
 }
 async function editStudentProfile(codeId){
  const stu=codes.find(c=>c.id===codeId);if(!stu)return;
- const newName=prompt("تعديل اسم الطالب:",stu.name||"");
+ const newName=prompt("تعديل الاسم:",stu.name||"");
  if(newName===null)return;
  const cleanName=newName.trim().replace(/\s+/g," ");
  if(cleanName.split(" ").filter(Boolean).length<2){alert("أدخل اسماً صحيحاً.");return}
 
- const newPhoneRaw=prompt("تعديل رقم الهاتف (مثال 07701234567):",stu.phone||"");
+ const currentPhoneDisplay=stu.phone?("0"+String(stu.phone).replace(/^964/,"")):"";
+ const newPhoneRaw=prompt("تعديل رقم الهاتف (يمكن إبقاؤه كما هو):",currentPhoneDisplay);
  if(newPhoneRaw===null)return;
  const cleanPhone=normPhone(newPhoneRaw);
  if(!cleanPhone){alert("رقم الهاتف غير صحيح.");return}
@@ -1651,8 +1614,8 @@ async function editStudentProfile(codeId){
   const payload={name:cleanName,phone:cleanPhone,section:cleanSec,stage:cleanStage};
   if(me&&me.code)payload.actorCode=me.code;
   await updateDoc(doc(db,"codes",codeId),payload);
-  alert("تم تحديث بيانات الطالب بنجاح.");
- }catch(e){alert("تعذر تحديث بيانات الطالب.")}
+  alert("تم تحديث البيانات بنجاح.");
+ }catch(e){alert("تعذر تحديث البيانات.")}
 }
 
 function nextStageName(currentStage,deptName){
@@ -1667,10 +1630,10 @@ async function promoteStageStudents(){
  const fromStage=$("promoStageSelect").value;
  const secFilter=$("promoSectionSelect").value||"all";
  if(!fromStage){alert("اختر المرحلة المراد ترحيلها.");return}
- const targets=codes.filter(c=>deptOf(c)===deptName&&c.used&&(c.role||"student")==="student"&&c.stage===fromStage&&(secFilter==="all"||c.section===secFilter));
- if(!targets.length){alert("لا يوجد طلاب مطابقون للترحيل.");return}
+ const targets=codes.filter(c=>deptOf(c)===deptName&&c.used&&hasSeatBadge(c.role)&&c.stage===fromStage&&(secFilter==="all"||c.section===secFilter));
+ if(!targets.length){alert("لا يوجد طلبة أو ممثلون مطابقون للترحيل.");return}
  const toStage=nextStageName(fromStage,deptName);
- if(!confirm("ترحيل "+targets.length+" طالب من ("+fromStage+") إلى ("+toStage+")؟"))return;
+ if(!confirm("ترحيل "+targets.length+" من ("+fromStage+") إلى ("+toStage+")؟"))return;
  try{
   const batch=writeBatch(db);
   targets.forEach(s=>{
@@ -1683,7 +1646,7 @@ async function promoteStageStudents(){
    });
   });
   await batch.commit();
-  alert("تم ترحيل "+targets.length+" طالب إلى ("+toStage+").");
+  alert("تم ترحيل "+targets.length+" إلى ("+toStage+").");
  }catch(e){alert("تعذر إتمام الترحيل.")}
 }
 
@@ -1711,9 +1674,9 @@ async function assignSeatsAndRooms(){
  const rooms=examRooms.filter(r=>deptOf(r)===deptName);
  if(!rooms.length){alert("أضف قاعة امتحانية واحدة على الأقل أولاً.");return}
  const students=codes
-  .filter(c=>deptOf(c)===deptName&&c.used&&(c.role||"student")==="student"&&c.stage!==GRADUATED_STAGE&&(st==="all"||c.stage===st))
+  .filter(c=>deptOf(c)===deptName&&c.used&&hasSeatBadge(c.role)&&c.stage!==GRADUATED_STAGE&&(st==="all"||c.stage===st))
   .sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""),"ar"));
- if(!students.length){alert("لا يوجد طلاب نشطون لتوزيعهم.");return}
+ if(!students.length){alert("لا يوجد طلبة أو ممثلون نشطون لتوزيعهم.");return}
 
  const slots=[];
  rooms.forEach(r=>{
@@ -1721,7 +1684,7 @@ async function assignSeatsAndRooms(){
   for(let i=0;i<cap;i++)slots.push(r.name);
  });
  if(students.length>slots.length){
-  alert("سعة القاعات ("+slots.length+") أقل من عدد الطلاب ("+students.length+"). أضف قاعات أو زد السعة.");
+  alert("سعة القاعات ("+slots.length+") أقل من العدد ("+students.length+"). أضف قاعات أو زد السعة.");
   return;
  }
 
@@ -1735,7 +1698,7 @@ async function assignSeatsAndRooms(){
    });
   });
   await batch.commit();
-  alert("تم إعطاء أرقام الجلوس وتوزيع "+students.length+" طالب على القاعات بنجاح.");
+  alert("تم إعطاء أرقام الجلوس وتوزيع "+students.length+" على القاعات بنجاح.");
  }catch(e){alert("تعذر حفظ التوزيع.")}
 }
 
@@ -1842,7 +1805,6 @@ const empty=t=>`<div class="card meta">${t}</div>`;
 const myNotices=()=>{
  if(!me)return[];
  return notices.filter(n=>{
-  if(n.channel==="teachers_room")return false;
   if(n.channel==="private_student")return n.targetStudentCode===me.code;
   return matchesScope(n);
  });
@@ -1850,7 +1812,6 @@ const myNotices=()=>{
 const mySubjects=()=>subjects.filter(matchesScope);
 const mySchedules=()=>schedules.filter(matchesScope);
 const myHomeworks=()=>homeworks.filter(matchesScope);
-const myTeachersRoomNotices=()=>(!me||!canViewTeachersRoom(me))?[]:notices.filter(n=>n.channel==="teachers_room"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0]));
 
 function onlineUsersHtml(deptName){
  const online=codes.filter(c=>deptOf(c)===deptName&&isUserOnline(c));
@@ -1971,7 +1932,7 @@ function renderDeptPermissions(){
     list.map(s=>{
      const badge=isUserOnline(s)?`<span class="online-pill"><span class="online-dot"></span>متصل</span>`:"";
      const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 خاص</button>`:"";
-     const examTag=(s.seatNumber||s.examRoom)?`<span class="tag">رقم: ${esc(s.seatNumber||"-")} · ${esc(s.examRoom||"-")}</span>`:"";
+     const examTag=(hasSeatBadge(s.role)&&(s.seatNumber||s.examRoom))?`<span class="tag">رقم: ${esc(s.seatNumber||"-")} · ${esc(s.examRoom||"-")}</span>`:"";
      return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge} ${examTag}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}<button class="act" onclick="editStudentProfile('${esc(s.id)}')">✏️ تعديل</button>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
     }).join("");
   }).join("");
@@ -1996,7 +1957,7 @@ function renderStudent(){
   const nextDayName=dayMap[tomorrowIdx];
   const upcoming=scheds.filter(x=>x.day===nextDayName).length?scheds.filter(x=>x.day===nextDayName):scheds.slice(0,3);
   $("homeSchedDayLabel").textContent=scheds.filter(x=>x.day===nextDayName).length?("محاضرات "+nextDayName):"أحدث الحصص المجدولة";
-  $("homeScheduleList").innerHTML=upcoming.slice(0,3).map(sc=>`<div class="sched-slot"><div class="sched-time">${esc(sc.time||"")}</div><div class="sched-info"><b>${esc(sc.subject)}</b><span>🏛️ ${esc(sc.room||"")} · ${esc(sc.teacher||"")}</span></div></div>`).join("")||'<div style="font-size:12px;color:#dcebf0">لا توجد محاضرات مجدولة حالياً.</div>';
+  $("homeScheduleList").innerHTML=upcoming.slice(0,3).map(sc=>`<div class="sched-slot"><div class="sched-time">${esc(sc.time||"")}</div><div class="sched-info"><b>${esc(sc.subject)}</b><span>🏛️ ${esc(sc.room||"")} · 👨‍🏫 ${esc(sc.teacher||"")}</span></div></div>`).join("")||'<div style="font-size:12px;color:#dcebf0">لا توجد محاضرات مجدولة حالياً.</div>';
   $("homeNotices").innerHTML=mine.slice(0,3).map(n=>noticeCard(n,"student")).join("")||empty("لا توجد تبليغات لقسمك حالياً.");
  }else if(currentStudentTab==="notices"){
   const list=filter==="important"
@@ -2008,7 +1969,7 @@ function renderStudent(){
  }else if(currentStudentTab==="schedule"){
   renderSchedule();
  }else if(currentStudentTab==="rep"&&isStaffRole(me.role)){
-  const mgrList=notices.filter(n=>n.channel!=="teachers_room"&&n.channel!=="private_student"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageNotice(me,n));
+  const mgrList=notices.filter(n=>n.channel!=="private_student"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageNotice(me,n));
   $("repNotices").innerHTML=mgrList.map(n=>{
    const isOpen=expandedIds.has(n.id);
    return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
@@ -2023,14 +1984,6 @@ function renderStudent(){
   }
  }else if(currentStudentTab==="perms"&&canManageDeptPerms(me)){
   renderDeptPermissions();
- }else if(currentStudentTab==="teachersRoom"&&canViewTeachersRoom(me)){
-  const trList=myTeachersRoomNotices();
-  $("teacherRoomList").innerHTML=trList.map(n=>{
-   const isOpen=expandedIds.has(n.id);
-   const canAct=canManageNotice(me,n);
-   const btns=canAct?`<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editTeacherRoomNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div>`:"";
-   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag rep">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(date)}</span>${btns}</div>`;
-  }).join("")||empty("لا توجد تبليغات في غرفة الأساتذة حالياً.");
  }
 }
 function roleSelectHtml(codeId,currentRole){
@@ -2042,7 +1995,7 @@ function renderAdmin(){
  if($("admOnlineNow"))$("admOnlineNow").innerHTML=onlineUsersHtml(activeDept);
  applyDeptLogosUI();
  const deptCodes=codes.filter(c=>deptOf(c)===activeDept);
- const deptNotices=notices.filter(n=>deptOf(n)===activeDept&&n.channel!=="teachers_room");
+ const deptNotices=notices.filter(n=>deptOf(n)===activeDept);
  const used=deptCodes.filter(c=>c.used);
  $("cStudents").textContent=used.length;$("cNotices").textContent=deptNotices.length;
  $("aNotices").innerHTML=deptNotices.map(n=>{
@@ -2061,7 +2014,7 @@ function renderAdmin(){
    (l.map(s=>{
     const badge=isUserOnline(s)?`<span class="online-pill"><span class="online-dot"></span>متصل</span>`:"";
     const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 خاص</button>`:"";
-    const examTag=(s.seatNumber||s.examRoom)?`<span class="tag">رقم: ${esc(s.seatNumber||"-")} · ${esc(s.examRoom||"-")}</span>`:"";
+    const examTag=(hasSeatBadge(s.role)&&(s.seatNumber||s.examRoom))?`<span class="tag">رقم: ${esc(s.seatNumber||"-")} · ${esc(s.examRoom||"-")}</span>`:"";
     return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge} ${examTag}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}<button class="act" onclick="editStudentProfile('${esc(s.id)}')">✏️ تعديل</button>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button></div>`;
    }).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
  }).join("");
@@ -2162,7 +2115,7 @@ refreshDeptSelects();
 fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,editStudentProfile,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,teacherRoomPublish,editTeacherRoomNotice,resetTeacherRoomForm,addSubjectItem,attachFileToSubject,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
+Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,editStudentProfile,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,addSubjectItem,attachFileToSubject,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
 </script>
 </body>
 </html>
