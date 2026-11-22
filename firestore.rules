@@ -15,6 +15,10 @@ service cloud.firestore {
         && code is string
         && exists(/databases/$(database)/documents/codes/$(code));
     }
+    function canAcademicWrite(data) {
+      return hasCode(data.authorCode)
+        && codeDoc(data.authorCode).role in ['rep', 'rapporteur', 'teacher', 'dept_admin'];
+    }
     function canCreateNotice(data) {
       return hasCode(data.authorCode)
         && (
@@ -54,7 +58,14 @@ service cloud.firestore {
 
     match /settings/{docId} {
       allow read: if isSignedIn();
-      allow write: if isAdmin();
+      allow write: if isAdmin()
+        || (
+          isSignedIn()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['deptLogos', 'actorCode', 'actorDept', 'updatedAt'])
+          && hasCode(request.resource.data.actorCode)
+          && codeDoc(request.resource.data.actorCode).role in ['rapporteur', 'dept_admin']
+          && codeDoc(request.resource.data.actorCode).dept == request.resource.data.actorDept
+        );
     }
 
     match /notices/{noticeId} {
@@ -68,6 +79,38 @@ service cloud.firestore {
           && resource.data.channel == 'private_student'
           && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['replies'])
           && request.resource.data.replies.size() <= (resource.data.get('replies', []).size() + 1)
+        );
+    }
+
+    match /subjects/{subjectId} {
+      allow read: if isSignedIn();
+      allow create: if isAdmin() || canAcademicWrite(request.resource.data);
+      allow update: if isAdmin() || canAcademicWrite(resource.data);
+      allow delete: if isAdmin() || canAcademicWrite(resource.data);
+    }
+
+    match /schedules/{scheduleId} {
+      allow read: if isSignedIn();
+      allow create: if isAdmin() || canAcademicWrite(request.resource.data);
+      allow delete: if isAdmin() || canAcademicWrite(resource.data);
+    }
+
+    match /homeworks/{homeworkId} {
+      allow read: if isSignedIn();
+      allow create: if isAdmin() || canAcademicWrite(request.resource.data);
+      allow delete: if isAdmin() || canAcademicWrite(resource.data);
+    }
+
+    match /exam_rooms/{roomId} {
+      allow read: if isSignedIn();
+      allow create, delete: if isAdmin()
+        || (
+          hasCode(request.resource.data.authorCode)
+          && codeDoc(request.resource.data.authorCode).role in ['rapporteur', 'dept_admin']
+        )
+        || (
+          hasCode(resource.data.authorCode)
+          && codeDoc(resource.data.authorCode).role in ['rapporteur', 'dept_admin']
         );
     }
 
@@ -92,7 +135,7 @@ service cloud.firestore {
         )
         || (
           isSignedIn()
-          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['role'])
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['role', 'name', 'phone', 'stage', 'section', 'graduated', 'seatNumber', 'examRoom', 'actorCode'])
           && hasCode(request.resource.data.actorCode)
           && codeDoc(request.resource.data.actorCode).role in ['rapporteur', 'dept_admin']
           && codeDoc(request.resource.data.actorCode).dept == resource.data.dept
