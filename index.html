@@ -6,191 +6,247 @@
 <meta name="theme-color" content="#1e6273">
 <title id="pageTitle">تبليغات الكلية والأقسام</title>
 <style>
+/* ====== Base ====== */
 :root{
- --bg:#f4f7f8;--card:#ffffff;--line:#dde5e8;--ink:#1c2c33;--mute:#687b82;
- --navy:#1e6273;--navy2:#144654;--soft:#e7eff1;--warn:#1e6273;--warn-bg:#e9f3f5;
- --ok:#1e6273;--ok-bg:#e5f0f2;--err:#144654;--blue-bg:#e5f0f2;--amber-bg:#e7eff1;
- --alert-red:#d92d20;--online-dot:#16a34a
+ --bg:#f1f5f7;--card:#fff;--line:#e3eaee;--ink:#14242b;--mute:#677b83;
+ --navy:#1e6273;--navy2:#144654;--soft:#e6f0f3;--warn-bg:#eef5f7;--ok-bg:#e4f3ec;--blue-bg:#e4eefb;--amber-bg:#fdf1de;
+ --alert-red:#d92d20;--online-dot:#16a34a;
+ --r:18px;--shadow:0 1px 2px rgba(16,40,50,.05),0 6px 18px rgba(16,40,50,.05)
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif;line-height:1.7;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .app{max-width:520px;margin:auto;min-height:100vh;position:relative}
-.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:14px 14px 18px;display:flex;align-items:center;gap:10px;border-radius:0 0 24px 24px;position:relative;box-shadow:0 8px 24px rgba(20,70,84,.14);z-index:20}
+.i{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+h3{margin:8px 0 12px;font-size:16px;color:var(--ink)}
+.hidden{display:none!important}
+.ltr{direction:ltr;text-align:right}
+.meta{font-size:12.5px;color:var(--mute)}
+.err{min-height:20px;font-size:13px;font-weight:700;color:var(--alert-red)}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
+
+/* ====== Header ====== */
+.top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fffffff2;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);color:var(--ink)}
 .top .brand{flex:1;display:flex;align-items:center;gap:10px;min-width:0}
-.logo{width:44px;height:44px;border-radius:14px;background:#ffffff22;border:1px solid #ffffff30;display:grid;place-items:center;font-size:22px;overflow:visible;flex:none;position:relative}
-.logo img{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px}
-.ibtn{width:42px;height:42px;border-radius:14px;background:#ffffff1f;border:1px solid #ffffff2b;color:#fff;font-size:18px;cursor:pointer;margin:0;padding:0;position:relative;flex:none;overflow:visible;display:grid;place-items:center}
-.ibtn img{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px}
-.badge{position:absolute;top:-5px;right:-5px;background:var(--alert-red);color:#fff;font-size:11px;min-width:19px;height:19px;border-radius:10px;display:grid;place-items:center;padding:0 5px;font-weight:bold;border:2px solid var(--navy);box-shadow:0 2px 6px rgba(217,45,32,.45)}
-.bell-pop{position:absolute;top:66px;right:14px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;z-index:60;box-shadow:0 12px 28px rgba(20,70,84,.16)}
-.bell-item{padding:8px;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
+.top h1{color:var(--ink)}
+.logo,.ibtn{position:relative;flex:none;display:grid;place-items:center;border:0;padding:0;margin:0;background:var(--soft);color:var(--navy);cursor:pointer}
+.logo{width:44px;height:44px;border-radius:14px;font-size:22px}
+.ibtn{width:42px;height:42px;border-radius:14px;font-size:18px}
+.logo img,.ibtn img{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block}
+.badge{position:absolute;top:-5px;right:-5px;min-width:19px;height:19px;padding:0 5px;display:grid;place-items:center;border:2px solid #fff;border-radius:10px;background:var(--alert-red);color:#fff;font-size:11px;font-weight:700}
+.bell-pop{position:absolute;top:64px;right:12px;left:12px;z-index:60;padding:12px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:0 14px 32px rgba(20,70,84,.18)}
+.bell-item{padding:9px 6px;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
 .bell-item:last-child{border-bottom:0}
 .page{padding:14px 14px 124px}
-.hero{background:linear-gradient(155deg,var(--navy),var(--navy2));color:#fff;border-radius:22px;padding:18px;margin-bottom:14px;box-shadow:0 10px 24px rgba(20,70,84,.16)}
-.hero small{color:#dcebf0;font-size:12px;display:block}
-.hero h2{margin:3px 0 4px;font-size:21px}
-.hero p{margin:0 0 14px;font-size:13px;color:#e7f2f5}
-.hero button{background:#fff;color:var(--navy);width:auto;padding:9px 18px;margin:0;font-weight:bold;font-size:13px;border-radius:12px}
 
+/* ====== Home ====== */
+.hero{margin-bottom:14px;padding:20px;border-radius:24px;color:#fff;background:radial-gradient(circle at 15% 0,#2f8196 0,transparent 55%),linear-gradient(155deg,var(--navy),var(--navy2));box-shadow:0 12px 28px rgba(20,70,84,.22)}
+.hero small{display:block;font-size:12.5px;color:#d4e8ee}
+.hero h2{margin:2px 0 4px;font-size:22px}
+.hero p{margin:0 0 14px;font-size:13px;color:#e3f0f4}
+.hero button{width:auto;margin:0;padding:9px 18px;border-radius:12px;background:#fff;color:var(--navy2);font-size:13px;font-weight:700}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.stats.two{grid-template-columns:1fr 1fr}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 10px;text-align:center;box-shadow:0 4px 14px rgba(20,70,84,.04)}
-.stats.two .stat{display:flex;align-items:center;gap:12px;text-align:right;padding:14px}
-.ico{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:19px;margin:0 auto 6px;flex:none}
-.stats.two .ico{margin:0}
+.stat{padding:14px 8px;text-align:center;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow)}
+.stat b{display:block;font-size:22px;line-height:1.2}
+.stat span{font-size:12px;color:var(--mute)}
+.ico{display:grid;place-items:center;width:42px;height:42px;margin:0 auto 6px;border-radius:13px;font-size:19px}
 .b{background:var(--blue-bg)}.g{background:var(--ok-bg)}.a{background:var(--amber-bg)}
-.stat b{display:block;font-size:21px;line-height:1.2;color:var(--navy2)}.stat span{font-size:11.5px;color:var(--mute)}
-
-.sched-hero{background:linear-gradient(160deg,var(--navy2),var(--navy));color:#fff;border-radius:22px;padding:16px;margin-bottom:14px;box-shadow:0 10px 24px rgba(20,70,84,.15)}
+.sched-hero{margin-bottom:14px;padding:16px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
 .sched-hero-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
-.sched-pill{background:#ffffff22;border:1px solid #ffffff30;color:#fff;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:bold}
-.sched-slot{background:#ffffff14;border:1px solid #ffffff24;border-radius:15px;padding:11px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.sched-pill{padding:3px 12px;border-radius:20px;background:var(--soft);color:var(--navy2);font-size:12px;font-weight:700}
+.sched-slot{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:10px 12px;border-radius:14px;background:var(--bg)}
 .sched-slot:last-child{margin-bottom:0}
-.sched-time{background:#fff;color:var(--navy2);border-radius:11px;padding:5px 8px;font-size:11.5px;font-weight:bold;text-align:center;min-width:68px;flex:none}
-.sched-info{flex:1;min-width:0}.sched-info b{display:block;font-size:14px;color:#fff}.sched-info span{font-size:12px;color:#dcebf0}
+.sched-time{flex:none;min-width:68px;padding:6px 8px;border-radius:11px;background:var(--navy);color:#fff;font-size:12px;font-weight:700;text-align:center}
+.sched-info{flex:1;min-width:0}.sched-info b{display:block;font-size:14px}.sched-info span{font-size:12px;color:var(--mute)}
 
-h3{margin:6px 0 10px;font-size:15.5px;color:var(--navy2)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px;box-shadow:0 4px 14px rgba(20,70,84,.04)}
+/* ====== Cards & notices ====== */
+.card{margin-bottom:12px;padding:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow)}
 .notice{border-right:4px solid var(--navy)}
-.notice.important{border-right-color:var(--navy2);background:var(--warn-bg)}
-.notice.private{border-right-color:#0f766e;background:#f0fdfa}
-.notice-title{margin:6px 0 4px;font-size:15px;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.notice-title::after{content:"▾";font-size:12px;color:var(--mute);flex:none}
+.notice.important{border-right-color:var(--alert-red)}
+.notice.private{border-right-color:#0f766e}
+.notice-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 0 4px;font-size:15.5px;cursor:pointer;user-select:none}
+.notice-title::after{content:"▾";flex:none;font-size:12px;color:var(--mute)}
 .notice.open .notice-title::after{content:"▴"}
-.notice-body{margin:2px 0 8px;font-size:14px;white-space:pre-wrap;max-height:46px;overflow:hidden;position:relative;color:var(--ink)}
+.notice-body{position:relative;max-height:48px;margin:2px 0 8px;overflow:hidden;font-size:14px;white-space:pre-wrap}
 .notice.open .notice-body{max-height:none;overflow:visible}
-.notice:not(.open) .notice-body::after{content:"";position:absolute;bottom:0;left:0;right:0;height:20px;background:linear-gradient(transparent,var(--card))}
-.notice.important:not(.open) .notice-body::after{background:linear-gradient(transparent,var(--warn-bg))}
-.notice.private:not(.open) .notice-body::after{background:linear-gradient(transparent,#f0fdfa)}
-
+.notice:not(.open) .notice-body::after{content:"";position:absolute;inset:auto 0 0 0;height:22px;background:linear-gradient(transparent,var(--card))}
 .replies-box{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
-.reply-item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:6px;font-size:13px}
-.reply-form{display:flex;gap:6px;margin-top:6px;align-items:center}
-.reply-form input{margin:0;padding:8px 10px;font-size:13px;flex:1}
-.reply-form button{margin:0;padding:8px 12px;font-size:12px;width:auto;white-space:nowrap}
-
-.online-pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;background:#dcfce7;color:#166534;border-radius:20px;padding:1px 9px;font-weight:bold}
-.online-dot{width:8px;height:8px;border-radius:50%;background:var(--online-dot);display:inline-block}
-.online-strip{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
-.meta{font-size:12px;color:var(--mute)}
-.warn-note{background:var(--warn-bg);border:1px solid var(--line);border-right:4px solid var(--navy2);border-radius:14px;padding:10px 12px;margin-top:10px;font-size:12px;color:var(--ink)}
-.tag{display:inline-block;font-size:11px;background:var(--soft);color:var(--ink);border-radius:20px;padding:1px 10px;margin-left:4px}
-.tag.imp{background:var(--navy2);color:#fff}
+.reply-item{margin-bottom:6px;padding:8px 10px;border-radius:12px;background:var(--bg);font-size:13px}
+.reply-form{display:flex;align-items:center;gap:6px;margin-top:6px}
+.reply-form input{flex:1;margin:0;padding:8px 10px;font-size:13px}
+.reply-form button{width:auto;margin:0;padding:8px 14px;font-size:12.5px;white-space:nowrap}
+.tag{display:inline-block;margin-left:4px;padding:1px 10px;border-radius:20px;background:var(--soft);color:var(--ink);font-size:11.5px}
+.tag.imp{background:#fde7e4;color:#a3261b;font-weight:700}
 .tag.rep{background:var(--navy);color:#fff}
-.tag.priv{background:#0f766e;color:#fff}
-.tag.ok{background:#dcfce7;color:#166534;font-weight:bold}
-.att-box{margin:8px 0;padding:9px 11px;background:var(--bg);border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.att-img{width:100%;max-height:240px;object-fit:contain;border-radius:12px;margin-top:6px;border:1px solid var(--line);background:var(--card);display:block}
-.acc-avatar{width:68px;height:68px;border-radius:18px;object-fit:cover;border:1px solid var(--line);background:var(--soft);display:block;margin-bottom:8px}
-.dept-preview{width:54px;height:54px;border-radius:14px;object-fit:cover;border:1px solid var(--line);background:var(--soft);flex:none}
+.tag.priv{background:#d9f1ee;color:#0f766e;font-weight:700}
+.tag.ok{background:#dcfce7;color:#166534;font-weight:700}
+.warn-note{margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-right:4px solid var(--navy2);border-radius:14px;background:var(--warn-bg);font-size:12.5px}
+.online-pill{display:inline-flex;align-items:center;gap:5px;padding:1px 10px;border-radius:20px;background:#dcfce7;color:#166534;font-size:11.5px;font-weight:700}
+.online-dot{width:8px;height:8px;border-radius:50%;background:var(--online-dot)}
+.online-strip{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.att-box{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0;padding:9px 11px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
+.att-img{display:block;width:100%;max-height:240px;margin-top:6px;border:1px solid var(--line);border-radius:12px;background:var(--card);object-fit:contain}
+.acc-avatar{display:block;width:72px;height:72px;margin-bottom:8px;border:1px solid var(--line);border-radius:20px;background:var(--soft);object-fit:cover}
+.dept-preview{flex:none;width:54px;height:54px;border:1px solid var(--line);border-radius:14px;background:var(--soft);object-fit:cover}
 
-label{display:block;font-size:13px;color:var(--mute);margin-top:10px}
-input,textarea,select{width:100%;padding:12px;margin:4px 0;border:1px solid var(--line);border-radius:14px;background:var(--card);font-family:inherit;font-size:15px;color:var(--ink)}
-input[type="file"]{padding:9px;font-size:13px}
-input:focus,textarea:focus,select:focus,button:focus-visible,summary:focus-visible{outline:2px solid var(--navy);outline-offset:1px}
-button{border:0;border-radius:14px;padding:12px;background:var(--navy);color:#fff;font-family:inherit;font-size:15px;width:100%;cursor:pointer;margin-top:10px}
-button.sec{background:var(--soft);color:var(--ink)}
-button.del{background:transparent;color:var(--navy2);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
-button.act{background:transparent;color:var(--navy);border:1px solid var(--line);width:auto;padding:5px 12px;font-size:12px;margin:0}
-.hidden{display:none!important}
-.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
-.err{color:var(--navy2);font-weight:bold;font-size:13px;min-height:20px}
-.ltr{direction:ltr;text-align:right}
-.seg{display:flex;background:var(--soft);border-radius:16px;padding:4px;margin-bottom:14px;gap:2px}
-.seg button{margin:0;background:transparent;color:var(--mute);padding:9px 2px;font-size:12.5px;border-radius:12px}
-.seg button.on{background:var(--navy);color:#fff}
-.chips{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
-.chips button{width:auto;margin:0;padding:6px 14px;font-size:12px;background:var(--soft);color:var(--ink);border-radius:20px}
-.chips button.on{background:var(--navy);color:#fff}
+/* ====== Forms & buttons ====== */
+label{display:block;margin-top:10px;font-size:13px;font-weight:600;color:var(--mute)}
+input,textarea,select{width:100%;margin:4px 0;padding:12px;border:1px solid var(--line);border-radius:14px;background:#fbfcfd;color:var(--ink);font-family:inherit;font-size:15px}
+input[type=file]{padding:9px;font-size:13px}
+input:focus,textarea:focus,select:focus{border-color:var(--navy);background:#fff;outline:3px solid #1e62732e}
+button:focus-visible,summary:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+button{width:100%;margin-top:10px;padding:12px;border:0;border-radius:14px;background:var(--navy);color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:transform .1s,background .15s}
+button:active{transform:scale(.98)}
+button.sec{background:var(--soft);color:var(--navy2)}
+button.del,button.act{width:auto;margin:0;padding:6px 12px;border:1px solid var(--line);background:#fff;font-size:12.5px}
+button.act{color:var(--navy)}
+button.del{color:#b42318}
 
-.subj-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 4px 12px rgba(20,70,84,.04)}
-.subj-ico{width:46px;height:46px;border-radius:14px;background:var(--soft);color:var(--navy2);display:grid;place-items:center;font-size:20px;flex:none}
-.subj-body{flex:1;min-width:0}.subj-body b{display:block;font-size:15px}.subj-body span{font-size:12px;color:var(--mute)}
-.day-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px;margin-bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 12px rgba(20,70,84,.04)}
-.time-badge{background:var(--soft);color:var(--navy2);border-radius:13px;padding:6px 9px;font-size:12px;font-weight:bold;text-align:center;min-width:74px;flex:none}
-.hw-card{background:var(--card);border:1px solid var(--line);border-right:4px solid var(--navy2);border-radius:18px;padding:13px;margin-bottom:10px;box-shadow:0 4px 12px rgba(20,70,84,.04)}
-
-details{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:10px;overflow:hidden}
-summary{list-style:none;cursor:pointer;padding:14px;display:flex;align-items:center;gap:10px;font-weight:bold}
+/* ====== Tabs, chips, lists ====== */
+.seg{display:flex;gap:2px;margin-bottom:14px;padding:4px;border-radius:16px;background:#e3ecef}
+.seg button{margin:0;padding:10px 2px;border-radius:12px;background:transparent;color:var(--mute);font-size:13px}
+.seg button.on{background:#fff;color:var(--navy2);box-shadow:var(--shadow)}
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:12px}
+.chips button{width:auto;margin:0;padding:7px 16px;border:1px solid var(--line);border-radius:20px;background:#fff;color:var(--ink);font-size:12.5px;font-weight:600}
+.chips button.on{border-color:var(--navy);background:var(--navy);color:#fff}
+.subj-card,.day-card,.hw-card{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding:14px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow)}
+.subj-card{cursor:pointer}
+.hw-card{display:block;border-right:4px solid var(--navy2)}
+.subj-ico{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:14px;background:var(--soft);font-size:20px}
+.subj-body{flex:1;min-width:0}.subj-body b{display:block;font-size:15px}.subj-body span{font-size:12.5px;color:var(--mute)}
+.time-badge{flex:none;min-width:74px;padding:6px 9px;border-radius:13px;background:var(--soft);color:var(--navy2);font-size:12px;font-weight:700;text-align:center}
+details{margin-bottom:10px;overflow:hidden;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+summary{display:flex;align-items:center;gap:10px;padding:14px;list-style:none;font-weight:700;cursor:pointer}
 summary::-webkit-details-marker{display:none}
-summary .cnt{margin-right:auto;background:var(--navy);color:#fff;border-radius:20px;font-size:12px;padding:1px 10px}
+summary .cnt{margin-right:auto;padding:1px 10px;border-radius:20px;background:var(--navy);color:#fff;font-size:12px}
 summary::after{content:"▾";color:var(--mute);transition:transform .2s}
 details[open] summary::after{transform:rotate(180deg)}
-.stu{padding:10px 14px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.stu{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 14px;border-top:1px solid var(--line)}
 .stu div{flex:1;min-width:160px}.stu b{font-size:14px}
-
-.inline-edit-panel{width:100%;margin-top:8px;padding:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px}
-.inline-edit-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.inline-edit-panel{width:100%;margin-top:8px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.inline-edit-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:8px}
 .inline-edit-row:last-child{margin-bottom:0}
-.inline-edit-row label{margin:0;min-width:66px;font-size:12px;font-weight:bold;color:var(--navy2)}
+.inline-edit-row label{min-width:66px;margin:0;font-size:12px;font-weight:700;color:var(--navy2)}
 .inline-edit-row input,.inline-edit-row select{flex:1;min-width:120px;margin:0;padding:7px 9px;font-size:13px}
-.inline-edit-row button{margin:0;width:auto;padding:7px 11px;font-size:12px;white-space:nowrap}
+.inline-edit-row button{width:auto;margin:0;padding:7px 11px;font-size:12px;white-space:nowrap}
 
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:11px 6px calc(11px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;z-index:100;box-shadow:0 -6px 22px rgba(20,70,84,.1)}
-.nav button{background:none;color:var(--mute);margin:0;padding:8px 2px;font-size:11.5px;flex:1;position:relative;border-radius:14px;touch-action:manipulation;min-height:56px}
-.nav button span{display:block;font-size:21px;line-height:1.3;pointer-events:none;margin-bottom:2px}
-.nav button.on{color:var(--navy);font-weight:bold;background:var(--soft)}
+/* ====== Bottom navigation ====== */
+.nav{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom,0px));left:50%;z-index:100;transform:translateX(-50%);display:flex;gap:2px;width:calc(100% - 20px);max-width:500px;padding:6px;border:1px solid var(--line);border-radius:24px;background:#fffffff5;backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(16,40,50,.16)}
+.nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:54px;margin:0;padding:7px 2px;border-radius:18px;background:none;color:var(--mute);font-size:10.5px;font-weight:600;touch-action:manipulation}
+.nav button .i{width:22px;height:22px;pointer-events:none}
+.nav button.on{background:var(--soft);color:var(--navy2)}
 
-/* ====== داش بورد الإدارة التفاعلية لكافة الأجهزة (حاسوب، تابلت، هاتف) ====== */
-#admin{display:block;width:100%;max-width:100%;background:var(--bg)}
+/* ====== Admin dashboard ====== */
+#admin{
+ --a-bg:#f2f5f7;--a-surface:#fff;--a-line:#e2e8ec;--a-ink:#13222a;--a-mute:#62767e;
+ --a-primary:#1e6273;--a-primary-dark:#144654;--a-soft:#e5f0f3;--a-danger:#c0392b;--a-danger-soft:#fdecea;
+ --a-radius:14px;--a-shadow:0 1px 2px rgba(16,40,50,.05),0 6px 20px rgba(16,40,50,.04);
+ display:block;min-height:100vh;background:var(--a-bg);color:var(--a-ink);
+ font-family:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif
+}
 #admin.hidden{display:none!important}
-#admin .top{border-radius:0;padding:14px 18px;box-shadow:0 6px 20px rgba(20,70,84,.14)}
-#admin .adm-top-inner{max-width:1280px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
-#admin .page{max-width:1280px;margin:0 auto;padding:20px 16px 64px;width:100%}
+#admin .i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-#admin .adm-hero{background:linear-gradient(135deg,var(--navy2),var(--navy));color:#fff;border-radius:16px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 10px 24px rgba(20,70,84,.12)}
-#admin .adm-hero h2{margin:0 0 4px;font-size:19px}
-#admin .adm-hero p{margin:0;font-size:13px;color:#e2f0f4}
-#admin .adm-pill-group{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-#admin .adm-pill{background:#ffffff1f;border:1px solid #ffffff33;color:#fff;padding:6px 12px;border-radius:10px;font-size:12px;font-weight:bold;white-space:nowrap}
+/* layout */
+.adm-shell{display:grid;grid-template-columns:minmax(0,1fr);min-height:100vh}
+.adm-sidebar{background:var(--a-primary-dark);color:#fff;padding:14px;display:flex;flex-direction:column;gap:14px}
+.adm-brand{display:flex;align-items:center;gap:10px;min-width:0}
+.adm-brand b{display:block;font-size:15px}
+.adm-brand span{display:block;font-size:12px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.adm-nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.adm-nav::-webkit-scrollbar{display:none}
+#admin .adm-nav button,#admin .adm-logout{
+ display:flex;align-items:center;gap:10px;margin:0;width:auto;padding:10px 14px;border-radius:10px;
+ background:transparent;color:#cfe3e9;font-size:14px;font-weight:600;white-space:nowrap
+}
+#admin .adm-nav button:hover,#admin .adm-logout:hover{background:#ffffff14}
+#admin .adm-nav button.on{background:#fff;color:var(--a-primary-dark)}
+#admin .adm-logout{display:none}
+.adm-content{min-width:0;display:flex;flex-direction:column}
+.adm-bar{
+ position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+ padding:12px 16px;background:#ffffffee;backdrop-filter:blur(8px);border-bottom:1px solid var(--a-line)
+}
+.adm-bar select{flex:1;min-width:180px;max-width:360px;margin:0;font-weight:600}
+.adm-bar .spacer{flex:1}
+.adm-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--a-soft);color:var(--a-primary-dark);font-size:13px;font-weight:700}
+.adm-chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--online-dot)}
+#admin .adm-bar .logout-sm{margin:0;width:auto;padding:8px 10px;background:var(--a-soft);color:var(--a-primary-dark)}
+.adm-page{width:100%;max-width:1200px;margin:0 auto;padding:18px 16px 64px}
 
-#admin .adm-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}
-#admin .adm-kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:row;align-items:center;gap:12px;min-width:0;box-shadow:0 4px 14px rgba(20,70,84,.04)}
-#admin .adm-kpi .ico{margin:0;width:44px;height:44px;border-radius:12px;font-size:20px;flex:none}
-#admin .adm-kpi-text{min-width:0;flex:1}
-#admin .adm-kpi b{display:block;font-size:20px;line-height:1.2;color:var(--navy2);white-space:nowrap}
-#admin .adm-kpi span{display:block;font-size:12px;color:var(--mute);line-height:1.35}
+/* KPIs */
+.adm-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.adm-kpi{display:flex;align-items:center;gap:12px;padding:14px;background:var(--a-surface);border:1px solid var(--a-line);border-radius:var(--a-radius);box-shadow:var(--a-shadow)}
+.kpi-ico{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--a-soft);color:var(--a-primary);flex:none}
+.adm-kpi b{display:block;font-size:24px;line-height:1.15;color:var(--a-ink)}
+.adm-kpi span{font-size:12.5px;color:var(--a-mute)}
 
-#admin .adm-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
-#admin .adm-side{display:flex;flex-direction:column;gap:14px;min-width:0}
-#admin .adm-main{min-width:0;width:100%}
+/* panels */
+.adm-panels{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.adm-feed-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+#admin .card{margin:0 0 14px;padding:18px;border:1px solid var(--a-line);border-radius:var(--a-radius);background:var(--a-surface);box-shadow:var(--a-shadow)}
+#admin .card h3{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:16px;color:var(--a-ink)}
+#admin hr{border:0;border-top:1px solid var(--a-line);margin:18px 0 14px}
+#admin label{margin-top:12px;font-size:13px;font-weight:600;color:var(--a-mute)}
+#admin input,#admin textarea,#admin select{margin:5px 0 0;padding:10px 12px;border:1px solid var(--a-line);border-radius:10px;background:#fbfcfd;font-size:14px}
+#admin input:focus,#admin textarea:focus,#admin select:focus{background:#fff;border-color:var(--a-primary);outline:3px solid #1e62732e;outline-offset:0}
+.adm-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 
-#admin .card{border-radius:14px;padding:16px 18px;margin-bottom:14px;box-shadow:0 4px 16px rgba(20,70,84,.05);border:1px solid var(--line)}
-#admin .card h3{margin-top:0;font-size:16px;display:flex;align-items:center;gap:8px}
-#admin details{border-radius:14px;margin-bottom:12px}
-#admin .inline-edit-panel{border-radius:10px}
-#admin input,#admin textarea,#admin select{border-radius:10px;padding:10px 12px;font-size:14px;width:100%}
-#admin button{border-radius:10px;padding:10px 14px;font-size:14px;font-weight:bold;width:100%}
-#admin button.sec{width:100%}
-#admin button.del,#admin button.act{width:auto}
+/* buttons */
+#admin button{width:auto;margin:0;padding:10px 16px;border-radius:10px;font-size:14px;font-weight:700;transition:background .15s}
+#admin button:not(.sec):not(.del):not(.act){background:var(--a-primary);color:#fff}
+#admin button:not(.sec):not(.del):not(.act):hover{background:var(--a-primary-dark)}
+#admin button.sec{background:var(--a-soft);color:var(--a-primary-dark)}
+#admin button.sec:hover{background:#d3e6eb}
+#admin button.act{padding:6px 12px;font-size:12.5px;border:1px solid var(--a-line);background:#fff;color:var(--a-primary)}
+#admin button.del{padding:6px 12px;font-size:12.5px;border:1px solid #f1c9c4;background:var(--a-danger-soft);color:var(--a-danger)}
 
-#admin .adm-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:6px;border-radius:14px;margin-bottom:16px;background:var(--soft)}
-#admin .adm-tabs button{margin:0;padding:10px 10px;font-size:13px;border-radius:10px;width:100%;background:transparent;color:var(--mute);display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
-#admin .adm-tabs button.on{background:var(--navy);color:#fff}
-
-#admin .adm-btn-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
-#admin .adm-btn-grid button{margin:0;width:100%}
-#admin .adm-feed-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+/* lists generated by JS */
+#admin .notice{border-right:4px solid var(--a-primary);margin:0}
+#admin .notice.important{border-right-color:var(--a-danger);background:var(--a-surface)}
+#admin .notice.private{border-right-color:#0f766e;background:var(--a-surface)}
+#admin details{margin-bottom:12px;border:1px solid var(--a-line);border-radius:var(--a-radius);background:var(--a-surface);box-shadow:var(--a-shadow)}
+#admin summary{padding:14px 16px}
+#admin summary .cnt{background:var(--a-soft);color:var(--a-primary-dark);font-weight:700}
+#admin .stu{padding:12px 16px}
+#admin .stu:hover{background:#f8fafb}
+#admin .sec-head{padding:8px 16px;border-top:1px solid var(--a-line);background:var(--a-bg);font-size:12px;font-weight:700;color:var(--a-primary-dark)}
+#admin .inline-edit-panel{border-radius:10px;background:var(--a-bg)}
+.card-actions{display:flex;gap:6px;margin-top:8px}
+.dept-head{display:flex;align-items:center;gap:12px}
 
 @media (min-width:680px){
- #admin .adm-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
- #admin .adm-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}
- #admin .adm-feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .adm-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .adm-feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (min-width:1024px){
- #admin .page{padding:24px 24px 72px}
- #admin .adm-grid{grid-template-columns:360px minmax(0,1fr);gap:22px}
- #admin .adm-side{position:sticky;top:16px}
+ .adm-shell{grid-template-columns:250px minmax(0,1fr)}
+ .adm-sidebar{position:sticky;top:0;height:100vh;padding:20px 14px}
+ .adm-nav{flex-direction:column}
+ #admin .adm-logout{display:flex;margin-top:auto}
+ #admin .adm-bar .logout-sm{display:none}
+ .adm-page{padding:24px 28px 72px}
+ .adm-panels.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link id="dynManifest" rel="manifest" href="manifest.json">
 <link id="appleIcon" rel="apple-touch-icon" href="icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+ <symbol id="s-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 9.5V21h5v-6h4v6h5V9.5"/></symbol>
+ <symbol id="s-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></symbol>
+ <symbol id="s-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2ZM4 19V5M9 7h6"/></symbol>
+ <symbol id="s-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+ <symbol id="s-pen" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+ <symbol id="s-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></symbol>
+ <symbol id="s-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+</defs></svg>
 <div class="app">
 
 <!-- ====== إنشاء حساب / الدخول ====== -->
@@ -520,108 +576,74 @@ details[open] summary::after{transform:rotate(180deg)}
  </div>
 
  <nav class="nav">
-  <button id="nHome" class="on" onclick="sTab('home')"><span>🏠</span>الرئيسية</button>
-  <button id="nNotices" onclick="sTab('notices')"><span>📣</span>التبليغات</button>
-  <button id="nSubjects" onclick="sTab('subjects')"><span>📚</span>المواد</button>
-  <button id="nSchedule" onclick="sTab('schedule')"><span>🗓️</span>الجدول</button>
-  <button id="nRep" class="hidden" onclick="sTab('rep')"><span>✍️</span>النشر</button>
-  <button id="nPerms" class="hidden" onclick="sTab('perms')"><span>👥</span>القسم</button>
-  <button id="nAccount" onclick="sTab('account')"><span>👤</span>حسابي</button>
+  <button id="nHome" class="on" onclick="sTab('home')"><svg class="i"><use href="#s-home"/></svg>الرئيسية</button>
+  <button id="nNotices" onclick="sTab('notices')"><svg class="i"><use href="#s-bell"/></svg>التبليغات</button>
+  <button id="nSubjects" onclick="sTab('subjects')"><svg class="i"><use href="#s-book"/></svg>المواد</button>
+  <button id="nSchedule" onclick="sTab('schedule')"><svg class="i"><use href="#s-cal"/></svg>الجدول</button>
+  <button id="nRep" class="hidden" onclick="sTab('rep')"><svg class="i"><use href="#s-pen"/></svg>النشر</button>
+  <button id="nPerms" class="hidden" onclick="sTab('perms')"><svg class="i"><use href="#s-users"/></svg>القسم</button>
+  <button id="nAccount" onclick="sTab('account')"><svg class="i"><use href="#s-user"/></svg>حسابي</button>
  </nav>
 </section>
 
-<!-- ====== داش بورد الإدارة التفاعلية لكافة الأجهزة ====== -->
+<!-- ====== Admin dashboard ====== -->
 <section id="admin" class="hidden">
- <div class="top">
-  <div class="adm-top-inner">
-   <div class="brand">
+ <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M16 7l3 3"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5l8-3 8 3v16M2 21h20M9 9h2M13 9h2M9 13h2M13 13h2M10 21v-4h4v4"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+ </defs></svg>
+
+ <div class="adm-shell">
+  <aside class="adm-sidebar">
+   <div class="adm-brand">
     <div class="logo">
      <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🛡️'">
      <span class="appNewBadge badge hidden">0</span>
     </div>
-    <div><h1 style="margin:0;font-size:19px">داش بورد الإدارة المركزية</h1><p id="admTopDept" style="margin:0;font-size:12px;opacity:.9"></p></div>
+    <div><b>الإدارة المركزية</b><span id="admTopDept"></span></div>
    </div>
-   <button class="ibtn" onclick="logout()" aria-label="تسجيل الخروج" title="تسجيل الخروج">⎋</button>
-  </div>
- </div>
+   <nav class="adm-nav">
+   <button id="atNew" class="on" onclick="aTab('new')"><svg class="i"><use href="#i-edit"/></svg>نشر تبليغ</button>
+   <button id="atNotices" onclick="aTab('notices')"><svg class="i"><use href="#i-doc"/></svg>التبليغات</button>
+   <button id="atStudents" onclick="aTab('students')"><svg class="i"><use href="#i-users"/></svg>الصلاحيات</button>
+   <button id="atCodes" onclick="aTab('codes')"><svg class="i"><use href="#i-key"/></svg>الأكواد</button>
+   <button id="atDepts" onclick="aTab('depts')"><svg class="i"><use href="#i-building"/></svg>الأقسام والهوية</button>
+   </nav>
+   <button class="adm-logout" onclick="logout()"><svg class="i"><use href="#i-logout"/></svg>تسجيل الخروج</button>
+  </aside>
 
- <div class="page">
-  <div class="adm-hero">
-   <div>
-    <h2 id="admHeroTitle">إدارة الأقسام والتبليغات والصلاحيات</h2>
-    <p id="admHeroSub">تحكم كامل ومتجاوب عبر الحاسوب والتابلت والهاتف مع حفظ فوري للبيانات.</p>
-   </div>
-   <div class="adm-pill-group">
-    <span class="adm-pill" id="admActiveDeptPill">القسم النشط</span>
-    <span class="adm-pill" id="admOnlineCountPill">🟢 0 متصل</span>
-   </div>
-  </div>
+  <div class="adm-content">
+   <header class="adm-bar">
+    <select id="admDept" onchange="onDeptChange()" aria-label="القسم النشط"></select>
+    <span class="spacer"></span>
+    <span class="adm-chip"><span id="admOnlineCountPill">0 متصل</span></span>
+    <button class="logout-sm" onclick="logout()" aria-label="تسجيل الخروج"><svg class="i"><use href="#i-logout"/></svg></button>
+   </header>
 
-  <div class="adm-kpis">
-   <div class="adm-kpi"><div class="ico b">👥</div><div class="adm-kpi-text"><b id="cStudents">0</b><span>مسجل بالقسم</span></div></div>
-   <div class="adm-kpi"><div class="ico a">📋</div><div class="adm-kpi-text"><b id="cNotices">0</b><span>تبليغ بالقسم</span></div></div>
-   <div class="adm-kpi"><div class="ico g">🔑</div><div class="adm-kpi-text"><b id="cAvailCodes">0</b><span>رمز متاح بالقسم</span></div></div>
-   <div class="adm-kpi"><div class="ico b">🟢</div><div class="adm-kpi-text"><b id="cOnlineNow">0</b><span>متصل الآن</span></div></div>
-  </div>
-
-  <div class="adm-grid">
-   <!-- العمود الجانبي: إدارة الأقسام والهوية والمتصلون -->
-   <aside class="adm-side">
-    <div class="card">
-     <h3>🏛️ إدارة الأقسام والشعارات</h3>
-     <label for="admDept" style="margin-top:0">القسم النشط للإدارة</label>
-     <select id="admDept" onchange="onDeptChange()"></select>
-     <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
-      <img id="admDeptLogoImg" class="dept-preview" src="icon-192.png" alt="لوجو القسم">
-      <div style="flex:1;min-width:0">
-       <label for="admDeptLogoFile" style="margin-top:0">تغيير / رفع لوجو القسم النشط</label>
-       <input id="admDeptLogoFile" type="file" accept="image/*">
-      </div>
-     </div>
-     <button class="sec" onclick="saveActiveDeptLogo()">حفظ لوجو القسم</button>
-     <div class="adm-btn-grid">
-      <button class="sec" onclick="renameActiveDept()">✏️ تعديل القسم</button>
-      <button class="del" onclick="deleteActiveDept()">🗑️ حذف القسم</button>
-     </div>
-
-     <hr style="border:0;border-top:1px solid var(--line);margin:14px 0 10px">
-     <label for="newDeptName">إضافة قسم جديد</label>
-     <input id="newDeptName" placeholder="أدخل اسم القسم الجديد">
-     <select id="newDeptFifth" style="margin-top:6px">
-      <option value="auto">تحديد المرحلة الخامسة تلقائياً (للأقسام الطبية)</option>
-      <option value="yes">تفعيل المرحلة الخامسة (5 مراحل)</option>
-      <option value="no">أربع مراحل فقط (4 مراحل)</option>
-     </select>
-     <label for="newDeptLogo">لوجو القسم الجديد (اختياري)</label>
-     <input id="newDeptLogo" type="file" accept="image/*">
-     <button class="sec" onclick="addNewDept()">+ إضافة قسم</button>
+   <main class="adm-page">
+    <div class="adm-kpis">
+   <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-users"/></svg></span><div><b id="cStudents">0</b><span>مسجل بالقسم</span></div></div>
+   <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-doc"/></svg></span><div><b id="cNotices">0</b><span>تبليغ بالقسم</span></div></div>
+   <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-key"/></svg></span><div><b id="cAvailCodes">0</b><span>رمز متاح</span></div></div>
+   <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-pulse"/></svg></span><div><b id="cOnlineNow">0</b><span>متصل الآن</span></div></div>
     </div>
 
-    <div class="card">
-     <h3>🟢 المتصلون حالياً في القسم</h3>
-     <div id="admOnlineNow" class="online-strip"></div>
-    </div>
-   </aside>
-
-   <!-- المساحة الرئيسية التفاعلية -->
-   <main class="adm-main">
-    <div class="adm-tabs">
-     <button id="atNew" class="on" onclick="aTab('new')">✍️ نشر تبليغ</button>
-     <button id="atNotices" onclick="aTab('notices')">📋 التبليغات</button>
-     <button id="atStudents" onclick="aTab('students')">👥 الصلاحيات</button>
-     <button id="atCodes" onclick="aTab('codes')">🔑 الأكواد</button>
-    </div>
-
+    <!-- نشر تبليغ -->
     <div id="aNew" class="card">
      <h3 id="admFormTitle">نشر تبليغ جديد</h3>
      <input type="hidden" id="admEditId">
      <input type="hidden" id="admChannel" value="public">
      <input type="hidden" id="admTargetCode" value="">
-     <div id="admPrivateBanner" class="warn-note hidden" style="margin-bottom:8px"></div>
+     <div id="admPrivateBanner" class="warn-note hidden"></div>
      <label for="title">العنوان</label>
      <input id="title" placeholder="أدخل عنوان التبليغ">
      <label for="body">النص</label>
-     <textarea id="body" rows="4" placeholder="اكتب تفاصيل التبليغ"></textarea>
+     <textarea id="body" rows="5" placeholder="اكتب تفاصيل التبليغ"></textarea>
      <div class="row" id="admTargetRow">
       <div><label for="tStage">المرحلة</label><select id="tStage"></select></div>
       <div><label for="tSection">الشعبة</label><select id="tSection"></select></div>
@@ -631,44 +653,97 @@ details[open] summary::after{transform:rotate(180deg)}
      <label for="aFile">مرفق (صورة، PDF، Word) - يُحفظ على هاتف الطالب</label>
      <input id="aFile" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
      <div id="aFileNote" class="meta"></div>
-     <button id="admPubBtn" onclick="publish()">نشر التبليغ</button>
-     <button id="admCancelBtn" class="sec hidden" onclick="resetAdmForm()">إلغاء التعديل</button>
-
-     <hr style="border:0;border-top:1px solid var(--line);margin:18px 0 12px">
-     <h3>🎨 اسم وصورة التطبيق</h3>
-     <label for="appNameInput">اسم التطبيق</label>
-     <input id="appNameInput" placeholder="أدخل اسم التطبيق">
-     <label for="logoFile">صورة التطبيق</label>
-     <input id="logoFile" type="file" accept="image/*">
-     <button class="sec" onclick="saveBrandSettings()">حفظ الاسم والصورة</button>
+     <div class="adm-actions">
+      <button id="admPubBtn" onclick="publish()">نشر التبليغ</button>
+      <button id="admCancelBtn" class="sec hidden" onclick="resetAdmForm()">إلغاء التعديل</button>
+     </div>
     </div>
 
+    <!-- التبليغات -->
     <div id="aNotices" class="hidden"></div>
 
+    <!-- الصلاحيات -->
     <div id="aStudents" class="hidden">
      <div class="card">
-      <h3 style="margin-top:0">🔎 بحث فوري عن طالب أو كود أو رقم هاتف</h3>
+      <h3>بحث عن طالب أو كود أو رقم هاتف</h3>
       <input id="admUserSearch" placeholder="ابحث بالاسم أو الهاتف أو الكود في جميع الأقسام..." oninput="renderAdmin()">
      </div>
      <div id="admSearchResultBox"></div>
      <div id="aStudentsGroups"></div>
     </div>
 
+    <!-- الأكواد -->
     <div id="aCodes" class="hidden">
      <div class="card">
       <h3>إنشاء رموز وإرسالها للواتساب</h3>
       <p class="meta">يبدأ الحساب الجديد كـ "طالب" ويمكنك تغيير صلاحيته لاحقاً من تبويب الصلاحيات.</p>
-      <div class="row"><div><label for="gStage">المرحلة</label><select id="gStage"></select></div><div><label for="gSection">الشعبة</label><select id="gSection"></select></div></div>
+      <div class="row">
+       <div><label for="gStage">المرحلة</label><select id="gStage"></select></div>
+       <div><label for="gSection">الشعبة</label><select id="gSection"></select></div>
+      </div>
       <div class="row">
        <div><label for="gRole">الصلاحية المبدئية</label><select id="gRole" onchange="toggleStageForRole()"><option value="student">طالب</option><option value="rep">ممثل</option><option value="rapporteur">مقرر</option><option value="teacher">مدرس</option><option value="dept_admin">مدير قسم</option></select></div>
        <div><label for="gCount">عدد الرموز</label><input id="gCount" type="number" min="1" max="200" value="10"></div>
       </div>
       <label for="waPhone">رقم واتساب المستلم (اختياري)</label>
       <input id="waPhone" class="ltr" inputmode="tel" placeholder="07XXXXXXXXX">
-      <button onclick="genCodes()">إنشاء الرموز</button>
-      <button class="sec" onclick="sendCodesWhatsApp()">📲 إرسال الرموز المتاحة للواتساب</button>
+      <div class="adm-actions">
+       <button onclick="genCodes()">إنشاء الرموز</button>
+       <button class="sec" onclick="sendCodesWhatsApp()">إرسال الرموز المتاحة للواتساب</button>
+      </div>
      </div>
      <div id="codeLists"></div>
+    </div>
+
+    <!-- الأقسام والهوية -->
+    <div id="aDepts" class="hidden">
+     <div class="adm-panels two">
+      <div>
+       <div class="card">
+        <h3>القسم النشط</h3>
+        <div class="dept-head">
+         <img id="admDeptLogoImg" class="dept-preview" src="icon-192.png" alt="لوجو القسم">
+         <div style="flex:1;min-width:0">
+          <label for="admDeptLogoFile" style="margin-top:0">تغيير لوجو القسم</label>
+          <input id="admDeptLogoFile" type="file" accept="image/*">
+         </div>
+        </div>
+        <div class="adm-actions">
+         <button class="sec" onclick="saveActiveDeptLogo()">حفظ اللوجو</button>
+         <button class="sec" onclick="renameActiveDept()">تعديل الاسم</button>
+         <button class="del" onclick="deleteActiveDept()">حذف القسم</button>
+        </div>
+       </div>
+       <div class="card">
+        <h3>إضافة قسم جديد</h3>
+        <label for="newDeptName" style="margin-top:0">اسم القسم</label>
+        <input id="newDeptName" placeholder="أدخل اسم القسم الجديد">
+        <label for="newDeptFifth">عدد المراحل</label>
+        <select id="newDeptFifth">
+         <option value="auto">تحديد المرحلة الخامسة تلقائياً (للأقسام الطبية)</option>
+         <option value="yes">تفعيل المرحلة الخامسة (5 مراحل)</option>
+         <option value="no">أربع مراحل فقط (4 مراحل)</option>
+        </select>
+        <label for="newDeptLogo">لوجو القسم الجديد (اختياري)</label>
+        <input id="newDeptLogo" type="file" accept="image/*">
+        <div class="adm-actions"><button onclick="addNewDept()">إضافة قسم</button></div>
+       </div>
+      </div>
+      <div>
+       <div class="card">
+        <h3>اسم وصورة التطبيق</h3>
+        <label for="appNameInput" style="margin-top:0">اسم التطبيق</label>
+        <input id="appNameInput" placeholder="أدخل اسم التطبيق">
+        <label for="logoFile">صورة التطبيق</label>
+        <input id="logoFile" type="file" accept="image/*">
+        <div class="adm-actions"><button class="sec" onclick="saveBrandSettings()">حفظ الاسم والصورة</button></div>
+       </div>
+       <div class="card">
+        <h3>المتصلون حالياً في القسم</h3>
+        <div id="admOnlineNow" class="online-strip"></div>
+       </div>
+      </div>
+     </div>
     </div>
    </main>
   </div>
@@ -972,8 +1047,7 @@ function refreshDeptSelects(){
  activeDept=depts.includes(prevA)?prevA:(depts[0]||"");
  $("admDept").value=activeDept;
  $("admTopDept").textContent=activeDept||"لا يوجد قسم";
- if($("admActiveDeptPill"))$("admActiveDeptPill").textContent="🏛️ "+(activeDept||"لا يوجد قسم");
- applyDeptLogosUI();
+  applyDeptLogosUI();
  refreshLoginStageSelects();
  refreshStageSelects();
 }
@@ -1568,7 +1642,7 @@ function sTab(t){
  window.scrollTo(0,0);
 }
 function aTab(t){
- const m={new:["aNew","atNew"],notices:["aNotices","atNotices"],students:["aStudents","atStudents"],codes:["aCodes","atCodes"]};
+ const m={new:["aNew","atNew"],notices:["aNotices","atNotices"],students:["aStudents","atStudents"],codes:["aCodes","atCodes"],depts:["aDepts","atDepts"]};
  for(const k in m){$(m[k][0]).classList.toggle("hidden",k!==t);$(m[k][1]).classList.toggle("on",k===t)}
 }
 function setFilter(f){
@@ -1578,7 +1652,7 @@ function setFilter(f){
  $("fPriv").classList.toggle("on",f==="private");
  renderStudent();
 }
-function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept||"لا يوجد قسم";if($("admActiveDeptPill"))$("admActiveDeptPill").textContent="🏛️ "+(activeDept||"لا يوجد قسم");applyDeptLogosUI();refreshStageSelects();resetAdmForm();renderAdmin()}
+function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept||"لا يوجد قسم";applyDeptLogosUI();refreshStageSelects();resetAdmForm();renderAdmin()}
 function toggleStageForRole(){
  const isR=$("gRole").value==="rapporteur";
  $("gStage").disabled=isR;
@@ -2020,7 +2094,7 @@ const matchesScope=item=>{
  const iDept=item.dept||DEFAULT_DEPTS[0];
  const iStage=item.stage||"all";
  const iSec=item.section||"all";
- return iDept===myDept&&(iStage==="all"||iStage==="all"||iStage===myStage)&&(iSec==="all"||iSec==="all"||iSec===mySec);
+ return iDept===myDept&&(iStage==="all"||iStage===myStage)&&(iSec==="all"||iSec===mySec);
 };
 function attHtml(n){
  if(!n.att)return"";
@@ -2201,7 +2275,7 @@ function renderDeptPermissions(){
    const list=inStage.filter(s=>(s.section||"all")===sc).sort(bySec);
    if(!list.length)return "";
    const scLabel=sc==="all"?"كل الشعب":"شعبة "+sc;
-   return `<div style="padding:8px 14px;border-top:1px solid var(--line);background:var(--bg);font-size:12px;font-weight:bold;color:var(--navy2)">${esc(scLabel)} (${list.length})</div>`+
+   return `<div class="sec-head">${esc(scLabel)} (${list.length})</div>`+
     list.map(userRowHtml).join("");
   }).join("");
   return `<details open><summary>${esc(stLabel)}<span class="cnt">${inStage.length}</span></summary>${secBlocks||'<div class="stu meta">لا يوجد طلاب أو مستخدمون ضمن هذا الفلتر.</div>'}</details>`;
@@ -2242,14 +2316,14 @@ function renderStudent(){
   const mgrList=notices.filter(n=>n.channel!=="private_student"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageNotice(me,n));
   $("repNotices").innerHTML=mgrList.map(n=>{
    const isOpen=expandedIds.has(n.id);
-   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
+   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span><div class="card-actions"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
   }).join("")||empty("لا توجد تبليغات قابلة للإدارة ضمن صلاحيتك.");
 
   if(canSendPrivateNotice(me)){
    const privList=notices.filter(n=>n.channel==="private_student"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0]));
    $("repPrivateNotices").innerHTML=privList.map(n=>{
     const isOpen=expandedIds.has(n.id);
-    return `<div class="card notice private ${isOpen?"open":""}"><span class="tag priv">📩 خاص</span>${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span>${privateRepliesHtml(n,"sender")}<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
+    return `<div class="card notice private ${isOpen?"open":""}"><span class="tag priv">📩 خاص</span>${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span>${privateRepliesHtml(n,"sender")}<div class="card-actions"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
    }).join("")||empty("لا توجد تبليغات خاصة مرسلة في القسم.");
   }
  }else if(currentStudentTab==="perms"&&canManageDeptPerms(me)){
@@ -2262,7 +2336,7 @@ function roleSelectHtml(codeId,currentRole){
   `</select>`;
 }
 function renderAdmin(){
- if($("admOnlineNow"))$("admOnlineNow").innerHTML=onlineUsersHtml(activeDept);
+ $("admOnlineNow").innerHTML=onlineUsersHtml(activeDept);
  applyDeptLogosUI();
  const deptCodes=codes.filter(c=>deptOf(c)===activeDept);
  const deptNotices=notices.filter(n=>deptOf(n)===activeDept);
@@ -2272,21 +2346,18 @@ function renderAdmin(){
 
  $("cStudents").textContent=used.length;
  $("cNotices").textContent=deptNotices.length;
- if($("cAvailCodes"))$("cAvailCodes").textContent=avail.length;
- if($("cOnlineNow"))$("cOnlineNow").textContent=onlineCnt;
- if($("admOnlineCountPill"))$("admOnlineCountPill").textContent="🟢 "+onlineCnt+" متصل";
- if($("admActiveDeptPill"))$("admActiveDeptPill").textContent="🏛️ "+(activeDept||"لا يوجد قسم");
-
+ $("cAvailCodes").textContent=avail.length;
+ $("cOnlineNow").textContent=onlineCnt;
+ $("admOnlineCountPill").textContent=onlineCnt+" متصل";
+ 
  $("aNotices").innerHTML=`<div class="adm-feed-grid">`+(deptNotices.map(n=>{
   const isOpen=expandedIds.has(n.id);
   const isPriv=n.channel==="private_student";
-  return `<div class="card notice ${isPriv?"private":(n.priority||"normal")} ${isOpen?"open":""}">${isPriv?'<span class="tag priv">📩 خاص</span>':""}${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span>${privateRepliesHtml(n,"sender")}<div style="display:flex;gap:6px;margin-top:8px"><button class="act" onclick="editAdminNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
+  return `<div class="card notice ${isPriv?"private":(n.priority||"normal")} ${isOpen?"open":""}">${isPriv?'<span class="tag priv">📩 خاص</span>':""}${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(target(n))} · ${esc(n.date)}</span>${privateRepliesHtml(n,"sender")}<div class="card-actions"><button class="act" onclick="editAdminNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div></div>`;
  }).join("")||empty("لا توجد تبليغات منشورة في هذا القسم."))+`</div>`;
 
  const qAdm=($("admUserSearch")&&$("admUserSearch").value.trim())||"";
- if($("admSearchResultBox")){
-  $("admSearchResultBox").innerHTML=qAdm?renderMatchedSearchCard(findMatchingUsers(qAdm,""),qAdm):"";
- }
+ $("admSearchResultBox").innerHTML=qAdm?renderMatchedSearchCard(findMatchingUsers(qAdm,""),qAdm):"";
 
  const keep=id=>[...document.querySelectorAll("#"+id+" details[open]")].map(d=>d.dataset.s);
  const oS=keep("aStudentsGroups"),oC=keep("codeLists");
