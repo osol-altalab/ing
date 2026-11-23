@@ -238,7 +238,27 @@ details[open] summary::after{transform:rotate(180deg)}
  .adm-panels.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ====== Polish: buttons & smooth UI ====== */
+html{scroll-behavior:smooth}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.page>div[id^="s"]:not(.hidden),.adm-page>div:not(.hidden){animation:fadeUp .3s ease both}
+.card,.subj-card,.day-card,.hw-card,details{transition:box-shadow .2s,border-color .2s,transform .2s}
+@media (hover:hover){.card:hover,.subj-card:hover,.hw-card:hover{box-shadow:0 8px 24px rgba(16,40,50,.10)}}
+input,textarea,select{transition:border-color .15s,background .15s,outline-color .15s}
+button{transition:transform .12s,background .2s,color .2s,box-shadow .2s,filter .2s}
+.card>button:not(.sec):not(.act):not(.del),.hero button,.reply-form button{box-shadow:0 4px 12px rgba(30,98,115,.25)}
+@media (hover:hover){button:hover{filter:brightness(1.06)}button.sec:hover{filter:brightness(.97)}}
+.seg button,.chips button,.nav button{transition:background .2s,color .2s,border-color .2s,transform .12s}
+.chips button:hover:not(.on){border-color:var(--navy);color:var(--navy)}
+.card-actions{gap:8px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.card-actions button{display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:12px;border:0;font-size:13px;font-weight:700}
+button.act{background:var(--soft);color:var(--navy2)}
+button.del{background:#fdecea;color:#b42318}
+button.act::before{content:"✎"}
+button.del::before{content:"🗑"}
+.notice-title{transition:color .15s}.notice-title:hover{color:var(--navy)}
+.notice-body{transition:max-height .25s ease}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1784,7 +1804,7 @@ function editRepNotice(id){
  }
  $("rPriority").value=n.priority||"normal";$("rFile").value="";$("rFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
  $("repFormTitle").textContent="تعديل التبليغ";$("rPubBtn").textContent="حفظ التعديلات";$("rCancelBtn").classList.remove("hidden");
- sTab("rep");
+ sTab("rep");window.scrollTo({top:0,behavior:"smooth"});
 }
 function resetRepForm(){
  $("repEditId").value="";$("repChannel").value="public";$("repTargetCode").value="";
@@ -2148,7 +2168,8 @@ const noticeCard=(n,viewerRole="student")=>{
  const isOpen=expandedIds.has(n.id);
  const isPriv=n.channel==="private_student";
  const privTag=isPriv?'<span class="tag priv">📩 تبليغ خاص</span>':"";
- return `<div class="card notice ${isPriv?"private":(n.priority||"normal")} ${isOpen?"open":""}">${privTag}${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span>${privateRepliesHtml(n,viewerRole)}</div>`;
+ const mgr=(viewerRole==="student"&&!isAdminView&&me&&isStaffRole(me.role)&&canManageNotice(me,n))?`<div class="card-actions"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div>`:"";
+  return `<div class="card notice ${isPriv?"private":(n.priority||"normal")} ${isOpen?"open":""}">${privTag}${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')"><span>${esc(n.title)}</span></h4><p class="notice-body">${esc(n.body)}</p>${attHtml(n)}<span class="meta">${esc(n.date)}</span>${privateRepliesHtml(n,viewerRole)}${mgr}</div>`;
 };
 const empty=t=>`<div class="card meta">${t}</div>`;
 const myNotices=()=>{
