@@ -147,20 +147,27 @@ details[open] summary::after{transform:rotate(180deg)}
 #admin .i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 /* layout */
+.app:has(#admin:not(.hidden)){max-width:none}
 .adm-shell{display:grid;grid-template-columns:minmax(0,1fr);min-height:100vh}
-.adm-sidebar{background:var(--a-primary-dark);color:#fff;padding:14px;display:flex;flex-direction:column;gap:14px}
+.adm-sidebar{background:var(--a-primary-dark);color:#fff;padding:18px 14px;display:flex;flex-direction:column;gap:14px;
+ position:fixed;top:0;bottom:0;right:0;width:270px;max-width:85vw;z-index:100;overflow-y:auto;
+ transform:translateX(105%);visibility:hidden;
+ transition:transform .3s cubic-bezier(.4,0,.2,1),visibility 0s linear .3s;box-shadow:-10px 0 30px rgba(0,0,0,.25)}
+.adm-shell.open .adm-sidebar{transform:none;visibility:visible;transition:transform .3s cubic-bezier(.4,0,.2,1),visibility 0s}
+.adm-overlay{position:fixed;inset:0;z-index:90;background:rgba(10,30,38,.45);opacity:0;pointer-events:none;transition:opacity .3s}
+.adm-shell.open .adm-overlay{opacity:1;pointer-events:auto}
 .adm-brand{display:flex;align-items:center;gap:10px;min-width:0}
 .adm-brand b{display:block;font-size:15px}
 .adm-brand span{display:block;font-size:12px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.adm-nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.adm-nav{display:flex;flex-direction:column;gap:6px;scrollbar-width:none}
 .adm-nav::-webkit-scrollbar{display:none}
 #admin .adm-nav button,#admin .adm-logout{
- display:flex;align-items:center;gap:10px;margin:0;width:auto;padding:10px 14px;border-radius:10px;
+ display:flex;align-items:center;gap:10px;margin:0;width:100%;padding:10px 14px;border-radius:10px;
  background:transparent;color:#cfe3e9;font-size:14px;font-weight:600;white-space:nowrap
 }
 #admin .adm-nav button:hover,#admin .adm-logout:hover{background:#ffffff14}
 #admin .adm-nav button.on{background:#fff;color:var(--a-primary-dark)}
-#admin .adm-logout{display:none}
+#admin .adm-logout{display:flex;margin-top:auto}
 .adm-content{min-width:0;display:flex;flex-direction:column}
 .adm-bar{
  position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
@@ -170,7 +177,9 @@ details[open] summary::after{transform:rotate(180deg)}
 .adm-bar .spacer{flex:1}
 .adm-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--a-soft);color:var(--a-primary-dark);font-size:13px;font-weight:700}
 .adm-chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--online-dot)}
-#admin .adm-bar .logout-sm{margin:0;width:auto;padding:8px 10px;background:var(--a-soft);color:var(--a-primary-dark)}
+#admin .adm-bar .logout-sm{display:none}
+#admin .adm-bar .adm-toggle{padding:8px 10px;flex:none}
+#admin .adm-bar .adm-toggle .i{transition:transform .3s}
 .adm-page{width:100%;max-width:1200px;margin:0 auto;padding:18px 16px 64px}
 
 /* KPIs */
@@ -219,11 +228,12 @@ details[open] summary::after{transform:rotate(180deg)}
  .adm-feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (min-width:1024px){
- .adm-shell{grid-template-columns:250px minmax(0,1fr)}
- .adm-sidebar{position:sticky;top:0;height:100vh;padding:20px 14px}
- .adm-nav{flex-direction:column}
- #admin .adm-logout{display:flex;margin-top:auto}
- #admin .adm-bar .logout-sm{display:none}
+ .adm-shell{grid-template-columns:260px minmax(0,1fr);transition:grid-template-columns .3s cubic-bezier(.4,0,.2,1)}
+ .adm-shell.closed{grid-template-columns:0 minmax(0,1fr)}
+ .adm-sidebar{position:sticky;top:0;bottom:auto;right:auto;width:auto;max-width:none;height:100vh;transform:none;visibility:visible;box-shadow:none;overflow:hidden;padding:20px 14px;transition:padding .3s,visibility 0s}
+ .adm-sidebar>*{min-width:230px}
+ .adm-shell.closed .adm-sidebar{padding-inline:0;visibility:hidden;transition:padding .3s,visibility 0s linear .3s}
+ .adm-overlay{display:none}
  .adm-page{padding:24px 28px 72px}
  .adm-panels.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -595,11 +605,13 @@ details[open] summary::after{transform:rotate(180deg)}
   <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M16 7l3 3"/></symbol>
   <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5l8-3 8 3v16M2 21h20M9 9h2M13 9h2M9 13h2M13 13h2M10 21v-4h4v4"/></symbol>
   <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
   <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
  </defs></svg>
 
- <div class="adm-shell">
-  <aside class="adm-sidebar">
+ <div class="adm-shell" id="admShell">
+  <div class="adm-overlay" onclick="admSide(false)"></div>
+  <aside class="adm-sidebar" id="admSidebar">
    <div class="adm-brand">
     <div class="logo">
      <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🛡️'">
@@ -619,6 +631,7 @@ details[open] summary::after{transform:rotate(180deg)}
 
   <div class="adm-content">
    <header class="adm-bar">
+    <button class="sec adm-toggle" id="admToggle" onclick="admSide()" aria-label="إظهار / إخفاء القائمة الجانبية" aria-expanded="false"><svg class="i"><use href="#i-menu"/></svg></button>
     <select id="admDept" onchange="onDeptChange()" aria-label="القسم النشط"></select>
     <span class="spacer"></span>
     <span class="adm-chip"><span id="admOnlineCountPill">0 متصل</span></span>
@@ -2469,6 +2482,25 @@ fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
 Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,toggleInlineEditUser,saveSingleStudentField,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,exportExamSeatsExcel,exportExamSeatsImage,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,addSubjectItem,attachFileToSubject,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply});
+</script>
+<script>
+(function(){
+ var wide=function(){return window.matchMedia('(min-width:1024px)').matches};
+ function sh(){return document.getElementById('admShell')}
+ window.admSide=function(force){
+  var el=sh(); if(!el)return;
+  var open=wide()?!el.classList.contains('closed'):el.classList.contains('open');
+  var next=(typeof force==='boolean')?force:!open;
+  if(wide()){el.classList.toggle('closed',!next);try{localStorage.setItem('admSide',next?'1':'0')}catch(e){}}
+  else el.classList.toggle('open',next);
+  var b=document.getElementById('admToggle'); if(b)b.setAttribute('aria-expanded',String(next));
+ };
+ document.addEventListener('click',function(e){
+  if(!wide()&&e.target.closest&&e.target.closest('.adm-nav button'))window.admSide(false);
+ });
+ try{if(localStorage.getItem('admSide')==='0'){var el=sh();if(el&&wide())el.classList.add('closed')}}catch(e){}
+ window.addEventListener('keydown',function(e){if(e.key==='Escape'&&!wide())window.admSide(false)});
+})();
 </script>
 </body>
 </html>
