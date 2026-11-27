@@ -279,6 +279,70 @@ button.act::before{content:"✎"}
 button.del::before{content:"🗑"}
 .notice-title{transition:color .15s}.notice-title:hover{color:var(--navy)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+/* ===== Modern card theme ===== */
+:root{
+ --tile:#d3e3e8;--tile2:#c3d9df;--band:#aecfd4;--deep:#1e6273;--deep2:#144654;
+ --p-blue:#e3ecfb;--p-green:#dff3e8;--p-amber:#fdf0d9;--p-rose:#fbe3e8;--p-violet:#ece3fb;--p-peach:#fbe6da;--p-sky:#e1f1fb;
+ --r2:26px;--r3:30px
+}
+body{background:linear-gradient(180deg,#e6eef2 0,#f3f6f8 360px,#f3f6f8 100%) fixed}
+.page{padding-top:10px}
+.top{background:#ffffffcc;border-bottom:0;box-shadow:0 1px 0 rgba(20,70,84,.06)}
+.logo,.ibtn{border-radius:16px;background:var(--tile)}
+.sc-title{margin:18px 4px 10px;font-size:15px;font-weight:700;color:#3b5560}
+.sc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.sc-tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;
+ width:auto;min-height:112px;margin:0;padding:14px 4px 10px;border:0;border-radius:var(--r2);
+ background:var(--tile);color:var(--ink);font-size:12.5px;font-weight:700;line-height:1.35;text-align:center;box-shadow:none}
+.sc-tile:active{transform:scale(.96);background:var(--tile2)}
+.sc-ico{display:grid;place-items:center;width:54px;height:54px;border-radius:18px;font-size:24px;line-height:1}
+.sc-tile:nth-child(6n+1) .sc-ico{background:var(--p-violet)}
+.sc-tile:nth-child(6n+2) .sc-ico{background:var(--p-amber)}
+.sc-tile:nth-child(6n+3) .sc-ico{background:var(--p-peach)}
+.sc-tile:nth-child(6n+4) .sc-ico{background:var(--p-blue)}
+.sc-tile:nth-child(6n+5) .sc-ico{background:var(--p-green)}
+.sc-tile:nth-child(6n) .sc-ico{background:var(--p-rose)}
+.sc-dot{position:absolute;top:10px;right:12px;width:11px;height:11px;border-radius:50%;background:var(--alert-red);border:2px solid var(--tile)}
+.sc-banner{display:flex;align-items:center;gap:12px;width:100%;margin:14px 0 0;padding:16px;border:0;border-radius:var(--r3);
+ background:var(--band);color:var(--ink);text-align:right;box-shadow:none}
+.sc-banner .sc-ico{flex:none;background:#e6f1f3}
+.sc-banner-txt{flex:1;min-width:0}
+.sc-banner-txt b{display:block;font-size:16.5px;line-height:1.4}
+.sc-banner-txt span{display:block;margin-top:2px;font-size:12.5px;color:#44616b;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-go{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--deep);color:#fff;font-size:22px}
+.sc-fab-wrap{position:sticky;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;margin-top:18px}
+.sc-fab{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;width:auto;margin:0;padding:17px 20px;border:0;border-radius:999px;
+ background:var(--deep);color:#fff;font-size:16px;font-weight:700;box-shadow:0 10px 24px rgba(20,70,84,.3)}
+.sc-fab-round{flex:none;display:grid;place-items:center;width:56px;height:56px;margin:0;padding:0;border:0;border-radius:50%;
+ background:var(--deep);color:#fff;font-size:22px;box-shadow:0 10px 24px rgba(20,70,84,.3)}
+.hero{border-radius:var(--r3);box-shadow:0 14px 30px rgba(20,70,84,.22)}
+.stats{gap:10px}
+.stat{border:0;border-radius:var(--r2);background:var(--tile);box-shadow:none}
+.stat .ico{border-radius:16px;width:46px;height:46px}
+.stat .ico.b{background:var(--p-blue)}.stat .ico.g{background:var(--p-green)}.stat .ico.a{background:var(--p-amber)}
+.sched-hero{border:0;border-radius:var(--r3);background:var(--tile);box-shadow:none}
+.sched-slot{background:#ffffffb8;border-radius:20px}
+.sched-time{background:var(--deep);border-radius:14px}
+.sched-pill{background:#ffffffc0}
+.card{border:0;border-radius:var(--r2);box-shadow:0 2px 10px rgba(20,70,84,.06)}
+.notice{border-right-width:5px}
+.subj-card,.day-card,.hw-card{border:0;border-radius:var(--r2);background:var(--tile);box-shadow:none}
+.subj-ico{width:52px;height:52px;border-radius:18px;background:var(--p-violet);font-size:22px}
+.time-badge{background:#ffffffc0;border-radius:16px}
+.hw-card{border-right:5px solid var(--deep)}
+.seg{border-radius:20px;background:var(--tile)}
+.seg button{border-radius:16px}
+.chips button{border:0;border-radius:999px;background:var(--tile);padding:9px 18px}
+.chips button.on{background:var(--deep)}
+input,textarea,select{border-radius:18px;background:#f7fafb}
+button{border-radius:18px}
+.att-box,.reply-item,.viewers-box{border-radius:18px}
+details{border:0;border-radius:var(--r2);background:var(--tile)}
+.nav{padding:8px;border:0;border-radius:32px;background:#fffffff7;box-shadow:0 12px 32px rgba(16,40,50,.18)}
+.nav button{border-radius:22px;min-height:58px}
+.nav button.on{background:var(--tile);color:var(--deep2)}
+#admin .sc-tile{display:none}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -839,6 +903,7 @@ let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات الم
 let notices=[],codes=[],subjects=[],schedules=[],homeworks=[],examRooms=[];
 let me=null,filter="all",selectedDay="السبت",activeSubjectId=null,currentStudentTab="home";
 let editingUserIds=new Set(),openViewersIds=new Set(),recordedViewIds=new Set();
+let pendingReactionLocks=new Set();
 let unsubN=null,unsubC=null,unsubBrand=null,unsubSub=null,unsubSch=null,unsubHw=null,unsubRm=null;
 let isAdminView=false,deferred=null,readyRes,audioCtx=null,presenceTimer=null,renderTimer=null;
 let activeDept=DEFAULT_DEPTS[0],customLogo=localStorage.getItem("customLogo")||"",appTitle=localStorage.getItem("appTitle")||"تبليغات الكلية";
@@ -864,7 +929,7 @@ const canSeeViewStats=u=>isAdminView||(u&&["rep","rapporteur","dept_admin"].incl
 const canManageAcademic=u=>isAdminView||(u&&["rep","rapporteur","teacher","dept_admin"].includes(u.role||"student"));
 const isStaffRole=r=>["rep","rapporteur","teacher","dept_admin"].includes(r);
 
-// 8- تعديل التبليغات: مدير القسم والأدمن الرئيسي وناشر التبليغ فقط
+// تعديل التبليغات: مدير القسم والأدمن الرئيسي وناشر التبليغ فقط
 const canManageNotice=(u,n)=>{
  if(!n)return false;
  if(isAdminView)return true;
@@ -1406,7 +1471,7 @@ function updateBellUI(){
  $("bellList").innerHTML=mine.slice(0,5).map(n=>`<div class="bell-item" onclick="$('bellPop').classList.add('hidden');sTab('notices')"><b>${esc(n.title)}</b><div class="meta">${esc(n.date)}</div></div>`).join("")||'<div class="meta">لا توجد تنبيهات</div>';
 }
 
-// 1- تسجيل المشاهدات للتبليغات
+// تسجيل المشاهدات للتبليغات
 async function recordNoticeView(noticeId){
  if(!noticeId||!me||!me.code)return;
  if(recordedViewIds.has(noticeId))return;
@@ -1442,24 +1507,57 @@ function toggleNoticeText(id){
  if(isAdminView)renderAdmin();
 }
 
-// 5- التفاعل بالسمايلات وعرض من شاهد التبليغ
+// التفاعل بالسمايلات للطالب ولجميع المستخدمين مع تحديث فوري وموثوق
 async function toggleNoticeReaction(noticeId,emoji){
  if(!noticeId||!emoji)return;
- const viewerId=isAdminView?"ADMIN":(me&&me.code);
- if(!viewerId)return;
- const viewerName=isAdminView?"الأدمن الرئيسي":((me&&me.name)||"مستخدم");
+ let actorId=isAdminView?"ADMIN":(me&&me.code);
+ if(!actorId&&me){
+  actorId="STU_"+normPhone(me.phone||me.name||"guest");
+ }
+ if(!actorId){
+  alert("تعذر تسجيل التفاعل: يرجى تسجيل الدخول أولاً.");
+  return;
+ }
+ const lockKey=noticeId+"__"+emoji;
+ if(pendingReactionLocks.has(lockKey))return;
+ pendingReactionLocks.add(lockKey);
+
+ const actorName=isAdminView?"الأدمن الرئيسي":((me&&me.name)||"طالب");
  const n=notices.find(x=>x.id===noticeId);
- if(!n)return;
- const reactions=(n.reactions&&typeof n.reactions==="object")?{...n.reactions}:{};
- const list=Array.isArray(reactions[emoji])?[...reactions[emoji]]:[];
- const idx=list.findIndex(x=>x.id===viewerId);
- if(idx>=0)list.splice(idx,1);
- else list.push({id:viewerId,name:viewerName});
- reactions[emoji]=list;
+ if(!n){pendingReactionLocks.delete(lockKey);return}
+
+ const baseReactions=(n.reactions&&typeof n.reactions==="object")?{...n.reactions}:{};
+ const currentList=Array.isArray(baseReactions[emoji])?[...baseReactions[emoji]]:[];
+ const idx=currentList.findIndex(x=>x&&x.id===actorId);
+ if(idx>=0)currentList.splice(idx,1);
+ else currentList.push({id:actorId,name:actorName});
+
+ const nextReactions={...baseReactions,[emoji]:currentList};
+
+ // تحديث فوري في الحالة المحلية لسرعة استجابة الواجهة
+ n.reactions=nextReactions;
+ scheduleRenderStudent();
+ if(isAdminView)renderAdmin();
+
  try{
-  if(!isAdminView)await authReady;
-  await updateDoc(doc(db,"notices",noticeId),{reactions});
- }catch(e){alert("تعذر تسجيل التفاعل.")}
+  if(!auth.currentUser){
+   await signInAnonymously(auth).catch(()=>{});
+  }
+  await authReady;
+  await updateDoc(doc(db,"notices",noticeId),{
+   ["reactions."+emoji]:currentList
+  });
+ }catch(e){
+  // محاولة بديلة عبر تحديث كائن reactions كاملاً إذا لزم الأمر
+  try{
+   await updateDoc(doc(db,"notices",noticeId),{reactions:nextReactions});
+  }catch(e2){
+   console.error("Reaction update failed:",e2);
+   alert("تعذر تسجيل التفاعل: "+(e2.code||e2.message||"تحقق من الاتصال وصلاحيات القاعدة"));
+  }
+ }finally{
+  pendingReactionLocks.delete(lockKey);
+ }
 }
 function toggleViewersList(noticeId){
  if(!noticeId)return;
@@ -1854,7 +1952,6 @@ async function repPublish(){
  if(ch==="private_student"&&!canSendPrivateNotice(me)){alert("إرسال التبليغات الخاصة متاح لمدير القسم والمقرر فقط.");return}
  const targetStu=targetCode?codes.find(c=>c.id===targetCode):null;
  const st=ch==="private_student"&&targetStu?(targetStu.stage||"all"):(canManageAll(me)?($("rStage").value||"all"):(me.role==="rep"?me.stage:($("rStage").value||"all")));
- // 8- تبليغات الممثل والأستاذ تظهر للجميع
  const sec=(ch==="private_student"&&targetStu)?(targetStu.section||"all"):((me.role==="rep"||me.role==="teacher")?"all":($("rSection").value||"all"));
  if(!title||!body){alert("أدخل العنوان والنص.");return}
  try{
@@ -1897,7 +1994,7 @@ function resetRepForm(){
  $("repFormTitle").textContent="نشر تبليغ";$("rPubBtn").textContent="نشر التبليغ";$("rCancelBtn").classList.add("hidden");
 }
 
-// 6- المواد التي ينزلها الممثل تظهر للجميع في المرحلة
+// المواد التي ينزلها الممثل تظهر للجميع في المرحلة
 async function addSubjectItem(){
  if(!canManageAcademic(me))return;
  const name=$("subName").value.trim();
@@ -1933,7 +2030,7 @@ async function attachFileToSubject(subjectId){
  }catch(e){if(e.message!=="size")alert("تعذر إرفاق الملف.")}
 }
 
-// 6- إضافة تبليغ خاص بالمادة من قبل أستاذ المادة أو الممثل ليظهر للجميع
+// إضافة تبليغ خاص بالمادة من قبل أستاذ المادة أو الممثل ليظهر للجميع
 function canPostSubjectNotice(subjectObj){
  if(isAdminView)return true;
  if(!me)return false;
@@ -1995,7 +2092,6 @@ async function addHomeworkItem(){
  }catch(e){alert("تعذر نشر الواجب.")}
 }
 
-// 7- وقت المحاضرة من - إلى في الجدول
 function formatTimeRange(fromT,toT,fallback=""){
  const f=String(fromT||"").trim();
  const t=String(toT||"").trim();
@@ -2247,7 +2343,7 @@ function sendSingleCodeWhatsApp(codeId){
 function sendCodesWhatsApp(){
  const avail=codes.filter(c=>deptOf(c)===activeDept&&!c.used);
  if(!avail.length){alert("لا توجد رموز غير مستخدمة في هذا القسم.");return}
- const msg="رموز الدخول لتطبيق ("+appTitle+") - قسم ("+activeDept+"):\n"+avail.slice(0,25).map(c=>c.id+" ("+(c.stage==="all"?"كل المراحل":c.stage)+" - شعبة "+c.section+")").join("\n")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول بعد تسجيل الخروج.";
+ const msg="رموز الدخول لتطبيق ("+appTitle+") - قسم ("+activeDept+"):\n"+avail.slice(0,25).map(c=>c.id+" ("+(c.stage==="all"?"كل المراحل":c.stage)+" - شعبة "+c.section+")").join("\n")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به بعد تسجيل الخروج.";
  const wa=normPhone($("waPhone").value);
  window.open(wa?("https://wa.me/"+wa+"?text="+encodeURIComponent(msg)):("https://wa.me/?text="+encodeURIComponent(msg)),"_blank");
 }
@@ -2260,7 +2356,6 @@ function copyCodes(stage){
 
 const target=n=>n.channel==="private_student"?("تبليغ خاص للطالب: "+(n.targetStudentName||n.targetStudentCode||"")):((n.stage==="all"?"كل المراحل":n.stage)+" · "+(n.section==="all"?"كل الشعب":"شعبة "+n.section));
 
-// 8- ظهور تبليغات الممثل والأستاذ للجميع ضمن المرحلة والقسم
 const matchesScope=item=>{
  if(!me)return false;
  const myDept=me.dept||DEFAULT_DEPTS[0];
@@ -2285,16 +2380,16 @@ function attHtml(n){
 }
 
 function reactionsAndViewersHtml(n){
- const myId=isAdminView?"ADMIN":(me&&me.code)||"";
+ const myId=isAdminView?"ADMIN":((me&&(me.code||("STU_"+normPhone(me.phone||me.name||""))))||"");
  const reactions=(n.reactions&&typeof n.reactions==="object")?n.reactions:{};
  const emojiBtns=EMOJIS.map(em=>{
   const arr=Array.isArray(reactions[em])?reactions[em]:[];
-  const active=myId&&arr.some(x=>x.id===myId);
-  return `<button class="react-btn ${active?"on":""}" onclick="toggleNoticeReaction('${esc(n.id)}','${em}')"><span>${em}</span><span>${arr.length}</span></button>`;
+  const active=myId&&arr.some(x=>x&&x.id===myId);
+  return `<button type="button" class="react-btn ${active?"on":""}" onclick="toggleNoticeReaction('${esc(n.id)}','${em}')"><span>${em}</span><span>${arr.length}</span></button>`;
  }).join("");
 
  const viewsList=Array.isArray(n.views)?n.views:[];
- const viewersBtn=`<button class="viewers-btn" onclick="toggleViewersList('${esc(n.id)}')">👀 من شاهد (${viewsList.length})</button>`;
+ const viewersBtn=`<button type="button" class="viewers-btn" onclick="toggleViewersList('${esc(n.id)}')">👀 من شاهد (${viewsList.length})</button>`;
 
  let viewersPanel="";
  if(openViewersIds.has(n.id)){
@@ -2358,7 +2453,6 @@ const noticeCard=(n,viewerRole="student")=>{
 
 const empty=t=>`<div class="card meta">${t}</div>`;
 
-// 4- ظهور كل التبليغات بحساب الأدمن ومدير القسم والمقرر
 const myNotices=()=>{
  if(isAdminView){
   return notices.filter(n=>deptOf(n)===activeDept);
@@ -2377,7 +2471,6 @@ const mySubjects=()=>subjects.filter(matchesScope);
 const mySchedules=()=>schedules.filter(matchesScope);
 const myHomeworks=()=>homeworks.filter(matchesScope);
 
-// 3- قائمة المتصلين مع فرز الإدارة/الكادر عن الطلبة
 function onlineUsersHtml(deptName){
  const online=codes.filter(c=>deptOf(c)===deptName&&isUserOnline(c));
  if(!online.length)return '<span class="meta">لا يوجد متصلون حالياً.</span>';
@@ -2795,6 +2888,73 @@ Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistrati
  });
  try{if(localStorage.getItem('admSide')==='0'){var el=sh();if(el&&wide())el.classList.add('closed')}}catch(e){}
  window.addEventListener('keydown',function(e){if(e.key==='Escape'&&!wide())window.admSide(false)});
+})();
+</script>
+<script>
+/* ===== Modern cards: shortcuts, banner, action button ===== */
+(function(){
+ var $=function(id){return document.getElementById(id)};
+ var home=$("sHome"),hero=home&&home.querySelector(".hero");
+ if(!home||!hero)return;
+
+ var tiles=[
+  {i:"📋",t:"التبليغات",a:"sTab('notices');setFilter('all')",dot:true},
+  {i:"📌",t:"التبليغات المهمة",a:"sTab('notices');setFilter('important')"},
+  {i:"📩",t:"رسائلي الخاصة",a:"sTab('notices');setFilter('private')"},
+  {i:"📚",t:"المواد",a:"sTab('subjects')"},
+  {i:"🗓️",t:"الجدول",a:"sTab('schedule')"},
+  {i:"📝",t:"الواجبات",a:"sTab('subjects');setTimeout(function(){var h=document.getElementById('homeworksList');if(h)h.scrollIntoView({behavior:'smooth'})},120)"},
+  {i:"👤",t:"حسابي",a:"sTab('account')"},
+  {i:"⬇️",t:"تثبيت التطبيق",a:"installApp()",cls:"installB"},
+  {i:"✍️",t:"نشر تبليغ",a:"sTab('rep')",id:"scRep",hide:true},
+  {i:"🏛️",t:"إدارة القسم",a:"sTab('perms')",id:"scPerms",hide:true}
+ ];
+
+ var box=document.createElement("div");
+ box.id="scBlock";
+ box.innerHTML=
+  '<div class="sc-title">اختصارات سريعة</div>'+
+  '<div class="sc-grid">'+tiles.map(function(x){
+    return '<button class="sc-tile '+(x.cls||"")+(x.hide?" hidden":"")+'"'+(x.id?' id="'+x.id+'"':"")+' onclick="'+x.a+'">'+
+     (x.dot?'<span class="sc-dot hidden" id="scDot"></span>':"")+
+     '<span class="sc-ico">'+x.i+'</span><span>'+x.t+'</span></button>';
+  }).join("")+'</div>'+
+  '<button class="sc-banner" onclick="sTab(\'notices\')">'+
+   '<span class="sc-ico">📣</span>'+
+   '<span class="sc-banner-txt"><b>آخر تبليغ</b><span id="scLatest">لا توجد تبليغات جديدة</span></span>'+
+   '<span class="sc-go">‹</span>'+
+  '</button>';
+ hero.insertAdjacentElement("afterend",box);
+
+ var fab=document.createElement("div");
+ fab.className="sc-fab-wrap";
+ fab.innerHTML='<button class="sc-fab" id="scFab" onclick="sTab(\'notices\')"><span>📣</span><span id="scFabTxt">عرض كل التبليغات</span></button>'+
+  '<button class="sc-fab-round" aria-label="التنبيهات" onclick="toggleBell()">🔔</button>';
+ home.appendChild(fab);
+
+ function syncRole(){
+  var rep=$("nRep"),perms=$("nPerms");
+  var isRep=rep&&!rep.classList.contains("hidden");
+  var isPerm=perms&&!perms.classList.contains("hidden");
+  $("scRep").classList.toggle("hidden",!isRep);
+  $("scPerms").classList.toggle("hidden",!isPerm);
+  $("scFab").setAttribute("onclick",isRep?"sTab('rep')":"sTab('notices')");
+  $("scFabTxt").textContent=isRep?"نشر تبليغ جديد":"عرض كل التبليغات";
+ }
+ function syncDot(){
+  var b=$("bellBadge");
+  $("scDot").classList.toggle("hidden",!b||b.classList.contains("hidden"));
+ }
+ function syncLatest(){
+  var t=document.querySelector("#homeNotices .notice-title");
+  $("scLatest").textContent=t?t.textContent:"لا توجد تبليغات جديدة";
+ }
+
+ var cfg={attributes:true,attributeFilter:["class"]};
+ ["nRep","nPerms"].forEach(function(id){var el=$(id);if(el)new MutationObserver(syncRole).observe(el,cfg)});
+ if($("bellBadge"))new MutationObserver(syncDot).observe($("bellBadge"),{attributes:true,attributeFilter:["class"],childList:true,characterData:true,subtree:true});
+ if($("homeNotices"))new MutationObserver(syncLatest).observe($("homeNotices"),{childList:true,subtree:true,characterData:true});
+ syncRole();syncDot();syncLatest();
 })();
 </script>
 </body>
