@@ -93,6 +93,17 @@ h4{margin:6px 0 8px;font-size:14.5px;color:var(--ink)}
 .sub4-cnt{padding:2px 10px;border-radius:999px;background:var(--soft);color:var(--navy2);font-size:12px;font-weight:700}
 .stage-panel-body{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
 
+/* Standalone Stage Detail Page */
+.stage-standalone-page{margin-top:12px;padding:16px;border-radius:24px;background:#fff;border:1.5px solid var(--line);box-shadow:0 12px 28px rgba(20,70,84,.12)}
+.stage-standalone-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--line)}
+.stage-standalone-title b{display:block;font-size:16px;color:var(--navy2)}
+.stage-standalone-title small{display:block;font-size:12px;color:var(--mute)}
+.stage-back-btn{width:auto!important;margin:0!important;padding:8px 14px!important;border-radius:12px!important;background:var(--soft)!important;color:var(--navy2)!important;font-size:12.5px!important;font-weight:700!important;box-shadow:none!important}
+.stage-open-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%!important;margin:8px 0 0!important;padding:8px 10px!important;border-radius:12px!important;background:var(--soft)!important;color:var(--navy2)!important;font-size:12px!important;font-weight:700!important;box-shadow:none!important}
+.st-card.active .stage-open-btn{background:#ffffff30!important;color:#fff!important}
+.st-card-summary{width:100%;font-size:11.5px;color:var(--mute);line-height:1.5;margin-top:2px}
+.st-card.active .st-card-summary{color:#eaf6f9}
+
 /* ====== Cards & notices ====== */
 .card{margin-bottom:12px;padding:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow)}
 .notice{border-right:4px solid var(--navy)}
@@ -387,6 +398,8 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
 #admin button.st-card.active:not(.sec):not(.del):not(.act),#admin button.st-card.active:not(.sec):not(.del):not(.act):hover{background:linear-gradient(150deg,var(--c1),var(--c2));color:#fff}
 #admin button.sub4-card:not(.sec):not(.del):not(.act),#admin button.sub4-card:not(.sec):not(.del):not(.act):hover{background:#fff;color:var(--ink);width:100%;padding:16px 10px;border-radius:22px}
 #admin button.sub4-card.on:not(.sec):not(.del):not(.act),#admin button.sub4-card.on:not(.sec):not(.del):not(.act):hover{background:linear-gradient(150deg,#1e6273,#144654);color:#fff}
+#admin button.stage-open-btn:not(.sec):not(.del):not(.act),#admin button.stage-open-btn:not(.sec):not(.del):not(.act):hover{background:var(--soft);color:var(--navy2);width:100%;margin-top:8px;padding:8px 10px;border-radius:12px}
+#admin button.stage-back-btn:not(.sec):not(.del):not(.act),#admin button.stage-back-btn:not(.sec):not(.del):not(.act):hover{background:var(--soft);color:var(--navy2);width:auto;padding:8px 14px;border-radius:12px}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -961,6 +974,7 @@ let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات الم
 let notices=[],codes=[],subjects=[],schedules=[],homeworks=[],examRooms=[];
 let me=null,filter="all",selectedDay="السبت",activeSubjectId=null,currentStudentTab="home";
 let selectedStageTab={admin:"",staff:""};
+let stagePageOpen={admin:false,staff:false};
 let selectedSectionTab={admin:"all",staff:"all"};
 let selectedSubCardTab={admin:"notices",staff:"notices"};
 let editingUserIds=new Set(),openViewersIds=new Set(),recordedViewIds=new Set();
@@ -978,7 +992,11 @@ const $=id=>document.getElementById(id);
 const esc=v=>String(v||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
 const deptOf=x=>x.dept||depts[0]||DEFAULT_DEPTS[0];
 const isMedicalDept=name=>/طب|صيدل|تمريض|تحليل|مختبر|صحي|أسنان|علاج|تخدير|أشعة|بصريات/i.test(String(name||""));
-const hasFifthStage=deptName=>fifthStageDepts.has(deptName)||isMedicalDept(deptName);
+const hasFifthStage=deptName=>{
+ const n=String(deptName||"").trim();
+ if(!n||/أجهزة\s*طبية/i.test(n))return false;
+ return fifthStageDepts.has(n)||isMedicalDept(n);
+};
 const stagesForDept=deptName=>hasFifthStage(deptName)?[...BASE_STAGES,FIFTH_STAGE]:[...BASE_STAGES];
 const roleLabel=r=>ROLES[r]||ROLES.student;
 const hasSeatBadge=r=>["student","rep"].includes(r||"student");
@@ -1262,6 +1280,7 @@ function refreshAcademicStageSelects(deptName){
 }
 
 async function persistDepts(){
+ fifthStageDepts.delete("هندسة تقنيات الأجهزة الطبية");
  await setDoc(doc(db,"settings","brand"),{
   depts,
   fifthStageDepts:[...fifthStageDepts],
@@ -1274,7 +1293,7 @@ async function addNewDept(){
  if(!name){alert("اكتب اسم القسم الجديد.");return}
  if(depts.includes(name)){alert("هذا القسم موجود مسبقاً.");return}
  const mode=$("newDeptFifth").value;
- const needFifth=mode==="yes"||(mode==="auto"&&isMedicalDept(name));
+ const needFifth=!(/أجهزة\s*طبية/i.test(name))&&(mode==="yes"||(mode==="auto"&&isMedicalDept(name)));
  let newLogo="";
  if($("newDeptLogo").files[0]){
   try{newLogo=await compressImage($("newDeptLogo").files[0],320,0.8)}catch(e){}
@@ -1285,6 +1304,7 @@ async function addNewDept(){
  if(newLogo)deptLogos[name]=newLogo;
  activeDept=name;
  selectedStageTab.admin="";
+ stagePageOpen.admin=false;
  selectedSectionTab.admin="all";
  $("newDeptName").value="";$("newDeptLogo").value="";
  refreshDeptSelects();
@@ -1341,7 +1361,10 @@ async function renameActiveDept(){
  if(depts.includes(clean)){alert("هذا الاسم موجود مسبقاً.");return}
  const oldName=activeDept;
  depts=depts.map(d=>d===oldName?clean:d);
- if(fifthStageDepts.has(oldName)){fifthStageDepts.delete(oldName);fifthStageDepts.add(clean)}
+ if(fifthStageDepts.has(oldName)){
+  fifthStageDepts.delete(oldName);
+  if(!/أجهزة\s*طبية/i.test(clean))fifthStageDepts.add(clean);
+ }
  if(deptLogos[oldName]){deptLogos[clean]=deptLogos[oldName];delete deptLogos[oldName]}
  activeDept=clean;
  refreshDeptSelects();
@@ -1418,7 +1441,9 @@ function startBrandSync(){
   if(d.appName)applyAppTitle(d.appName);
   if(d.logo)applyLogo(d.logo);
   if(Array.isArray(d.depts))depts=[...d.depts];
-  if(Array.isArray(d.fifthStageDepts))fifthStageDepts=new Set(d.fifthStageDepts);
+  if(Array.isArray(d.fifthStageDepts)){
+   fifthStageDepts=new Set(d.fifthStageDepts.filter(x=>!/أجهزة\s*طبية/i.test(String(x||""))));
+  }
   if(d.deptLogos&&typeof d.deptLogos==="object")deptLogos={...d.deptLogos};
   refreshDeptSelects();
   if(me)applyStudentHeaderAndPermissions();
@@ -1429,6 +1454,7 @@ async function saveBrandSettings(){
  const newTitle=($("appNameInput").value||appTitle||"تبليغات الكلية").trim();
  const f=$("logoFile").files[0];
  try{
+  fifthStageDepts.delete("هندسة تقنيات الأجهزة الطبية");
   const payload={appName:newTitle,depts,fifthStageDepts:[...fifthStageDepts],deptLogos,updatedAt:serverTimestamp()};
   let nextLogo=customLogo;
   if(f){nextLogo=await compressImage(f,512,0.82);payload.logo=nextLogo}
@@ -1933,7 +1959,7 @@ function setFilter(f){
  $("fPriv").classList.toggle("on",f==="private");
  renderStudent();
 }
-function onDeptChange(){activeDept=$("admDept").value;selectedStageTab.admin="";selectedSectionTab.admin="all";$("admTopDept").textContent=activeDept||"لا يوجد قسم";applyDeptLogosUI();refreshStageSelects();resetAdmForm();renderAdmin()}
+function onDeptChange(){activeDept=$("admDept").value;selectedStageTab.admin="";stagePageOpen.admin=false;selectedSectionTab.admin="all";$("admTopDept").textContent=activeDept||"لا يوجد قسم";applyDeptLogosUI();refreshStageSelects();resetAdmForm();renderAdmin()}
 function toggleStageForRole(){
  const isR=$("gRole").value==="rapporteur";
  $("gStage").disabled=isR;
@@ -2458,9 +2484,22 @@ function deptStageStudents(deptName,stageName,secName="all"){
 }
 
 function selectStageForMgmt(scopeKey,stageName){
- selectedStageTab[scopeKey]=(selectedStageTab[scopeKey]===stageName)?"":stageName;
+ selectedStageTab[scopeKey]=stageName||selectedStageTab[scopeKey]||"";
  selectedSectionTab[scopeKey]="all";
  if(!selectedSubCardTab[scopeKey])selectedSubCardTab[scopeKey]="notices";
+ if(scopeKey==="admin")renderAdmin();
+ else renderStudent();
+}
+function openStageStandalonePage(scopeKey,stageName){
+ if(stageName)selectedStageTab[scopeKey]=stageName;
+ selectedSectionTab[scopeKey]="all";
+ if(!selectedSubCardTab[scopeKey])selectedSubCardTab[scopeKey]="notices";
+ stagePageOpen[scopeKey]=true;
+ if(scopeKey==="admin")renderAdmin();
+ else renderStudent();
+}
+function closeStageStandalonePage(scopeKey){
+ stagePageOpen[scopeKey]=false;
  if(scopeKey==="admin")renderAdmin();
  else renderStudent();
 }
@@ -2481,6 +2520,7 @@ function renderStageExplorerHtml(scopeKey,deptName){
  const activeSt=selectedStageTab[scopeKey]||stList[0];
  const activeSec=selectedSectionTab[scopeKey]||"all";
  const activeSub=selectedSubCardTab[scopeKey]||"notices";
+ const isPageView=Boolean(stagePageOpen[scopeKey]);
 
  const PAL=[["#1e6273","#3a93a9"],["#0f766e","#22b3a6"],["#5b3df5","#8f78ff"],["#c2570c","#f59a4a"],["#b4235a","#ea5f8d"]];
  const stageCardsHtml=stList.map((st,i)=>{
@@ -2489,11 +2529,19 @@ function renderStageExplorerHtml(scopeKey,deptName){
   const scCnt=deptStageSchedules(deptName,st,"all").length;
   const stuCnt=deptStageStudents(deptName,st,"all").length;
   const [c1,c2]=PAL[i%PAL.length];
-  return `<button type="button" class="st-card ${st===activeSt?"active":""}" style="--c1:${c1};--c2:${c2}" onclick="selectStageForMgmt('${scopeKey}','${esc(st)}')">
-   <span class="st-num">${i+1}</span><b>${esc(st)}</b>
+  return `<div class="st-card ${st===activeSt?"active":""}" style="--c1:${c1};--c2:${c2}" onclick="selectStageForMgmt('${scopeKey}','${esc(st)}')">
+   <span class="st-num">${i+1}</span>
+   <b>${esc(st)}</b>
+   <div class="st-card-summary">ملخص ${esc(st)}: ${stuCnt} طالب · ${nCnt} تبليغ · ${subCnt} مادة · ${scCnt} حصة</div>
    <div class="st-stats"><span>📋 ${nCnt}</span><span>📚 ${subCnt}</span><span>🗓️ ${scCnt}</span><span>👥 ${stuCnt}</span></div>
-  </button>`;
+   <button type="button" class="stage-open-btn" onclick="event.stopPropagation();openStageStandalonePage('${scopeKey}','${esc(st)}')">📄 صفحة المرحلة</button>
+  </div>`;
  }).join("");
+
+ if(!isPageView){
+  return `<div class="mgmt-head"><div><b>🎓 ${esc(deptName)}</b><span>${stList.length} مراحل · تفاصيل كل مرحلة داخل الكارت وزر فتح الصفحة المستقلة</span></div></div>
+   <div class="stage-grid">${stageCardsHtml}</div>`;
+ }
 
  const secButtonsHtml=["all",...SECTIONS].map(sc=>{
   const label=sc==="all"?"كل الشعب":"شعبة "+sc;
@@ -2542,11 +2590,18 @@ function renderStageExplorerHtml(scopeKey,deptName){
 
  const subDefs=[["notices","📋","التبليغات",stNotices.length,"#e3ecfb"],["lectures","📚","المحاضرات",stSubjects.length,"#dff3e8"],["schedule","🗓️","الجدول",stSchedules.length,"#fdf0d9"],["students","👥","إدارة الطلاب",stStudents.length,"#fbe3e8"]];
  const subHtml=subDefs.map(([k,ic,lb,n,bg])=>`<button type="button" class="sub4-card ${activeSub===k?"on":""}" onclick="selectSubCardForMgmt('${scopeKey}','${k}')"><span class="sub4-ico" style="background:${bg}">${ic}</span><b>${lb}</b><span class="sub4-cnt">${n}</span></button>`).join("");
- return `<div class="mgmt-head"><div><b>🎓 ${esc(deptName)}</b><span>${stList.length} مراحل · اختر مرحلة وشعبة لعرض التفاصيل</span></div></div>
-  <div class="stage-grid">${stageCardsHtml}</div>
+ return `<div class="stage-standalone-page">
+  <div class="stage-standalone-top">
+   <div class="stage-standalone-title">
+    <b>📄 صفحة ${esc(activeSt)} — ${esc(deptName)}</b>
+    <small>عرض مستقل للتبليغات والمحاضرات والجدول والطلاب</small>
+   </div>
+   <button type="button" class="stage-back-btn" onclick="closeStageStandalonePage('${scopeKey}')">→ رجوع لكروت المراحل</button>
+  </div>
   <div class="stage-sec-bar"><span>شعب ${esc(activeSt)}:</span>${secButtonsHtml}</div>
   <div class="stage-4-grid">${subHtml}</div>
-  <div class="stage-panel-body">${panelHtml}</div>`;
+  <div class="stage-panel-body">${panelHtml}</div>
+ </div>`;
 }
 
 function attHtml(n){
@@ -3086,7 +3141,7 @@ refreshDeptSelects();
 fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,toggleInlineEditUser,saveSingleStudentField,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,exportExamSeatsExcel,exportExamSeatsImage,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,addSubjectItem,attachFileToSubject,addSubjectNoticeItem,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,selectStageForMgmt,selectSectionForMgmt,selectSubCardForMgmt,submitPrivateReply,toggleNoticeReaction,toggleViewersList});
+Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,toggleInlineEditUser,saveSingleStudentField,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,exportExamSeatsExcel,exportExamSeatsImage,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,addSubjectItem,attachFileToSubject,addSubjectNoticeItem,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,selectStageForMgmt,openStageStandalonePage,closeStageStandalonePage,selectSectionForMgmt,selectSubCardForMgmt,submitPrivateReply,toggleNoticeReaction,toggleViewersList});
 </script>
 <script>
 (function(){
