@@ -52,7 +52,7 @@ h4{margin:6px 0 8px;font-size:14.5px;color:var(--ink)}
 .hero p{margin:0 0 14px;font-size:13px;color:#e3f0f4}
 .hero button{width:auto;margin:0;padding:9px 18px;border-radius:12px;background:#fff;color:var(--navy2);font-size:13px;font-weight:700}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.stat{padding:14px 8px;text-align:center;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow)}
+.stat{padding:14px 8px;text-align:center;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);cursor:pointer}
 .stat b{display:block;font-size:22px;line-height:1.2}
 .stat span{font-size:12px;color:var(--mute)}
 .ico{display:grid;place-items:center;width:42px;height:42px;margin:0 auto 6px;border-radius:13px;font-size:19px}
@@ -65,6 +65,34 @@ h4{margin:6px 0 8px;font-size:14.5px;color:var(--ink)}
 .sched-time{flex:none;min-width:86px;padding:6px 8px;border-radius:11px;background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;text-align:center}
 .sched-info{flex:1;min-width:0}.sched-info b{display:block;font-size:14px}.sched-info span{font-size:12px;color:var(--mute)}
 
+/* ====== Stage Explorer, Sections & 4 Sub-Cards for Admin / Dept Admin / Rapporteur ====== */
+.mgmt-stage-box{margin-bottom:16px;padding:14px;border-radius:22px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+.mgmt-stage-title{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.mgmt-stage-title b{font-size:15px;color:var(--navy2)}
+.stage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px}
+.st-card{display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:18px;background:var(--soft);color:var(--ink);border:1.5px solid transparent;cursor:pointer;text-align:right;transition:all .16s}
+.st-card:hover{border-color:var(--navy);transform:translateY(-2px)}
+.st-card.active{background:var(--navy);color:#fff;border-color:var(--navy2)}
+.st-card.active .st-sub{color:#dff1f5}
+.st-card b{font-size:14px}
+.st-sub{font-size:11.5px;color:var(--mute)}
+
+.stage-sec-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px;padding:10px;border-radius:16px;background:var(--bg)}
+.stage-sec-bar span{font-size:12.5px;font-weight:700;color:var(--navy2);margin-left:4px}
+.sec-pill-btn{width:auto!important;margin:0!important;padding:6px 14px!important;border-radius:999px!important;border:1px solid var(--line)!important;background:#fff!important;color:var(--ink)!important;font-size:12.5px!important;font-weight:700!important;box-shadow:none!important}
+.sec-pill-btn.on{background:var(--navy)!important;color:#fff!important;border-color:var(--navy)!important}
+
+.stage-4-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+@media(min-width:640px){.stage-4-grid{grid-template-columns:repeat(4,1fr)}}
+.sub4-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 10px;border-radius:18px;background:#f4f8fa;border:1.5px solid var(--line);cursor:pointer;text-align:center;transition:all .16s}
+.sub4-card:hover{border-color:var(--navy);background:var(--soft)}
+.sub4-card.on{background:var(--navy2);color:#fff;border-color:var(--navy2)}
+.sub4-card.on .sub4-cnt{background:#ffffff28;color:#fff}
+.sub4-ico{font-size:22px}
+.sub4-card b{font-size:13.5px}
+.sub4-cnt{padding:2px 10px;border-radius:999px;background:var(--soft);color:var(--navy2);font-size:12px;font-weight:700}
+.stage-panel-body{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+
 /* ====== Cards & notices ====== */
 .card{margin-bottom:12px;padding:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow)}
 .notice{border-right:4px solid var(--navy)}
@@ -75,7 +103,6 @@ h4{margin:6px 0 8px;font-size:14.5px;color:var(--ink)}
 .notice-open-btn{flex:none;width:auto!important;margin:0!important;padding:9px 15px!important;border-radius:12px!important;background:var(--soft)!important;color:var(--navy2)!important;font-size:13px!important;font-weight:700!important;white-space:nowrap}
 .notice.open .notice-open-btn{background:var(--navy)!important;color:#fff!important}
 
-/* Collapsed: show title only, hide body & enlarge/hide image */
 .notice:not(.open) .notice-body,
 .notice:not(.open) .notice-details-extra{display:none}
 .notice:not(.open) .att-img{width:54px;height:42px;max-height:42px;margin-top:6px;border-radius:8px;object-fit:cover;display:inline-block}
@@ -290,32 +317,6 @@ body{background:linear-gradient(180deg,#e6eef2 0,#f3f6f8 360px,#f3f6f8 100%) fix
 .page{padding-top:10px}
 .top{background:#ffffffcc;border-bottom:0;box-shadow:0 1px 0 rgba(20,70,84,.06)}
 .logo,.ibtn{border-radius:16px;background:var(--tile)}
-.sc-title{margin:18px 4px 10px;font-size:15px;font-weight:700;color:#3b5560}
-.sc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.sc-tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;
- width:auto;min-height:112px;margin:0;padding:14px 4px 10px;border:0;border-radius:var(--r2);
- background:var(--tile);color:var(--ink);font-size:12.5px;font-weight:700;line-height:1.35;text-align:center;box-shadow:none}
-.sc-tile:active{transform:scale(.96);background:var(--tile2)}
-.sc-ico{display:grid;place-items:center;width:54px;height:54px;border-radius:18px;font-size:24px;line-height:1}
-.sc-tile:nth-child(6n+1) .sc-ico{background:var(--p-violet)}
-.sc-tile:nth-child(6n+2) .sc-ico{background:var(--p-amber)}
-.sc-tile:nth-child(6n+3) .sc-ico{background:var(--p-peach)}
-.sc-tile:nth-child(6n+4) .sc-ico{background:var(--p-blue)}
-.sc-tile:nth-child(6n+5) .sc-ico{background:var(--p-green)}
-.sc-tile:nth-child(6n) .sc-ico{background:var(--p-rose)}
-.sc-dot{position:absolute;top:10px;right:12px;width:11px;height:11px;border-radius:50%;background:var(--alert-red);border:2px solid var(--tile)}
-.sc-banner{display:flex;align-items:center;gap:12px;width:100%;margin:14px 0 0;padding:16px;border:0;border-radius:var(--r3);
- background:var(--band);color:var(--ink);text-align:right;box-shadow:none}
-.sc-banner .sc-ico{flex:none;background:#e6f1f3}
-.sc-banner-txt{flex:1;min-width:0}
-.sc-banner-txt b{display:block;font-size:16.5px;line-height:1.4}
-.sc-banner-txt span{display:block;margin-top:2px;font-size:12.5px;color:#44616b;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sc-go{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--deep);color:#fff;font-size:22px}
-.sc-fab-wrap{position:sticky;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;margin-top:18px}
-.sc-fab{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;width:auto;margin:0;padding:17px 20px;border:0;border-radius:999px;
- background:var(--deep);color:#fff;font-size:16px;font-weight:700;box-shadow:0 10px 24px rgba(20,70,84,.3)}
-.sc-fab-round{flex:none;display:grid;place-items:center;width:56px;height:56px;margin:0;padding:0;border:0;border-radius:50%;
- background:var(--deep);color:#fff;font-size:22px;box-shadow:0 10px 24px rgba(20,70,84,.3)}
 .hero{border-radius:var(--r3);box-shadow:0 14px 30px rgba(20,70,84,.22)}
 .stats{gap:10px}
 .stat{border:0;border-radius:var(--r2);background:var(--tile);box-shadow:none}
@@ -342,7 +343,6 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
 .nav{padding:8px;border:0;border-radius:32px;background:#fffffff7;box-shadow:0 12px 32px rgba(16,40,50,.18)}
 .nav button{border-radius:22px;min-height:58px}
 .nav button.on{background:var(--tile);color:var(--deep2)}
-#admin .sc-tile{display:none}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -480,6 +480,16 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
 
  <div class="page">
   <div id="sHome">
+   <!-- كروت العدادات في أعلى الواجهة بجميع الحسابات -->
+   <div class="stats">
+    <div class="stat" onclick="sTab('notices')"><div class="ico b">📋</div><b id="stAll">0</b><span>التبليغات</span></div>
+    <div class="stat" onclick="sTab('subjects')"><div class="ico a">📚</div><b id="stSubj">0</b><span>المواد</span></div>
+    <div class="stat" onclick="sTab('subjects')"><div class="ico g">📝</div><b id="stHw">0</b><span>الواجبات</span></div>
+   </div>
+
+   <!-- كروت المراحل والشعب و4 كروت (التبليغات، المحاضرات، الجدول، إدارة الطلاب) لمدير القسم والمقرر -->
+   <div id="staffStageExplorer" class="mgmt-stage-box hidden"></div>
+
    <div class="hero">
     <small id="sRoleGreet">مرحباً بك 👋</small>
     <h2 id="sName"></h2>
@@ -494,12 +504,6 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
      <span class="sched-pill" onclick="sTab('schedule')" style="cursor:pointer">الجدول الكامل &lt;</span>
     </div>
     <div id="homeScheduleList"></div>
-   </div>
-
-   <div class="stats">
-    <div class="stat"><div class="ico b">📋</div><b id="stAll">0</b><span>التبليغات</span></div>
-    <div class="stat"><div class="ico a">📚</div><b id="stSubj">0</b><span>المواد</span></div>
-    <div class="stat"><div class="ico g">📝</div><b id="stHw">0</b><span>الواجبات</span></div>
    </div>
 
    <h3>آخر التبليغات <span class="meta">(اضغط على زر الفتح لعرض التفاصيل)</span></h3>
@@ -757,6 +761,9 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
    <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-pulse"/></svg></span><div><b id="cOnlineNow">0</b><span>متصل الآن</span></div></div>
     </div>
 
+    <!-- كروت المراحل والشعب و4 كروت (التبليغات، المحاضرات، الجدول، إدارة الطلاب) للأدمن الرئيسي -->
+    <div id="adminStageExplorer" class="mgmt-stage-box"></div>
+
     <div id="aNew" class="card">
      <h3 id="admFormTitle">نشر تبليغ جديد</h3>
      <input type="hidden" id="admEditId">
@@ -902,6 +909,9 @@ const ONLINE_WINDOW_MS=5*60*1000;
 let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات المرضية"]),deptLogos={};
 let notices=[],codes=[],subjects=[],schedules=[],homeworks=[],examRooms=[];
 let me=null,filter="all",selectedDay="السبت",activeSubjectId=null,currentStudentTab="home";
+let selectedStageTab={admin:"",staff:""};
+let selectedSectionTab={admin:"all",staff:"all"};
+let selectedSubCardTab={admin:"notices",staff:"notices"};
 let editingUserIds=new Set(),openViewersIds=new Set(),recordedViewIds=new Set();
 let pendingReactionLocks=new Set();
 let unsubN=null,unsubC=null,unsubBrand=null,unsubSub=null,unsubSch=null,unsubHw=null,unsubRm=null;
@@ -1064,6 +1074,7 @@ function toggleInlineEditUser(codeId){
  if(editingUserIds.has(codeId))editingUserIds.delete(codeId);
  else editingUserIds.add(codeId);
  if(me&&currentStudentTab==="perms"&&canManageDeptPerms(me))renderDeptPermissions();
+ if(me&&canManageAll(me))renderStudent();
  if(isAdminView)renderAdmin();
 }
 
@@ -1219,8 +1230,11 @@ async function addNewDept(){
  }
  depts=[...depts,name];
  if(needFifth)fifthStageDepts.add(name);
+ else fifthStageDepts.delete(name);
  if(newLogo)deptLogos[name]=newLogo;
  activeDept=name;
+ selectedStageTab.admin="";
+ selectedSectionTab.admin="all";
  $("newDeptName").value="";$("newDeptLogo").value="";
  refreshDeptSelects();
  renderAdmin();
@@ -1291,6 +1305,7 @@ async function deleteActiveDept(){
  fifthStageDepts.delete(removed);
  delete deptLogos[removed];
  activeDept=depts[0]||"";
+ selectedStageTab.admin="";
  refreshDeptSelects();
  renderAdmin();
  try{await persistDepts();alert("تم حذف القسم.")}catch(e){alert("تعذر حفظ الحذف في قاعدة البيانات.")}
@@ -1471,7 +1486,6 @@ function updateBellUI(){
  $("bellList").innerHTML=mine.slice(0,5).map(n=>`<div class="bell-item" onclick="$('bellPop').classList.add('hidden');sTab('notices')"><b>${esc(n.title)}</b><div class="meta">${esc(n.date)}</div></div>`).join("")||'<div class="meta">لا توجد تنبيهات</div>';
 }
 
-// تسجيل المشاهدات للتبليغات
 async function recordNoticeView(noticeId){
  if(!noticeId||!me||!me.code)return;
  if(recordedViewIds.has(noticeId))return;
@@ -1507,7 +1521,7 @@ function toggleNoticeText(id){
  if(isAdminView)renderAdmin();
 }
 
-// التفاعل بالسمايلات للطالب ولجميع المستخدمين مع تحديث فوري وموثوق
+// السماح للجميع باختيار سمايل واحد فقط لكل تبليغ
 async function toggleNoticeReaction(noticeId,emoji){
  if(!noticeId||!emoji)return;
  let actorId=isAdminView?"ADMIN":(me&&me.code);
@@ -1522,19 +1536,24 @@ async function toggleNoticeReaction(noticeId,emoji){
  if(pendingReactionLocks.has(lockKey))return;
  pendingReactionLocks.add(lockKey);
 
- const actorName=isAdminView?"الأدمن الرئيسي":((me&&me.name)||"طالب");
+ const actorName=isAdminView?"الأدمن الرئيسي":((me&&me.name)||"مستخدم");
  const n=notices.find(x=>x.id===noticeId);
  if(!n){pendingReactionLocks.delete(lockKey);return}
 
  const baseReactions=(n.reactions&&typeof n.reactions==="object")?{...n.reactions}:{};
- const currentList=Array.isArray(baseReactions[emoji])?[...baseReactions[emoji]]:[];
- const idx=currentList.findIndex(x=>x&&x.id===actorId);
- if(idx>=0)currentList.splice(idx,1);
- else currentList.push({id:actorId,name:actorName});
+ const wasAlreadyOnSelected=Array.isArray(baseReactions[emoji])&&baseReactions[emoji].some(x=>x&&x.id===actorId);
 
- const nextReactions={...baseReactions,[emoji]:currentList};
+ const nextReactions={};
+ const updates={};
+ EMOJIS.forEach(em=>{
+  const filtered=(Array.isArray(baseReactions[em])?baseReactions[em]:[]).filter(x=>x&&x.id!==actorId);
+  if(em===emoji&&!wasAlreadyOnSelected){
+   filtered.push({id:actorId,name:actorName});
+  }
+  nextReactions[em]=filtered;
+  updates["reactions."+em]=filtered;
+ });
 
- // تحديث فوري في الحالة المحلية لسرعة استجابة الواجهة
  n.reactions=nextReactions;
  scheduleRenderStudent();
  if(isAdminView)renderAdmin();
@@ -1544,11 +1563,8 @@ async function toggleNoticeReaction(noticeId,emoji){
    await signInAnonymously(auth).catch(()=>{});
   }
   await authReady;
-  await updateDoc(doc(db,"notices",noticeId),{
-   ["reactions."+emoji]:currentList
-  });
+  await updateDoc(doc(db,"notices",noticeId),updates);
  }catch(e){
-  // محاولة بديلة عبر تحديث كائن reactions كاملاً إذا لزم الأمر
   try{
    await updateDoc(doc(db,"notices",noticeId),{reactions:nextReactions});
   }catch(e2){
@@ -1866,7 +1882,7 @@ function setFilter(f){
  $("fPriv").classList.toggle("on",f==="private");
  renderStudent();
 }
-function onDeptChange(){activeDept=$("admDept").value;$("admTopDept").textContent=activeDept||"لا يوجد قسم";applyDeptLogosUI();refreshStageSelects();resetAdmForm();renderAdmin()}
+function onDeptChange(){activeDept=$("admDept").value;selectedStageTab.admin="";selectedSectionTab.admin="all";$("admTopDept").textContent=activeDept||"لا يوجد قسم";applyDeptLogosUI();refreshStageSelects();resetAdmForm();renderAdmin()}
 function toggleStageForRole(){
  const isR=$("gRole").value==="rapporteur";
  $("gStage").disabled=isR;
@@ -1994,7 +2010,6 @@ function resetRepForm(){
  $("repFormTitle").textContent="نشر تبليغ";$("rPubBtn").textContent="نشر التبليغ";$("rCancelBtn").classList.add("hidden");
 }
 
-// المواد التي ينزلها الممثل تظهر للجميع في المرحلة
 async function addSubjectItem(){
  if(!canManageAcademic(me))return;
  const name=$("subName").value.trim();
@@ -2030,7 +2045,6 @@ async function attachFileToSubject(subjectId){
  }catch(e){if(e.message!=="size")alert("تعذر إرفاق الملف.")}
 }
 
-// إضافة تبليغ خاص بالمادة من قبل أستاذ المادة أو الممثل ليظهر للجميع
 function canPostSubjectNotice(subjectObj){
  if(isAdminView)return true;
  if(!me)return false;
@@ -2084,6 +2098,7 @@ async function addHomeworkItem(){
    dept:sub?deptOf(sub):deptName,
    stage:sub?(sub.stage||"all"):(me?me.stage:"all"),
    section:sub?(sub.section||"all"):(isRepUploader?"all":(me?me.section:"all")),
+   authorRole:isAdminView?"admin":(me.role||"student"),
    authorCode:(me&&me.code)||"ADMIN",
    createdAt:serverTimestamp()
   });
@@ -2117,6 +2132,7 @@ async function addScheduleItem(){
  try{
   await addDoc(collection(db,"schedules"),{
    day,time,timeFrom,timeTo,subject,teacher,room,dept:deptName,stage,section,
+   authorRole:isAdminView?"admin":(me.role||"student"),
    authorCode:(me&&me.code)||"ADMIN",
    createdAt:serverTimestamp()
   });
@@ -2368,6 +2384,145 @@ const matchesScope=item=>{
  return iDept===myDept&&(iStage==="all"||iStage===myStage)&&(byStaffForAll||iSec==="all"||iSec===mySec);
 };
 
+// ظهور الجداول للجميع
+const mySchedules=()=>schedules.filter(matchesScope);
+
+// دوال تصفية التبليغات والمحاضرات والجداول والطلاب حسب المرحلة والشعبة للقسم في حسابات الإدارة
+function matchesStageAndSection(itemStage,itemSec,stageName,secName){
+ const stOk=!itemStage||itemStage==="all"||itemStage===stageName;
+ const secOk=!secName||secName==="all"||!itemSec||itemSec==="all"||itemSec===secName;
+ return stOk&&secOk;
+}
+function deptStageNotices(deptName,stageName,secName="all"){
+ return notices.filter(n=>deptOf(n)===deptName&&n.channel!=="private_student"&&matchesStageAndSection(n.stage,n.section,stageName,secName));
+}
+function deptStageSubjects(deptName,stageName,secName="all"){
+ return subjects.filter(s=>deptOf(s)===deptName&&matchesStageAndSection(s.stage,s.section,stageName,secName));
+}
+function deptStageSchedules(deptName,stageName,secName="all"){
+ return schedules.filter(sc=>deptOf(sc)===deptName&&matchesStageAndSection(sc.stage,sc.section,stageName,secName));
+}
+function deptStageStudents(deptName,stageName,secName="all"){
+ return codes.filter(c=>deptOf(c)===deptName&&c.used&&(c.stage||"all")===stageName&&(!secName||secName==="all"||(c.section||"all")===secName));
+}
+
+function selectStageForMgmt(scopeKey,stageName){
+ selectedStageTab[scopeKey]=(selectedStageTab[scopeKey]===stageName)?"":stageName;
+ selectedSectionTab[scopeKey]="all";
+ if(!selectedSubCardTab[scopeKey])selectedSubCardTab[scopeKey]="notices";
+ if(scopeKey==="admin")renderAdmin();
+ else renderStudent();
+}
+function selectSectionForMgmt(scopeKey,secName){
+ selectedSectionTab[scopeKey]=secName;
+ if(scopeKey==="admin")renderAdmin();
+ else renderStudent();
+}
+function selectSubCardForMgmt(scopeKey,subKey){
+ selectedSubCardTab[scopeKey]=subKey;
+ if(scopeKey==="admin")renderAdmin();
+ else renderStudent();
+}
+
+function renderStageExplorerHtml(scopeKey,deptName){
+ const stList=stagesForDept(deptName);
+ if(!stList.length)return "";
+ const activeSt=selectedStageTab[scopeKey]||stList[0];
+ const activeSec=selectedSectionTab[scopeKey]||"all";
+ const activeSub=selectedSubCardTab[scopeKey]||"notices";
+
+ const stageCardsHtml=stList.map(st=>{
+  const nCnt=deptStageNotices(deptName,st,"all").length;
+  const subCnt=deptStageSubjects(deptName,st,"all").length;
+  const scCnt=deptStageSchedules(deptName,st,"all").length;
+  const stuCnt=deptStageStudents(deptName,st,"all").length;
+  const isAct=st===activeSt;
+  return `<button type="button" class="st-card ${isAct?"active":""}" onclick="selectStageForMgmt('${scopeKey}','${esc(st)}')">
+   <b>${esc(st)}</b>
+   <span class="st-sub">📋 ${nCnt} · 📚 ${subCnt} · 🗓️ ${scCnt} · 👥 ${stuCnt}</span>
+  </button>`;
+ }).join("");
+
+ const secButtonsHtml=["all",...SECTIONS].map(sc=>{
+  const label=sc==="all"?"كل الشعب":"شعبة "+sc;
+  const cnt=deptStageStudents(deptName,activeSt,sc).length;
+  return `<button type="button" class="sec-pill-btn ${activeSec===sc?"on":""}" onclick="selectSectionForMgmt('${scopeKey}','${esc(sc)}')">${esc(label)} (${cnt})</button>`;
+ }).join("");
+
+ const stNotices=deptStageNotices(deptName,activeSt,activeSec);
+ const stSubjects=deptStageSubjects(deptName,activeSt,activeSec);
+ const stSchedules=deptStageSchedules(deptName,activeSt,activeSec);
+ const stStudents=deptStageStudents(deptName,activeSt,activeSec);
+
+ let panelHtml="";
+ if(activeSub==="notices"){
+  panelHtml=stNotices.map(n=>noticeCard(n,scopeKey==="admin"?"sender":"student")).join("")||empty("لا توجد تبليغات لـ "+activeSt+(activeSec!=="all"?" · شعبة "+activeSec:"")+" في هذا القسم.");
+ }else if(activeSub==="lectures"){
+  panelHtml=stSubjects.map(s=>{
+   const fCount=Array.isArray(s.files)?s.files.length:0;
+   const snCount=Array.isArray(s.subjectNotices)?s.subjectNotices.length:0;
+   const filesLinks=(Array.isArray(s.files)?s.files:[]).map((f,i)=>`<div class="att-box"><span class="meta">📎 ${esc(f.name||"ملف")}</span><button class="act" onclick="openSubjectFile('${esc(s.id)}',${i})">فتح / حفظ</button></div>`).join("");
+   return `<div class="subj-card" style="cursor:default">
+    <div class="subj-ico">📚</div>
+    <div class="subj-body">
+     <b>${esc(s.name)}</b>
+     <span>👨‍🏫 ${esc(s.teacher||"")} · ${esc(target(s))} · ملفات: ${fCount} · تبليغات: ${snCount}</span>
+     ${filesLinks}
+    </div>
+   </div>`;
+  }).join("")||empty("لا توجد محاضرات أو مواد لـ "+activeSt+(activeSec!=="all"?" · شعبة "+activeSec:"")+" في هذا القسم.");
+ }else if(activeSub==="schedule"){
+  panelHtml=stSchedules.map(sc=>{
+   const tTxt=formatTimeRange(sc.timeFrom,sc.timeTo,sc.time||"");
+   return `<div class="day-card">
+    <div class="time-badge">${esc(sc.day||"")} · ${esc(tTxt)}</div>
+    <div style="flex:1;min-width:0">
+     <b style="font-size:14.5px;display:block">${esc(sc.subject)}</b>
+     <span class="meta">🏛️ ${esc(sc.room||"")} · 👨‍🏫 ${esc(sc.teacher||"")} · ${esc(target(sc))}</span>
+    </div>
+   </div>`;
+  }).join("")||empty("لا توجد حصص في جدول "+activeSt+(activeSec!=="all"?" · شعبة "+activeSec:"")+" لهذا القسم.");
+ }else if(activeSub==="students"){
+  panelHtml=stStudents.length
+   ?`<div class="card" style="padding:0;overflow:hidden">${stStudents.map(userRowHtml).join("")}</div>`
+   :empty("لا يوجد طلاب مسجلون في "+activeSt+(activeSec!=="all"?" · شعبة "+activeSec:"")+" في هذا القسم.");
+ }
+
+ return `
+  <div class="mgmt-stage-title">
+   <b>🎓 مراحل قسم: ${esc(deptName)} (${stList.length} مراحل)</b>
+   <span class="meta">اختر مرحلة وشعبة لعرض التفاصيل</span>
+  </div>
+  <div class="stage-grid">${stageCardsHtml}</div>
+  <div class="stage-sec-bar">
+   <span>شعب ${esc(activeSt)}:</span>
+   ${secButtonsHtml}
+  </div>
+  <div class="stage-4-grid">
+   <button type="button" class="sub4-card ${activeSub==="notices"?"on":""}" onclick="selectSubCardForMgmt('${scopeKey}','notices')">
+    <span class="sub4-ico">📋</span>
+    <b>التبليغات</b>
+    <span class="sub4-cnt">${stNotices.length}</span>
+   </button>
+   <button type="button" class="sub4-card ${activeSub==="lectures"?"on":""}" onclick="selectSubCardForMgmt('${scopeKey}','lectures')">
+    <span class="sub4-ico">📚</span>
+    <b>المحاضرات</b>
+    <span class="sub4-cnt">${stSubjects.length}</span>
+   </button>
+   <button type="button" class="sub4-card ${activeSub==="schedule"?"on":""}" onclick="selectSubCardForMgmt('${scopeKey}','schedule')">
+    <span class="sub4-ico">🗓️</span>
+    <b>الجدول</b>
+    <span class="sub4-cnt">${stSchedules.length}</span>
+   </button>
+   <button type="button" class="sub4-card ${activeSub==="students"?"on":""}" onclick="selectSubCardForMgmt('${scopeKey}','students')">
+    <span class="sub4-ico">👥</span>
+    <b>إدارة الطلاب</b>
+    <span class="sub4-cnt">${stStudents.length}</span>
+   </button>
+  </div>
+  <div class="stage-panel-body">${panelHtml}</div>`;
+}
+
 function attHtml(n){
  if(!n.att)return"";
  const isCached=cachedFileIds.has(n.id);
@@ -2468,7 +2623,6 @@ const myNotices=()=>{
  });
 };
 const mySubjects=()=>subjects.filter(matchesScope);
-const mySchedules=()=>schedules.filter(matchesScope);
 const myHomeworks=()=>homeworks.filter(matchesScope);
 
 function onlineUsersHtml(deptName){
@@ -2622,25 +2776,26 @@ function renderDeptPermissions(){
 
  const stFilter=$("pStageFilter").value||"all";
  const secFilter=$("pSectionFilter").value||"all";
- const used=codes.filter(c=>deptOf(c)===deptName&&c.used);
- const stagesList=[...stagesForDept(deptName),GRADUATED_STAGE,"all"].filter(st=>stFilter==="all"||st===stFilter);
- const bySec=(a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
+ const used=codes.filter(c=>deptOf(c)===deptName&&c.used&&(stFilter==="all"||c.stage===stFilter)&&(secFilter==="all"||c.section===secFilter));
 
- const groupsHtml=stagesList.map(st=>{
-  const stLabel=st==="all"?"مقررون / أساتذة / عام":st;
+ const bySec=(a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
+ const stagesWithAll=[...stagesForDept(deptName),GRADUATED_STAGE,"all"];
+ const groupsHtml=stagesWithAll.map(st=>{
+  const label=st==="all"?"مقررون / أساتذة / عام":st;
   const inStage=used.filter(s=>(s.stage||"all")===st);
+  if(!inStage.length&&stFilter!=="all"&&stFilter!==st)return "";
   const secsList=[...SECTIONS,"all"].filter(sc=>secFilter==="all"||sc===secFilter);
   const secBlocks=secsList.map(sc=>{
    const list=inStage.filter(s=>(s.section||"all")===sc).sort(bySec);
    if(!list.length)return "";
    const scLabel=sc==="all"?"كل الشعب":"شعبة "+sc;
-   return `<div class="sec-head">${esc(scLabel)} (${list.length})</div>`+
-    list.map(userRowHtml).join("");
+   return `<div class="sec-head">${esc(scLabel)} (${list.length})</div>`+list.map(userRowHtml).join("");
   }).join("");
-  return `<details open><summary>${esc(stLabel)}<span class="cnt">${inStage.length}</span></summary>${secBlocks||'<div class="stu meta">لا يوجد طلاب أو مستخدمون ضمن هذا الفلتر.</div>'}</details>`;
- }).join("")||empty("لا يوجد طلاب مسجلون في القسم بعد.");
+  const bodyContent=secBlocks||`<div class="stu meta">لا يوجد طلاب أو مستخدمون ضمن هذا الفلتر.</div>`;
+  return `<details ${inStage.length?"open":""}><summary>${esc(label)}<span class="cnt">${inStage.length}</span></summary>${bodyContent}</details>`;
+ }).join("");
 
- $("deptPermList").innerHTML=searchCardHtml+groupsHtml;
+ $("deptPermList").innerHTML=searchCardHtml+(groupsHtml||empty("لا يوجد طلاب أو مستخدمون مطابقون للبحث/الفلتر."));
 }
 
 function renderStudent(){
@@ -2653,6 +2808,14 @@ function renderStudent(){
  $("stAll").textContent=mine.length;
  $("stSubj").textContent=subs.length;
  $("stHw").textContent=hws.length;
+
+ const isMgmtStaff=canManageAll(me);
+ if($("staffStageExplorer")){
+  $("staffStageExplorer").classList.toggle("hidden",!isMgmtStaff);
+  if(isMgmtStaff){
+   $("staffStageExplorer").innerHTML=renderStageExplorerHtml("staff",me.dept||DEFAULT_DEPTS[0]);
+  }
+ }
 
  if(currentStudentTab==="home"){
   const tomorrowIdx=(new Date().getDay()+1)%7;
@@ -2733,6 +2896,10 @@ function renderAdmin(){
  $("cAvailCodes").textContent=avail.length;
  $("cOnlineNow").textContent=onlineCnt;
  $("admOnlineCountPill").textContent=onlineCnt+" متصل";
+
+ if($("adminStageExplorer")){
+  $("adminStageExplorer").innerHTML=renderStageExplorerHtml("admin",activeDept);
+ }
  
  $("aNotices").innerHTML=`<div class="adm-feed-grid">`+(deptNotices.map(n=>{
   const isOpen=expandedIds.has(n.id);
@@ -2760,14 +2927,20 @@ function renderAdmin(){
  const oS=keep("aStudentsGroups"),oC=keep("codeLists");
  const bySec=(a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
  const stagesWithAll=[...stagesForDept(activeDept),GRADUATED_STAGE,"all"];
+
  if($("aStudentsGroups")){
   $("aStudentsGroups").innerHTML=stagesWithAll.map(st=>{
    const label=st==="all"?"مقررون / أساتذة / عام":st;
-   const l=used.filter(s=>(s.stage||"all")===st).sort(bySec);
-   return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length}</span></summary>`+
-    (l.map(userRowHtml).join("")||`<div class="stu meta">لا يوجد مسجلون.</div>`)+`</details>`;
+   const inStage=used.filter(s=>(s.stage||"all")===st);
+   const secBlocks=SECTIONS.concat("all").map(sc=>{
+    const list=inStage.filter(s=>(s.section||"all")===sc).sort(bySec);
+    if(!list.length)return "";
+    return `<div class="sec-head">${sc==="all"?"كل الشعب":"شعبة "+sc} (${list.length})</div>`+list.map(userRowHtml).join("");
+   }).join("");
+   return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${label}<span class="cnt">${inStage.length}</span></summary>${secBlocks||`<div class="stu meta">لا يوجد مستخدمون مسجلون.</div>`}</details>`;
   }).join("");
  }
+
  $("codeLists").innerHTML=stagesWithAll.map(st=>{
   const label=st==="all"?"رموز عامة / مقرر / أستاذ":st;
   const l=deptCodes.filter(c=>(c.stage||"all")===st&&!c.used).sort(bySec);
@@ -2803,6 +2976,7 @@ function startCodes(){
   codes=snap.docs.map(d=>({id:d.id,...d.data()}));
   syncMyFromCodes();
   if(me&&currentStudentTab==="perms"&&canManageDeptPerms(me))renderDeptPermissions();
+  if(me&&canManageAll(me))scheduleRenderStudent();
   if(isAdminView)renderAdmin();
  },()=>{unsubC=null});
 }
@@ -2810,9 +2984,10 @@ function startAcademicStreams(){
  if(!unsubSub)unsubSub=onSnapshot(collection(db,"subjects"),snap=>{
   subjects=snap.docs.map(d=>({id:d.id,...d.data()}));
   scheduleRenderStudent();
+  if(isAdminView)renderAdmin();
   if(activeSubjectId&&me&&currentStudentTab==="subjects")openSubjectDetail(activeSubjectId);
  },()=>{unsubSub=null});
- if(!unsubSch)unsubSch=onSnapshot(collection(db,"schedules"),snap=>{schedules=snap.docs.map(d=>({id:d.id,...d.data()}));scheduleRenderStudent()},()=>{unsubSch=null});
+ if(!unsubSch)unsubSch=onSnapshot(collection(db,"schedules"),snap=>{schedules=snap.docs.map(d=>({id:d.id,...d.data()}));scheduleRenderStudent();if(isAdminView)renderAdmin()},()=>{unsubSch=null});
  if(!unsubHw)unsubHw=onSnapshot(collection(db,"homeworks"),snap=>{homeworks=snap.docs.map(d=>({id:d.id,...d.data()}));scheduleRenderStudent()},()=>{unsubHw=null});
  if(!unsubRm)unsubRm=onSnapshot(collection(db,"exam_rooms"),snap=>{examRooms=snap.docs.map(d=>({id:d.id,...d.data()}));if(me&&currentStudentTab==="perms"&&canManageDeptPerms(me))renderDeptPermissions()},()=>{unsubRm=null});
 }
@@ -2869,7 +3044,7 @@ refreshDeptSelects();
 fill("gSection",SECTIONS,'<option value="">اختر</option>');
 fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
 fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,toggleInlineEditUser,saveSingleStudentField,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,exportExamSeatsExcel,exportExamSeatsImage,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,addSubjectItem,attachFileToSubject,addSubjectNoticeItem,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,submitPrivateReply,toggleNoticeReaction,toggleViewersList});
+Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,toggleInlineEditUser,saveSingleStudentField,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,exportExamSeatsExcel,exportExamSeatsImage,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,addSubjectItem,attachFileToSubject,addSubjectNoticeItem,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,selectStageForMgmt,selectSectionForMgmt,selectSubCardForMgmt,submitPrivateReply,toggleNoticeReaction,toggleViewersList});
 </script>
 <script>
 (function(){
@@ -2888,73 +3063,6 @@ Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistrati
  });
  try{if(localStorage.getItem('admSide')==='0'){var el=sh();if(el&&wide())el.classList.add('closed')}}catch(e){}
  window.addEventListener('keydown',function(e){if(e.key==='Escape'&&!wide())window.admSide(false)});
-})();
-</script>
-<script>
-/* ===== Modern cards: shortcuts, banner, action button ===== */
-(function(){
- var $=function(id){return document.getElementById(id)};
- var home=$("sHome"),hero=home&&home.querySelector(".hero");
- if(!home||!hero)return;
-
- var tiles=[
-  {i:"📋",t:"التبليغات",a:"sTab('notices');setFilter('all')",dot:true},
-  {i:"📌",t:"التبليغات المهمة",a:"sTab('notices');setFilter('important')"},
-  {i:"📩",t:"رسائلي الخاصة",a:"sTab('notices');setFilter('private')"},
-  {i:"📚",t:"المواد",a:"sTab('subjects')"},
-  {i:"🗓️",t:"الجدول",a:"sTab('schedule')"},
-  {i:"📝",t:"الواجبات",a:"sTab('subjects');setTimeout(function(){var h=document.getElementById('homeworksList');if(h)h.scrollIntoView({behavior:'smooth'})},120)"},
-  {i:"👤",t:"حسابي",a:"sTab('account')"},
-  {i:"⬇️",t:"تثبيت التطبيق",a:"installApp()",cls:"installB"},
-  {i:"✍️",t:"نشر تبليغ",a:"sTab('rep')",id:"scRep",hide:true},
-  {i:"🏛️",t:"إدارة القسم",a:"sTab('perms')",id:"scPerms",hide:true}
- ];
-
- var box=document.createElement("div");
- box.id="scBlock";
- box.innerHTML=
-  '<div class="sc-title">اختصارات سريعة</div>'+
-  '<div class="sc-grid">'+tiles.map(function(x){
-    return '<button class="sc-tile '+(x.cls||"")+(x.hide?" hidden":"")+'"'+(x.id?' id="'+x.id+'"':"")+' onclick="'+x.a+'">'+
-     (x.dot?'<span class="sc-dot hidden" id="scDot"></span>':"")+
-     '<span class="sc-ico">'+x.i+'</span><span>'+x.t+'</span></button>';
-  }).join("")+'</div>'+
-  '<button class="sc-banner" onclick="sTab(\'notices\')">'+
-   '<span class="sc-ico">📣</span>'+
-   '<span class="sc-banner-txt"><b>آخر تبليغ</b><span id="scLatest">لا توجد تبليغات جديدة</span></span>'+
-   '<span class="sc-go">‹</span>'+
-  '</button>';
- hero.insertAdjacentElement("afterend",box);
-
- var fab=document.createElement("div");
- fab.className="sc-fab-wrap";
- fab.innerHTML='<button class="sc-fab" id="scFab" onclick="sTab(\'notices\')"><span>📣</span><span id="scFabTxt">عرض كل التبليغات</span></button>'+
-  '<button class="sc-fab-round" aria-label="التنبيهات" onclick="toggleBell()">🔔</button>';
- home.appendChild(fab);
-
- function syncRole(){
-  var rep=$("nRep"),perms=$("nPerms");
-  var isRep=rep&&!rep.classList.contains("hidden");
-  var isPerm=perms&&!perms.classList.contains("hidden");
-  $("scRep").classList.toggle("hidden",!isRep);
-  $("scPerms").classList.toggle("hidden",!isPerm);
-  $("scFab").setAttribute("onclick",isRep?"sTab('rep')":"sTab('notices')");
-  $("scFabTxt").textContent=isRep?"نشر تبليغ جديد":"عرض كل التبليغات";
- }
- function syncDot(){
-  var b=$("bellBadge");
-  $("scDot").classList.toggle("hidden",!b||b.classList.contains("hidden"));
- }
- function syncLatest(){
-  var t=document.querySelector("#homeNotices .notice-title");
-  $("scLatest").textContent=t?t.textContent:"لا توجد تبليغات جديدة";
- }
-
- var cfg={attributes:true,attributeFilter:["class"]};
- ["nRep","nPerms"].forEach(function(id){var el=$(id);if(el)new MutationObserver(syncRole).observe(el,cfg)});
- if($("bellBadge"))new MutationObserver(syncDot).observe($("bellBadge"),{attributes:true,attributeFilter:["class"],childList:true,characterData:true,subtree:true});
- if($("homeNotices"))new MutationObserver(syncLatest).observe($("homeNotices"),{childList:true,subtree:true,characterData:true});
- syncRole();syncDot();syncLatest();
 })();
 </script>
 </body>
