@@ -343,6 +343,50 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
 .nav{padding:8px;border:0;border-radius:32px;background:#fffffff7;box-shadow:0 12px 32px rgba(16,40,50,.18)}
 .nav button{border-radius:22px;min-height:58px}
 .nav button.on{background:var(--tile);color:var(--deep2)}
+
+/* ===== Mgmt layout v2 ===== */
+#sHome.mgmt-home{display:flex;flex-direction:column}
+#sHome.mgmt-home>.hero{order:1}
+#sHome.mgmt-home>.stats{order:2}
+#sHome.mgmt-home>#staffStageExplorer{order:3}
+#sHome.mgmt-home>.sched-hero{order:4}
+#sHome.mgmt-home>h3{order:5}
+#sHome.mgmt-home>#homeNotices{order:6}
+.acct-extra{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.acct-av{width:68px;height:68px;border-radius:22px;object-fit:cover;border:3px solid #ffffff55;background:#ffffff22;flex:none}
+.acct-chips{display:flex;flex-wrap:wrap;gap:6px}
+.acct-chips span{padding:3px 12px;border-radius:999px;background:#ffffff26;font-size:11.5px;font-weight:700;color:#fff}
+.mgmt-home .hero button{display:none}
+.adm-acct{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding:18px;border-radius:26px;color:#fff;background:radial-gradient(circle at 12% 0,#3a93a9 0,transparent 55%),linear-gradient(155deg,#1e6273,#144654);box-shadow:0 14px 30px rgba(20,70,84,.22)}
+.adm-acct .acct-av{width:60px;height:60px}
+.adm-acct b{display:block;font-size:18px}
+.adm-acct small{display:block;font-size:12.5px;color:#d4e8ee}
+.mgmt-home .stat{background:linear-gradient(160deg,#fff,var(--tile));box-shadow:0 6px 16px rgba(20,70,84,.08)}
+.mgmt-home .stat b{font-size:26px;color:var(--navy2)}
+.adm-kpi{border-radius:22px;background:linear-gradient(160deg,#fff,#eef5f7)}
+.adm-kpis.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mgmt-head{display:flex;align-items:center;margin-bottom:12px}
+.mgmt-head b{display:block;font-size:16px;color:var(--navy2)}
+.mgmt-head span{font-size:12px;color:var(--mute)}
+.mgmt-stage-box{border-radius:30px;background:linear-gradient(180deg,#fff,#f4f8fa)}
+.stage-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.st-card{position:relative;overflow:hidden;align-items:flex-start;margin:0;width:100%;padding:18px 14px 14px;border-radius:24px;background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:0 6px 18px rgba(20,70,84,.08)}
+.st-card::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--c1),var(--c2))}
+.st-num{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;font-weight:800;font-size:16px;box-shadow:0 6px 14px rgba(0,0,0,.18)}
+.st-stats{display:grid;grid-template-columns:1fr 1fr;gap:5px;width:100%;margin-top:6px}
+.st-stats span{padding:3px 8px;border-radius:10px;background:var(--soft);color:var(--navy2);font-size:11px;font-weight:700;text-align:center}
+.st-card.active{background:linear-gradient(150deg,var(--c1),var(--c2));color:#fff;border-color:transparent;transform:translateY(-3px);box-shadow:0 14px 28px rgba(0,0,0,.22)}
+.st-card.active::before{display:none}
+.st-card.active .st-num{background:#ffffff30;box-shadow:none}
+.st-card.active .st-stats span{background:#ffffff26;color:#fff}
+.sub4-card{margin:0;width:100%;padding:16px 10px;border-radius:22px;background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:0 4px 12px rgba(20,70,84,.06)}
+.sub4-ico{display:grid;place-items:center;width:48px;height:48px;border-radius:17px;font-size:22px}
+.sub4-card.on{background:linear-gradient(150deg,var(--navy),var(--navy2));color:#fff;border-color:transparent;box-shadow:0 12px 24px rgba(20,70,84,.25)}
+.sub4-card.on .sub4-ico{box-shadow:0 0 0 3px #ffffff40}
+#admin button.st-card:not(.sec):not(.del):not(.act),#admin button.st-card:not(.sec):not(.del):not(.act):hover{background:#fff;color:var(--ink);width:100%;padding:18px 14px 14px;border-radius:24px}
+#admin button.st-card.active:not(.sec):not(.del):not(.act),#admin button.st-card.active:not(.sec):not(.del):not(.act):hover{background:linear-gradient(150deg,var(--c1),var(--c2));color:#fff}
+#admin button.sub4-card:not(.sec):not(.del):not(.act),#admin button.sub4-card:not(.sec):not(.del):not(.act):hover{background:#fff;color:var(--ink);width:100%;padding:16px 10px;border-radius:22px}
+#admin button.sub4-card.on:not(.sec):not(.del):not(.act),#admin button.sub4-card.on:not(.sec):not(.del):not(.act):hover{background:linear-gradient(150deg,#1e6273,#144654);color:#fff}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -754,13 +798,20 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
    </header>
 
    <main class="adm-page">
-    <div class="adm-kpis">
-   <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-users"/></svg></span><div><b id="cStudents">0</b><span>مسجل بالقسم</span></div></div>
-   <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-doc"/></svg></span><div><b id="cNotices">0</b><span>تبليغ بالقسم</span></div></div>
-   <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-key"/></svg></span><div><b id="cAvailCodes">0</b><span>رمز متاح</span></div></div>
-   <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-pulse"/></svg></span><div><b id="cOnlineNow">0</b><span>متصل الآن</span></div></div>
+    <div class="adm-acct">
+     <img class="acct-av appLogoImg" src="icon-192.png" alt="">
+     <div style="min-width:0">
+      <b>الأدمن الرئيسي</b>
+      <small id="admAcctEmail" class="ltr"></small>
+      <small id="admAcctDept"></small>
+     </div>
     </div>
-
+    <div class="adm-kpis three">
+     <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-doc"/></svg></span><div><b id="cNotices">0</b><span>التبليغات</span></div></div>
+     <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-building"/></svg></span><div><b id="cLectures">0</b><span>المحاضرات</span></div></div>
+     <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-pulse"/></svg></span><div><b id="cScheds">0</b><span>الجداول</span></div></div>
+    </div>
+    
     <!-- كروت المراحل والشعب و4 كروت (التبليغات، المحاضرات، الجدول، إدارة الطلاب) للأدمن الرئيسي -->
     <div id="adminStageExplorer" class="mgmt-stage-box"></div>
 
@@ -2431,15 +2482,16 @@ function renderStageExplorerHtml(scopeKey,deptName){
  const activeSec=selectedSectionTab[scopeKey]||"all";
  const activeSub=selectedSubCardTab[scopeKey]||"notices";
 
- const stageCardsHtml=stList.map(st=>{
+ const PAL=[["#1e6273","#3a93a9"],["#0f766e","#22b3a6"],["#5b3df5","#8f78ff"],["#c2570c","#f59a4a"],["#b4235a","#ea5f8d"]];
+ const stageCardsHtml=stList.map((st,i)=>{
   const nCnt=deptStageNotices(deptName,st,"all").length;
   const subCnt=deptStageSubjects(deptName,st,"all").length;
   const scCnt=deptStageSchedules(deptName,st,"all").length;
   const stuCnt=deptStageStudents(deptName,st,"all").length;
-  const isAct=st===activeSt;
-  return `<button type="button" class="st-card ${isAct?"active":""}" onclick="selectStageForMgmt('${scopeKey}','${esc(st)}')">
-   <b>${esc(st)}</b>
-   <span class="st-sub">📋 ${nCnt} · 📚 ${subCnt} · 🗓️ ${scCnt} · 👥 ${stuCnt}</span>
+  const [c1,c2]=PAL[i%PAL.length];
+  return `<button type="button" class="st-card ${st===activeSt?"active":""}" style="--c1:${c1};--c2:${c2}" onclick="selectStageForMgmt('${scopeKey}','${esc(st)}')">
+   <span class="st-num">${i+1}</span><b>${esc(st)}</b>
+   <div class="st-stats"><span>📋 ${nCnt}</span><span>📚 ${subCnt}</span><span>🗓️ ${scCnt}</span><span>👥 ${stuCnt}</span></div>
   </button>`;
  }).join("");
 
@@ -2488,38 +2540,12 @@ function renderStageExplorerHtml(scopeKey,deptName){
    :empty("لا يوجد طلاب مسجلون في "+activeSt+(activeSec!=="all"?" · شعبة "+activeSec:"")+" في هذا القسم.");
  }
 
- return `
-  <div class="mgmt-stage-title">
-   <b>🎓 مراحل قسم: ${esc(deptName)} (${stList.length} مراحل)</b>
-   <span class="meta">اختر مرحلة وشعبة لعرض التفاصيل</span>
-  </div>
+ const subDefs=[["notices","📋","التبليغات",stNotices.length,"#e3ecfb"],["lectures","📚","المحاضرات",stSubjects.length,"#dff3e8"],["schedule","🗓️","الجدول",stSchedules.length,"#fdf0d9"],["students","👥","إدارة الطلاب",stStudents.length,"#fbe3e8"]];
+ const subHtml=subDefs.map(([k,ic,lb,n,bg])=>`<button type="button" class="sub4-card ${activeSub===k?"on":""}" onclick="selectSubCardForMgmt('${scopeKey}','${k}')"><span class="sub4-ico" style="background:${bg}">${ic}</span><b>${lb}</b><span class="sub4-cnt">${n}</span></button>`).join("");
+ return `<div class="mgmt-head"><div><b>🎓 ${esc(deptName)}</b><span>${stList.length} مراحل · اختر مرحلة وشعبة لعرض التفاصيل</span></div></div>
   <div class="stage-grid">${stageCardsHtml}</div>
-  <div class="stage-sec-bar">
-   <span>شعب ${esc(activeSt)}:</span>
-   ${secButtonsHtml}
-  </div>
-  <div class="stage-4-grid">
-   <button type="button" class="sub4-card ${activeSub==="notices"?"on":""}" onclick="selectSubCardForMgmt('${scopeKey}','notices')">
-    <span class="sub4-ico">📋</span>
-    <b>التبليغات</b>
-    <span class="sub4-cnt">${stNotices.length}</span>
-   </button>
-   <button type="button" class="sub4-card ${activeSub==="lectures"?"on":""}" onclick="selectSubCardForMgmt('${scopeKey}','lectures')">
-    <span class="sub4-ico">📚</span>
-    <b>المحاضرات</b>
-    <span class="sub4-cnt">${stSubjects.length}</span>
-   </button>
-   <button type="button" class="sub4-card ${activeSub==="schedule"?"on":""}" onclick="selectSubCardForMgmt('${scopeKey}','schedule')">
-    <span class="sub4-ico">🗓️</span>
-    <b>الجدول</b>
-    <span class="sub4-cnt">${stSchedules.length}</span>
-   </button>
-   <button type="button" class="sub4-card ${activeSub==="students"?"on":""}" onclick="selectSubCardForMgmt('${scopeKey}','students')">
-    <span class="sub4-ico">👥</span>
-    <b>إدارة الطلاب</b>
-    <span class="sub4-cnt">${stStudents.length}</span>
-   </button>
-  </div>
+  <div class="stage-sec-bar"><span>شعب ${esc(activeSt)}:</span>${secButtonsHtml}</div>
+  <div class="stage-4-grid">${subHtml}</div>
   <div class="stage-panel-body">${panelHtml}</div>`;
 }
 
@@ -2817,6 +2843,22 @@ function renderStudent(){
   }
  }
 
+$("sHome").classList.toggle("mgmt-home",isMgmtStaff);
+ const stEls=document.querySelectorAll("#sHome .stats .stat");
+ if(stEls.length===3){
+  const cfg=isMgmtStaff?[["المحاضرات","📚","subjects"],["الجداول","🗓️","schedule"]]:[["المواد","📚","subjects"],["الواجبات","📝","subjects"]];
+  [1,2].forEach((k,j)=>{
+   stEls[k].querySelector("span").textContent=cfg[j][0];
+   stEls[k].querySelector(".ico").textContent=cfg[j][1];
+   stEls[k].onclick=()=>sTab(cfg[j][2]);
+  });
+  $("stHw").textContent=isMgmtStaff?scheds.length:hws.length;
+ }
+ if(isMgmtStaff){
+  let ex=$("mgmtAcctExtra");
+  if(!ex){ex=document.createElement("div");ex.id="mgmtAcctExtra";ex.className="acct-extra";document.querySelector("#sHome .hero").prepend(ex)}
+  ex.innerHTML=`<img class="acct-av" src="${esc(me.photo||customLogo||"icon-192.png")}" alt=""><div class="acct-chips"><span>${esc(roleLabel(me.role))}</span><span>${esc(me.dept||"")}</span><span class="ltr">+${esc(me.phone||"")}</span></div>`;
+ }
  if(currentStudentTab==="home"){
   const tomorrowIdx=(new Date().getDay()+1)%7;
   const dayMap=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
@@ -2891,11 +2933,11 @@ function renderAdmin(){
  const avail=deptCodes.filter(c=>!c.used);
  const onlineCnt=deptCodes.filter(c=>isUserOnline(c)).length;
 
- $("cStudents").textContent=used.length;
  $("cNotices").textContent=deptNotices.length;
- $("cAvailCodes").textContent=avail.length;
- $("cOnlineNow").textContent=onlineCnt;
- $("admOnlineCountPill").textContent=onlineCnt+" متصل";
+ $("cLectures").textContent=subjects.filter(s=>deptOf(s)===activeDept).length;
+ $("cScheds").textContent=schedules.filter(s=>deptOf(s)===activeDept).length;
+ $("admAcctEmail").textContent=(auth.currentUser&&auth.currentUser.email)||"";
+ $("admAcctDept").textContent="القسم النشط: "+(activeDept||"-");
 
  if($("adminStageExplorer")){
   $("adminStageExplorer").innerHTML=renderStageExplorerHtml("admin",activeDept);
