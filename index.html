@@ -2,398 +2,412 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#1e6273">
-<title id="pageTitle">تبليغات الكلية والأقسام</title>
+<title id="pageTitle">تبليغات الكلية</title>
 <style>
-/* ====== Base ====== */
 :root{
- --bg:#f1f5f7;--card:#fff;--line:#e3eaee;--ink:#14242b;--mute:#677b83;
- --navy:#1e6273;--navy2:#144654;--soft:#e6f0f3;--warn-bg:#eef5f7;--ok-bg:#e4f3ec;--blue-bg:#e4eefb;--amber-bg:#fdf1de;
- --alert-red:#d92d20;--online-dot:#16a34a;
- --r:18px;--shadow:0 1px 2px rgba(16,40,50,.05),0 6px 18px rgba(16,40,50,.05)
+ --bg:#f4f7f8;--card:#ffffff;--ink:#1c2c33;--mute:#687b82;
+ --navy:#1e6273;--navy2:#144654;--soft:#e7eff1;--line:#dde5e8;
+ --gold:#d49623;--gold2:#b57b12;--goldSoft:#fdf5e3;
+ --ok:#15803d;--okbg:#dcfce7;--warn:#b45309;--warnbg:#fef3c7;
+ --bad:#b91c1c;--badbg:#fee2e2;--priv:#6d28d9;--privbg:#ede9fe;
+ --r:16px
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif;line-height:1.7;overflow-x:hidden;-webkit-overflow-scrolling:touch}
-.app{max-width:520px;margin:auto;min-height:100vh;position:relative}
-.i{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-h3{margin:8px 0 12px;font-size:16px;color:var(--ink)}
-h4{margin:6px 0 8px;font-size:14.5px;color:var(--ink)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif;line-height:1.55}
 .hidden{display:none!important}
-.ltr{direction:ltr;text-align:right}
-.meta{font-size:12.5px;color:var(--mute)}
-.err{min-height:20px;font-size:13px;font-weight:700;color:var(--alert-red)}
-.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
+.ltr{direction:ltr;text-align:left}
+.app{max-width:720px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:84px}
 
-/* ====== Header ====== */
-.top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fffffff2;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);color:var(--ink)}
-.top .brand{flex:1;display:flex;align-items:center;gap:10px;min-width:0}
-.top h1{color:var(--ink)}
-.logo,.ibtn{position:relative;flex:none;display:grid;place-items:center;border:0;padding:0;margin:0;background:var(--soft);color:var(--navy);cursor:pointer}
-.logo{width:44px;height:44px;border-radius:14px;font-size:22px}
-.ibtn{width:42px;height:42px;border-radius:14px;font-size:18px}
-.logo img,.ibtn img{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block}
-.badge{position:absolute;top:-5px;right:-5px;min-width:19px;height:19px;padding:0 5px;display:grid;place-items:center;border:2px solid #fff;border-radius:10px;background:var(--alert-red);color:#fff;font-size:11px;font-weight:700}
-.bell-pop{position:absolute;top:64px;right:12px;left:12px;z-index:60;padding:12px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:0 14px 32px rgba(20,70,84,.18)}
-.bell-item{padding:9px 6px;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
-.bell-item:last-child{border-bottom:0}
-.page{padding:14px 14px 124px}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;background:var(--navy);color:#fff;padding:12px 14px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.brand{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.logo{position:relative;flex:0 0 auto;width:44px;height:44px;border-radius:12px;background:#fff;display:grid;place-items:center;font-size:22px;overflow:visible;padding:0;border:none;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.logo img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.top h1{margin:0;font-size:17px}
+.top p{margin:0;font-size:12px;opacity:.88}
+.ibtn{position:relative;flex:0 0 auto;width:42px;height:42px;border-radius:12px;border:1px solid #ffffff30;background:#ffffff18;color:#fff;font-size:18px;display:grid;place-items:center;cursor:pointer;padding:0;overflow:hidden}
+.ibtn img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:-5px;left:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:#ef4444;color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;border:2px solid var(--navy);z-index:4}
 
-/* ====== Login Polish ====== */
-.auth-hero{margin-bottom:12px;padding:16px 18px;border-radius:22px;color:#fff;background:radial-gradient(circle at 15% 0,#2f8196 0,transparent 55%),linear-gradient(155deg,var(--navy),var(--navy2));box-shadow:0 10px 24px rgba(20,70,84,.18)}
-.auth-hero small{display:block;font-size:12px;color:#d6ebf1}
-.auth-hero b{display:block;font-size:19px;margin:2px 0}
-.auth-hero span{display:block;font-size:12.5px;color:#e5f2f5}
+.bell-pop{position:absolute;top:60px;left:12px;width:min(340px,calc(100vw - 24px));background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.18);padding:12px;z-index:40}
+.bell-item{padding:9px;border-radius:10px;background:var(--bg);margin-top:6px;cursor:pointer}
+.bell-item:hover{background:var(--soft)}
 
-/* ====== Home ====== */
-.hero{margin-bottom:14px;padding:20px;border-radius:24px;color:#fff;background:radial-gradient(circle at 15% 0,#2f8196 0,transparent 55%),linear-gradient(155deg,var(--navy),var(--navy2));box-shadow:0 12px 28px rgba(20,70,84,.22)}
-.hero small{display:block;font-size:12.5px;color:#d4e8ee}
-.hero h2{margin:2px 0 4px;font-size:22px}
-.hero p{margin:0 0 14px;font-size:13px;color:#e3f0f4}
-.hero button{width:auto;margin:0;padding:9px 18px;border-radius:12px;background:#fff;color:var(--navy2);font-size:13px;font-weight:700}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.stat{padding:14px 8px;text-align:center;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);cursor:pointer}
-.stat b{display:block;font-size:22px;line-height:1.2}
-.stat span{font-size:12px;color:var(--mute)}
-.ico{display:grid;place-items:center;width:42px;height:42px;margin:0 auto 6px;border-radius:13px;font-size:19px}
-.b{background:var(--blue-bg)}.g{background:var(--ok-bg)}.a{background:var(--amber-bg)}
-.sched-hero{margin-bottom:14px;padding:16px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
-.sched-hero-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
-.sched-pill{padding:3px 12px;border-radius:20px;background:var(--soft);color:var(--navy2);font-size:12px;font-weight:700}
-.sched-slot{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:10px 12px;border-radius:14px;background:var(--bg)}
-.sched-slot:last-child{margin-bottom:0}
-.sched-time{flex:none;min-width:86px;padding:6px 8px;border-radius:11px;background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;text-align:center}
-.sched-info{flex:1;min-width:0}.sched-info b{display:block;font-size:14px}.sched-info span{font-size:12px;color:var(--mute)}
+.page{padding:14px}
+.page.auth-page{padding:0 14px 22px}
 
-/* ====== Stage Explorer, Sections & 4 Sub-Cards for Admin / Dept Admin / Rapporteur ====== */
-.mgmt-stage-box{margin-bottom:16px;padding:14px;border-radius:22px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
-.mgmt-stage-title{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.mgmt-stage-title b{font-size:15px;color:var(--navy2)}
-.stage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px}
-.st-card{display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:18px;background:var(--soft);color:var(--ink);border:1.5px solid transparent;cursor:pointer;text-align:right;transition:all .16s}
-.st-card:hover{border-color:var(--navy);transform:translateY(-2px)}
-.st-card.active{background:var(--navy);color:#fff;border-color:var(--navy2)}
-.st-card.active .st-sub{color:#dff1f5}
-.st-card b{font-size:14px}
-.st-sub{font-size:11.5px;color:var(--mute)}
+/* ====== واجهات الدخول والتسجيل المحدثة بهوية التطبيق ====== */
+.auth-card-shell{
+ background:#fff;border:1.5px solid var(--line);border-radius:26px;overflow:hidden;
+ box-shadow:0 14px 36px rgba(20,70,84,.12);margin-top:10px
+}
+.auth-visual-top{
+ position:relative;background:linear-gradient(155deg,var(--navy2),var(--navy));
+ padding:14px 14px 38px;overflow:hidden
+}
+.auth-campus-banner{
+ width:100%;height:156px;object-fit:cover;object-position:center 22%;
+ border-radius:18px;border:2px solid #ffffff38;display:block;
+ box-shadow:0 8px 20px rgba(0,0,0,.18)
+}
+.auth-admin-pill{
+ position:absolute;top:24px;left:24px;z-index:3;
+ display:inline-flex;align-items:center;gap:6px;width:auto;margin:0;
+ padding:7px 13px;border-radius:99px;
+ background:rgba(20,70,84,.88);backdrop-filter:blur(6px);
+ color:#fff;border:1px solid rgba(255,255,255,.35);
+ font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.18)
+}
+.auth-admin-pill:hover{background:var(--navy2)}
+.auth-wave{
+ position:absolute;left:-4%;right:-4%;bottom:-14px;height:44px;
+ background:#fff;border-radius:55% 55% 0 0 / 100% 100% 0 0;
+ border-top:4px solid var(--gold)
+}
+.auth-identity-box{
+ position:relative;z-index:2;text-align:center;
+ margin-top:-26px;padding:0 16px 8px
+}
+.auth-crest-ring{
+ width:66px;height:66px;margin:0 auto 8px;border-radius:20px;
+ background:linear-gradient(135deg,#fff,var(--soft));
+ border:2.5px solid var(--gold);display:grid;place-items:center;
+ box-shadow:0 8px 20px rgba(20,70,84,.14);overflow:hidden
+}
+.auth-crest-ring img{width:100%;height:100%;object-fit:cover}
+.auth-main-title{margin:0;font-size:23px;font-weight:800;color:var(--navy2);letter-spacing:-.2px}
+.auth-sub-badge{
+ display:inline-block;margin-top:5px;padding:4px 14px;border-radius:99px;
+ background:var(--navy);color:#fff;font-size:12px;font-weight:700
+}
+.auth-tagline{
+ display:flex;align-items:center;gap:10px;
+ margin:12px 0 14px;color:var(--mute);font-size:12px;font-weight:600
+}
+.auth-tagline::before,.auth-tagline::after{
+ content:"";flex:1;height:1px;background:var(--line)
+}
+.auth-form-body{padding:4px 18px 14px}
 
-.stage-sec-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px;padding:10px;border-radius:16px;background:var(--bg)}
-.stage-sec-bar span{font-size:12.5px;font-weight:700;color:var(--navy2);margin-left:4px}
-.sec-pill-btn{width:auto!important;margin:0!important;padding:6px 14px!important;border-radius:999px!important;border:1px solid var(--line)!important;background:#fff!important;color:var(--ink)!important;font-size:12.5px!important;font-weight:700!important;box-shadow:none!important}
-.sec-pill-btn.on{background:var(--navy)!important;color:#fff!important;border-color:var(--navy)!important}
+.auth-input-wrap{position:relative;margin-top:10px}
+.auth-input-wrap input,.auth-input-wrap select{
+ margin-top:0;padding:12px 42px 12px 42px;
+ border-radius:99px;background:#f8fbfc;border:1.5px solid var(--line);
+ font-size:14px;box-shadow:inset 0 1px 3px rgba(20,70,84,.04)
+}
+.auth-input-wrap input.ltr{padding-left:42px;padding-right:42px;text-align:left}
+.auth-input-wrap input:focus,.auth-input-wrap select:focus{
+ background:#fff;border-color:var(--navy);box-shadow:0 0 0 3px rgba(30,98,115,.14)
+}
+.auth-in-ico{
+ position:absolute;right:15px;top:50%;transform:translateY(-50%);
+ font-size:15px;color:var(--navy);pointer-events:none;line-height:1
+}
+.auth-eye-btn{
+ position:absolute;left:10px;top:50%;transform:translateY(-50%);
+ width:auto;margin:0;padding:5px 7px;border-radius:99px;
+ background:transparent;color:var(--mute);font-size:14px;cursor:pointer
+}
+.auth-eye-btn:hover{color:var(--navy);background:var(--soft)}
 
-.stage-4-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
-@media(min-width:640px){.stage-4-grid{grid-template-columns:repeat(4,1fr)}}
-.sub4-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 10px;border-radius:18px;background:#f4f8fa;border:1.5px solid var(--line);cursor:pointer;text-align:center;transition:all .16s}
-.sub4-card:hover{border-color:var(--navy);background:var(--soft)}
-.sub4-card.on{background:var(--navy2);color:#fff;border-color:var(--navy2)}
-.sub4-card.on .sub4-cnt{background:#ffffff28;color:#fff}
-.sub4-ico{font-size:22px}
-.sub4-card b{font-size:13.5px}
-.sub4-cnt{padding:2px 10px;border-radius:999px;background:var(--soft);color:var(--navy2);font-size:12px;font-weight:700}
-.stage-panel-body{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.btn-gold{
+ width:100%;padding:13px 16px;border:none;border-radius:99px;
+ background:linear-gradient(135deg,var(--gold),var(--gold2));
+ color:#fff;font-family:inherit;font-size:15px;font-weight:700;
+ cursor:pointer;margin-top:14px;
+ display:flex;align-items:center;justify-content:center;gap:8px;
+ box-shadow:0 8px 18px rgba(181,123,18,.28)
+}
+.btn-gold:hover{filter:brightness(1.04)}
+.btn-gold:disabled{opacity:.55;cursor:not-allowed}
 
-/* Standalone Stage Detail Page */
-.stage-standalone-page{margin-top:12px;padding:16px;border-radius:24px;background:#fff;border:1.5px solid var(--line);box-shadow:0 12px 28px rgba(20,70,84,.12)}
-.stage-standalone-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--line)}
-.stage-standalone-title b{display:block;font-size:16px;color:var(--navy2)}
-.stage-standalone-title small{display:block;font-size:12px;color:var(--mute)}
-.stage-back-btn{width:auto!important;margin:0!important;padding:8px 14px!important;border-radius:12px!important;background:var(--soft)!important;color:var(--navy2)!important;font-size:12.5px!important;font-weight:700!important;box-shadow:none!important}
-.stage-open-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%!important;margin:8px 0 0!important;padding:8px 10px!important;border-radius:12px!important;background:var(--soft)!important;color:var(--navy2)!important;font-size:12px!important;font-weight:700!important;box-shadow:none!important}
-.st-card.active .stage-open-btn{background:#ffffff30!important;color:#fff!important}
-.st-card-summary{width:100%;font-size:11.5px;color:var(--mute);line-height:1.5;margin-top:2px}
-.st-card.active .st-card-summary{color:#eaf6f9}
+.btn-navy-pill{
+ width:100%;padding:12px 16px;border:none;border-radius:99px;
+ background:linear-gradient(135deg,var(--navy),var(--navy2));
+ color:#fff;font-family:inherit;font-size:14.5px;font-weight:700;
+ cursor:pointer;margin-top:10px;
+ display:flex;align-items:center;justify-content:center;gap:8px;
+ box-shadow:0 6px 16px rgba(20,70,84,.2)
+}
+.btn-outline-pill{
+ width:100%;padding:11px 16px;border-radius:99px;
+ border:1.5px solid var(--navy);background:#fff;color:var(--navy2);
+ font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;
+ display:flex;align-items:center;justify-content:center;gap:8px
+}
+.btn-outline-pill:hover{background:var(--soft)}
 
-/* ====== Cards & notices ====== */
-.card{margin-bottom:12px;padding:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow)}
-.notice{border-right:4px solid var(--navy)}
-.notice.important{border-right-color:var(--alert-red)}
-.notice.private{border-right-color:#0f766e}
-.notice-head-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px}
-.notice-title{flex:1;margin:0;font-size:15.5px;cursor:pointer;user-select:none;line-height:1.5}
-.notice-open-btn{flex:none;width:auto!important;margin:0!important;padding:9px 15px!important;border-radius:12px!important;background:var(--soft)!important;color:var(--navy2)!important;font-size:13px!important;font-weight:700!important;white-space:nowrap}
-.notice.open .notice-open-btn{background:var(--navy)!important;color:#fff!important}
+.btn-wa-pill{
+ width:100%;padding:12px 16px;border:1.5px solid #bbf7d0;border-radius:99px;
+ background:#f0fdf4;color:#15803d;font-family:inherit;font-size:14px;font-weight:700;
+ cursor:pointer;margin-top:8px;
+ display:flex;align-items:center;justify-content:center;gap:8px
+}
+.btn-wa-pill:hover{background:#dcfce7}
 
-.notice:not(.open) .notice-body,
-.notice:not(.open) .notice-details-extra{display:none}
-.notice:not(.open) .att-img{width:54px;height:42px;max-height:42px;margin-top:6px;border-radius:8px;object-fit:cover;display:inline-block}
-.notice.open .notice-body{display:block;margin:8px 0;font-size:14px;white-space:pre-wrap}
-.notice.open .notice-details-extra{display:block}
-.notice.open .att-img{display:block;width:100%;max-height:380px;margin-top:8px;border:1px solid var(--line);border-radius:14px;background:var(--card);object-fit:contain}
+.auth-switch-prompt{text-align:center;margin-top:14px;font-size:12.5px;color:var(--mute);font-weight:600}
+.auth-campus-footer{
+ margin-top:14px;padding:12px 16px 14px;
+ background:linear-gradient(180deg,#ffffff 0%,var(--soft) 100%);
+ border-top:1px solid var(--line);text-align:center
+}
+.auth-campus-arch{
+ width:100%;max-height:54px;object-fit:contain;opacity:.22;
+ filter:grayscale(100%) contrast(1.2);display:block;margin:0 auto 6px
+}
+.auth-campus-motto{
+ display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--navy2)
+}
+.auth-campus-motto::before,.auth-campus-motto::after{
+ content:"";flex:1;height:1px;background:var(--line)
+}
 
-.replies-box{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
-.reply-item{margin-bottom:6px;padding:8px 10px;border-radius:12px;background:var(--bg);font-size:13px}
-.reply-form{display:flex;align-items:center;gap:6px;margin-top:6px}
-.reply-form input{flex:1;margin:0;padding:8px 10px;font-size:13px}
-.reply-form button{width:auto;margin:0;padding:8px 14px;font-size:12.5px;white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.card h3{margin:0 0 6px;font-size:15.5px}
+.meta{color:var(--mute);font-size:12.5px}
+.warn-note{background:var(--warnbg);color:var(--warn);border:1px solid #fcd34d;border-radius:12px;padding:9px 11px;font-size:12px;line-height:1.5;margin-top:10px}
 
-.react-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px;padding-top:8px;border-top:1px dashed var(--line)}
-.react-btn{display:inline-flex;align-items:center;gap:4px;width:auto!important;margin:0!important;padding:5px 10px!important;border-radius:20px!important;border:1px solid var(--line)!important;background:var(--bg)!important;color:var(--ink)!important;font-size:12.5px!important;font-weight:700!important;box-shadow:none!important}
-.react-btn.on{border-color:var(--navy)!important;background:var(--soft)!important;color:var(--navy2)!important}
-.viewers-btn{display:inline-flex;align-items:center;gap:4px;width:auto!important;margin:0 0 0 auto!important;padding:5px 11px!important;border-radius:20px!important;border:1px solid var(--line)!important;background:#fff!important;color:var(--navy2)!important;font-size:12px!important;font-weight:700!important;box-shadow:none!important}
-.viewers-box{margin-top:8px;padding:10px 12px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font-size:12.5px}
-.viewer-row{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid var(--line)}
-.viewer-row:last-child{border-bottom:0}
+label{display:block;font-size:13px;font-weight:600;margin:10px 0 4px}
+input,select,textarea{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:12px;font-family:inherit;font-size:14px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy)}
+textarea{resize:vertical}
+.row{display:flex;gap:10px}.row>div{flex:1}
 
-.tag{display:inline-block;margin-left:4px;padding:1px 10px;border-radius:20px;background:var(--soft);color:var(--ink);font-size:11.5px}
-.tag.imp{background:#fde7e4;color:#a3261b;font-weight:700}
-.tag.rep{background:var(--navy);color:#fff}
-.tag.priv{background:#d9f1ee;color:#0f766e;font-weight:700}
-.tag.ok{background:#dcfce7;color:#166534;font-weight:700}
-.tag.view{background:#e4eefb;color:#1d4ed8;font-weight:700}
-.warn-note{margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-right:4px solid var(--navy2);border-radius:14px;background:var(--warn-bg);font-size:12.5px}
-.online-pill{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:20px;background:#dcfce7;color:#166534;font-size:11.5px;font-weight:700}
-.online-pill.staff{background:#e4eefb;color:#144654}
-.online-dot{width:8px;height:8px;border-radius:50%;background:var(--online-dot)}
-.online-strip{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.online-group-title{width:100%;font-size:12px;font-weight:700;color:var(--navy2);margin-top:6px}
-.online-group-title:first-child{margin-top:0}
-.att-box{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0;padding:9px 11px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
-.acc-avatar{display:block;width:72px;height:72px;margin-bottom:8px;border:1px solid var(--line);border-radius:20px;background:var(--soft);object-fit:cover}
-.dept-preview{flex:none;width:54px;height:54px;border:1px solid var(--line);border-radius:14px;background:var(--soft);object-fit:cover}
-
-/* ====== Forms & buttons ====== */
-label{display:block;margin-top:10px;font-size:13px;font-weight:600;color:var(--mute)}
-input,textarea,select{width:100%;margin:4px 0;padding:12px;border:1px solid var(--line);border-radius:14px;background:#fbfcfd;color:var(--ink);font-family:inherit;font-size:15px}
-input[type=file]{padding:9px;font-size:13px}
-input:focus,textarea:focus,select:focus{border-color:var(--navy);background:#fff;outline:3px solid #1e62732e}
-button:focus-visible,summary:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
-button{width:100%;margin-top:10px;padding:12px;border:0;border-radius:14px;background:var(--navy);color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:transform .1s,background .15s}
-button:active{transform:scale(.98)}
+button{width:100%;padding:12px;border:none;border-radius:12px;background:var(--navy);color:#fff;font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;margin-top:10px}
+button:disabled{opacity:.5}
 button.sec{background:var(--soft);color:var(--navy2)}
-button.del,button.act{width:auto;margin:0;padding:6px 12px;border:1px solid var(--line);background:#fff;font-size:12.5px}
-button.act{color:var(--navy)}
-button.del{color:#b42318}
+button.del{background:var(--badbg);color:var(--bad);width:auto;padding:6px 12px;font-size:12.5px;margin:0}
+button.act{background:var(--soft);color:var(--navy2);width:auto;padding:6px 12px;font-size:12.5px;margin:0}
+.err{color:var(--bad);font-size:13px;margin-top:8px;min-height:18px;font-weight:600}
 
-/* ====== Tabs, chips, lists ====== */
-.seg{display:flex;gap:2px;margin-bottom:14px;padding:4px;border-radius:16px;background:#e3ecef}
-.seg button{margin:0;padding:10px 2px;border-radius:12px;background:transparent;color:var(--mute);font-size:13px}
-.seg button.on{background:#fff;color:var(--navy2);box-shadow:var(--shadow)}
-.chips{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:12px}
-.chips button{width:auto;margin:0;padding:7px 16px;border:1px solid var(--line);border-radius:20px;background:#fff;color:var(--ink);font-size:12.5px;font-weight:600}
-.chips button.on{border-color:var(--navy);background:var(--navy);color:#fff}
-.subj-card,.day-card,.hw-card{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding:14px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow)}
-.subj-card{cursor:pointer}
-.hw-card{display:block;border-right:4px solid var(--navy2)}
-.subj-ico{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:14px;background:var(--soft);font-size:20px}
-.subj-body{flex:1;min-width:0}.subj-body b{display:block;font-size:15px}.subj-body span{font-size:12.5px;color:var(--mute)}
-.time-badge{flex:none;min-width:88px;padding:6px 9px;border-radius:13px;background:var(--soft);color:var(--navy2);font-size:11.5px;font-weight:700;text-align:center}
-details{margin-bottom:10px;overflow:hidden;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
-summary{display:flex;align-items:center;gap:10px;padding:14px;list-style:none;font-weight:700;cursor:pointer}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:20px;padding:18px;margin-bottom:14px}
+.hero small{opacity:.88;display:block;margin-bottom:2px}
+.hero h2{margin:0 0 4px;font-size:20px}
+.hero p{margin:0 0 12px;font-size:13px;opacity:.92}
+.hero button{background:#fff;color:var(--navy2);margin:0;width:auto;padding:9px 16px;font-size:13.5px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;transition:.15s}
+.stat:hover{border-color:var(--navy);transform:translateY(-1px)}
+.stat .ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;margin:0 auto 5px;font-size:17px}
+.stat .ico.b{background:#e0f2fe;color:#0369a1}
+.stat .ico.a{background:#fef3c7;color:#b45309}
+.stat .ico.g{background:#dcfce7;color:#15803d}
+.stat .ico.v{background:#ede9fe;color:#6d28d9}
+.stat b{display:block;font-size:17px}
+.stat span{font-size:11px;color:var(--mute);font-weight:600}
+
+/* جدول المحاضرات القادم مطوياً افتراضياً؛ يظهر محاضرات هذا اليوم فقط عند الضغط */
+.sched-hero{background:#fff;border:1.5px solid var(--line);border-radius:18px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 8px rgba(20,70,84,.05)}
+.sched-hero-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 15px;cursor:pointer;background:linear-gradient(90deg,#f8fbfc,#ffffff)}
+.sched-hero-top:hover{background:var(--soft)}
+.sched-pill{padding:5px 11px;border-radius:99px;background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;white-space:nowrap}
+.sched-collapsible{padding:10px 14px 14px;border-top:1px solid var(--line)}
+.sched-slot{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:9px 11px;margin-top:8px}
+.sched-time{background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;padding:5px 8px;border-radius:9px;white-space:nowrap}
+.sched-info b{display:block;font-size:13.5px}
+.sched-info span{font-size:12px;color:var(--mute)}
+.sched-footer-actions{margin-top:10px;display:flex;gap:8px}
+.sched-footer-actions button{margin:0;padding:8px 12px;font-size:12.5px}
+
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px}
+.chips button{width:auto;margin:0;padding:7px 14px;border-radius:99px;font-size:13px;background:#fff;color:var(--ink);border:1px solid var(--line);white-space:nowrap}
+.chips button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+.notice{border-right:4px solid var(--navy)}
+.notice.important{border-right-color:var(--warn);background:#fffdf7}
+.notice.private{border-right-color:var(--priv);background:#faf8ff}
+.notice h4{margin:6px 0;font-size:15.5px}
+.notice-head-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 2px}
+.notice-title{margin:0;font-size:15.5px;flex:1;cursor:pointer}
+.notice-open-btn{width:auto;margin:0;padding:5px 11px;border-radius:99px;font-size:12px;background:var(--soft);color:var(--navy2);white-space:nowrap;flex:0 0 auto}
+.notice-body{margin:6px 0 8px;font-size:14px;white-space:pre-wrap;display:none}
+.notice.open .notice-body{display:block}
+.notice-details-extra{display:none}
+.notice.open .notice-details-extra{display:flex}
+div.notice-details-extra{display:none}
+.notice.open div.notice-details-extra{display:block}
+.notice.open div.card-actions.notice-details-extra{display:flex}
+
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11.5px;font-weight:700;background:var(--soft);color:var(--navy2)}
+.tag.imp{background:var(--warnbg);color:var(--warn)}
+.tag.ok{background:var(--okbg);color:var(--ok)}
+.tag.priv{background:var(--privbg);color:var(--priv)}
+.tag.view{background:#e0f2fe;color:#0369a1}
+.card-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+.react-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px;padding-top:8px;border-top:1px dashed var(--line)}
+.react-btn{width:auto;margin:0;padding:4px 9px;border-radius:99px;border:1px solid var(--line);background:#f8fafc;color:var(--ink);font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+.react-btn.on{background:#e0f2fe;border-color:#0284c7;color:#0369a1}
+.viewers-btn{width:auto;margin:0 4px 0 0;padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:#fff;color:var(--navy2);font-size:12px;font-weight:700;cursor:pointer}
+.viewers-box{margin-top:8px;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:8px 10px}
+.viewer-row{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid #e2e8f0;font-size:12.5px}
+.viewer-row:last-child{border-bottom:none}
+
+.replies-box{margin-top:10px;padding-top:8px;border-top:1px dashed var(--line)}
+.reply-item{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:7px 10px;margin-bottom:6px;font-size:13px}
+.reply-form{display:flex;gap:6px;align-items:center;margin-top:6px}
+.reply-form input{margin:0;padding:8px 10px;font-size:13px}
+.reply-form button{width:auto;margin:0;padding:8px 14px;font-size:12.5px}
+
+.att-img{width:100%;max-height:260px;object-fit:cover;border-radius:12px;margin-top:8px;border:1px solid var(--line);cursor:pointer}
+.att-box{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:9px 11px;margin-top:8px}
+.att-box button{width:auto;margin:0;padding:6px 11px;font-size:12px}
+
+.subj-card{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:15px;padding:12px;margin-bottom:10px;cursor:pointer}
+.subj-ico{width:42px;height:42px;border-radius:12px;background:var(--soft);color:var(--navy2);display:grid;place-items:center;font-size:20px;flex:0 0 auto}
+.subj-body{flex:1;min-width:0}
+.subj-body b{display:block;font-size:15px}
+.subj-body span{font-size:12px;color:var(--mute)}
+.hw-card{background:#fff;border:1px solid var(--line);border-right:4px solid var(--ok);border-radius:14px;padding:12px;margin-bottom:10px}
+.day-card{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.time-badge{background:var(--soft);color:var(--navy2);padding:6px 10px;border-radius:10px;font-size:12px;font-weight:700;white-space:nowrap}
+
+.online-strip{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.online-group-title{width:100%;font-size:12px;font-weight:700;color:var(--navy2);margin-top:6px}
+.online-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;background:var(--okbg);color:var(--ok);font-size:12px;font-weight:700}
+.online-pill.staff{background:#e0f2fe;color:#0369a1}
+.online-dot{width:7px;height:7px;border-radius:50%;background:#16a34a}
+.online-pill.staff .online-dot{background:#0284c7}
+
+.acc-avatar{width:74px;height:74px;border-radius:50%;object-fit:cover;border:2px solid var(--navy);display:block;margin:0 auto 10px}
+.dept-preview{width:54px;height:54px;border-radius:12px;object-fit:cover;border:1px solid var(--line);background:#fff}
+
+.nav{position:fixed;bottom:0;left:0;right:0;max-width:720px;margin:0 auto;display:flex;background:#fff;border-top:1px solid var(--line);z-index:20}
+.nav button{flex:1;margin:0;padding:8px 2px 10px;background:none;color:var(--mute);font-size:11px;font-weight:600;border-radius:0;display:flex;flex-direction:column;align-items:center;gap:2px}
+.nav button.on{color:var(--navy2)}
+.nav svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+details{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
+summary{list-style:none;padding:12px 14px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
 summary::-webkit-details-marker{display:none}
-summary .cnt{margin-right:auto;padding:1px 10px;border-radius:20px;background:var(--navy);color:#fff;font-size:12px}
-summary::after{content:"▾";color:var(--mute);transition:transform .2s}
-details[open] summary::after{transform:rotate(180deg)}
-.stu{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 14px;border-top:1px solid var(--line)}
-.stu div{flex:1;min-width:160px}.stu b{font-size:14px}
-.inline-edit-panel{width:100%;margin-top:8px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
-.inline-edit-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:8px}
+.cnt{background:var(--soft);color:var(--navy2);padding:2px 9px;border-radius:99px;font-size:12px}
+.sec-head{background:#f1f5f9;color:var(--navy2);font-size:12.5px;font-weight:700;padding:6px 14px;border-top:1px solid var(--line)}
+.stu{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap}
+
+.inline-edit-panel{width:100%;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:8px}
+.inline-edit-row{display:flex;gap:6px;align-items:center;margin-bottom:8px}
 .inline-edit-row:last-child{margin-bottom:0}
-.inline-edit-row label{min-width:66px;margin:0;font-size:12px;font-weight:700;color:var(--navy2)}
-.inline-edit-row input,.inline-edit-row select{flex:1;min-width:120px;margin:0;padding:7px 9px;font-size:13px}
-.inline-edit-row button{width:auto;margin:0;padding:7px 11px;font-size:12px;white-space:nowrap}
+.inline-edit-row label{width:64px;flex:0 0 64px;margin:0;font-size:12px;color:var(--navy2)}
+.inline-edit-row input,.inline-edit-row select{flex:1;margin:0;padding:6px 9px;font-size:13px}
+.inline-edit-row button{width:auto;margin:0;padding:6px 11px;font-size:12px}
 
-/* ====== Bottom navigation ====== */
-.nav{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom,0px));left:50%;z-index:100;transform:translateX(-50%);display:flex;gap:2px;width:calc(100% - 20px);max-width:500px;padding:6px;border:1px solid var(--line);border-radius:24px;background:#fffffff5;backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(16,40,50,.16)}
-.nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:54px;margin:0;padding:7px 2px;border-radius:18px;background:none;color:var(--mute);font-size:10.5px;font-weight:600;touch-action:manipulation}
-.nav button .i{width:22px;height:22px;pointer-events:none}
-.nav button.on{background:var(--soft);color:var(--navy2)}
-
-/* ====== Admin dashboard ====== */
-#admin{
- --a-bg:#f2f5f7;--a-surface:#fff;--a-line:#e2e8ec;--a-ink:#13222a;--a-mute:#62767e;
- --a-primary:#1e6273;--a-primary-dark:#144654;--a-soft:#e5f0f3;--a-danger:#c0392b;--a-danger-soft:#fdecea;
- --a-radius:14px;--a-shadow:0 1px 2px rgba(16,40,50,.05),0 6px 20px rgba(16,40,50,.04);
- display:block;min-height:100vh;background:var(--a-bg);color:var(--a-ink);
- font-family:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif
-}
-#admin.hidden{display:none!important}
-#admin .i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-
-.app:has(#admin:not(.hidden)){max-width:none}
-.adm-shell{display:grid;grid-template-columns:minmax(0,1fr);min-height:100vh}
-.adm-sidebar{background:var(--a-primary-dark);color:#fff;padding:18px 14px;display:flex;flex-direction:column;gap:14px;
- position:fixed;top:0;bottom:0;right:0;width:270px;max-width:85vw;z-index:100;overflow-y:auto;
- transform:translateX(105%);visibility:hidden;
- transition:transform .3s cubic-bezier(.4,0,.2,1),visibility 0s linear .3s;box-shadow:-10px 0 30px rgba(0,0,0,.25)}
-.adm-shell.open .adm-sidebar{transform:none;visibility:visible;transition:transform .3s cubic-bezier(.4,0,.2,1),visibility 0s}
-.adm-overlay{position:fixed;inset:0;z-index:90;background:rgba(10,30,38,.45);opacity:0;pointer-events:none;transition:opacity .3s}
-.adm-shell.open .adm-overlay{opacity:1;pointer-events:auto}
-.adm-brand{display:flex;align-items:center;gap:10px;min-width:0}
-.adm-brand b{display:block;font-size:15px}
-.adm-brand span{display:block;font-size:12px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.adm-nav{display:flex;flex-direction:column;gap:6px;scrollbar-width:none}
-.adm-nav::-webkit-scrollbar{display:none}
-#admin .adm-nav button,#admin .adm-logout{
- display:flex;align-items:center;gap:10px;margin:0;width:100%;padding:10px 14px;border-radius:10px;
- background:transparent;color:#cfe3e9;font-size:14px;font-weight:600;white-space:nowrap
-}
-#admin .adm-nav button:hover,#admin .adm-logout:hover{background:#ffffff14}
-#admin .adm-nav button.on{background:#fff;color:var(--a-primary-dark)}
-#admin .adm-logout{display:flex;margin-top:auto}
-.adm-content{min-width:0;display:flex;flex-direction:column}
-.adm-bar{
- position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
- padding:12px 16px;background:#ffffffee;backdrop-filter:blur(8px);border-bottom:1px solid var(--a-line)
-}
-.adm-bar select{flex:1;min-width:180px;max-width:360px;margin:0;font-weight:600}
-.adm-bar .spacer{flex:1}
-.adm-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--a-soft);color:var(--a-primary-dark);font-size:13px;font-weight:700}
-.adm-chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--online-dot)}
-#admin .adm-bar .logout-sm{display:none}
-#admin .adm-bar .adm-toggle{padding:8px 10px;flex:none}
-#admin .adm-bar .adm-toggle .i{transition:transform .3s}
-.adm-page{width:100%;max-width:1200px;margin:0 auto;padding:18px 16px 64px}
-
-.adm-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}
-.adm-kpi{display:flex;align-items:center;gap:12px;padding:14px;background:var(--a-surface);border:1px solid var(--a-line);border-radius:var(--a-radius);box-shadow:var(--a-shadow)}
-.kpi-ico{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--a-soft);color:var(--a-primary);flex:none}
-.adm-kpi b{display:block;font-size:24px;line-height:1.15;color:var(--a-ink)}
-.adm-kpi span{font-size:12.5px;color:var(--a-mute)}
-
-.adm-panels{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
-.adm-feed-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
-#admin .card{margin:0 0 14px;padding:18px;border:1px solid var(--a-line);border-radius:var(--a-radius);background:var(--a-surface);box-shadow:var(--a-shadow)}
-#admin .card h3{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:16px;color:var(--a-ink)}
-#admin hr{border:0;border-top:1px solid var(--a-line);margin:18px 0 14px}
-#admin label{margin-top:12px;font-size:13px;font-weight:600;color:var(--a-mute)}
-#admin input,#admin textarea,#admin select{margin:5px 0 0;padding:10px 12px;border:1px solid var(--a-line);border-radius:10px;background:#fbfcfd;font-size:14px}
-#admin input:focus,#admin textarea:focus,#admin select:focus{background:#fff;border-color:var(--a-primary);outline:3px solid #1e62732e;outline-offset:0}
-.adm-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-
-#admin button{width:auto;margin:0;padding:10px 16px;border-radius:10px;font-size:14px;font-weight:700;transition:background .15s}
-#admin button:not(.sec):not(.del):not(.act){background:var(--a-primary);color:#fff}
-#admin button:not(.sec):not(.del):not(.act):hover{background:var(--a-primary-dark)}
-#admin button.sec{background:var(--a-soft);color:var(--a-primary-dark)}
-#admin button.sec:hover{background:#d3e6eb}
-#admin button.act{padding:6px 12px;font-size:12.5px;border:1px solid var(--a-line);background:#fff;color:var(--a-primary)}
-#admin button.del{padding:6px 12px;font-size:12.5px;border:1px solid #f1c9c4;background:var(--a-danger-soft);color:var(--a-danger)}
-
-#admin .notice{border-right:4px solid var(--a-primary);margin:0}
-#admin .notice.important{border-right-color:var(--a-danger);background:var(--a-surface)}
-#admin .notice.private{border-right-color:#0f766e;background:var(--a-surface)}
-#admin details{margin-bottom:12px;border:1px solid var(--a-line);border-radius:var(--a-radius);background:var(--a-surface);box-shadow:var(--a-shadow)}
-#admin summary{padding:14px 16px}
-#admin summary .cnt{background:var(--a-soft);color:var(--a-primary-dark);font-weight:700}
-#admin .stu{padding:12px 16px}
-#admin .stu:hover{background:#f8fafb}
-#admin .sec-head{padding:8px 16px;border-top:1px solid var(--a-line);background:var(--a-bg);font-size:12px;font-weight:700;color:var(--a-primary-dark)}
-#admin .inline-edit-panel{border-radius:10px;background:var(--a-bg)}
-.card-actions{display:flex;gap:6px;margin-top:8px}
-.dept-head{display:flex;align-items:center;gap:12px}
-
-@media (min-width:680px){
- .adm-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
- .adm-feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media (min-width:1024px){
- .adm-shell{grid-template-columns:260px minmax(0,1fr);transition:grid-template-columns .3s cubic-bezier(.4,0,.2,1)}
- .adm-shell.closed{grid-template-columns:0 minmax(0,1fr)}
- .adm-sidebar{position:sticky;top:0;bottom:auto;right:auto;width:auto;max-width:none;height:100vh;transform:none;visibility:visible;box-shadow:none;overflow:hidden;padding:20px 14px;transition:padding .3s,visibility 0s}
- .adm-sidebar>*{min-width:230px}
- .adm-shell.closed .adm-sidebar{padding-inline:0;visibility:hidden;transition:padding .3s,visibility 0s linear .3s}
- .adm-overlay{display:none}
- .adm-page{padding:24px 28px 72px}
- .adm-panels.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-
-/* ====== Polish ====== */
-html{scroll-behavior:smooth}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.page>div[id^="s"]:not(.hidden),.adm-page>div:not(.hidden){animation:fadeUp .3s ease both}
-.card,.subj-card,.day-card,.hw-card,details{transition:box-shadow .2s,border-color .2s,transform .2s}
-@media (hover:hover){.card:hover,.subj-card:hover,.hw-card:hover{box-shadow:0 8px 24px rgba(16,40,50,.10)}}
-input,textarea,select{transition:border-color .15s,background .15s,outline-color .15s}
-button{transition:transform .12s,background .2s,color .2s,box-shadow .2s,filter .2s}
-.card>button:not(.sec):not(.act):not(.del),.hero button,.reply-form button{box-shadow:0 4px 12px rgba(30,98,115,.25)}
-@media (hover:hover){button:hover{filter:brightness(1.06)}button.sec:hover{filter:brightness(.97)}}
-.seg button,.chips button,.nav button{transition:background .2s,color .2s,border-color .2s,transform .12s}
-.chips button:hover:not(.on){border-color:var(--navy);color:var(--navy)}
-.card-actions{gap:8px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
-.card-actions button{display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:12px;border:0;font-size:13px;font-weight:700}
-button.act{background:var(--soft);color:var(--navy2)}
-button.del{background:#fdecea;color:#b42318}
-button.act::before{content:"✎"}
-button.del::before{content:"🗑"}
-.notice-title{transition:color .15s}.notice-title:hover{color:var(--navy)}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
-
-/* ===== Modern card theme ===== */
-:root{
- --tile:#d3e3e8;--tile2:#c3d9df;--band:#aecfd4;--deep:#1e6273;--deep2:#144654;
- --p-blue:#e3ecfb;--p-green:#dff3e8;--p-amber:#fdf0d9;--p-rose:#fbe3e8;--p-violet:#ece3fb;--p-peach:#fbe6da;--p-sky:#e1f1fb;
- --r2:26px;--r3:30px
-}
-body{background:linear-gradient(180deg,#e6eef2 0,#f3f6f8 360px,#f3f6f8 100%) fixed}
-.page{padding-top:10px}
-.top{background:#ffffffcc;border-bottom:0;box-shadow:0 1px 0 rgba(20,70,84,.06)}
-.logo,.ibtn{border-radius:16px;background:var(--tile)}
-.hero{border-radius:var(--r3);box-shadow:0 14px 30px rgba(20,70,84,.22)}
-.stats{gap:10px}
-.stat{border:0;border-radius:var(--r2);background:var(--tile);box-shadow:none}
-.stat .ico{border-radius:16px;width:46px;height:46px}
-.stat .ico.b{background:var(--p-blue)}.stat .ico.g{background:var(--p-green)}.stat .ico.a{background:var(--p-amber)}
-.sched-hero{border:0;border-radius:var(--r3);background:var(--tile);box-shadow:none}
-.sched-slot{background:#ffffffb8;border-radius:20px}
-.sched-time{background:var(--deep);border-radius:14px}
-.sched-pill{background:#ffffffc0}
-.card{border:0;border-radius:var(--r2);box-shadow:0 2px 10px rgba(20,70,84,.06)}
-.notice{border-right-width:5px}
-.subj-card,.day-card,.hw-card{border:0;border-radius:var(--r2);background:var(--tile);box-shadow:none}
-.subj-ico{width:52px;height:52px;border-radius:18px;background:var(--p-violet);font-size:22px}
-.time-badge{background:#ffffffc0;border-radius:16px}
-.hw-card{border-right:5px solid var(--deep)}
-.seg{border-radius:20px;background:var(--tile)}
-.seg button{border-radius:16px}
-.chips button{border:0;border-radius:999px;background:var(--tile);padding:9px 18px}
-.chips button.on{background:var(--deep)}
-input,textarea,select{border-radius:18px;background:#f7fafb}
-button{border-radius:18px}
-.att-box,.reply-item,.viewers-box{border-radius:18px}
-details{border:0;border-radius:var(--r2);background:var(--tile)}
-.nav{padding:8px;border:0;border-radius:32px;background:#fffffff7;box-shadow:0 12px 32px rgba(16,40,50,.18)}
-.nav button{border-radius:22px;min-height:58px}
-.nav button.on{background:var(--tile);color:var(--deep2)}
-
-/* ===== Mgmt layout v2 ===== */
-#sHome.mgmt-home{display:flex;flex-direction:column}
-#sHome.mgmt-home>.hero{order:1}
-#sHome.mgmt-home>.stats{order:2}
-#sHome.mgmt-home>#staffStageExplorer{order:3}
-#sHome.mgmt-home>.sched-hero{order:4}
-#sHome.mgmt-home>h3{order:5}
-#sHome.mgmt-home>#homeNotices{order:6}
-.acct-extra{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-.acct-av{width:68px;height:68px;border-radius:22px;object-fit:cover;border:3px solid #ffffff55;background:#ffffff22;flex:none}
-.acct-chips{display:flex;flex-wrap:wrap;gap:6px}
-.acct-chips span{padding:3px 12px;border-radius:999px;background:#ffffff26;font-size:11.5px;font-weight:700;color:#fff}
-.mgmt-home .hero button{display:none}
-.adm-acct{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding:18px;border-radius:26px;color:#fff;background:radial-gradient(circle at 12% 0,#3a93a9 0,transparent 55%),linear-gradient(155deg,#1e6273,#144654);box-shadow:0 14px 30px rgba(20,70,84,.22)}
-.adm-acct .acct-av{width:60px;height:60px}
-.adm-acct b{display:block;font-size:18px}
-.adm-acct small{display:block;font-size:12.5px;color:#d4e8ee}
-.mgmt-home .stat{background:linear-gradient(160deg,#fff,var(--tile));box-shadow:0 6px 16px rgba(20,70,84,.08)}
-.mgmt-home .stat b{font-size:26px;color:var(--navy2)}
-.adm-kpi{border-radius:22px;background:linear-gradient(160deg,#fff,#eef5f7)}
-.adm-kpis.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-.mgmt-head{display:flex;align-items:center;margin-bottom:12px}
-.mgmt-head b{display:block;font-size:16px;color:var(--navy2)}
+.mgmt-stage-box{margin-bottom:14px}
+.mgmt-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.mgmt-head b{font-size:15.5px;color:var(--navy2)}
 .mgmt-head span{font-size:12px;color:var(--mute)}
-.mgmt-stage-box{border-radius:30px;background:linear-gradient(180deg,#fff,#f4f8fa)}
-.stage-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.st-card{position:relative;overflow:hidden;align-items:flex-start;margin:0;width:100%;padding:18px 14px 14px;border-radius:24px;background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:0 6px 18px rgba(20,70,84,.08)}
+.stage-sec-bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.sec-pill-btn{width:auto;margin:0;padding:6px 12px;border-radius:99px;font-size:12px;font-weight:700;background:#fff;color:var(--navy2);border:1px solid var(--line);cursor:pointer}
+.sec-pill-btn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.stage-4-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.stage-panel-body{margin-top:8px}
+@media (max-width:600px){.stage-4-grid{grid-template-columns:repeat(2,1fr)}}
+
+.mgmt-home .hero{background:linear-gradient(135deg,#144654,#0f2f3a);border:1px solid #ffffff24}
+.mgmt-home .hero .acct-extra{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #ffffff22}
+.mgmt-home .hero .acct-av{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #fff;flex:0 0 auto}
+.mgmt-home .hero .acct-chips{display:flex;flex-wrap:wrap;gap:6px;font-size:11.5px}
+.mgmt-home .hero .acct-chips span{background:#ffffff1c;padding:2px 8px;border-radius:99px}
+.mgmt-home .stats .stat{border-top:3px solid var(--navy)}
+.mgmt-home .notice{border-right-width:5px}
+
+#admin{--adm-bg:#f2f5f7;--adm-surface:#ffffff;--adm-ink:#0f232a;--adm-muted:#5c7078;--adm-line:#e2e8ec;--adm-accent:#1e6273;--adm-accent-2:#144654;--adm-soft:#eaf2f4;--adm-danger:#c62828;--adm-danger-bg:#fdecec;--adm-shadow:0 1px 2px rgba(15,35,42,.04),0 6px 18px rgba(15,35,42,.05);--adm-radius:14px;--adm-side-w:248px;background:var(--adm-bg);color:var(--adm-ink);min-height:100vh;padding-bottom:0}
+#admin .adm-shell{display:flex;min-height:100vh;position:relative}
+#admin .adm-sidebar{width:var(--adm-side-w);flex:0 0 var(--adm-side-w);background:var(--adm-surface);border-left:1px solid var(--adm-line);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;z-index:35;transition:transform .22s ease,width .22s ease}
+#admin .adm-brand{display:flex;align-items:center;gap:10px;padding:16px 14px;border-bottom:1px solid var(--adm-line)}
+#admin .adm-brand .logo{width:40px;height:40px;border-radius:11px;background:var(--adm-soft);border:1px solid var(--adm-line);box-shadow:none}
+#admin .adm-brand b{display:block;font-size:14.5px;color:var(--adm-ink);line-height:1.3}
+#admin .adm-brand span{display:block;font-size:11.5px;color:var(--adm-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:165px}
+#admin .adm-nav{display:flex;flex-direction:column;gap:4px;padding:10px;flex:1;overflow-y:auto}
+#admin .adm-nav button{width:100%;margin:0;padding:10px 12px;border-radius:10px;background:transparent;color:var(--adm-ink);font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:10px;text-align:right;transition:background .15s ease,color .15s ease}
+#admin .adm-nav button:hover{background:var(--adm-soft)}
+#admin .adm-nav button.on{background:var(--adm-accent);color:#fff}
+#admin .adm-nav svg.i,#admin .adm-logout svg.i,#admin .adm-toggle svg.i,#admin .logout-sm svg.i{width:18px;height:18px;flex:0 0 18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#admin .adm-logout{margin:10px;width:calc(100% - 20px);padding:10px 12px;border-radius:10px;background:transparent;color:var(--adm-danger);border:1px solid var(--adm-line);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}
+#admin .adm-logout:hover{background:var(--adm-danger-bg);border-color:transparent}
+#admin .adm-content{flex:1;min-width:0;display:flex;flex-direction:column}
+#admin .adm-bar{position:sticky;top:0;z-index:20;height:58px;background:var(--adm-surface);border-bottom:1px solid var(--adm-line);display:flex;align-items:center;gap:10px;padding:0 16px}
+#admin .adm-toggle{width:38px;height:38px;padding:0;margin:0;border-radius:10px;background:var(--adm-soft);color:var(--adm-ink);display:grid;place-items:center;flex:0 0 38px}
+#admin .adm-bar select{width:auto;max-width:260px;margin:0;padding:7px 12px;border-radius:10px;border:1px solid var(--adm-line);background:var(--adm-bg);color:var(--adm-ink);font-size:13px;font-weight:600}
+#admin .adm-bar .spacer{flex:1}
+#admin .adm-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:99px;background:var(--adm-soft);color:var(--adm-accent-2);font-size:12px;font-weight:700;white-space:nowrap}
+#admin .adm-bar .logout-sm{display:none;width:36px;height:36px;padding:0;margin:0;border-radius:10px;background:var(--adm-danger-bg);color:var(--adm-danger);align-items:center;justify-content:center;flex:0 0 36px}
+#admin .adm-page{width:100%;max-width:1160px;margin:0 auto;padding:18px 20px 36px}
+#admin .adm-acct{display:flex;align-items:center;gap:12px;background:var(--adm-surface);border:1px solid var(--adm-line);border-radius:var(--adm-radius);padding:12px 16px;margin-bottom:14px;box-shadow:var(--adm-shadow)}
+#admin .adm-acct .acct-av{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--adm-accent);flex:0 0 44px}
+#admin .adm-acct b{display:block;font-size:14px;color:var(--adm-ink)}
+#admin .adm-acct small{display:block;font-size:12px;color:var(--adm-muted)}
+#admin .adm-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+#admin .adm-kpi{background:var(--adm-surface);border:1px solid var(--adm-line);border-radius:var(--adm-radius);padding:14px;display:flex;align-items:center;gap:12px;box-shadow:var(--adm-shadow)}
+#admin .adm-kpi .kpi-ico{width:40px;height:40px;border-radius:11px;background:var(--adm-soft);color:var(--adm-accent);display:grid;place-items:center;flex:0 0 40px}
+#admin .adm-kpi .kpi-ico svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9}
+#admin .adm-kpi b{display:block;font-size:19px;line-height:1.2;color:var(--adm-ink)}
+#admin .adm-kpi span{font-size:12px;color:var(--adm-muted);font-weight:600}
+#admin .card{background:var(--adm-surface);border:1px solid var(--adm-line);border-radius:var(--adm-radius);padding:16px 18px;margin-bottom:14px;box-shadow:var(--adm-shadow)}
+#admin .card h3{margin:0 0 10px;font-size:15.5px;color:var(--adm-ink)}
+#admin .adm-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+#admin .adm-actions button{width:auto;margin:0;padding:10px 18px;border-radius:10px;font-size:13.5px}
+#admin .adm-actions button.sec{background:var(--adm-soft);color:var(--adm-accent-2)}
+#admin .adm-actions button.del{background:var(--adm-danger-bg);color:var(--adm-danger)}
+#admin .adm-feed-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#admin .adm-feed-grid .card{margin-bottom:0}
+#admin .adm-panels.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+#admin .dept-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+#admin .dept-head .dept-preview{width:56px;height:56px;border-radius:12px;flex:0 0 56px}
+#admin details{background:var(--adm-surface);border:1px solid var(--adm-line);border-radius:var(--adm-radius);margin-bottom:12px;box-shadow:var(--adm-shadow)}
+#admin summary{padding:13px 16px;font-size:14px;color:var(--adm-ink)}
+#admin .cnt{background:var(--adm-soft);color:var(--adm-accent-2)}
+#admin .sec-head{background:#f5f8fa;color:var(--adm-accent-2)}
+#admin .stu{padding:11px 16px;border-top:1px solid var(--adm-line)}
+#admin .adm-overlay{display:none;position:fixed;inset:0;background:rgba(15,35,42,.38);z-index:30}
+#admin .adm-shell.open .adm-overlay{display:block}
+@media (min-width:1024px){
+ #admin .adm-shell.closed .adm-sidebar{width:0;flex:0 0 0;min-width:0;padding:0;border-left:none;overflow:hidden;opacity:0;pointer-events:none}
+}
+@media (max-width:1023px){
+ #admin .adm-sidebar{position:fixed;top:0;right:0;bottom:0;height:100vh;transform:translateX(100%)}
+ #admin .adm-shell.open .adm-sidebar{transform:translateX(0)}
+ #admin .adm-bar .logout-sm{display:inline-flex}
+}
+@media (max-width:767px){
+ #admin .adm-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ #admin .adm-feed-grid,#admin .adm-panels.two{grid-template-columns:1fr}
+ #admin .adm-page{padding:14px 12px 28px}
+ #admin .adm-bar{padding:0 10px;gap:8px}
+ #admin .adm-bar select{max-width:170px;font-size:12.5px;padding:6px 8px}
+}
+@media (max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+.stage-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px}
+.st-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;cursor:pointer;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease;margin:0;width:100%;padding:18px 14px 14px;border-radius:24px;background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:0 6px 18px rgba(20,70,84,.08)}
 .st-card::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--c1),var(--c2))}
 .st-num{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;font-weight:800;font-size:16px;box-shadow:0 6px 14px rgba(0,0,0,.18)}
+.st-card b{font-size:14.5px;line-height:1.25}
+.st-card-summary{font-size:11px;line-height:1.45;opacity:.88;margin-top:2px}
 .st-stats{display:grid;grid-template-columns:1fr 1fr;gap:5px;width:100%;margin-top:6px}
 .st-stats span{padding:3px 8px;border-radius:10px;background:var(--soft);color:var(--navy2);font-size:11px;font-weight:700;text-align:center}
 .st-card.active{background:linear-gradient(150deg,var(--c1),var(--c2));color:#fff;border-color:transparent;transform:translateY(-3px);box-shadow:0 14px 28px rgba(0,0,0,.22)}
 .st-card.active::before{display:none}
 .st-card.active .st-num{background:#ffffff30;box-shadow:none}
 .st-card.active .st-stats span{background:#ffffff26;color:#fff}
-.sub4-card{margin:0;width:100%;padding:16px 10px;border-radius:22px;background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:0 4px 12px rgba(20,70,84,.06)}
+
+.stage-standalone-page{background:#fff;border:1.5px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 8px 24px rgba(20,70,84,.08)}
+.stage-standalone-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid var(--line)}
+.stage-standalone-title b{display:block;font-size:16px;color:var(--navy2)}
+.stage-standalone-title small{font-size:12px;color:var(--mute)}
+.stage-back-btn{width:auto;margin:0;padding:8px 14px;border-radius:12px;background:var(--soft);color:var(--navy2);font-size:12.5px;font-weight:700;cursor:pointer}
+.stage-open-btn{width:100%;margin-top:8px;padding:8px 10px;border-radius:12px;background:var(--soft);color:var(--navy2);font-size:12px;font-weight:700;cursor:pointer}
+.st-card.active .stage-open-btn{background:#ffffff2b;color:#fff}
+
+.sub4-card{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;cursor:pointer;transition:transform .16s ease,box-shadow .16s ease;margin:0;width:100%;padding:16px 10px;border-radius:22px;background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:0 4px 12px rgba(20,70,84,.06)}
 .sub4-ico{display:grid;place-items:center;width:48px;height:48px;border-radius:17px;font-size:22px}
+.sub4-card b{font-size:13.5px}
+.sub4-cnt{font-size:11.5px;font-weight:700;padding:2px 10px;border-radius:99px;background:var(--soft);color:var(--navy2)}
 .sub4-card.on{background:linear-gradient(150deg,var(--navy),var(--navy2));color:#fff;border-color:transparent;box-shadow:0 12px 24px rgba(20,70,84,.25)}
 .sub4-card.on .sub4-ico{box-shadow:0 0 0 3px #ffffff40}
+.sub4-card.on .sub4-cnt{background:#ffffff29;color:#fff}
+
 #admin button.st-card:not(.sec):not(.del):not(.act),#admin button.st-card:not(.sec):not(.del):not(.act):hover{background:#fff;color:var(--ink);width:100%;padding:18px 14px 14px;border-radius:24px}
 #admin button.st-card.active:not(.sec):not(.del):not(.act),#admin button.st-card.active:not(.sec):not(.del):not(.act):hover{background:linear-gradient(150deg,var(--c1),var(--c2));color:#fff}
 #admin button.sub4-card:not(.sec):not(.del):not(.act),#admin button.sub4-card:not(.sec):not(.del):not(.act):hover{background:#fff;color:var(--ink);width:100%;padding:16px 10px;border-radius:22px}
@@ -420,7 +434,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
 </defs></svg>
 <div class="app">
 
-<!-- ====== إنشاء حساب / الدخول ====== -->
+<!-- ====== إنشاء حساب / الدخول (بتصميم متناسق مع هوية التطبيق) ====== -->
 <section id="login">
  <div class="top">
   <div class="brand">
@@ -428,68 +442,117 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
     <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🎓'">
     <span class="appNewBadge badge hidden">0</span>
    </div>
-   <div><h1 class="appNameTxt" style="margin:0;font-size:18px">تبليغات الكلية</h1><p style="margin:0;font-size:12px;opacity:.9">كلية أصول العلم الأهلية</p></div>
+   <div><h1 class="appNameTxt" style="margin:0;font-size:17px">تبليغات الكلية</h1><p style="margin:0;font-size:12px;opacity:.9">كلية أصول العلم الأهلية</p></div>
   </div>
+  <button type="button" class="ibtn" style="width:auto;padding:0 11px;font-size:12px;font-weight:700;gap:4px" onclick="show('adminLogin')">🛡️ الإدارة</button>
  </div>
- <div class="page">
-  <div class="auth-hero">
-   <small>بوابة التبليغات الأكاديمية والإدارية</small>
-   <b class="appNameTxt">تبليغات الكلية</b>
-   <span>سجّل حسابك أو ادخل برمز الواتساب لمتابعة التبليغات، المواد، والجدول الدراسي.</span>
-  </div>
 
-  <div class="seg" style="margin-bottom:12px">
-   <button id="authTabReg" class="on" onclick="switchAuthMode('reg')">إنشاء حساب جديد</button>
-   <button id="authTabIn" onclick="switchAuthMode('in')">دخول برمز محفوظ</button>
-  </div>
-
-  <div id="regBox" class="card">
-   <h3>إنشاء حساب جديد</h3>
-   <p class="meta">يُسمح بالتسجيل مرة واحدة فقط لكل اسم ثلاثي/رباعي ورقم هاتف.</p>
-   <label for="lName">الاسم الثلاثي أو الرباعي</label>
-   <input id="lName" placeholder="الاسم الأول والأب والجد والرابع" autocomplete="name">
-   <label for="lPhone">رقم الهاتف (واتساب)</label>
-   <input id="lPhone" class="ltr" inputmode="tel" placeholder="07XXXXXXXXX" autocomplete="tel">
-   <label for="lDept">القسم</label>
-   <select id="lDept" onchange="onLoginDeptChange()"></select>
-   <div class="row">
-    <div><label for="lStage">المرحلة</label><select id="lStage"></select></div>
-    <div><label for="lSection">الشعبة</label><select id="lSection"></select></div>
+ <div class="page auth-page">
+  <div class="auth-card-shell">
+   <div class="auth-visual-top">
+    <img class="auth-campus-banner" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=75" alt="طلبة الكلية" onerror="this.style.background='linear-gradient(135deg,#144654,#2b7b90)';this.removeAttribute('src')">
+    <button type="button" class="auth-admin-pill" onclick="show('adminLogin')">🛡️ الإدارة</button>
+    <div class="auth-wave"></div>
    </div>
-   <label for="lPhoto">صورة الطالب (اختياري)</label>
-   <input id="lPhoto" type="file" accept="image/*">
 
-   <button id="sendWaBtn" onclick="requestWhatsAppCode()">📲 إرسال الرمز إلى واتساب</button>
-
-   <div id="waCodePrompt" class="hidden" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)">
-    <div class="warn-note">
-     ⚠️ <b>تحذير مهم:</b> لا تشارك هذا الرمز مع أي شخص آخر، واحتفظ به جيداً لأنك ستحتاجه لتسجيل الدخول في حال قمت بتسجيل الخروج.
+   <div class="auth-identity-box">
+    <div class="auth-crest-ring">
+     <img class="appLogoImg" src="icon-192.png" alt="شعار الكلية" onerror="this.outerHTML='🎓'">
     </div>
-    <label for="lCodeReg">أدخل الرمز الذي وصلك على الواتساب (6 خانات)</label>
-    <input id="lCodeReg" class="ltr" maxlength="6" placeholder="أدخل الرمز المكون من 6 خانات" autocomplete="off">
-    <button id="lBtnReg" onclick="completeRegistration()">تأكيد الرمز والدخول</button>
+    <h2 class="auth-main-title appNameTxt">تبليغات الكلية</h2>
+    <div class="auth-sub-badge">كلية أصول العلم الأهلية</div>
+    <div class="auth-tagline">كل تبليغات جامعتك في مكان واحد</div>
    </div>
-   <div id="lErr" class="err"></div>
-   <button class="sec" onclick="show('adminLogin')">🛡️ دخول إدارة الكلية / القسم</button>
-  </div>
 
-  <div id="inBox" class="card hidden">
-   <h3>تسجيل الدخول</h3>
-   <p class="meta">أدخل رقم هاتفك ورمز الدخول المكون من 6 خانات الذي احتفظت به.</p>
-   <label for="inPhone">رقم الهاتف</label>
-   <input id="inPhone" class="ltr" inputmode="tel" placeholder="07XXXXXXXXX" autocomplete="tel">
-   <label for="inCode">رمز الدخول (6 خانات)</label>
-   <input id="inCode" class="ltr" maxlength="6" placeholder="أدخل الرمز المكون من 6 خانات" autocomplete="off">
-   <div class="warn-note">
-    📌 تذكّر: احتفظ برمزك سرياً ولا تشاركه، وستحتاجه دائماً عند تسجيل الخروج والدخول مرة أخرى.
+   <!-- تبويب تسجيل الدخول (كما في البطاقة اليسرى) -->
+   <div id="inBox" class="auth-form-body">
+    <div class="auth-input-wrap">
+     <span class="auth-in-ico">📞</span>
+     <input id="inPhone" class="ltr" inputmode="tel" placeholder="رقم الهاتف (07XXXXXXXXX)" autocomplete="tel">
+    </div>
+
+    <div class="auth-input-wrap">
+     <span class="auth-in-ico">🔒</span>
+     <input id="inCode" type="password" class="ltr" maxlength="6" placeholder="رمز الدخول (6 خانات)" autocomplete="off">
+     <button type="button" class="auth-eye-btn" onclick="toggleCodeVisibility('inCode','inEyeBtn')" id="inEyeBtn" aria-label="إظهار أو إخفاء الرمز">👁️</button>
+    </div>
+
+    <div class="warn-note">
+     📌 احتفظ برمز الدخول السري ولا تشاركه، وستحتاجه دائماً عند تسجيل الخروج والدخول مجدداً.
+    </div>
+
+    <div id="inErr" class="err"></div>
+
+    <button id="inBtn" type="button" class="btn-gold" onclick="directCodeLogin()">⟶ دخول</button>
+
+    <div class="auth-switch-prompt">ليس لديك حساب؟</div>
+    <button type="button" class="btn-outline-pill" onclick="switchAuthMode('reg')">👤+ إنشاء حساب جديد</button>
    </div>
-   <div id="inErr" class="err"></div>
-   <button id="inBtn" onclick="directCodeLogin()">دخول إلى الحساب</button>
-   <button class="sec" onclick="show('adminLogin')">🛡️ دخول إدارة الكلية / القسم</button>
-  </div>
 
-  <button class="sec installB" onclick="installApp()">⬇️ تثبيت التطبيق على الهاتف</button>
-  <p id="iosHint" class="meta hidden">لتثبيت التطبيق على آيفون: اضغط زر المشاركة في Safari ثم "إضافة إلى الشاشة الرئيسية".</p>
+   <!-- تبويب إنشاء حساب جديد (كما في البطاقة اليمنى مع تفاصيل القسم والمرحلة والشعبة ورمز الواتساب) -->
+   <div id="regBox" class="auth-form-body hidden">
+    <div class="auth-input-wrap">
+     <span class="auth-in-ico">👤</span>
+     <input id="lName" placeholder="الاسم الثلاثي أو الرباعي" autocomplete="name">
+    </div>
+
+    <div class="auth-input-wrap">
+     <span class="auth-in-ico">📞</span>
+     <input id="lPhone" class="ltr" inputmode="tel" placeholder="رقم الهاتف (07XXXXXXXXX)" autocomplete="tel">
+    </div>
+
+    <div class="auth-input-wrap">
+     <span class="auth-in-ico">🏛️</span>
+     <select id="lDept" onchange="onLoginDeptChange()" aria-label="القسم"></select>
+    </div>
+
+    <div class="row">
+     <div class="auth-input-wrap">
+      <span class="auth-in-ico">🎓</span>
+      <select id="lStage" aria-label="المرحلة"></select>
+     </div>
+     <div class="auth-input-wrap">
+      <span class="auth-in-ico">🏷️</span>
+      <select id="lSection" aria-label="الشعبة"></select>
+     </div>
+    </div>
+
+    <label for="lPhoto" style="margin-top:10px">صورة الطالب (اختياري)</label>
+    <input id="lPhoto" type="file" accept="image/*">
+
+    <button id="sendWaBtn" type="button" class="btn-gold" onclick="requestWhatsAppCode()">➤ إرسال الرمز إلى واتساب</button>
+
+    <div class="auth-tagline">أو</div>
+
+    <button type="button" class="btn-wa-pill" onclick="requestWhatsAppCode()">💬 إرسال رسالة عبر واتساب للحصول على رمز التفعيل</button>
+
+    <div id="waCodePrompt" class="hidden" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)">
+     <div class="warn-note">
+      ⚠️ <b>تحذير مهم:</b> لا تشارك هذا الرمز مع أي شخص آخر، واحتفظ به جيداً لأنك ستحتاجه لتسجيل الدخول في حال قمت بتسجيل الخروج.
+     </div>
+     <div class="auth-input-wrap">
+      <span class="auth-in-ico">🔑</span>
+      <input id="lCodeReg" type="text" class="ltr" maxlength="6" placeholder="أدخل الرمز المكون من 6 خانات" autocomplete="off">
+     </div>
+     <button id="lBtnReg" type="button" class="btn-navy-pill" onclick="completeRegistration()">✓ تأكيد الرمز والدخول</button>
+    </div>
+
+    <div id="lErr" class="err"></div>
+
+    <div class="auth-switch-prompt">لديك حساب مسبقاً؟</div>
+    <button type="button" class="btn-outline-pill" onclick="switchAuthMode('in')">⟶ تسجيل الدخول بالرمز</button>
+   </div>
+
+   <button type="button" class="btn-outline-pill installB" style="width:calc(100% - 36px);margin:8px 18px 4px" onclick="installApp()">⬇️ تثبيت التطبيق على الهاتف</button>
+   <p id="iosHint" class="meta hidden" style="text-align:center;padding:0 18px">لتثبيت التطبيق على آيفون: اضغط زر المشاركة في Safari ثم "إضافة إلى الشاشة الرئيسية".</p>
+
+   <div class="auth-campus-footer">
+    <svg class="auth-campus-arch" viewBox="0 0 600 90" aria-hidden="true">
+     <path fill="currentColor" d="M20 85V45h30v40H20zm42 0V36h24v49H62zm160 0V52c0-28 18-44 40-44s40 16 40 44v33h-80zm14 0V54c0-18 11-28 26-28s26 10 26 28v31h-52zm178 0V36h24v49h-24zm36 0V45h30v40h-30zM10 85h580v4H10v-4z"/>
+    </svg>
+    <div class="auth-campus-motto">معاً .. لجامعة أفضل</div>
+   </div>
+  </div>
  </div>
 </section>
 
@@ -500,13 +563,13 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
     <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🛡️'">
     <span class="appNewBadge badge hidden">0</span>
    </div>
-   <div><h1 class="appNameTxt" style="margin:0;font-size:18px">إدارة الكلية والأقسام</h1><p style="margin:0;font-size:12px;opacity:.9">دخول المسؤول</p></div>
+   <div><h1 class="appNameTxt" style="margin:0;font-size:18px">الأدمن الرئيسي</h1><p style="margin:0;font-size:12px;opacity:.9">دخول الإدارة المركزية</p></div>
   </div>
  </div>
  <div class="page"><div class="card">
-  <label for="adminEmail">بريد الإدارة</label>
+  <label for="adminEmail">بريد الأدمن الرئيسي</label>
   <input id="adminEmail" type="email" class="ltr" autocomplete="username">
-  <label for="adminPassword">كلمة مرور الإدارة</label>
+  <label for="adminPassword">كلمة المرور</label>
   <input id="adminPassword" type="password" autocomplete="current-password">
   <div id="aErr" class="err"></div>
   <button onclick="adminLogin()">دخول</button>
@@ -518,14 +581,17 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
 <section id="student" class="hidden">
  <div class="top">
   <div class="brand">
-   <button id="appIconBtn" class="logo" onclick="sTab('notices')" aria-label="أيقونة القسم والتبليغات" style="cursor:pointer">
-    <img id="deptTopLogoImg" src="icon-192.png" alt="شعار القسم" onerror="this.outerHTML='🎓'">
+   <button id="appIconBtn" class="logo" onclick="sTab('notices')" aria-label="صورة القسم والتبليغات" style="cursor:pointer">
+    <img id="deptTopLogoImg" src="icon-192.png" alt="صورة القسم" onerror="this.outerHTML='🎓'">
     <span class="appNewBadge badge hidden">0</span>
    </button>
-   <div style="min-width:0"><h1 id="sTopTitle" class="appNameTxt" style="margin:0;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">تبليغات القسم</h1><p id="sTopDept" style="margin:0;font-size:12px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></p></div>
+   <div style="min-width:0">
+    <h1 id="sTopDept" style="margin:0;font-size:16.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">القسم</h1>
+    <p id="sTopRoleSub" style="margin:0;font-size:11.5px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></p>
+   </div>
   </div>
   <button class="ibtn" onclick="toggleBell()" aria-label="التنبيهات">🔔<span id="bellBadge" class="badge hidden">0</span></button>
-  <button class="ibtn" onclick="sTab('account')" aria-label="صورة الطالب وحسابي"><img id="topStudentImg" src="icon-192.png" alt="صورة الطالب" onerror="this.outerHTML='👤'"></button>
+  <button class="ibtn" onclick="sTab('account')" aria-label="صورة المستخدم وحسابي"><img id="topStudentImg" src="icon-192.png" alt="صورة المستخدم" onerror="this.outerHTML='👤'"></button>
   <div id="bellPop" class="bell-pop hidden">
    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
     <b style="font-size:14px">🔔 التنبيهات الجديدة</b>
@@ -537,16 +603,6 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
 
  <div class="page">
   <div id="sHome">
-   <!-- كروت العدادات في أعلى الواجهة بجميع الحسابات -->
-   <div class="stats">
-    <div class="stat" onclick="sTab('notices')"><div class="ico b">📋</div><b id="stAll">0</b><span>التبليغات</span></div>
-    <div class="stat" onclick="sTab('subjects')"><div class="ico a">📚</div><b id="stSubj">0</b><span>المواد</span></div>
-    <div class="stat" onclick="sTab('subjects')"><div class="ico g">📝</div><b id="stHw">0</b><span>الواجبات</span></div>
-   </div>
-
-   <!-- كروت المراحل والشعب و4 كروت (التبليغات، المحاضرات، الجدول، إدارة الطلاب) لمدير القسم والمقرر -->
-   <div id="staffStageExplorer" class="mgmt-stage-box hidden"></div>
-
    <div class="hero">
     <small id="sRoleGreet">مرحباً بك 👋</small>
     <h2 id="sName"></h2>
@@ -555,12 +611,29 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
     <button onclick="sTab('notices')">عرض كل التبليغات</button>
    </div>
 
+   <div class="stats">
+    <div class="stat" onclick="sTab('notices')"><div class="ico b">📋</div><b id="stAll">0</b><span>التبليغات</span></div>
+    <div class="stat" onclick="sTab('subjects')"><div class="ico a">📚</div><b id="stSubj">0</b><span>المحاضرات</span></div>
+    <div class="stat" onclick="sTab('subjects')"><div class="ico g">📝</div><b id="stHw">0</b><span>الواجبات</span></div>
+    <div class="stat" onclick="sTab('schedule')"><div class="ico v">🗓️</div><b id="stSched">0</b><span>الجداول</span></div>
+   </div>
+
+   <div id="staffStageExplorer" class="mgmt-stage-box hidden"></div>
+
    <div class="sched-hero">
-    <div class="sched-hero-top">
-     <div><b style="font-size:15px">📅 جدول المحاضرات القادم</b><div id="homeSchedDayLabel" style="font-size:12px;color:var(--mute)"></div></div>
-     <span class="sched-pill" onclick="sTab('schedule')" style="cursor:pointer">الجدول الكامل &lt;</span>
+    <div class="sched-hero-top" onclick="toggleHomeSchedule()">
+     <div>
+      <b style="font-size:15px">📅 جدول المحاضرات القادم</b>
+      <div id="homeSchedDayLabel" style="font-size:12px;color:var(--mute)">اضغط لعرض محاضرات هذا اليوم فقط</div>
+     </div>
+     <span id="homeSchedTogglePill" class="sched-pill">عرض اليوم ▼</span>
     </div>
-    <div id="homeScheduleList"></div>
+    <div id="homeScheduleCollapsible" class="sched-collapsible hidden">
+     <div id="homeScheduleList"></div>
+     <div class="sched-footer-actions">
+      <button class="sec" onclick="sTab('schedule')">فتح الجدول الكامل</button>
+     </div>
+    </div>
    </div>
 
    <h3>آخر التبليغات <span class="meta">(اضغط على زر الفتح لعرض التفاصيل)</span></h3>
@@ -579,7 +652,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
   <div id="sSubjects" class="hidden">
    <div id="subjectsListView">
     <div class="card" style="padding:10px 12px">
-     <input id="subjSearch" placeholder="🔍 ابحث باسم المادة أو التدريسي..." oninput="renderSubjects()">
+     <input id="subjSearch" placeholder="🔍 ابحث باسم المحاضرة / المادة أو التدريسي..." oninput="renderSubjects()">
     </div>
     <div id="subjectsCards"></div>
 
@@ -587,22 +660,22 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
     <div id="homeworksList"></div>
 
     <div id="manageSubjHwCard" class="card hidden" style="margin-top:14px">
-     <h3>➕ إضافة مادة أو واجب</h3>
-     <label for="subName">اسم المادة الدراسية</label>
-     <input id="subName" placeholder="أدخل اسم المادة">
+     <h3 id="subjFormHeading">➕ إضافة محاضرة / مادة أو واجب</h3>
+     <label for="subName">اسم المادة / المحاضرة</label>
+     <input id="subName" placeholder="أدخل اسم المادة أو المحاضرة">
      <label for="subTeacher">اسم التدريسي / الأستاذ</label>
      <input id="subTeacher" placeholder="أدخل اسم التدريسي">
-     <div class="row">
+     <div class="row" id="subTargetRow">
       <div><label for="subStage">المرحلة</label><select id="subStage"></select></div>
-      <div><label for="subSection">الشعبة (تُطبق على كل الشعب إذا أضافها الممثل)</label><select id="subSection"></select></div>
+      <div><label for="subSection">الشعبة</label><select id="subSection"></select></div>
      </div>
      <label for="subFile">ملف محاضرة أو منهج (PDF / Word / صورة)</label>
      <input id="subFile" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-     <button onclick="addSubjectItem()">حفظ المادة / الملف</button>
+     <button onclick="addSubjectItem()">حفظ المحاضرة / المادة</button>
 
      <hr style="border:0;border-top:1px solid var(--line);margin:14px 0 10px">
      <h3>📌 إضافة واجب دراسي</h3>
-     <label for="hwSubjectSelect">المادة</label>
+     <label for="hwSubjectSelect">المادة المربوطة / المتاحة</label>
      <select id="hwSubjectSelect"></select>
      <label for="hwTitle">عنوان الواجب / المطلوب</label>
      <input id="hwTitle" placeholder="أدخل عنوان الواجب">
@@ -613,7 +686,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
    </div>
 
    <div id="subjectDetailView" class="hidden">
-    <button class="sec" style="margin-top:0;margin-bottom:10px" onclick="closeSubjectDetail()">→ العودة إلى قائمة المواد</button>
+    <button class="sec" style="margin-top:0;margin-bottom:10px" onclick="closeSubjectDetail()">→ العودة إلى قائمة المحاضرات</button>
     <div id="subjectDetailContent"></div>
    </div>
   </div>
@@ -664,7 +737,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
     </div>
     <label for="rPriority">الأهمية</label>
     <select id="rPriority"><option value="normal">تبليغ عادي</option><option value="important">تبليغ مهم</option></select>
-    <label for="rFile">مرفق (صورة، PDF، Word) - يُحفظ على هاتف الطالب</label>
+    <label for="rFile">مرفق (صورة، PDF، Word)</label>
     <input id="rFile" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
     <div id="rFileNote" class="meta"></div>
     <button id="rPubBtn" onclick="repPublish()">نشر التبليغ</button>
@@ -686,7 +759,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
     <h3>🖼️ شعار القسم (اللوجو)</h3>
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
      <img id="deptLogoPreview" class="dept-preview" src="icon-192.png" alt="لوجو القسم">
-     <div class="meta">يظهر شعار القسم في أعلى واجهة طلاب وأساتذة القسم.</div>
+     <div class="meta">يظهر شعار القسم في الشريط العلوي لطلاب وأساتذة القسم.</div>
     </div>
     <input id="deptLogoInput" type="file" accept="image/*">
     <button class="sec" onclick="saveDeptLogoFromManager()">حفظ شعار القسم</button>
@@ -724,9 +797,9 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
    </div>
 
    <div class="card">
-    <h3>👥 المراحل والشعب والطلاب</h3>
+    <h3>👥 المراحل والشعب والطلاب وربط الأساتذة بالمواد</h3>
     <label for="deptUserSearch" style="margin-top:0">بحث سريع بالاسم أو الهاتف أو الرمز</label>
-    <input id="deptUserSearch" placeholder="مثال: علي كريم مطلوب علوان أو 077..." oninput="renderDeptPermissions()">
+    <input id="deptUserSearch" placeholder="مثال: علي كريم أو 077..." oninput="renderDeptPermissions()">
     <div class="row">
      <div><label for="pStageFilter">المرحلة</label><select id="pStageFilter" onchange="renderDeptPermissions()"></select></div>
      <div><label for="pSectionFilter">الشعبة</label><select id="pSectionFilter" onchange="renderDeptPermissions()"></select></div>
@@ -737,7 +810,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
 
   <div id="sAccount" class="hidden">
    <div class="card">
-    <img id="accStudentImg" class="acc-avatar" src="icon-192.png" alt="صورة الطالب">
+    <img id="accStudentImg" class="acc-avatar" src="icon-192.png" alt="صورة المستخدم">
     <h3 id="aName"></h3>
     <p class="meta" id="aInfo"></p>
     <p class="meta ltr" id="aPhone"></p>
@@ -746,7 +819,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
     <div class="warn-note">
      🔒 لا تشارك رمزك مع أي شخص، واحتفظ به جيداً لأنك ستحتاجه للدخول مجدداً بعد تسجيل الخروج.
     </div>
-    <label for="uPhoto">تغيير صورة الطالب</label>
+    <label for="uPhoto">تغيير صورة الحساب</label>
     <input id="uPhoto" type="file" accept="image/*">
     <button class="sec" onclick="updateStudentPhoto()">حفظ الصورة</button>
     <p class="meta" id="storageStat"></p>
@@ -760,7 +833,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
  <nav class="nav">
   <button id="nHome" class="on" onclick="sTab('home')"><svg class="i"><use href="#s-home"/></svg>الرئيسية</button>
   <button id="nNotices" onclick="sTab('notices')"><svg class="i"><use href="#s-bell"/></svg>التبليغات</button>
-  <button id="nSubjects" onclick="sTab('subjects')"><svg class="i"><use href="#s-book"/></svg>المواد</button>
+  <button id="nSubjects" onclick="sTab('subjects')"><svg class="i"><use href="#s-book"/></svg>المحاضرات</button>
   <button id="nSchedule" onclick="sTab('schedule')"><svg class="i"><use href="#s-cal"/></svg>الجدول</button>
   <button id="nRep" class="hidden" onclick="sTab('rep')"><svg class="i"><use href="#s-pen"/></svg>النشر</button>
   <button id="nPerms" class="hidden" onclick="sTab('perms')"><svg class="i"><use href="#s-users"/></svg>القسم</button>
@@ -768,7 +841,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
  </nav>
 </section>
 
-<!-- ====== Admin dashboard ====== -->
+<!-- ====== الأدمن الرئيسي ====== -->
 <section id="admin" class="hidden">
  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
@@ -789,14 +862,14 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
      <img class="appLogoImg" src="icon-192.png" alt="شعار التطبيق" onerror="this.outerHTML='🛡️'">
      <span class="appNewBadge badge hidden">0</span>
     </div>
-    <div><b>الإدارة المركزية</b><span id="admTopDept"></span></div>
+    <div><b>الأدمن الرئيسي</b><span id="admTopDept"></span></div>
    </div>
    <nav class="adm-nav">
    <button id="atNew" class="on" onclick="aTab('new')"><svg class="i"><use href="#i-edit"/></svg>نشر تبليغ</button>
    <button id="atNotices" onclick="aTab('notices')"><svg class="i"><use href="#i-doc"/></svg>التبليغات</button>
-   <button id="atStudents" onclick="aTab('students')"><svg class="i"><use href="#i-users"/></svg>الصلاحيات</button>
+   <button id="atStudents" onclick="aTab('students')"><svg class="i"><use href="#i-users"/></svg>الصلاحيات والربط</button>
    <button id="atCodes" onclick="aTab('codes')"><svg class="i"><use href="#i-key"/></svg>الأكواد</button>
-   <button id="atDepts" onclick="aTab('depts')"><svg class="i"><use href="#i-building"/></svg>الأقسام والهوية</button>
+   <button id="atDepts" onclick="aTab('depts')"><svg class="i"><use href="#i-building"/></svg>إدارة الأقسام</button>
    </nav>
    <button class="adm-logout" onclick="logout()"><svg class="i"><use href="#i-logout"/></svg>تسجيل الخروج</button>
   </aside>
@@ -814,18 +887,18 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
     <div class="adm-acct">
      <img class="acct-av appLogoImg" src="icon-192.png" alt="">
      <div style="min-width:0">
-      <b>الأدمن الرئيسي</b>
+      <b>الأدمن الرئيسي (إشراف كامل على جميع الأقسام والأنشطة)</b>
       <small id="admAcctEmail" class="ltr"></small>
       <small id="admAcctDept"></small>
      </div>
     </div>
-    <div class="adm-kpis three">
+    <div class="adm-kpis">
      <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-doc"/></svg></span><div><b id="cNotices">0</b><span>التبليغات</span></div></div>
      <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-building"/></svg></span><div><b id="cLectures">0</b><span>المحاضرات</span></div></div>
+     <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-edit"/></svg></span><div><b id="cHomeworks">0</b><span>الواجبات</span></div></div>
      <div class="adm-kpi"><span class="kpi-ico"><svg class="i"><use href="#i-pulse"/></svg></span><div><b id="cScheds">0</b><span>الجداول</span></div></div>
     </div>
-    
-    <!-- كروت المراحل والشعب و4 كروت (التبليغات، المحاضرات، الجدول، إدارة الطلاب) للأدمن الرئيسي -->
+
     <div id="adminStageExplorer" class="mgmt-stage-box"></div>
 
     <div id="aNew" class="card">
@@ -844,7 +917,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
      </div>
      <label for="priority">الأهمية</label>
      <select id="priority"><option value="normal">تبليغ عادي</option><option value="important">تبليغ مهم</option></select>
-     <label for="aFile">مرفق (صورة، PDF، Word) - يُحفظ على هاتف الطالب</label>
+     <label for="aFile">مرفق (صورة، PDF، Word)</label>
      <input id="aFile" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
      <div id="aFileNote" class="meta"></div>
      <div class="adm-actions">
@@ -857,7 +930,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
 
     <div id="aStudents" class="hidden">
      <div class="card">
-      <h3>بحث عن طالب أو كود أو رقم هاتف</h3>
+      <h3>بحث وربط الأساتذة بالمواد وتوزيع الصلاحيات</h3>
       <input id="admUserSearch" placeholder="ابحث بالاسم أو الهاتف أو الكود في جميع الأقسام..." oninput="renderAdmin()">
      </div>
      <div id="admSearchResultBox"></div>
@@ -890,7 +963,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
      <div class="adm-panels two">
       <div>
        <div class="card">
-        <h3>القسم النشط</h3>
+        <h3>إدارة القسم النشط (الأدمن الرئيسي فقط)</h3>
         <div class="dept-head">
          <img id="admDeptLogoImg" class="dept-preview" src="icon-192.png" alt="لوجو القسم">
          <div style="flex:1;min-width:0">
@@ -900,12 +973,12 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
         </div>
         <div class="adm-actions">
          <button class="sec" onclick="saveActiveDeptLogo()">حفظ اللوجو</button>
-         <button class="sec" onclick="renameActiveDept()">تعديل الاسم</button>
+         <button class="sec" onclick="renameActiveDept()">تعديل اسم القسم</button>
          <button class="del" onclick="deleteActiveDept()">حذف القسم</button>
         </div>
        </div>
        <div class="card">
-        <h3>إضافة قسم جديد</h3>
+        <h3>إنشاء قسم جديد</h3>
         <label for="newDeptName" style="margin-top:0">اسم القسم</label>
         <input id="newDeptName" placeholder="أدخل اسم القسم الجديد">
         <label for="newDeptFifth">عدد المراحل</label>
@@ -916,7 +989,7 @@ details{border:0;border-radius:var(--r2);background:var(--tile)}
         </select>
         <label for="newDeptLogo">لوجو القسم الجديد (اختياري)</label>
         <input id="newDeptLogo" type="file" accept="image/*">
-        <div class="adm-actions"><button onclick="addNewDept()">إضافة قسم</button></div>
+        <div class="adm-actions"><button onclick="addNewDept()">إنشاء قسم</button></div>
        </div>
       </div>
       <div>
@@ -973,6 +1046,7 @@ const ONLINE_WINDOW_MS=5*60*1000;
 let depts=[...DEFAULT_DEPTS],fifthStageDepts=new Set(["التحليلات المرضية"]),deptLogos={};
 let notices=[],codes=[],subjects=[],schedules=[],homeworks=[],examRooms=[];
 let me=null,filter="all",selectedDay="السبت",activeSubjectId=null,currentStudentTab="home";
+let homeSchedExpanded=false;
 let selectedStageTab={admin:"",staff:""};
 let stagePageOpen={admin:false,staff:false};
 let selectedSectionTab={admin:"all",staff:"all"};
@@ -1000,24 +1074,48 @@ const hasFifthStage=deptName=>{
 const stagesForDept=deptName=>hasFifthStage(deptName)?[...BASE_STAGES,FIFTH_STAGE]:[...BASE_STAGES];
 const roleLabel=r=>ROLES[r]||ROLES.student;
 const hasSeatBadge=r=>["student","rep"].includes(r||"student");
-const canManageAll=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
-const canManageDeptPerms=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
-const canSendPrivateNotice=u=>u&&["rapporteur","dept_admin"].includes(u.role||"student");
-const canSeeFullDeptNotices=u=>isAdminView||(u&&["rapporteur","dept_admin"].includes(u.role||"student"));
-const canSeeViewStats=u=>isAdminView||(u&&["rep","rapporteur","dept_admin"].includes(u.role||"student"));
-const canManageAcademic=u=>isAdminView||(u&&["rep","rapporteur","teacher","dept_admin"].includes(u.role||"student"));
-const isStaffRole=r=>["rep","rapporteur","teacher","dept_admin"].includes(r);
 
-// تعديل التبليغات: مدير القسم والأدمن الرئيسي وناشر التبليغ فقط
+const isDeptLeader=u=>Boolean(u&&["rapporteur","dept_admin"].includes(u.role||"student"));
+const canManageAll=u=>isDeptLeader(u);
+const canManageDeptPerms=u=>isDeptLeader(u);
+const canSendPrivateNotice=u=>isDeptLeader(u);
+const canSeeFullDeptNotices=u=>isAdminView||isDeptLeader(u);
+const canSeeViewStats=u=>isAdminView||(u&&["rep","rapporteur","dept_admin"].includes(u.role||"student"));
+
+const canPublishNotice=u=>isAdminView||(u&&["rep","rapporteur","dept_admin"].includes(u.role||"student"));
+const canPublishAcademic=u=>isAdminView||(u&&["teacher","rep","rapporteur","dept_admin"].includes(u.role||"student"));
+const canManageAcademic=u=>canPublishAcademic(u);
+
 const canManageNotice=(u,n)=>{
  if(!n)return false;
  if(isAdminView)return true;
  if(!u)return false;
- const r=u.role||"student";
- if(r==="dept_admin")return true;
+ if(isDeptLeader(u))return true;
  if(n.authorCode&&u.code&&n.authorCode===u.code)return true;
  return false;
 };
+
+const canManageItem=(u,item)=>{
+ if(!item)return false;
+ if(isAdminView)return true;
+ if(!u)return false;
+ if(isDeptLeader(u))return true;
+ if(item.authorCode&&u.code&&item.authorCode===u.code)return true;
+ return false;
+};
+
+function assignedSubjectsForUser(u){
+ if(!u)return[];
+ const myDept=u.dept||DEFAULT_DEPTS[0];
+ const myCode=String(u.code||"").trim().toUpperCase();
+ return subjects.filter(s=>{
+  if(deptOf(s)!==myDept)return false;
+  const assignedList=Array.isArray(s.assignedTeachers)?s.assignedTeachers:[];
+  if(assignedList.includes(myCode)||s.assignedTeacherCode===myCode)return true;
+  if(s.authorCode===myCode)return true;
+  return false;
+ });
+}
 
 function authorDisplay(u){
  const shortName=(u.name||"").trim().split(" ").slice(0,2).join(" ")||"مستخدم";
@@ -1060,6 +1158,15 @@ function normPhone(p){
  if(d.startsWith("00"))d=d.slice(2);
  if(d.startsWith("0"))d="964"+d.slice(1);else if(d.startsWith("7")&&d.length===10)d="964"+d;
  return /^9647\d{9}$/.test(d)?d:"";
+}
+
+function toggleCodeVisibility(inputId,btnId){
+ const inp=$(inputId);
+ const btn=$(btnId);
+ if(!inp)return;
+ const showNow=inp.type==="password";
+ inp.type=showNow?"text":"password";
+ if(btn)btn.textContent=showNow?"🙈":"👁️";
 }
 
 function findMatchingUsers(queryText,restrictDept=""){
@@ -1188,6 +1295,43 @@ async function saveSingleStudentField(codeId,fieldName){
  }
 }
 
+async function assignSubjectToTeacher(teacherCodeId,subjectId){
+ if(!isAdminView&&!(me&&canManageDeptPerms(me))){alert("ربط الأستاذ بالمادة متاح للأدمن الرئيسي أو مدير القسم أو المقرر.");return}
+ const teacherObj=codes.find(c=>c.id===teacherCodeId);
+ const deptName=teacherObj?deptOf(teacherObj):(isAdminView?activeDept:(me&&me.dept));
+ const deptSubs=subjects.filter(s=>deptOf(s)===deptName);
+ try{
+  const batch=writeBatch(db);
+  for(const s of deptSubs){
+   const prevList=Array.isArray(s.assignedTeachers)?s.assignedTeachers.filter(x=>x!==teacherCodeId):[];
+   const shouldHave=(s.id===subjectId);
+   const nextList=shouldHave?[...prevList,teacherCodeId]:prevList;
+   const updateObj={assignedTeachers:nextList};
+   if(shouldHave){
+    updateObj.assignedTeacherCode=teacherCodeId;
+    if(teacherObj&&teacherObj.name)updateObj.teacher=teacherObj.name;
+   }else if(s.assignedTeacherCode===teacherCodeId){
+    updateObj.assignedTeacherCode="";
+   }
+   batch.update(doc(db,"subjects",s.id),updateObj);
+  }
+  await batch.commit();
+  alert(subjectId?"تم ربط الأستاذ بالمادة بنجاح.":"تم إلغاء ربط الأستاذ بالمادة.");
+ }catch(e){alert("تعذر حفظ ربط المادة بالأستاذ.")}
+}
+
+function teacherSubjectAssignHtml(stu){
+ if((stu.role||"student")!=="teacher")return "";
+ const deptName=deptOf(stu);
+ const deptSubs=subjects.filter(s=>deptOf(s)===deptName);
+ const currentSub=deptSubs.find(s=>{
+  const list=Array.isArray(s.assignedTeachers)?s.assignedTeachers:[];
+  return list.includes(stu.id)||s.assignedTeacherCode===stu.id;
+ });
+ const opts='<option value="">-- ربط بمادة --</option>'+deptSubs.map(s=>`<option value="${esc(s.id)}" ${currentSub&&currentSub.id===s.id?"selected":""}>${esc(s.name)} (${esc(s.stage||"كل المراحل")})</option>`).join("");
+ return `<select style="width:auto;max-width:210px;padding:5px 8px;font-size:12px;margin:0" onchange="assignSubjectToTeacher('${esc(stu.id)}',this.value)">${opts}</select>`;
+}
+
 function inlineEditPanelHtml(stu){
  if(!editingUserIds.has(stu.id))return "";
  const phoneVal=stu.phone?("0"+String(stu.phone).replace(/^964/,"")):"";
@@ -1221,8 +1365,6 @@ function inlineEditPanelHtml(stu){
 
 function switchAuthMode(mode){
  const isReg=mode==="reg";
- $("authTabReg").classList.toggle("on",isReg);
- $("authTabIn").classList.toggle("on",!isReg);
  $("regBox").classList.toggle("hidden",!isReg);
  $("inBox").classList.toggle("hidden",isReg);
  $("lErr").textContent="";$("inErr").textContent="";
@@ -1280,6 +1422,7 @@ function refreshAcademicStageSelects(deptName){
 }
 
 async function persistDepts(){
+ if(!isAdminView){alert("إدارة الأقسام متاحة للأدمن الرئيسي فقط.");return}
  fifthStageDepts.delete("هندسة تقنيات الأجهزة الطبية");
  await setDoc(doc(db,"settings","brand"),{
   depts,
@@ -1289,6 +1432,7 @@ async function persistDepts(){
  },{merge:true});
 }
 async function addNewDept(){
+ if(!isAdminView){alert("إدارة الأقسام متاحة للأدمن الرئيسي فقط.");return}
  const name=$("newDeptName").value.trim().replace(/\s+/g," ");
  if(!name){alert("اكتب اسم القسم الجديد.");return}
  if(depts.includes(name)){alert("هذا القسم موجود مسبقاً.");return}
@@ -1309,26 +1453,27 @@ async function addNewDept(){
  $("newDeptName").value="";$("newDeptLogo").value="";
  refreshDeptSelects();
  renderAdmin();
- try{await persistDepts();alert("تمت إضافة قسم ("+name+") بنجاح.")}
- catch(e){alert("تمت إضافة القسم محلياً، تأكد من صلاحيات Firestore.")}
+ try{await persistDepts();alert("تم إنشاء قسم ("+name+") بنجاح.")}
+ catch(e){alert("تم إنشاء القسم محلياً، تأكد من صلاحيات Firestore.")}
 }
 async function saveActiveDeptLogo(){
+ if(!isAdminView){alert("إدارة الأقسام متاحة للأدمن الرئيسي فقط.");return}
  if(!activeDept)return;
  const f=$("admDeptLogoFile").files[0];
- if(!f){alert("اختر صورة لوجو القسم أولاً.");return}
+ if(!f){alert("اختر صورة القسم أولاً.");return}
  try{
   const logoData=await compressImage(f,320,0.8);
   deptLogos[activeDept]=logoData;
   await persistDepts();
   $("admDeptLogoFile").value="";
   applyDeptLogosUI();
-  alert("تم حفظ لوجو قسم ("+activeDept+").");
- }catch(e){alert("تعذر حفظ لوجو القسم.")}
+  alert("تم حفظ صورة قسم ("+activeDept+").");
+ }catch(e){alert("تعذر حفظ صورة القسم.")}
 }
 async function saveDeptLogoFromManager(){
  if(!me||!canManageDeptPerms(me))return;
  const f=$("deptLogoInput").files[0];
- if(!f){alert("اختر صورة لوجو القسم أولاً.");return}
+ if(!f){alert("اختر صورة القسم أولاً.");return}
  try{
   const deptName=me.dept||DEFAULT_DEPTS[0];
   const logoData=await compressImage(f,320,0.8);
@@ -1341,8 +1486,8 @@ async function saveDeptLogoFromManager(){
   },{merge:true});
   $("deptLogoInput").value="";
   applyDeptLogosUI();
-  alert("تم تحديث شعار القسم بنجاح.");
- }catch(e){alert("تعذر حفظ شعار القسم.")}
+  alert("تم تحديث صورة القسم بنجاح.");
+ }catch(e){alert("تعذر حفظ صورة القسم.")}
 }
 function applyDeptLogosUI(){
  const curDept=(me&&me.dept)||activeDept||DEFAULT_DEPTS[0];
@@ -1353,6 +1498,7 @@ function applyDeptLogosUI(){
  if($("admDeptLogoImg"))$("admDeptLogoImg").src=admLogo;
 }
 async function renameActiveDept(){
+ if(!isAdminView){alert("تعديل الأقسام متاح للأدمن الرئيسي فقط.");return}
  if(!activeDept)return;
  const newName=prompt("أدخل الاسم الجديد للقسم:",activeDept);
  if(!newName)return;
@@ -1372,6 +1518,7 @@ async function renameActiveDept(){
  try{await persistDepts();alert("تم تعديل اسم القسم إلى: "+clean)}catch(e){alert("تعذر حفظ التعديل في قاعدة البيانات.")}
 }
 async function deleteActiveDept(){
+ if(!isAdminView){alert("حذف الأقسام متاح للأدمن الرئيسي فقط.");return}
  if(!activeDept)return;
  if(!confirm("هل أنت متأكد من حذف قسم ("+activeDept+")؟"))return;
  const removed=activeDept;
@@ -1430,7 +1577,7 @@ async function updateStudentPhoto(){
   try{localStorage.setItem("me",JSON.stringify(me))}catch(e){}
   applyStudentPhotoUI();
   $("uPhoto").value="";
-  alert("تم تحديث صورة الطالب بنجاح.");
+  alert("تم تحديث صورة الحساب بنجاح.");
  }catch(e){alert("تعذر تحديث الصورة.")}
 }
 function startBrandSync(){
@@ -1451,6 +1598,7 @@ function startBrandSync(){
  },()=>{unsubBrand=null});
 }
 async function saveBrandSettings(){
+ if(!isAdminView)return;
  const newTitle=($("appNameInput").value||appTitle||"تبليغات الكلية").trim();
  const f=$("logoFile").files[0];
  try{
@@ -1598,7 +1746,6 @@ function toggleNoticeText(id){
  if(isAdminView)renderAdmin();
 }
 
-// السماح للجميع باختيار سمايل واحد فقط لكل تبليغ
 async function toggleNoticeReaction(noticeId,emoji){
  if(!noticeId||!emoji)return;
  let actorId=isAdminView?"ADMIN":(me&&me.code);
@@ -1646,7 +1793,6 @@ async function toggleNoticeReaction(noticeId,emoji){
    await updateDoc(doc(db,"notices",noticeId),{reactions:nextReactions});
   }catch(e2){
    console.error("Reaction update failed:",e2);
-   alert("تعذر تسجيل التفاعل: "+(e2.code||e2.message||"تحقق من الاتصال وصلاحيات القاعدة"));
   }
  }finally{
   pendingReactionLocks.delete(lockKey);
@@ -1678,7 +1824,7 @@ async function submitPrivateReply(noticeId,senderSide){
  if(sideCount>=MAX_REPLIES_PER_SIDE){
   alert("تم استنفاد الحد الأقصى للردود (ردّان لكل طرف) في هذا التبليغ الخاص.");return;
  }
- const authorLabel=isSender?(isAdminView?"إدارة القسم":authorDisplay(me)):("طالب: "+((me&&me.name)||n.targetStudentName||"طالب").split(" ").slice(0,2).join(" "));
+ const authorLabel=isSender?(isAdminView?"الأدمن الرئيسي":authorDisplay(me)):("طالب: "+((me&&me.name)||n.targetStudentName||"طالب").split(" ").slice(0,2).join(" "));
  const authorCode=isSender?((me&&me.code)||"ADMIN"):me.code;
  expandedIds.add(noticeId);
  try{localStorage.setItem("expandedIds",JSON.stringify([...expandedIds].slice(-200)))}catch(e){}
@@ -1697,7 +1843,7 @@ async function readAttachment(inputId){
   const data=await compressImage(f,1100,0.76);
   return{name:f.name,type:"image/jpeg",data};
  }
- if(f.size>750*1024){alert("حجم ملف PDF أو Word كبير (الحد الأقصى 750 كيلوبايت لضمان سرعة الحفظ على الهاتف).");throw new Error("size")}
+ if(f.size>750*1024){alert("حجم ملف PDF أو Word كبير (الحد الأقصى 750 كيلوبايت).");throw new Error("size")}
  const data=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(f)});
  return{name:f.name,type:f.type||"application/octet-stream",data};
 }
@@ -1854,13 +2000,15 @@ function applyStudentHeaderAndPermissions(){
  applyDeptLogosUI();
 
  const rLabel=roleLabel(me.role);
- const isMgr=isStaffRole(me.role);
+ const isMgr=canPublishNotice(me);
  const hasPerms=canManageDeptPerms(me);
- const canAcad=canManageAcademic(me);
+ const canAcad=canPublishAcademic(me);
  const showSeat=hasSeatBadge(me.role);
  const stList=stagesForDept(me.dept);
 
  $("sTopDept").textContent=me.dept;
+ $("sTopRoleSub").textContent=appTitle+" · "+rLabel;
+
  $("sRoleGreet").textContent="مرحباً بك ("+rLabel+") 👋";
  $("sName").textContent=(me.name||"").split(" ").slice(0,2).join(" ");
  $("sInfo").textContent=me.dept+" · "+(me.stage==="all"?"كل المراحل":me.stage)+" · "+(me.section==="all"?"كل الشعب":"شعبة "+me.section)+" · "+rLabel;
@@ -1889,6 +2037,20 @@ function applyStudentHeaderAndPermissions(){
 
  refreshAcademicStageSelects(me.dept);
 
+ if(me.role==="teacher"){
+  const assigned=assignedSubjectsForUser(me);
+  if(assigned.length){
+   $("subjFormHeading").textContent="➕ نشر محاضرة أو واجب للمواد المربوطة بك ("+assigned.length+")";
+   if($("subTargetRow"))$("subTargetRow").classList.add("hidden");
+  }else{
+   $("subjFormHeading").textContent="➕ إضافة محاضرة / مادة أو واجب";
+   if($("subTargetRow"))$("subTargetRow").classList.remove("hidden");
+  }
+ }else{
+  $("subjFormHeading").textContent="➕ إضافة محاضرة / مادة أو واجب";
+  if($("subTargetRow"))$("subTargetRow").classList.remove("hidden");
+ }
+
  if(hasPerms&&!$("pStageFilter").options.length){
   fill("pStageFilter",stList,'<option value="all">كل المراحل</option>');
   fill("pSectionFilter",SECTIONS,'<option value="all">كل الشعب</option>');
@@ -1896,13 +2058,10 @@ function applyStudentHeaderAndPermissions(){
  if(isMgr){
   if(canManageAll(me)){
    fill("rStage",stList,'<option value="all">كل المراحل</option>');
-   $("repScopeMeta").textContent="النشر والتعديل والحذف متاح لجميع مراحل قسم: "+me.dept;
+   $("repScopeMeta").textContent="صلاحية كاملة (مدير قسم / مقرر): رؤية وتعديل وحذف جميع التبليغات والجداول والمحاضرات والواجبات في قسم "+me.dept;
   }else if(me.role==="rep"){
    $("rStage").innerHTML=`<option value="${esc(me.stage)}">${esc(me.stage)}</option>`;
-   $("repScopeMeta").textContent="نشر تبليغات ومواد وجداول مرحلتك ("+me.stage+") لتظهر للجميع.";
-  }else{
-   fill("rStage",stList,'<option value="all">كل المراحل</option>');
-   $("repScopeMeta").textContent="نشر تبليغات قسم: "+me.dept+" لتظهر للجميع.";
+   $("repScopeMeta").textContent="نشر تبليغات ومواد وواجبات وجداول مرحلتك ("+me.stage+") وتعديل أو حذف ما تنشره.";
   }
  }
  $("soundBtn").textContent=soundOn?"🔊 الرنين مفعل":"🔇 الرنين مكتوم";
@@ -1910,6 +2069,7 @@ function applyStudentHeaderAndPermissions(){
 
 function enterStudentShell(initialTab="home"){
  if(!me)return;
+ homeSchedExpanded=false;
  startPresenceLoop();
  applyStudentHeaderAndPermissions();
  renderStudent();
@@ -1927,7 +2087,7 @@ async function adminLogin(){
 
 function sTab(t){
  if(t==="perms"&&!canManageDeptPerms(me))t="home";
- if(t==="rep"&&!isStaffRole(me&&me.role))t="home";
+ if(t==="rep"&&!canPublishNotice(me))t="home";
  currentStudentTab=t;
  const m={
   home:["sHome","nHome"],
@@ -1967,6 +2127,11 @@ function toggleStageForRole(){
  else if($("gStage").value==="all")$("gStage").value="";
 }
 
+function toggleHomeSchedule(){
+ homeSchedExpanded=!homeSchedExpanded;
+ renderHomeScheduleBox();
+}
+
 function startPrivateNoticeForStudent(studentCode){
  const stu=codes.find(c=>c.id===studentCode);
  if(!stu){alert("تعذر العثور على بيانات الطالب.");return}
@@ -1992,7 +2157,7 @@ function startPrivateNoticeForStudent(studentCode){
 }
 
 async function publish(){
- if(!activeDept){alert("اختر أو أضف قسماً أولاً.");return}
+ if(!activeDept){alert("اختر أو أنشئ قسماً أولاً.");return}
  const title=$("title").value.trim(),body=$("body").value.trim(),editId=$("admEditId").value;
  const ch=$("admChannel").value||"public",targetCode=$("admTargetCode").value||"";
  const targetStu=targetCode?codes.find(c=>c.id===targetCode):null;
@@ -2033,1134 +2198,4 @@ function editAdminNotice(id){
 }
 function resetAdmForm(){
  $("admEditId").value="";$("admChannel").value="public";$("admTargetCode").value="";
- $("admTargetRow").classList.remove("hidden");$("admPrivateBanner").classList.add("hidden");$("admPrivateBanner").textContent="";
- $("title").value="";$("body").value="";$("aFile").value="";$("aFileNote").textContent="";
- $("admFormTitle").textContent="نشر تبليغ جديد";$("admPubBtn").textContent="نشر التبليغ";$("admCancelBtn").classList.add("hidden");
-}
-
-async function repPublish(){
- if(!me||!isStaffRole(me.role))return;
- const title=$("rTitle").value.trim(),body=$("rBody").value.trim(),editId=$("repEditId").value;
- const ch=$("repChannel").value||"public",targetCode=$("repTargetCode").value||"";
- if(ch==="private_student"&&!canSendPrivateNotice(me)){alert("إرسال التبليغات الخاصة متاح لمدير القسم والمقرر فقط.");return}
- const targetStu=targetCode?codes.find(c=>c.id===targetCode):null;
- const st=ch==="private_student"&&targetStu?(targetStu.stage||"all"):(canManageAll(me)?($("rStage").value||"all"):(me.role==="rep"?me.stage:($("rStage").value||"all")));
- const sec=(ch==="private_student"&&targetStu)?(targetStu.section||"all"):((me.role==="rep"||me.role==="teacher")?"all":($("rSection").value||"all"));
- if(!title||!body){alert("أدخل العنوان والنص.");return}
- try{
-  const att=await readAttachment("rFile");
-  const payload={title,body,dept:ch==="private_student"&&targetStu?deptOf(targetStu):(me.dept||DEFAULT_DEPTS[0]),stage:st,section:sec,priority:$("rPriority").value||"normal",channel:ch};
-  if(ch==="private_student"){payload.targetStudentCode=targetCode;payload.targetStudentName=(targetStu&&targetStu.name)||"طالب"}
-  if(att)payload.att=att;
-  if(editId){
-   const existing=notices.find(x=>x.id===editId);
-   if(!existing||!canManageNotice(me,existing)){alert("لا تملك صلاحية تعديل هذا التبليغ.");return}
-   await updateDoc(doc(db,"notices",editId),payload);
-  }else{
-   payload.author=authorDisplay(me);payload.authorRole=me.role;payload.authorCode=me.code;payload.replies=[];payload.views=[];payload.reactions={};payload.createdAt=serverTimestamp();
-   await addDoc(collection(db,"notices"),payload);
-  }
-  resetRepForm();alert("تم حفظ التبليغ بنجاح.");
- }catch(e){if(e.message!=="size")alert("تعذر تنفيذ العملية.")}
-}
-function editRepNotice(id){
- const n=notices.find(x=>x.id===id);if(!n||!me||deptOf(n)!==me.dept||!canManageNotice(me,n))return;
- $("repEditId").value=n.id;$("rTitle").value=n.title;$("rBody").value=n.body;
- $("repChannel").value=n.channel||"public";$("repTargetCode").value=n.targetStudentCode||"";
- if(n.channel==="private_student"){
-  $("rTargetRow").classList.add("hidden");
-  $("repPrivateBanner").textContent="📩 تبليغ خاص للطالب: "+(n.targetStudentName||n.targetStudentCode||"");
-  $("repPrivateBanner").classList.remove("hidden");
- }else{
-  $("rTargetRow").classList.remove("hidden");$("repPrivateBanner").classList.add("hidden");
-  if($("rStage")&&[...$("rStage").options].some(o=>o.value===n.stage))$("rStage").value=n.stage;
-  if($("rSection")&&[...$("rSection").options].some(o=>o.value===n.section))$("rSection").value=n.section;
- }
- $("rPriority").value=n.priority||"normal";$("rFile").value="";$("rFileNote").textContent=n.att?"مرفق حالي: "+n.att.name:"";
- $("repFormTitle").textContent="تعديل التبليغ";$("rPubBtn").textContent="حفظ التعديلات";$("rCancelBtn").classList.remove("hidden");
- sTab("rep");window.scrollTo({top:0,behavior:"smooth"});
-}
-function resetRepForm(){
- $("repEditId").value="";$("repChannel").value="public";$("repTargetCode").value="";
- $("rTargetRow").classList.remove("hidden");$("repPrivateBanner").classList.add("hidden");$("repPrivateBanner").textContent="";
- $("rTitle").value="";$("rBody").value="";$("rFile").value="";$("rFileNote").textContent="";
- $("repFormTitle").textContent="نشر تبليغ";$("rPubBtn").textContent="نشر التبليغ";$("rCancelBtn").classList.add("hidden");
-}
-
-async function addSubjectItem(){
- if(!canManageAcademic(me))return;
- const name=$("subName").value.trim();
- const teacher=$("subTeacher").value.trim()||(me?authorDisplay(me):"إدارة القسم");
- const deptName=isAdminView?activeDept:(me.dept||DEFAULT_DEPTS[0]);
- const stage=$("subStage").value||"all";
- const isRepUploader=!isAdminView&&me&&me.role==="rep";
- const section=isRepUploader?"all":($("subSection").value||"all");
- if(!name){alert("أدخل اسم المادة الدراسية.");return}
- try{
-  const att=await readAttachment("subFile");
-  await addDoc(collection(db,"subjects"),{
-   name,teacher,dept:deptName,stage,section,
-   authorRole:isAdminView?"admin":(me.role||"student"),
-   authorCode:(me&&me.code)||"ADMIN",
-   files:att?[att]:[],
-   subjectNotices:[],
-   createdAt:serverTimestamp()
-  });
-  $("subName").value="";$("subTeacher").value="";$("subFile").value="";
-  alert("تمت إضافة المادة بنجاح.");
- }catch(e){if(e.message!=="size")alert("تعذر إضافة المادة.")}
-}
-async function attachFileToSubject(subjectId){
- if(!canManageAcademic(me))return;
- const inp=$("subAddFile_"+subjectId);
- if(!inp||!inp.files[0]){alert("اختر ملفاً أولاً.");return}
- try{
-  const att=await readAttachment("subAddFile_"+subjectId);
-  await updateDoc(doc(db,"subjects",subjectId),{files:arrayUnion(att)});
-  inp.value="";
-  alert("تم إرفاق الملف بالمادة.");
- }catch(e){if(e.message!=="size")alert("تعذر إرفاق الملف.")}
-}
-
-function canPostSubjectNotice(subjectObj){
- if(isAdminView)return true;
- if(!me)return false;
- if(["dept_admin","rapporteur","rep"].includes(me.role))return true;
- if(me.role==="teacher"){
-  if(subjectObj&&subjectObj.authorCode===me.code)return true;
-  const myShort=(me.name||"").trim().split(" ").slice(0,2).join(" ");
-  if(subjectObj&&subjectObj.teacher&&myShort&&String(subjectObj.teacher).includes(myShort))return true;
-  return true;
- }
- return false;
-}
-async function addSubjectNoticeItem(subjectId){
- const s=subjects.find(x=>x.id===subjectId);
- if(!s||!canPostSubjectNotice(s)){alert("هذا الإجراء متاح لأستاذ المادة أو الممثل.");return}
- const titleInp=$("subNotTitle_"+subjectId);
- const bodyInp=$("subNotBody_"+subjectId);
- const title=(titleInp&&titleInp.value.trim())||"";
- const body=(bodyInp&&bodyInp.value.trim())||"";
- if(!title||!body){alert("أدخل عنوان ونص تبليغ المادة.");return}
- const poster=isAdminView?"الأدمن الرئيسي":authorDisplay(me);
- const posterCode=isAdminView?"ADMIN":me.code;
- try{
-  if(!isAdminView)await authReady;
-  await updateDoc(doc(db,"subjects",subjectId),{
-   subjectNotices:arrayUnion({
-    id:"sn_"+Date.now()+"_"+Math.random().toString(36).slice(2,6),
-    title,body,author:poster,authorCode,
-    date:new Date().toLocaleString("ar-IQ")
-   })
-  });
-  titleInp.value="";bodyInp.value="";
-  alert("تم نشر تبليغ المادة وسيظهر للجميع.");
- }catch(e){alert("تعذر نشر تبليغ المادة.")}
-}
-
-async function addHomeworkItem(){
- if(!canManageAcademic(me))return;
- const subId=$("hwSubjectSelect").value;
- const title=$("hwTitle").value.trim();
- const due=$("hwDue").value.trim()||"مفتوح";
- if(!title){alert("اكتب عنوان الواجب.");return}
- const sub=subjects.find(s=>s.id===subId);
- const deptName=isAdminView?activeDept:(me.dept||DEFAULT_DEPTS[0]);
- const isRepUploader=!isAdminView&&me&&me.role==="rep";
- try{
-  await addDoc(collection(db,"homeworks"),{
-   subjectId:subId||"",
-   subjectName:sub?sub.name:"واجب عام",
-   title,due,
-   dept:sub?deptOf(sub):deptName,
-   stage:sub?(sub.stage||"all"):(me?me.stage:"all"),
-   section:sub?(sub.section||"all"):(isRepUploader?"all":(me?me.section:"all")),
-   authorRole:isAdminView?"admin":(me.role||"student"),
-   authorCode:(me&&me.code)||"ADMIN",
-   createdAt:serverTimestamp()
-  });
-  $("hwTitle").value="";$("hwDue").value="";
-  alert("تم نشر الواجب.");
- }catch(e){alert("تعذر نشر الواجب.")}
-}
-
-function formatTimeRange(fromT,toT,fallback=""){
- const f=String(fromT||"").trim();
- const t=String(toT||"").trim();
- if(f&&t)return f+" - "+t;
- if(f)return "من "+f;
- if(t)return "إلى "+t;
- return fallback||"";
-}
-async function addScheduleItem(){
- if(!canManageAcademic(me))return;
- const day=$("scDay").value;
- const timeFrom=($("scTimeFrom")&&$("scTimeFrom").value.trim())||"";
- const timeTo=($("scTimeTo")&&$("scTimeTo").value.trim())||"";
- const time=formatTimeRange(timeFrom,timeTo,"08:30 - 10:30");
- const subject=$("scSubject").value.trim();
- const teacher=$("scTeacher").value.trim()||(me?authorDisplay(me):"التدريسي");
- const room=$("scRoom").value.trim()||"قاعة القسم";
- const deptName=isAdminView?activeDept:(me.dept||DEFAULT_DEPTS[0]);
- const stage=$("scStage").value||"all";
- const isRepUploader=!isAdminView&&me&&me.role==="rep";
- const section=isRepUploader?"all":($("scSection").value||"all");
- if(!subject){alert("أدخل اسم المادة للحصة.");return}
- try{
-  await addDoc(collection(db,"schedules"),{
-   day,time,timeFrom,timeTo,subject,teacher,room,dept:deptName,stage,section,
-   authorRole:isAdminView?"admin":(me.role||"student"),
-   authorCode:(me&&me.code)||"ADMIN",
-   createdAt:serverTimestamp()
-  });
-  $("scSubject").value="";$("scTeacher").value="";$("scRoom").value="";
-  alert("تمت إضافة الحصة للجدول.");
- }catch(e){alert("تعذر إضافة الحصة.")}
-}
-async function deleteDocByCollection(colName,id){
- if(!confirm("حذف هذا العنصر؟"))return;
- await deleteDoc(doc(db,colName,id)).catch(fail);
-}
-
-async function changeUserRole(codeId,newRole){
- try{
-  const data={role:newRole};
-  if(!hasSeatBadge(newRole)){
-   data.seatNumber=deleteField();
-   data.examRoom=deleteField();
-  }
-  if(me&&me.code)data.actorCode=me.code;
-  await updateDoc(doc(db,"codes",codeId),data);
-  alert("تم تحديث الصلاحية إلى: "+roleLabel(newRole));
- }catch(e){alert("تعذر تحديث الصلاحية.")}
-}
-
-function nextStageName(currentStage,deptName){
- const chain=[...stagesForDept(deptName),GRADUATED_STAGE];
- const idx=chain.indexOf(currentStage);
- if(idx===-1||idx===chain.length-1)return GRADUATED_STAGE;
- return chain[idx+1];
-}
-async function promoteStageStudents(){
- if(!me||!canManageDeptPerms(me))return;
- const deptName=me.dept||DEFAULT_DEPTS[0];
- const fromStage=$("promoStageSelect").value;
- const secFilter=$("promoSectionSelect").value||"all";
- if(!fromStage){alert("اختر المرحلة المراد ترحيلها.");return}
- const targets=codes.filter(c=>deptOf(c)===deptName&&c.used&&hasSeatBadge(c.role)&&c.stage===fromStage&&(secFilter==="all"||c.section===secFilter));
- if(!targets.length){alert("لا يوجد طلبة أو ممثلون مطابقون للترحيل.");return}
- const toStage=nextStageName(fromStage,deptName);
- if(!confirm("ترحيل "+targets.length+" من ("+fromStage+") إلى ("+toStage+")؟"))return;
- try{
-  const batch=writeBatch(db);
-  targets.forEach(s=>{
-   batch.update(doc(db,"codes",s.id),{
-    stage:toStage,
-    graduated:toStage===GRADUATED_STAGE,
-    examRoom:toStage===GRADUATED_STAGE?"":(s.examRoom||""),
-    seatNumber:toStage===GRADUATED_STAGE?"":(s.seatNumber||""),
-    actorCode:me.code
-   });
-  });
-  await batch.commit();
-  alert("تم ترحيل "+targets.length+" إلى ("+toStage+").");
- }catch(e){alert("تعذر إتمام الترحيل.")}
-}
-
-async function addExamRoomItem(){
- if(!me||!canManageDeptPerms(me))return;
- const name=$("roomNameInput").value.trim();
- const cap=Math.max(1,parseInt($("roomCapInput").value)||25);
- if(!name){alert("أدخل اسم القاعة.");return}
- try{
-  await addDoc(collection(db,"exam_rooms"),{
-   dept:me.dept||DEFAULT_DEPTS[0],
-   name,capacity:cap,
-   authorCode:me.code,
-   createdAt:serverTimestamp()
-  });
-  $("roomNameInput").value="";
-  alert("تمت إضافة القاعة.");
- }catch(e){alert("تعذر إضافة القاعة.")}
-}
-function getDistributedRowsForStage(){
- const deptName=(me&&me.dept)||DEFAULT_DEPTS[0];
- const st=($("distStageSelect")&&$("distStageSelect").value)||"all";
- return codes
-  .filter(c=>deptOf(c)===deptName&&c.used&&hasSeatBadge(c.role)&&c.stage!==GRADUATED_STAGE&&(st==="all"||c.stage===st))
-  .sort((a,b)=>(Number(a.seatNumber)||999999)-(Number(b.seatNumber)||999999)||String(a.name||"").localeCompare(String(b.name||""),"ar"))
-  .map((c,i)=>({
-   seat:c.seatNumber||(i+1),
-   name:c.name||"مستخدم",
-   role:roleLabel(c.role),
-   stage:c.stage||"",
-   section:c.section||"",
-   room:c.examRoom||"غير محدد",
-   phone:c.phone?("0"+String(c.phone).replace(/^964/,"")):""
-  }));
-}
-function exportExamSeatsExcel(){
- const deptName=(me&&me.dept)||DEFAULT_DEPTS[0];
- const st=($("distStageSelect")&&$("distStageSelect").value)||"all";
- const rows=getDistributedRowsForStage();
- if(!rows.length){alert("لا توجد بيانات مقاعد أو قاعات لتصديرها.");return}
- const csvCell=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
- const headers=["رقم الجلوس","اسم الطالب","الصفة","المرحلة","الشعبة","القاعة الامتحانية","رقم الهاتف"];
- const lines=[headers.map(csvCell).join(",")];
- rows.forEach(r=>lines.push([r.seat,r.name,r.role,r.stage,r.section,r.room,r.phone].map(csvCell).join(",")));
- const blob=new Blob(["\uFEFF"+lines.join("\n")],{type:"text/csv;charset=utf-8;"});
- const a=document.createElement("a");
- a.href=URL.createObjectURL(blob);
- a.download="seats_"+deptName.replace(/\s+/g,"_")+"_"+(st==="all"?"all":st.replace(/\s+/g,"_"))+".csv";
- document.body.appendChild(a);a.click();a.remove();
-}
-function exportExamSeatsImage(){
- const deptName=(me&&me.dept)||DEFAULT_DEPTS[0];
- const st=($("distStageSelect")&&$("distStageSelect").value)||"all";
- const rows=getDistributedRowsForStage();
- if(!rows.length){alert("لا توجد بيانات مقاعد أو قاعات لتصدير صورة.");return}
- const rowH=36,headerH=92,footerH=40,w=920,h=headerH+rows.length*rowH+footerH;
- const canvas=document.createElement("canvas");
- canvas.width=w;canvas.height=h;
- const ctx=canvas.getContext("2d");
- ctx.fillStyle="#ffffff";ctx.fillRect(0,0,w,h);
- ctx.fillStyle="#1e6273";ctx.fillRect(0,0,w,56);
- ctx.fillStyle="#ffffff";ctx.font="bold 20px Tahoma,Arial,sans-serif";ctx.textAlign="right";
- ctx.fillText("توزيع القاعات الامتحانية وأرقام الجلوس — "+deptName,w-24,35);
- ctx.fillStyle="#1c2c33";ctx.font="bold 14px Tahoma,Arial,sans-serif";
- ctx.fillText("المرحلة: "+(st==="all"?"جميع المراحل":st)+"   |   العدد: "+rows.length,w-24,78);
-
- const cols=[
-  {label:"رقم الجلوس",x:w-24,align:"right"},
-  {label:"اسم الطالب",x:w-135,align:"right"},
-  {label:"الشعبة",x:w-440,align:"right"},
-  {label:"القاعة الامتحانية",x:w-535,align:"right"},
-  {label:"المرحلة",x:24,align:"left"}
- ];
- ctx.fillStyle="#e7eff1";ctx.fillRect(20,90,w-40,rowH);
- ctx.fillStyle="#144654";ctx.font="bold 13px Tahoma,Arial,sans-serif";
- cols.forEach(c=>{ctx.textAlign=c.align;ctx.fillText(c.label,c.x,90+23)});
-
- rows.forEach((r,idx)=>{
-  const y=90+(idx+1)*rowH;
-  ctx.fillStyle=idx%2===0?"#ffffff":"#f7fafb";
-  ctx.fillRect(20,y,w-40,rowH);
-  ctx.strokeStyle="#dde5e8";ctx.strokeRect(20,y,w-40,rowH);
-  ctx.fillStyle="#1c2c33";ctx.font="13px Tahoma,Arial,sans-serif";
-  ctx.textAlign="right";
-  ctx.fillText(String(r.seat),w-24,y+23);
-  ctx.fillText(String(r.name),w-135,y+23);
-  ctx.fillText(String(r.section),w-440,y+23);
-  ctx.fillText(String(r.room),w-535,y+23);
-  ctx.textAlign="left";
-  ctx.fillText(String(r.stage),24,y+23);
- });
-
- ctx.fillStyle="#687b82";ctx.font="12px Tahoma,Arial,sans-serif";ctx.textAlign="center";
- ctx.fillText(appTitle+" — "+new Date().toLocaleDateString("ar-IQ"),w/2,h-14);
-
- const a=document.createElement("a");
- a.href=canvas.toDataURL("image/png");
- a.download="exam_seats_"+(st==="all"?"all":st.replace(/\s+/g,"_"))+".png";
- document.body.appendChild(a);a.click();a.remove();
-}
-async function assignSeatsAndRooms(){
- if(!me||!canManageDeptPerms(me))return;
- const deptName=me.dept||DEFAULT_DEPTS[0];
- const st=$("distStageSelect").value||"all";
- const startNum=Math.max(1,parseInt($("distStartNum").value)||101);
- const rooms=examRooms.filter(r=>deptOf(r)===deptName);
- if(!rooms.length){alert("أضف قاعة امتحانية واحدة على الأقل أولاً.");return}
- const students=codes
-  .filter(c=>deptOf(c)===deptName&&c.used&&hasSeatBadge(c.role)&&c.stage!==GRADUATED_STAGE&&(st==="all"||c.stage===st))
-  .sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""),"ar"));
- if(!students.length){alert("لا يوجد طلبة أو ممثلون نشطون لتوزيعهم.");return}
-
- const slots=[];
- rooms.forEach(r=>{
-  const cap=Math.max(1,parseInt(r.capacity)||25);
-  for(let i=0;i<cap;i++)slots.push(r.name);
- });
- if(students.length>slots.length){
-  alert("سعة القاعات ("+slots.length+") أقل من العدد ("+students.length+"). أضف قاعات أو زد السعة.");
-  return;
- }
-
- try{
-  const batch=writeBatch(db);
-  students.forEach((stu,idx)=>{
-   batch.update(doc(db,"codes",stu.id),{
-    seatNumber:startNum+idx,
-    examRoom:slots[idx],
-    actorCode:me.code
-   });
-  });
-  await batch.commit();
-  alert("تم إعطاء أرقام الجلوس وتوزيع "+students.length+" على القاعات بنجاح.");
- }catch(e){alert("تعذر حفظ التوزيع.")}
-}
-
-const fail=()=>alert("تعذر تنفيذ العملية.");
-async function removeNotice(id){
- const n=notices.find(x=>x.id===id);
- if(!isAdminView&&n&&!canManageNotice(me,n)){alert("لا تملك صلاحية حذف هذا التبليغ.");return}
- if(confirm("حذف هذا التبليغ؟"))await deleteDoc(doc(db,"notices",id)).catch(fail);
-}
-async function removeCode(id){if(confirm("حذف هذا الرمز؟"))await deleteDoc(doc(db,"codes",id)).catch(fail)}
-async function resetCode(id){if(confirm("إعادة الرمز غير مستخدم؟"))await updateDoc(doc(db,"codes",id),{used:false,online:false,role:"student",seatNumber:deleteField(),examRoom:deleteField(),graduated:deleteField(),name:deleteField(),phone:deleteField(),usedAt:deleteField(),lastSeen:deleteField()}).catch(fail)}
-async function genCodes(){
- if(!activeDept){alert("اختر أو أضف قسماً أولاً.");return}
- const role=$("gRole").value,stage=role==="rapporteur"?"all":$("gStage").value,section=$("gSection").value,n=Math.min(200,Math.max(1,parseInt($("gCount").value)||0));
- if(!stage||!section){alert("اختر المرحلة والشعبة.");return}
- const ch="ABCDEFGHJKMNPQRSTUVWXYZ23456789",have=new Set(codes.map(c=>c.id)),batch=writeBatch(db);
- const created=[];
- for(let i=0;i<n;i++){
-  let c;do{const a=new Uint32Array(6);crypto.getRandomValues(a);c=Array.from(a,x=>ch[x%ch.length]).join("")}while(have.has(c));
-  have.add(c);created.push(c);
-  batch.set(doc(db,"codes",c),{dept:activeDept,stage,section,role,used:false,createdAt:serverTimestamp()});
- }
- try{
-  await batch.commit();
-  const wa=normPhone($("waPhone").value);
-  const txt="رمز الدخول لتطبيق ("+appTitle+") - "+activeDept+":\n"+created.join("\n")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول بعد تسجيل الخروج.";
-  if(wa){window.open("https://wa.me/"+wa+"?text="+encodeURIComponent(txt),"_blank")}
-  else alert("تم إنشاء "+n+" رمز لقسم "+activeDept+".");
- }catch(e){fail()}
-}
-function sendSingleCodeWhatsApp(codeId){
- const c=codes.find(x=>x.id===codeId);
- const msg="رمز الدخول الخاص بك لتطبيق ("+appTitle+"):\nالرمز: "+codeId+(c&&c.dept?"\nالقسم: "+c.dept:"")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به للدخول إذا سجلت الخروج.";
- const wa=normPhone((c&&c.phone)||$("waPhone").value);
- window.open(wa?("https://wa.me/"+wa+"?text="+encodeURIComponent(msg)):("https://wa.me/?text="+encodeURIComponent(msg)),"_blank");
-}
-function sendCodesWhatsApp(){
- const avail=codes.filter(c=>deptOf(c)===activeDept&&!c.used);
- if(!avail.length){alert("لا توجد رموز غير مستخدمة في هذا القسم.");return}
- const msg="رموز الدخول لتطبيق ("+appTitle+") - قسم ("+activeDept+"):\n"+avail.slice(0,25).map(c=>c.id+" ("+(c.stage==="all"?"كل المراحل":c.stage)+" - شعبة "+c.section+")").join("\n")+"\n⚠️ لا تشارك الرمز مع أي شخص واحتفظ به بعد تسجيل الخروج.";
- const wa=normPhone($("waPhone").value);
- window.open(wa?("https://wa.me/"+wa+"?text="+encodeURIComponent(msg)):("https://wa.me/?text="+encodeURIComponent(msg)),"_blank");
-}
-function copyCodes(stage){
- const l=codes.filter(c=>deptOf(c)===activeDept&&c.stage===stage&&!c.used).sort((a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar"));
- if(!l.length){alert("لا توجد أكواد غير مستخدمة.");return}
- const t=activeDept+" - "+(stage==="all"?"كل المراحل":stage)+"\n"+l.map(c=>"شعبة "+c.section+" ("+roleLabel(c.role)+") : "+c.id).join("\n");
- navigator.clipboard.writeText(t).then(()=>alert("تم نسخ "+l.length+" كود.")).catch(()=>prompt("انسخ الأكواد:",t));
-}
-
-const target=n=>n.channel==="private_student"?("تبليغ خاص للطالب: "+(n.targetStudentName||n.targetStudentCode||"")):((n.stage==="all"?"كل المراحل":n.stage)+" · "+(n.section==="all"?"كل الشعب":"شعبة "+n.section));
-
-const matchesScope=item=>{
- if(!me)return false;
- const myDept=me.dept||DEFAULT_DEPTS[0];
- const myStage=me.stage||"all";
- const mySec=me.section||"all";
- const iDept=item.dept||DEFAULT_DEPTS[0];
- const iStage=item.stage||"all";
- const iSec=item.section||"all";
- const byStaffForAll=item.authorRole==="rep"||item.authorRole==="teacher";
- return iDept===myDept&&(iStage==="all"||iStage===myStage)&&(byStaffForAll||iSec==="all"||iSec===mySec);
-};
-
-// ظهور الجداول للجميع
-const mySchedules=()=>schedules.filter(matchesScope);
-
-// دوال تصفية التبليغات والمحاضرات والجداول والطلاب حسب المرحلة والشعبة للقسم في حسابات الإدارة
-function matchesStageAndSection(itemStage,itemSec,stageName,secName){
- const stOk=!itemStage||itemStage==="all"||itemStage===stageName;
- const secOk=!secName||secName==="all"||!itemSec||itemSec==="all"||itemSec===secName;
- return stOk&&secOk;
-}
-function deptStageNotices(deptName,stageName,secName="all"){
- return notices.filter(n=>deptOf(n)===deptName&&n.channel!=="private_student"&&matchesStageAndSection(n.stage,n.section,stageName,secName));
-}
-function deptStageSubjects(deptName,stageName,secName="all"){
- return subjects.filter(s=>deptOf(s)===deptName&&matchesStageAndSection(s.stage,s.section,stageName,secName));
-}
-function deptStageSchedules(deptName,stageName,secName="all"){
- return schedules.filter(sc=>deptOf(sc)===deptName&&matchesStageAndSection(sc.stage,sc.section,stageName,secName));
-}
-function deptStageStudents(deptName,stageName,secName="all"){
- return codes.filter(c=>deptOf(c)===deptName&&c.used&&(c.stage||"all")===stageName&&(!secName||secName==="all"||(c.section||"all")===secName));
-}
-
-function selectStageForMgmt(scopeKey,stageName){
- selectedStageTab[scopeKey]=stageName||selectedStageTab[scopeKey]||"";
- selectedSectionTab[scopeKey]="all";
- if(!selectedSubCardTab[scopeKey])selectedSubCardTab[scopeKey]="notices";
- if(scopeKey==="admin")renderAdmin();
- else renderStudent();
-}
-function openStageStandalonePage(scopeKey,stageName){
- if(stageName)selectedStageTab[scopeKey]=stageName;
- selectedSectionTab[scopeKey]="all";
- if(!selectedSubCardTab[scopeKey])selectedSubCardTab[scopeKey]="notices";
- stagePageOpen[scopeKey]=true;
- if(scopeKey==="admin")renderAdmin();
- else renderStudent();
-}
-function closeStageStandalonePage(scopeKey){
- stagePageOpen[scopeKey]=false;
- if(scopeKey==="admin")renderAdmin();
- else renderStudent();
-}
-function selectSectionForMgmt(scopeKey,secName){
- selectedSectionTab[scopeKey]=secName;
- if(scopeKey==="admin")renderAdmin();
- else renderStudent();
-}
-function selectSubCardForMgmt(scopeKey,subKey){
- selectedSubCardTab[scopeKey]=subKey;
- if(scopeKey==="admin")renderAdmin();
- else renderStudent();
-}
-
-function renderStageExplorerHtml(scopeKey,deptName){
- const stList=stagesForDept(deptName);
- if(!stList.length)return "";
- const activeSt=selectedStageTab[scopeKey]||stList[0];
- const activeSec=selectedSectionTab[scopeKey]||"all";
- const activeSub=selectedSubCardTab[scopeKey]||"notices";
- const isPageView=Boolean(stagePageOpen[scopeKey]);
-
- const PAL=[["#1e6273","#3a93a9"],["#0f766e","#22b3a6"],["#5b3df5","#8f78ff"],["#c2570c","#f59a4a"],["#b4235a","#ea5f8d"]];
- const stageCardsHtml=stList.map((st,i)=>{
-  const nCnt=deptStageNotices(deptName,st,"all").length;
-  const subCnt=deptStageSubjects(deptName,st,"all").length;
-  const scCnt=deptStageSchedules(deptName,st,"all").length;
-  const stuCnt=deptStageStudents(deptName,st,"all").length;
-  const [c1,c2]=PAL[i%PAL.length];
-  return `<div class="st-card ${st===activeSt?"active":""}" style="--c1:${c1};--c2:${c2}" onclick="selectStageForMgmt('${scopeKey}','${esc(st)}')">
-   <span class="st-num">${i+1}</span>
-   <b>${esc(st)}</b>
-   <div class="st-card-summary">ملخص ${esc(st)}: ${stuCnt} طالب · ${nCnt} تبليغ · ${subCnt} مادة · ${scCnt} حصة</div>
-   <div class="st-stats"><span>📋 ${nCnt}</span><span>📚 ${subCnt}</span><span>🗓️ ${scCnt}</span><span>👥 ${stuCnt}</span></div>
-   <button type="button" class="stage-open-btn" onclick="event.stopPropagation();openStageStandalonePage('${scopeKey}','${esc(st)}')">📄 صفحة المرحلة</button>
-  </div>`;
- }).join("");
-
- if(!isPageView){
-  return `<div class="mgmt-head"><div><b>🎓 ${esc(deptName)}</b><span>${stList.length} مراحل · تفاصيل كل مرحلة داخل الكارت وزر فتح الصفحة المستقلة</span></div></div>
-   <div class="stage-grid">${stageCardsHtml}</div>`;
- }
-
- const secButtonsHtml=["all",...SECTIONS].map(sc=>{
-  const label=sc==="all"?"كل الشعب":"شعبة "+sc;
-  const cnt=deptStageStudents(deptName,activeSt,sc).length;
-  return `<button type="button" class="sec-pill-btn ${activeSec===sc?"on":""}" onclick="selectSectionForMgmt('${scopeKey}','${esc(sc)}')">${esc(label)} (${cnt})</button>`;
- }).join("");
-
- const stNotices=deptStageNotices(deptName,activeSt,activeSec);
- const stSubjects=deptStageSubjects(deptName,activeSt,activeSec);
- const stSchedules=deptStageSchedules(deptName,activeSt,activeSec);
- const stStudents=deptStageStudents(deptName,activeSt,activeSec);
-
- let panelHtml="";
- if(activeSub==="notices"){
-  panelHtml=stNotices.map(n=>noticeCard(n,scopeKey==="admin"?"sender":"student")).join("")||empty("لا توجد تبليغات لـ "+activeSt+(activeSec!=="all"?" · شعبة "+activeSec:"")+" في هذا القسم.");
- }else if(activeSub==="lectures"){
-  panelHtml=stSubjects.map(s=>{
-   const fCount=Array.isArray(s.files)?s.files.length:0;
-   const snCount=Array.isArray(s.subjectNotices)?s.subjectNotices.length:0;
-   const filesLinks=(Array.isArray(s.files)?s.files:[]).map((f,i)=>`<div class="att-box"><span class="meta">📎 ${esc(f.name||"ملف")}</span><button class="act" onclick="openSubjectFile('${esc(s.id)}',${i})">فتح / حفظ</button></div>`).join("");
-   return `<div class="subj-card" style="cursor:default">
-    <div class="subj-ico">📚</div>
-    <div class="subj-body">
-     <b>${esc(s.name)}</b>
-     <span>👨‍🏫 ${esc(s.teacher||"")} · ${esc(target(s))} · ملفات: ${fCount} · تبليغات: ${snCount}</span>
-     ${filesLinks}
-    </div>
-   </div>`;
-  }).join("")||empty("لا توجد محاضرات أو مواد لـ "+activeSt+(activeSec!=="all"?" · شعبة "+activeSec:"")+" في هذا القسم.");
- }else if(activeSub==="schedule"){
-  panelHtml=stSchedules.map(sc=>{
-   const tTxt=formatTimeRange(sc.timeFrom,sc.timeTo,sc.time||"");
-   return `<div class="day-card">
-    <div class="time-badge">${esc(sc.day||"")} · ${esc(tTxt)}</div>
-    <div style="flex:1;min-width:0">
-     <b style="font-size:14.5px;display:block">${esc(sc.subject)}</b>
-     <span class="meta">🏛️ ${esc(sc.room||"")} · 👨‍🏫 ${esc(sc.teacher||"")} · ${esc(target(sc))}</span>
-    </div>
-   </div>`;
-  }).join("")||empty("لا توجد حصص في جدول "+activeSt+(activeSec!=="all"?" · شعبة "+activeSec:"")+" لهذا القسم.");
- }else if(activeSub==="students"){
-  panelHtml=stStudents.length
-   ?`<div class="card" style="padding:0;overflow:hidden">${stStudents.map(userRowHtml).join("")}</div>`
-   :empty("لا يوجد طلاب مسجلون في "+activeSt+(activeSec!=="all"?" · شعبة "+activeSec:"")+" في هذا القسم.");
- }
-
- const subDefs=[["notices","📋","التبليغات",stNotices.length,"#e3ecfb"],["lectures","📚","المحاضرات",stSubjects.length,"#dff3e8"],["schedule","🗓️","الجدول",stSchedules.length,"#fdf0d9"],["students","👥","إدارة الطلاب",stStudents.length,"#fbe3e8"]];
- const subHtml=subDefs.map(([k,ic,lb,n,bg])=>`<button type="button" class="sub4-card ${activeSub===k?"on":""}" onclick="selectSubCardForMgmt('${scopeKey}','${k}')"><span class="sub4-ico" style="background:${bg}">${ic}</span><b>${lb}</b><span class="sub4-cnt">${n}</span></button>`).join("");
- return `<div class="stage-standalone-page">
-  <div class="stage-standalone-top">
-   <div class="stage-standalone-title">
-    <b>📄 صفحة ${esc(activeSt)} — ${esc(deptName)}</b>
-    <small>عرض مستقل للتبليغات والمحاضرات والجدول والطلاب</small>
-   </div>
-   <button type="button" class="stage-back-btn" onclick="closeStageStandalonePage('${scopeKey}')">→ رجوع لكروت المراحل</button>
-  </div>
-  <div class="stage-sec-bar"><span>شعب ${esc(activeSt)}:</span>${secButtonsHtml}</div>
-  <div class="stage-4-grid">${subHtml}</div>
-  <div class="stage-panel-body">${panelHtml}</div>
- </div>`;
-}
-
-function attHtml(n){
- if(!n.att)return"";
- const isCached=cachedFileIds.has(n.id);
- const cachedBadge=isCached?'<span class="tag ok">✓ محمّل</span>':"";
- if(n.att.type&&n.att.type.startsWith("image/")){
-  return `<img class="att-img" src="${n.att.data}" alt="${esc(n.att.name)}" onclick="toggleNoticeText('${esc(n.id)}')"><div class="att-box notice-details-extra"><span class="meta">🖼️ ${esc(n.att.name)} ${cachedBadge}</span><button class="act" onclick="openAttachment('${esc(n.id)}')">حفظ بالهاتف</button></div>`;
- }
- const ico=String(n.att.name).toLowerCase().endsWith(".pdf")?"📕":"📘";
- return `<div class="att-box notice-details-extra"><span class="meta">${ico} ${esc(n.att.name)} ${cachedBadge}</span><button class="act" onclick="openAttachment('${esc(n.id)}')">فتح / حفظ</button></div>`;
-}
-
-function reactionsAndViewersHtml(n){
- const myId=isAdminView?"ADMIN":((me&&(me.code||("STU_"+normPhone(me.phone||me.name||""))))||"");
- const reactions=(n.reactions&&typeof n.reactions==="object")?n.reactions:{};
- const emojiBtns=EMOJIS.map(em=>{
-  const arr=Array.isArray(reactions[em])?reactions[em]:[];
-  const active=myId&&arr.some(x=>x&&x.id===myId);
-  return `<button type="button" class="react-btn ${active?"on":""}" onclick="toggleNoticeReaction('${esc(n.id)}','${em}')"><span>${em}</span><span>${arr.length}</span></button>`;
- }).join("");
-
- const viewsList=Array.isArray(n.views)?n.views:[];
- const viewersBtn=`<button type="button" class="viewers-btn" onclick="toggleViewersList('${esc(n.id)}')">👀 من شاهد (${viewsList.length})</button>`;
-
- let viewersPanel="";
- if(openViewersIds.has(n.id)){
-  const rows=viewsList.length
-   ?viewsList.map(v=>`<div class="viewer-row"><span><b>${esc(v.name||"مستخدم")}</b> <span class="meta">(${esc(v.role||"")})</span></span><span class="meta">${esc(v.time||"")}</span></div>`).join("")
-   :'<div class="meta">لا توجد مشاهدات مسجلة بعد.</div>';
-  viewersPanel=`<div class="viewers-box"><b>قائمة من شاهدوا التبليغ (${viewsList.length}):</b>${rows}</div>`;
- }
- return `<div class="react-bar">${emojiBtns}${viewersBtn}</div>${viewersPanel}`;
-}
-
-function privateRepliesHtml(n,viewerRole){
- if(n.channel!=="private_student")return"";
- const list=Array.isArray(n.replies)?n.replies:[];
- const itemsHtml=list.map(r=>`<div class="reply-item"><b>${esc(r.author||"رد")}</b>: <span>${esc(r.text||"")}</span><div class="meta">${esc(r.time||"")}</div></div>`).join("");
- let formHtml="";
- if(viewerRole==="student"&&me&&me.code&&n.targetStudentCode===me.code){
-  const stuCount=list.filter(r=>r.side==="student"||r.authorCode===me.code).length;
-  const rem=Math.max(0,MAX_REPLIES_PER_SIDE-stuCount);
-  if(rem>0){
-   formHtml=`<div class="reply-form"><input id="replyInput_${esc(n.id)}" placeholder="ردك الخاص (متبقي ${rem} من ${MAX_REPLIES_PER_SIDE})" maxlength="240"><button onclick="submitPrivateReply('${esc(n.id)}','student')">إرسال</button></div>`;
-  }else{
-   formHtml=`<div class="meta">تم استخدام الحد الأقصى لردود الطالب (${MAX_REPLIES_PER_SIDE} ردود).</div>`;
-  }
- }else if(viewerRole==="sender"&&(isAdminView||(me&&canSendPrivateNotice(me)))){
-  const sndCount=list.filter(r=>r.side==="sender"||(r.authorCode&&r.authorCode!==n.targetStudentCode)).length;
-  const rem=Math.max(0,MAX_REPLIES_PER_SIDE-sndCount);
-  if(rem>0){
-   formHtml=`<div class="reply-form"><input id="replyInput_${esc(n.id)}" placeholder="رد المرسل (متبقي ${rem} من ${MAX_REPLIES_PER_SIDE})" maxlength="240"><button onclick="submitPrivateReply('${esc(n.id)}','sender')">إرسال</button></div>`;
-  }else{
-   formHtml=`<div class="meta">تم استخدام الحد الأقصى لردود المرسل (${MAX_REPLIES_PER_SIDE} ردود).</div>`;
-  }
- }
- if(!itemsHtml&&!formHtml)return"";
- return `<div class="replies-box">${itemsHtml}${formHtml}</div>`;
-}
-
-const noticeCard=(n,viewerRole="student")=>{
- const isOpen=expandedIds.has(n.id);
- const isPriv=n.channel==="private_student";
- const privTag=isPriv?'<span class="tag priv">📩 تبليغ خاص</span>':"";
- const viewsCount=Array.isArray(n.views)?n.views.length:0;
- const viewsBadge=canSeeViewStats(me)?`<span class="tag view">👁️ ${viewsCount} مشاهدة</span>`:"";
- const mgr=canManageNotice(me,n)?`<div class="card-actions notice-details-extra"><button class="act" onclick="${isAdminView?`editAdminNotice('${esc(n.id)}')`:`editRepNotice('${esc(n.id)}')`}">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div>`:"";
- const openBtnLabel=isOpen?"إغلاق ▲":"فتح التبليغ ▼";
-
- return `<div class="card notice ${isPriv?"private":(n.priority||"normal")} ${isOpen?"open":""}">
-  <div>${privTag}${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}${viewsBadge}</div>
-  <div class="notice-head-row">
-   <h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')">${esc(n.title)}</h4>
-   <button class="notice-open-btn" onclick="toggleNoticeText('${esc(n.id)}')">${openBtnLabel}</button>
-  </div>
-  ${attHtml(n)}
-  <p class="notice-body">${esc(n.body)}</p>
-  <div class="notice-details-extra"><span class="meta">${esc(target(n))} · ${esc(n.date)}</span></div>
-  ${isOpen?privateRepliesHtml(n,viewerRole):""}
-  ${isOpen?reactionsAndViewersHtml(n):""}
-  ${mgr}
- </div>`;
-};
-
-const empty=t=>`<div class="card meta">${t}</div>`;
-
-const myNotices=()=>{
- if(isAdminView){
-  return notices.filter(n=>deptOf(n)===activeDept);
- }
- if(!me)return[];
- if(canSeeFullDeptNotices(me)){
-  const myDept=me.dept||DEFAULT_DEPTS[0];
-  return notices.filter(n=>deptOf(n)===myDept);
- }
- return notices.filter(n=>{
-  if(n.channel==="private_student")return n.targetStudentCode===me.code;
-  return matchesScope(n);
- });
-};
-const mySubjects=()=>subjects.filter(matchesScope);
-const myHomeworks=()=>homeworks.filter(matchesScope);
-
-function onlineUsersHtml(deptName){
- const online=codes.filter(c=>deptOf(c)===deptName&&isUserOnline(c));
- if(!online.length)return '<span class="meta">لا يوجد متصلون حالياً.</span>';
- const staff=online.filter(u=>isStaffRole(u.role));
- const students=online.filter(u=>!isStaffRole(u.role));
- let html="";
- if(staff.length){
-  html+=`<div class="online-group-title">🛡️ الإدارة والكادر (${staff.length})</div>`+
-   staff.map(u=>`<span class="online-pill staff"><span class="online-dot"></span>${esc(u.name||"مستخدم")} (${esc(roleLabel(u.role))})</span>`).join("");
- }
- if(students.length){
-  html+=`<div class="online-group-title">🎓 الطلبة (${students.length})</div>`+
-   students.map(u=>`<span class="online-pill"><span class="online-dot"></span>${esc(u.name||"طالب")} (${esc(u.stage||"")} · ${esc(u.section||"")})</span>`).join("");
- }
- return html||'<span class="meta">لا يوجد متصلون حالياً.</span>';
-}
-
-function renderSubjects(){
- if(!me)return;
- const q=($("subjSearch")&&$("subjSearch").value.trim().toLowerCase())||"";
- const subs=mySubjects().filter(s=>!q||String(s.name||"").toLowerCase().includes(q)||String(s.teacher||"").toLowerCase().includes(q));
- const hws=myHomeworks();
-
- if($("hwSubjectSelect")){
-  $("hwSubjectSelect").innerHTML='<option value="">واجب عام للمرحلة/الشعبة</option>'+mySubjects().map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join("");
- }
-
- $("subjectsCards").innerHTML=subs.map(s=>{
-  const fCount=Array.isArray(s.files)?s.files.length:0;
-  const snCount=Array.isArray(s.subjectNotices)?s.subjectNotices.length:0;
-  const delBtn=canManageAcademic(me)?`<button class="del" onclick="event.stopPropagation();deleteDocByCollection('subjects','${esc(s.id)}')">حذف</button>`:"";
-  return `<div class="subj-card" onclick="openSubjectDetail('${esc(s.id)}')">
-   <div class="subj-ico">📘</div>
-   <div class="subj-body"><b>${esc(s.name)}</b><span>${esc(s.teacher||"")} · ملفات: ${fCount} · تبليغات: ${snCount}</span></div>
-   ${delBtn}<span class="meta">‹</span>
-  </div>`;
- }).join("")||empty("لا توجد مواد مضافة حالياً.");
-
- $("homeworksList").innerHTML=hws.map(h=>{
-  const delBtn=canManageAcademic(me)?`<button class="del" style="margin-top:6px" onclick="deleteDocByCollection('homeworks','${esc(h.id)}')">حذف</button>`:"";
-  return `<div class="hw-card"><b>${esc(h.title)}</b> <span class="tag">${esc(h.subjectName||"واجب")}</span><div class="meta">⏰ الموعد: ${esc(h.due||"")}</div>${delBtn}</div>`;
- }).join("")||empty("لا توجد واجبات نشطة حالياً.");
-}
-
-function openSubjectDetail(subId){
- activeSubjectId=subId;
- const s=subjects.find(x=>x.id===subId);
- if(!s)return;
- const files=Array.isArray(s.files)?s.files:[];
- const filesHtml=files.map((f,idx)=>{
-  const fid=subId+"_f_"+idx;
-  const isC=cachedFileIds.has(fid);
-  const badge=isC?'<span class="tag ok">✓ محمّل</span>':"";
-  return `<div class="att-box">
-   <div><b style="font-size:13.5px">${esc(f.name||"ملف")}</b> ${badge}<div class="meta">${esc(f.type||"ملف")}</div></div>
-   <button class="act" onclick="openSubjectFile('${esc(subId)}',${idx})">فتح / حفظ</button>
-  </div>`;
- }).join("")||'<div class="meta">لا توجد ملفات مرفقة لهذه المادة بعد.</div>';
-
- const uploadBox=canManageAcademic(me)?`
-  <div class="card" style="margin-top:12px">
-   <label for="subAddFile_${esc(subId)}">إضافة ملف جديد للمادة (PDF / Word / صورة)</label>
-   <input id="subAddFile_${esc(subId)}" type="file" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-   <button class="sec" onclick="attachFileToSubject('${esc(subId)}')">رفع الملف</button>
-  </div>`:"";
-
- const sNotices=Array.isArray(s.subjectNotices)?[...s.subjectNotices].reverse():[];
- const sNoticesHtml=sNotices.map(sn=>`
-  <div class="card notice" style="margin-bottom:8px;padding:12px">
-   <span class="tag rep">${esc(sn.author||"أستاذ المادة")}</span>
-   <b style="display:block;margin-top:4px;font-size:14px">${esc(sn.title||"")}</b>
-   <div style="font-size:13.5px;white-space:pre-wrap;margin:4px 0">${esc(sn.body||"")}</div>
-   <div class="meta">${esc(sn.date||"")}</div>
-  </div>`).join("")||'<div class="meta">لا توجد تبليغات خاصة بهذه المادة بعد.</div>';
-
- const postSubNotBox=canPostSubjectNotice(s)?`
-  <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)">
-   <b>📢 نشر تبليغ خاص بالمادة (يظهر للجميع)</b>
-   <label for="subNotTitle_${esc(s.id)}">عنوان التبليغ</label>
-   <input id="subNotTitle_${esc(s.id)}" placeholder="مثال: موعد كويز أو تسليم تقرير">
-   <label for="subNotBody_${esc(s.id)}">تفاصيل التبليغ</label>
-   <textarea id="subNotBody_${esc(s.id)}" rows="2" placeholder="اكتب نص التبليغ الخاص بالمادة"></textarea>
-   <button onclick="addSubjectNoticeItem('${esc(s.id)}')">نشر تبليغ المادة</button>
-  </div>`:"";
-
- $("subjectDetailContent").innerHTML=`
-  <div class="card">
-   <h3 style="margin-top:0">${esc(s.name)}</h3>
-   <div class="meta">التدريسي: ${esc(s.teacher||"")} · ${esc(target(s))}</div>
-   <hr style="border:0;border-top:1px solid var(--line);margin:10px 0">
-   <h4>ملفات المنهج (${files.length})</h4>
-   ${filesHtml}
-  </div>${uploadBox}
-  <div class="card" style="margin-top:12px">
-   <h3 style="margin-top:0">📌 تبليغات المادة (${sNotices.length})</h3>
-   ${sNoticesHtml}
-   ${postSubNotBox}
-  </div>`;
-
- $("subjectsListView").classList.add("hidden");
- $("subjectDetailView").classList.remove("hidden");
-}
-function closeSubjectDetail(){
- activeSubjectId=null;
- $("subjectDetailView").classList.add("hidden");
- $("subjectsListView").classList.remove("hidden");
-}
-
-function renderSchedule(){
- if(!me)return;
- if($("schedDaysChips")){
-  $("schedDaysChips").innerHTML=DAYS.map(d=>`<button class="${selectedDay===d?"on":""}" onclick="selectScheduleDay('${esc(d)}')">${esc(d)}</button>`).join("");
- }
- const q=($("schedSearch")&&$("schedSearch").value.trim().toLowerCase())||"";
- const list=mySchedules().filter(sc=>sc.day===selectedDay&&(!q||String(sc.subject||"").toLowerCase().includes(q)||String(sc.room||"").toLowerCase().includes(q)||String(sc.teacher||"").toLowerCase().includes(q)));
- $("scheduleCards").innerHTML=list.map(sc=>{
-  const delBtn=canManageAcademic(me)?`<button class="del" onclick="deleteDocByCollection('schedules','${esc(sc.id)}')">حذف</button>`:"";
-  const timeText=formatTimeRange(sc.timeFrom,sc.timeTo,sc.time||"");
-  return `<div class="day-card">
-   <div class="time-badge">${esc(timeText)}</div>
-   <div style="flex:1;min-width:0"><b style="font-size:14.5px;display:block">${esc(sc.subject)}</b><span class="meta">🏛️ ${esc(sc.room||"")} · 👨‍🏫 ${esc(sc.teacher||"")}</span></div>
-   ${delBtn}
-  </div>`;
- }).join("")||empty("لا توجد محاضرات مسجلة ليوم "+selectedDay+".");
-}
-function selectScheduleDay(d){selectedDay=d;renderSchedule()}
-
-function userRowHtml(s){
- const badge=isUserOnline(s)?`<span class="online-pill"><span class="online-dot"></span>متصل</span>`:"";
- const privBtn=(s.role||"student")==="student"?`<button class="act" onclick="startPrivateNoticeForStudent('${esc(s.id)}')">📩 خاص</button>`:"";
- const examTag=(hasSeatBadge(s.role)&&(s.seatNumber||s.examRoom))?`<span class="tag">رقم: ${esc(s.seatNumber||"-")} · ${esc(s.examRoom||"-")}</span>`:"";
- return `<div class="stu"><div><b>${esc(s.name||"مستخدم")}</b> <span class="tag rep">${esc(roleLabel(s.role))}</span> ${badge} ${examTag}<br><span class="meta">شعبة ${esc(s.section||"all")} · <span class="ltr" style="display:inline-block">+${esc(s.phone||"")}</span> · <span class="ltr" style="display:inline-block">${esc(s.id)}</span></span></div>${privBtn}<button class="act" onclick="toggleInlineEditUser('${esc(s.id)}')">✏️ تعديل</button>${roleSelectHtml(s.id,s.role)}<button class="del" onclick="resetCode('${esc(s.id)}')">تفريغ</button><button class="del" onclick="removeCode('${esc(s.id)}')">حذف</button>${inlineEditPanelHtml(s)}</div>`;
-}
-
-function renderDeptPermissions(){
- if(!me||!canManageDeptPerms(me))return;
- const deptName=me.dept||DEFAULT_DEPTS[0];
- if($("deptOnlineNow"))$("deptOnlineNow").innerHTML=onlineUsersHtml(deptName);
- applyDeptLogosUI();
-
- const rooms=examRooms.filter(r=>deptOf(r)===deptName);
- if($("examRoomsList")){
-  $("examRoomsList").innerHTML=rooms.map(r=>`<div class="stu"><div><b>🏛️ ${esc(r.name)}</b> <span class="tag">السعة: ${esc(r.capacity)} طالب</span></div><button class="del" onclick="deleteDocByCollection('exam_rooms','${esc(r.id)}')">حذف</button></div>`).join("")||'<div class="meta">لا توجد قاعات امتحانية مضافة للقسم بعد.</div>';
- }
-
- const searchVal=($("deptUserSearch")&&$("deptUserSearch").value.trim())||"";
- const searchMatches=searchVal?findMatchingUsers(searchVal,""):[];
- const searchCardHtml=renderMatchedSearchCard(searchMatches,searchVal);
-
- const stFilter=$("pStageFilter").value||"all";
- const secFilter=$("pSectionFilter").value||"all";
- const used=codes.filter(c=>deptOf(c)===deptName&&c.used&&(stFilter==="all"||c.stage===stFilter)&&(secFilter==="all"||c.section===secFilter));
-
- const bySec=(a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
- const stagesWithAll=[...stagesForDept(deptName),GRADUATED_STAGE,"all"];
- const groupsHtml=stagesWithAll.map(st=>{
-  const label=st==="all"?"مقررون / أساتذة / عام":st;
-  const inStage=used.filter(s=>(s.stage||"all")===st);
-  if(!inStage.length&&stFilter!=="all"&&stFilter!==st)return "";
-  const secsList=[...SECTIONS,"all"].filter(sc=>secFilter==="all"||sc===secFilter);
-  const secBlocks=secsList.map(sc=>{
-   const list=inStage.filter(s=>(s.section||"all")===sc).sort(bySec);
-   if(!list.length)return "";
-   const scLabel=sc==="all"?"كل الشعب":"شعبة "+sc;
-   return `<div class="sec-head">${esc(scLabel)} (${list.length})</div>`+list.map(userRowHtml).join("");
-  }).join("");
-  const bodyContent=secBlocks||`<div class="stu meta">لا يوجد طلاب أو مستخدمون ضمن هذا الفلتر.</div>`;
-  return `<details ${inStage.length?"open":""}><summary>${esc(label)}<span class="cnt">${inStage.length}</span></summary>${bodyContent}</details>`;
- }).join("");
-
- $("deptPermList").innerHTML=searchCardHtml+(groupsHtml||empty("لا يوجد طلاب أو مستخدمون مطابقون للبحث/الفلتر."));
-}
-
-function renderStudent(){
- if(!me)return;
- const mine=myNotices();
- const subs=mySubjects();
- const hws=myHomeworks();
- const scheds=mySchedules();
-
- $("stAll").textContent=mine.length;
- $("stSubj").textContent=subs.length;
- $("stHw").textContent=hws.length;
-
- const isMgmtStaff=canManageAll(me);
- if($("staffStageExplorer")){
-  $("staffStageExplorer").classList.toggle("hidden",!isMgmtStaff);
-  if(isMgmtStaff){
-   $("staffStageExplorer").innerHTML=renderStageExplorerHtml("staff",me.dept||DEFAULT_DEPTS[0]);
-  }
- }
-
-$("sHome").classList.toggle("mgmt-home",isMgmtStaff);
- const stEls=document.querySelectorAll("#sHome .stats .stat");
- if(stEls.length===3){
-  const cfg=isMgmtStaff?[["المحاضرات","📚","subjects"],["الجداول","🗓️","schedule"]]:[["المواد","📚","subjects"],["الواجبات","📝","subjects"]];
-  [1,2].forEach((k,j)=>{
-   stEls[k].querySelector("span").textContent=cfg[j][0];
-   stEls[k].querySelector(".ico").textContent=cfg[j][1];
-   stEls[k].onclick=()=>sTab(cfg[j][2]);
-  });
-  $("stHw").textContent=isMgmtStaff?scheds.length:hws.length;
- }
- if(isMgmtStaff){
-  let ex=$("mgmtAcctExtra");
-  if(!ex){ex=document.createElement("div");ex.id="mgmtAcctExtra";ex.className="acct-extra";document.querySelector("#sHome .hero").prepend(ex)}
-  ex.innerHTML=`<img class="acct-av" src="${esc(me.photo||customLogo||"icon-192.png")}" alt=""><div class="acct-chips"><span>${esc(roleLabel(me.role))}</span><span>${esc(me.dept||"")}</span><span class="ltr">+${esc(me.phone||"")}</span></div>`;
- }
- if(currentStudentTab==="home"){
-  const tomorrowIdx=(new Date().getDay()+1)%7;
-  const dayMap=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
-  const nextDayName=dayMap[tomorrowIdx];
-  const upcoming=scheds.filter(x=>x.day===nextDayName).length?scheds.filter(x=>x.day===nextDayName):scheds.slice(0,3);
-  $("homeSchedDayLabel").textContent=scheds.filter(x=>x.day===nextDayName).length?("محاضرات "+nextDayName):"أحدث الحصص المجدولة";
-  $("homeScheduleList").innerHTML=upcoming.slice(0,3).map(sc=>`<div class="sched-slot"><div class="sched-time">${esc(formatTimeRange(sc.timeFrom,sc.timeTo,sc.time||""))}</div><div class="sched-info"><b>${esc(sc.subject)}</b><span>🏛️ ${esc(sc.room||"")} · 👨‍🏫 ${esc(sc.teacher||"")}</span></div></div>`).join("")||'<div style="font-size:12px;color:var(--mute)">لا توجد محاضرات مجدولة حالياً.</div>';
-  $("homeNotices").innerHTML=mine.slice(0,3).map(n=>noticeCard(n,"student")).join("")||empty("لا توجد تبليغات لقسمك حالياً.");
- }else if(currentStudentTab==="notices"){
-  const list=filter==="important"
-   ?mine.filter(n=>n.priority==="important")
-   :(filter==="private"?mine.filter(n=>n.channel==="private_student"):mine);
-  $("studentNotices").innerHTML=list.map(n=>noticeCard(n,"student")).join("")||empty("لا توجد تبليغات هنا.");
- }else if(currentStudentTab==="subjects"){
-  renderSubjects();
- }else if(currentStudentTab==="schedule"){
-  renderSchedule();
- }else if(currentStudentTab==="rep"&&isStaffRole(me.role)){
-  const mgrList=notices.filter(n=>n.channel!=="private_student"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0])&&canManageNotice(me,n));
-  $("repNotices").innerHTML=mgrList.map(n=>{
-   const isOpen=expandedIds.has(n.id);
-   const viewsCount=Array.isArray(n.views)?n.views.length:0;
-   return `<div class="card notice ${n.priority||"normal"} ${isOpen?"open":""}">
-    <div>${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<span class="tag view">👁️ ${viewsCount} مشاهدة</span></div>
-    <div class="notice-head-row">
-     <h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')">${esc(n.title)}</h4>
-     <button class="notice-open-btn" onclick="toggleNoticeText('${esc(n.id)}')">${isOpen?"إغلاق ▲":"فتح التبليغ ▼"}</button>
-    </div>
-    ${attHtml(n)}
-    <p class="notice-body">${esc(n.body)}</p>
-    <div class="notice-details-extra"><span class="meta">${esc(target(n))} · ${esc(n.date)}</span></div>
-    ${isOpen?reactionsAndViewersHtml(n):""}
-    <div class="card-actions notice-details-extra"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div>
-   </div>`;
-  }).join("")||empty("لا توجد تبليغات قابلة للإدارة ضمن صلاحيتك.");
-
-  if(canSendPrivateNotice(me)){
-   const privList=notices.filter(n=>n.channel==="private_student"&&deptOf(n)===(me.dept||DEFAULT_DEPTS[0]));
-   $("repPrivateNotices").innerHTML=privList.map(n=>{
-    const isOpen=expandedIds.has(n.id);
-    const viewsCount=Array.isArray(n.views)?n.views.length:0;
-    return `<div class="card notice private ${isOpen?"open":""}">
-     <div><span class="tag priv">📩 خاص</span>${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<span class="tag view">👁️ ${viewsCount} مشاهدة</span></div>
-     <div class="notice-head-row">
-      <h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')">${esc(n.title)}</h4>
-      <button class="notice-open-btn" onclick="toggleNoticeText('${esc(n.id)}')">${isOpen?"إغلاق ▲":"فتح التبليغ ▼"}</button>
-     </div>
-     ${attHtml(n)}
-     <p class="notice-body">${esc(n.body)}</p>
-     <div class="notice-details-extra"><span class="meta">${esc(target(n))} · ${esc(n.date)}</span></div>
-     ${isOpen?privateRepliesHtml(n,"sender"):""}
-     ${isOpen?reactionsAndViewersHtml(n):""}
-     <div class="card-actions notice-details-extra"><button class="act" onclick="editRepNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div>
-    </div>`;
-   }).join("")||empty("لا توجد تبليغات خاصة مرسلة في القسم.");
-  }
- }else if(currentStudentTab==="perms"&&canManageDeptPerms(me)){
-  renderDeptPermissions();
- }
-}
-function roleSelectHtml(codeId,currentRole){
- return `<select style="width:auto;padding:5px 8px;font-size:12px;margin:0" onchange="changeUserRole('${esc(codeId)}',this.value)">`+
-  Object.entries(ROLES).map(([k,v])=>`<option value="${k}" ${(currentRole||"student")===k?"selected":""}>${v}</option>`).join("")+
-  `</select>`;
-}
-function renderAdmin(){
- $("admOnlineNow").innerHTML=onlineUsersHtml(activeDept);
- applyDeptLogosUI();
- const deptCodes=codes.filter(c=>deptOf(c)===activeDept);
- const deptNotices=notices.filter(n=>deptOf(n)===activeDept);
- const used=deptCodes.filter(c=>c.used);
- const avail=deptCodes.filter(c=>!c.used);
- const onlineCnt=deptCodes.filter(c=>isUserOnline(c)).length;
-
- $("cNotices").textContent=deptNotices.length;
- $("cLectures").textContent=subjects.filter(s=>deptOf(s)===activeDept).length;
- $("cScheds").textContent=schedules.filter(s=>deptOf(s)===activeDept).length;
- $("admAcctEmail").textContent=(auth.currentUser&&auth.currentUser.email)||"";
- $("admAcctDept").textContent="القسم النشط: "+(activeDept||"-");
-
- if($("adminStageExplorer")){
-  $("adminStageExplorer").innerHTML=renderStageExplorerHtml("admin",activeDept);
- }
- 
- $("aNotices").innerHTML=`<div class="adm-feed-grid">`+(deptNotices.map(n=>{
-  const isOpen=expandedIds.has(n.id);
-  const isPriv=n.channel==="private_student";
-  const viewsCount=Array.isArray(n.views)?n.views.length:0;
-  return `<div class="card notice ${isPriv?"private":(n.priority||"normal")} ${isOpen?"open":""}">
-   <div>${isPriv?'<span class="tag priv">📩 خاص</span>':""}${n.priority==="important"?'<span class="tag imp">📌 مهم</span>':""}${n.author?`<span class="tag">${esc(n.author)}</span>`:""}<span class="tag view">👁️ ${viewsCount} مشاهدة</span></div>
-   <div class="notice-head-row">
-    <h4 class="notice-title" onclick="toggleNoticeText('${esc(n.id)}')">${esc(n.title)}</h4>
-    <button class="notice-open-btn" onclick="toggleNoticeText('${esc(n.id)}')">${isOpen?"إغلاق ▲":"فتح التبليغ ▼"}</button>
-   </div>
-   ${attHtml(n)}
-   <p class="notice-body">${esc(n.body)}</p>
-   <div class="notice-details-extra"><span class="meta">${esc(target(n))} · ${esc(n.date)}</span></div>
-   ${isOpen?privateRepliesHtml(n,"sender"):""}
-   ${isOpen?reactionsAndViewersHtml(n):""}
-   <div class="card-actions notice-details-extra"><button class="act" onclick="editAdminNotice('${esc(n.id)}')">تعديل</button><button class="del" onclick="removeNotice('${esc(n.id)}')">حذف</button></div>
-  </div>`;
- }).join("")||empty("لا توجد تبليغات منشورة في هذا القسم."))+`</div>`;
-
- const qAdm=($("admUserSearch")&&$("admUserSearch").value.trim())||"";
- $("admSearchResultBox").innerHTML=qAdm?renderMatchedSearchCard(findMatchingUsers(qAdm,""),qAdm):"";
-
- const keep=id=>[...document.querySelectorAll("#"+id+" details[open]")].map(d=>d.dataset.s);
- const oS=keep("aStudentsGroups"),oC=keep("codeLists");
- const bySec=(a,b)=>String(a.section||"").localeCompare(String(b.section||""),"ar")||String(a.name||a.id).localeCompare(String(b.name||b.id),"ar");
- const stagesWithAll=[...stagesForDept(activeDept),GRADUATED_STAGE,"all"];
-
- if($("aStudentsGroups")){
-  $("aStudentsGroups").innerHTML=stagesWithAll.map(st=>{
-   const label=st==="all"?"مقررون / أساتذة / عام":st;
-   const inStage=used.filter(s=>(s.stage||"all")===st);
-   const secBlocks=SECTIONS.concat("all").map(sc=>{
-    const list=inStage.filter(s=>(s.section||"all")===sc).sort(bySec);
-    if(!list.length)return "";
-    return `<div class="sec-head">${sc==="all"?"كل الشعب":"شعبة "+sc} (${list.length})</div>`+list.map(userRowHtml).join("");
-   }).join("");
-   return `<details data-s="${st}" ${oS.includes(st)?"open":""}><summary>${label}<span class="cnt">${inStage.length}</span></summary>${secBlocks||`<div class="stu meta">لا يوجد مستخدمون مسجلون.</div>`}</details>`;
-  }).join("");
- }
-
- $("codeLists").innerHTML=stagesWithAll.map(st=>{
-  const label=st==="all"?"رموز عامة / مقرر / أستاذ":st;
-  const l=deptCodes.filter(c=>(c.stage||"all")===st&&!c.used).sort(bySec);
-  return `<details data-s="${st}" ${oC.includes(st)?"open":""}><summary>${label}<span class="cnt">${l.length} متاح</span></summary>`+
-   `<div class="stu"><button class="sec" style="margin:0" onclick="copyCodes('${st}')">نسخ الرموز المتاحة</button></div>`+
-   (l.map(c=>`<div class="stu"><div><b class="ltr" style="display:inline-block;letter-spacing:2px">${esc(c.id)}</b> <span class="tag">شعبة ${esc(c.section||"all")}</span> <span class="tag rep">${esc(roleLabel(c.role))}</span></div><button class="act" onclick="sendSingleCodeWhatsApp('${esc(c.id)}')">واتساب</button><button class="del" onclick="removeCode('${esc(c.id)}')">حذف</button></div>`).join("")||`<div class="stu meta">لا توجد رموز متاحة.</div>`)+`</details>`;
- }).join("");
-}
-
-function startNotices(){
- if(unsubN)return;
- unsubN=onSnapshot(query(collection(db,"notices"),orderBy("createdAt","desc")),snap=>{
-  notices=snap.docs.map(d=>{
-   const x=d.data(),t=x.createdAt&&typeof x.createdAt.toDate==="function"?x.createdAt.toDate():new Date();
-   return{id:d.id,...x,date:t.toLocaleString("ar-IQ"),day:t.toDateString()};
-  });
-  if(me){
-   const mine=myNotices();
-   const hasBrandNew=!firstSnap&&mine.some(n=>!knownIds.has(n.id));
-   mine.forEach(n=>knownIds.add(n.id));
-   try{localStorage.setItem("knownIds",JSON.stringify([...knownIds].slice(-300)))}catch(e){}
-   if(hasBrandNew)ringBell();
-   updateBellUI();
-   cacheAttachmentsLocally(mine);
-  }
-  firstSnap=false;
-  scheduleRenderStudent();if(isAdminView)renderAdmin();
- },()=>{unsubN=null;setTimeout(()=>{if(auth.currentUser)startNotices()},2000)});
-}
-function startCodes(){
- if(unsubC)return;
- unsubC=onSnapshot(collection(db,"codes"),snap=>{
-  codes=snap.docs.map(d=>({id:d.id,...d.data()}));
-  syncMyFromCodes();
-  if(me&&currentStudentTab==="perms"&&canManageDeptPerms(me))renderDeptPermissions();
-  if(me&&canManageAll(me))scheduleRenderStudent();
-  if(isAdminView)renderAdmin();
- },()=>{unsubC=null});
-}
-function startAcademicStreams(){
- if(!unsubSub)unsubSub=onSnapshot(collection(db,"subjects"),snap=>{
-  subjects=snap.docs.map(d=>({id:d.id,...d.data()}));
-  scheduleRenderStudent();
-  if(isAdminView)renderAdmin();
-  if(activeSubjectId&&me&&currentStudentTab==="subjects")openSubjectDetail(activeSubjectId);
- },()=>{unsubSub=null});
- if(!unsubSch)unsubSch=onSnapshot(collection(db,"schedules"),snap=>{schedules=snap.docs.map(d=>({id:d.id,...d.data()}));scheduleRenderStudent();if(isAdminView)renderAdmin()},()=>{unsubSch=null});
- if(!unsubHw)unsubHw=onSnapshot(collection(db,"homeworks"),snap=>{homeworks=snap.docs.map(d=>({id:d.id,...d.data()}));scheduleRenderStudent()},()=>{unsubHw=null});
- if(!unsubRm)unsubRm=onSnapshot(collection(db,"exam_rooms"),snap=>{examRooms=snap.docs.map(d=>({id:d.id,...d.data()}));if(me&&currentStudentTab==="perms"&&canManageDeptPerms(me))renderDeptPermissions()},()=>{unsubRm=null});
-}
-
-onAuthStateChanged(auth,async u=>{
- if(!u){if(unsubN){unsubN();unsubN=null}await signInAnonymously(auth).catch(()=>{});return}
- readyRes();startBrandSync();startNotices();startCodes();startAcademicStreams();
- if(!u.isAnonymous){isAdminView=true;renderAdmin();aTab("new");show("admin")}
- else{isAdminView=false;if(me)enterStudentShell("home");else show("login")}
-});
-
-function isAppInstalled(){
- try{
-  if(localStorage.getItem("appInstalled")==="1")return true;
-  if(window.navigator&&window.navigator.standalone===true)return true;
-  if(window.matchMedia&&["standalone","fullscreen","minimal-ui"].some(m=>window.matchMedia("(display-mode: "+m+")").matches))return true;
- }catch(e){}
- return false;
-}
-function syncInstallButtonsVisibility(){
- const installed=isAppInstalled();
- document.querySelectorAll(".installB").forEach(el=>el.classList.toggle("hidden",installed));
- const isIos=/iphone|ipad/i.test(navigator.userAgent)&&!(window.navigator&&window.navigator.standalone);
- if($("iosHint"))$("iosHint").classList.toggle("hidden",installed||!isIos);
-}
-addEventListener("beforeinstallprompt",e=>{
- if(isAppInstalled())return;
- e.preventDefault();deferred=e;syncInstallButtonsVisibility();
-});
-addEventListener("appinstalled",()=>{
- deferred=null;try{localStorage.setItem("appInstalled","1")}catch(e){}syncInstallButtonsVisibility();
-});
-async function installApp(){
- if(isAppInstalled()){syncInstallButtonsVisibility();return}
- if(deferred){
-  deferred.prompt();
-  const choice=await deferred.userChoice.catch(()=>null);
-  deferred=null;
-  if(choice&&choice.outcome==="accepted"){try{localStorage.setItem("appInstalled","1")}catch(e){}}
-  syncInstallButtonsVisibility();
- }else if(/iphone|ipad/i.test(navigator.userAgent)&&!(window.navigator&&window.navigator.standalone)){
-  alert('لتثبيت التطبيق على آيفون: اضغط زر المشاركة (Share) في Safari ثم اختر "إضافة إلى الشاشة الرئيسية".');
- }else{
-  alert('لتثبيت التطبيق على الهاتف: افتح قائمة المتصفح (⋮) واختر "تثبيت التطبيق" أو "إضافة إلى الشاشة الرئيسية".');
- }
-}
-syncInstallButtonsVisibility();
-if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
-applyAppTitle(appTitle);
-if(customLogo)applyLogo(customLogo);
-
-function fill(id,items,first){$(id).innerHTML=first+items.map(x=>`<option value="${esc(x)}">${x.length<3?"شعبة "+esc(x):esc(x)}</option>`).join("")}
-refreshDeptSelects();
-fill("gSection",SECTIONS,'<option value="">اختر</option>');
-fill("tSection",SECTIONS,'<option value="all">كل الشعب</option>');
-fill("rSection",SECTIONS,'<option value="all">كل الشعب</option>');
-Object.assign(window,{show,switchAuthMode,requestWhatsAppCode,completeRegistration,directCodeLogin,adminLogin,logout,sTab,aTab,setFilter,onLoginDeptChange,onDeptChange,toggleStageForRole,addNewDept,renameActiveDept,deleteActiveDept,saveActiveDeptLogo,saveDeptLogoFromManager,changeUserRole,toggleInlineEditUser,saveSingleStudentField,promoteStageStudents,addExamRoomItem,assignSeatsAndRooms,exportExamSeatsExcel,exportExamSeatsImage,startPrivateNoticeForStudent,publish,editAdminNotice,resetAdmForm,repPublish,editRepNotice,resetRepForm,addSubjectItem,attachFileToSubject,addSubjectNoticeItem,openSubjectDetail,closeSubjectDetail,openSubjectFile,addHomeworkItem,addScheduleItem,selectScheduleDay,deleteDocByCollection,removeNotice,removeCode,resetCode,genCodes,sendSingleCodeWhatsApp,sendCodesWhatsApp,copyCodes,saveBrandSettings,updateStudentPhoto,installApp,toggleBell,toggleSound,openAttachment,clearLocalFiles,toggleNoticeText,renderDeptPermissions,selectStageForMgmt,openStageStandalonePage,closeStageStandalonePage,selectSectionForMgmt,selectSubCardForMgmt,submitPrivateReply,toggleNoticeReaction,toggleViewersList});
-</script>
-<script>
-(function(){
- var wide=function(){return window.matchMedia('(min-width:1024px)').matches};
- function sh(){return document.getElementById('admShell')}
- window.admSide=function(force){
-  var el=sh(); if(!el)return;
-  var open=wide()?!el.classList.contains('closed'):el.classList.contains('open');
-  var next=(typeof force==='boolean')?force:!open;
-  if(wide()){el.classList.toggle('closed',!next);try{localStorage.setItem('admSide',next?'1':'0')}catch(e){}}
-  else el.classList.toggle('open',next);
-  var b=document.getElementById('admToggle'); if(b)b.setAttribute('aria-expanded',String(next));
- };
- document.addEventListener('click',function(e){
-  if(!wide()&&e.target.closest&&e.target.closest('.adm-nav button'))window.admSide(false);
- });
- try{if(localStorage.getItem('admSide')==='0'){var el=sh();if(el&&wide())el.classList.add('closed')}}catch(e){}
- window.addEventListener('keydown',function(e){if(e.key==='Escape'&&!wide())window.admSide(false)});
-})();
-</script>
-</body>
-</html>
+ $("admTargetRow").classList.remove("hidden");$("admPrivateBanner").classList.add("hidden");$("adm
